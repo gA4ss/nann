@@ -21,9 +21,9 @@ namespace nanmath {
     size_t nr = mat.size(), nc = mat[0].size();
     
     _matrix.resize(nr);
-    for (int i = 0; i < mat.size(); i++) {
+    for (size_t i = 0; i < mat.size(); i++) {
       _matrix[i].resize(nc);
-      for (int j = 0; j < mat[0].size(); j++) {
+      for (size_t j = 0; j < mat[0].size(); j++) {
         _matrix[i][j] = mat[i][j];
       }
     }
@@ -94,9 +94,9 @@ namespace nanmath {
       size_t r = mat.row_size(), c = mat.col_size();
       _matrix.resize(r);
       
-      for (int i = 0; i < r; i++) {
+      for (size_t i = 0; i < r; i++) {
         _matrix[i].resize(c);
-        for (int j = 0; j < c; j++) {
+        for (size_t j = 0; j < c; j++) {
           _matrix[r][c] = mat.at(i, j);
         }
       }
@@ -117,7 +117,7 @@ namespace nanmath {
   
   void nanmath_matrix::zero() {
     for (auto &i : _matrix) {
-      for (int j = 0; j < i.size(); j++) {
+      for (size_t j = 0; j < i.size(); j++) {
         i[j] = 0;
       }
     }
@@ -137,7 +137,7 @@ namespace nanmath {
     srandom((int)time(NULL));
     
     for (auto &i : _matrix) {
-      for (int j = 0; j < i.size(); j++) {
+      for (size_t j = 0; j < i.size(); j++) {
         if (t == 1) i[j] = s_dpn1();
         else i[j] = s_drnd();
       }
@@ -152,8 +152,8 @@ namespace nanmath {
 
       res.resize(c, r);
       
-      for (int i = 0; i < c; i++) {
-        for (int j = 0; j < r; j++) {
+      for (size_t i = 0; i < c; i++) {
+        for (size_t j = 0; j < r; j++) {
           res[i][j] = _matrix[j][i];
         }
       }
@@ -174,8 +174,8 @@ namespace nanmath {
     if (v.size() == r) {
       res.resize(c);
       
-      for (int i = 0; i < c; i++) {
-        for (int j = 0; j < r; j++) {
+      for (size_t i = 0; i < c; i++) {
+        for (size_t j = 0; j < r; j++) {
           res.set(i, v[j] * _matrix[j][i]);
         }
       }
@@ -195,8 +195,8 @@ namespace nanmath {
     if (v.size() == c) {
       res.resize(r);
       
-      for (int i = 0; i < r; i++) {
-        for (int j = 0; j < c; j++) {
+      for (size_t i = 0; i < r; i++) {
+        for (size_t j = 0; j < c; j++) {
           res.set(i, v[j] * _matrix[i][j]);
         }
       }
@@ -220,8 +220,8 @@ namespace nanmath {
       if (v.size() == r) {
         res.resize(c);
         
-        for (int i = 0; i < c; i++) {
-          for (int j = 0; j < r; j++) {
+        for (size_t i = 0; i < c; i++) {
+          for (size_t j = 0; j < r; j++) {
             res.set(i, v[j] * _matrix[j][i]);
           }
         }
@@ -229,8 +229,8 @@ namespace nanmath {
       } else if (v.size() == c) {
         res.resize(r);
         
-        for (int i = 0; i < r; i++) {
-          for (int j = 0; j < c; j++) {
+        for (size_t i = 0; i < r; i++) {
+          for (size_t j = 0; j < c; j++) {
             res.set(i, v[j] * _matrix[i][j]);
           }
         }
@@ -254,8 +254,8 @@ namespace nanmath {
   
   void nanmath_matrix::print() {
 #if 0
-    for (int i = 0; i < row_size(); i++) {
-      for (int j = 0; j < col_size(); j++) {
+    for (size_t i = 0; i < row_size(); i++) {
+      for (size_t j = 0; j < col_size(); j++) {
         
       }
     }

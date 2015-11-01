@@ -88,7 +88,7 @@ namespace nanmath {
     try {
       destroy();
       _vector.resize(v.size());
-      for (int i = 0; i < v.size(); i++) {
+      for (size_t i = 0; i < v.size(); i++) {
         _vector[i] = v.at(i);
       }
     } catch (...) {
@@ -134,7 +134,7 @@ namespace nanmath {
   }
   
   void nanmath_vector::random(int t) {
-    for (int i = 0; i < _vector.size(); i++) {
+    for (size_t i = 0; i < _vector.size(); i++) {
       if (t == 1) _vector[i] = s_dpn1();
       else _vector[i] = s_drnd();
     }
@@ -170,8 +170,8 @@ namespace nanmath {
     nanmath_matrix res(_vector.size(), v.size());
     
     try {
-      for (int i = 0; i < _vector.size(); i++) {
-        for (int j = 0; j < v.size(); j++) {
+      for (size_t i = 0; i < _vector.size(); i++) {
+        for (size_t j = 0; j < v.size(); j++) {
           double p = _vector[i] * v.at(j);
           res.set(i, j, p);
         }
@@ -190,7 +190,7 @@ namespace nanmath {
     
     double res = 0.0;
     try {
-      for (int i = 0; i < _vector.size(); i++) {
+      for (size_t i = 0; i < _vector.size(); i++) {
         res += _vector[i] * v.at(i);
       }
     } catch (...) {
