@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dlfcn.h>
@@ -7,6 +8,7 @@
 #include <dirent.h>
 #include <pthread.h>
 #include <fstream>
+#include <algorithm>
 
 #include <nanai_ann_nnn.h>
 #include <nanai_ann_nanncalc.h>

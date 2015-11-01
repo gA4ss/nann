@@ -62,6 +62,34 @@ const char * const errstr(int code) {
   }
   return "invalid error code";
 }
+  
+  void train(nanmath::nanmath_vector &input,
+             nanmath::nanmath_vector &target,
+             nanai_ann_nanncalc *dcalc=nullptr,
+             const char *task=nullptr,
+             nanai_ann_nanncalc::ann_t *ann=nullptr,
+             const char *alg=nullptr) {
+    
+  }
+  
+  /*
+  virtual nanai_ann_nanncalc *training_notarget(nanmath::nanmath_vector &input,
+                                                nanai_ann_nanncalc *dcalc=nullptr,
+                                                const char *task=nullptr,
+                                                nanai_ann_nanncalc::ann_t *ann=nullptr,
+                                                const char *alg=nullptr);
+   
+  virtual nanai_ann_nanncalc *training_nooutput(nanmath::nanmath_vector &input,
+                                                nanmath::nanmath_vector &target,
+                                                nanai_ann_nanncalc *dcalc=nullptr,
+                                                const char *task=nullptr,
+                                                nanai_ann_nanncalc::ann_t *ann=nullptr,
+                                                const char *alg=nullptr);
+  
+  virtual nanai_ann_nanncalc *nnn_read(const std::string &nnn);
+  virtual void nnn_write(const std::string &nnn,
+                         nanai_ann_nanncalc *calc);
+  */
 
 #ifdef __cplusplus
 }

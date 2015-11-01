@@ -1,5 +1,6 @@
-#include <nanai_ann_nnn.h>
+#include <string.h>
 #include <stdexcept>
+#include <nanai_ann_nnn.h>
 
 namespace nanai {
   
