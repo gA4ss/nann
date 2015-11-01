@@ -247,8 +247,8 @@ namespace nanai {
     _max_calc = max;
   }
   
-  const char *nanai_ann_nannmgr::version() const {
-    return NANAI_ANN_VERSION_STR;
+  int nanai_ann_nannmgr::version() const {
+    return NANAI_ANN_VERSION;
   }
   
   void nanai_ann_nannmgr::configure() {

@@ -5,12 +5,17 @@ from distutils.core import setup, Extension
 # ext_modules=[Extension('Extest', sources=['testpy.c'])]
 
 # nann c++ source codes
-nann_sources = ['src/nanai_ann_nannmgr.cc','src/nanai_ann_nanncalc.cc',
-                'src/nanai_object.cc','src/nanai_ann_nanncalc.cc',
-                'src/nanai_ann_nnn.cc','src/nanai_memory.cc',
-                'src/nanai_support.cc','src/nanai_ann_alg_logistic.cc',
-                'src/cJSON.cc','src/pynann.cc',
-                'src/nanmath/nanmath_vector.cc','src/nanmath/nanmath_matrix.cc']
+nann_sources = ['src/nanai_ann_nannmgr.cc',
+                'src/nanai_ann_nanncalc.cc',
+                'src/nanai_object.cc',
+                'src/nanai_ann_nnn.cc',
+                'src/nanai_memory.cc',
+                'src/nanai_support.cc',
+                'src/nanai_ann_alg_logistic.cc',
+                'src/cJSON.cc',
+                'src/pynann.cc',
+                'src/nanmath/nanmath_vector.cc',
+                'src/nanmath/nanmath_matrix.cc']
 
 # nann h files
 nann_h_files = ['inc','inc/nanmath']
@@ -22,7 +27,7 @@ nann_define_macros = [('NDEBUG','1')]
 nann_undef_macros = []
 
 # nann library dir
-nann_library_dirs = ['/usr/lib']
+nann_library_dirs = []
 
 # nann libraries
 nann_libraries = []

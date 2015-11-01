@@ -15,53 +15,54 @@ nanai_ann_nannmgr *g_nannmgr;
 extern "C"
 {
 #endif
+  
 
-int init(int max, int now) {
+  int init(int max, int now) {
   
-  if (max < now) {
-    return PYNANN_ERROR_INVALID_ARGUMENT;
+    if (max < now) {
+      return PYNANN_ERROR_INVALID_ARGUMENT;
+    }
+  
+    g_nannmgr = new nanai_ann_nannmgr(max, now);
+    if (g_nannmgr == nullptr) {
+      return PYNANN_ERROR_ALLOC_MEMORY;
+    }
+  
+    return PYNANN_ERROR_SUCCESS;
   }
-  
-  g_nannmgr = new nanai_ann_nannmgr(max, now);
-  if (g_nannmgr == nullptr) {
-    return PYNANN_ERROR_ALLOC_MEMORY;
-  }
-  
-  return PYNANN_ERROR_SUCCESS;
-}
 
-void destroy() {
-  if (g_nannmgr) {
-    delete g_nannmgr;
-  }
-}
-
-const char *version() {
-  if (g_nannmgr == nullptr) {
-    return nullptr;
-  }
-  return g_nannmgr->version();
-}
-
-const char * const errstr(int code) {
-  
-  static const struct {
-    int code;
-    const char *msg;
-  } msgs[] = {
-    { PYNANN_ERROR_SUCCESS, "succeeful" },
-    { PYNANN_ERROR_INVALID_ARGUMENT, "invalid argument" },
-    { PYNANN_ERROR_ALLOC_MEMORY, "alloc memory failed" }
-  };
-  
-  int x;
-  for (x = 0; x < (int)(sizeof(msgs) / sizeof(msgs[0])); x++) {
-    if (msgs[x].code == code) {
-      return msgs[x].msg;
+  void destroy() {
+    if (g_nannmgr) {
+      delete g_nannmgr; g_nannmgr = nullptr;
     }
   }
-  return "invalid error code";
-}
+
+  int version() {
+    if (g_nannmgr == nullptr) {
+      return 0;
+    }
+    return g_nannmgr->version();
+  }
+
+  const char * const errstr(int code) {
+  
+    static const struct {
+      int code;
+      const char *msg;
+    } msgs[] = {
+      { PYNANN_ERROR_SUCCESS, "succeeful" },
+      { PYNANN_ERROR_INVALID_ARGUMENT, "invalid argument" },
+      { PYNANN_ERROR_ALLOC_MEMORY, "alloc memory failed" }
+    };
+  
+    int x;
+    for (x = 0; x < (int)(sizeof(msgs) / sizeof(msgs[0])); x++) {
+      if (msgs[x].code == code) {
+        return msgs[x].msg;
+      }
+    }
+    return "invalid error code";
+  }
   
   void train(nanmath::nanmath_vector &input,
              nanmath::nanmath_vector &target,
@@ -112,7 +113,7 @@ static PyObject *wrap_destroy(PyObject *self, PyObject *args) {
 }
 
 static PyObject *wrap_version(PyObject *self, PyObject *args) {
-  return Py_BuildValue("s", version());
+  return Py_BuildValue("i", version());
 }
 
 static PyObject *wrap_errstr(PyObject *self, PyObject *args) {
@@ -126,25 +127,21 @@ static PyObject *wrap_errstr(PyObject *self, PyObject *args) {
   return Py_BuildValue("s", errstr(code));
 }
 
+static PyObject *wrap_train(PyObject *self, PyObject *args) {
+  Py_RETURN_NONE;
+}
+
 static PyMethodDef nannMethods[] = {
   { "test", wrap_version, METH_NOARGS, "get nann version." },
   { "init", wrap_init, METH_VARARGS, "nann init." },
   { "destroy", wrap_destroy, METH_NOARGS, "nann close." },
   { "errstr", wrap_errstr, METH_VARARGS, "return string descript error." },
+  { "train", wrap_train, METH_VARARGS, "train sample, adjust weight & output result." },
   { NULL, NULL, 0, NULL }
 };
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 PyMODINIT_FUNC initnann(void) {
   PyObject *m = Py_InitModule("nann", nannMethods);
   if (m == NULL)
     return;
 }
-
-#ifdef __cplusplus
-}
-#endif

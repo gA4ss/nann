@@ -3,6 +3,10 @@
 
 #include <stdexcept>
 
+#ifndef _NOEXCEPT
+#define _NOEXCEPT   noexcept
+#endif
+
 namespace nanai {
   
   /* error code */

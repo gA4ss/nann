@@ -42,7 +42,7 @@ namespace nanai {
                            nanai_ann_nanncalc *calc);
     virtual void waits();
     virtual void set_max(int max);
-    virtual const char *version() const;
+    virtual int version() const;
     
   protected:
     virtual void configure();
