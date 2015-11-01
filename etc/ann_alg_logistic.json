@@ -1,0 +1,8 @@
+{"ann": {
+	"ninput": 5,
+	"nhidden": 2,
+	"noutput": 3,
+	"nneure": [3,4],
+	"eta": 0.05,
+	"momentum": 0.03
+}}

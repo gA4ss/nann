@@ -44,19 +44,21 @@ Thumbs.db
 
 # Customs files #
 ######################
-bk*/
-*.org
+projects/
+build/
+bin/
+lib/
 test/
 bak/
+bk*/
+*.org
 *.0*
 *.out
 *.bin
 *.bindump
 *.disasm
 *.dump
-*.tdog
 *.~
 .depend
 *.dbg
 *.xml
-projects/
