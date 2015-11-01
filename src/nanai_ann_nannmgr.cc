@@ -34,7 +34,7 @@ namespace nanai {
         error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
       }
       
-      while (--now_start) {
+      while (now_start--) {
         make(_descs[0]);
       }
     }
@@ -182,7 +182,7 @@ namespace nanai {
     
     /* 映射文件 */
     file.seekg(0, std::ios::end);
-    long filesize = file.tellg();
+    long long filesize = file.tellg();
     
     unsigned char *buf = new unsigned char [filesize + 1];
     if (buf == nullptr) {
@@ -247,7 +247,7 @@ namespace nanai {
     _max_calc = max;
   }
   
-  int nanai_ann_nannmgr::version() const {
+  double nanai_ann_nannmgr::version() const {
     return NANAI_ANN_VERSION;
   }
   

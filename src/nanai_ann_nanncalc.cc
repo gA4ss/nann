@@ -12,6 +12,7 @@
 
 namespace nanai {
   
+  const static int s_cmd_sleep_time = 100;
   void *nanai_ann_nanncalc::thread_nanai_ann_worker(void *arg) {
     // assert
     
@@ -30,7 +31,7 @@ namespace nanai {
       calc->set_state(NANNCALC_ST_WAITING);
       
       if (calc->get_cmd(ncmd) == NANNCALC_ST_WAITING) {
-        sleep(100);
+        usleep(s_cmd_sleep_time);
         continue;
       }
       
@@ -196,7 +197,9 @@ namespace nanai {
                                               int nhidden,
                                               int output,
                                               std::vector<int> &nneure) {
-    nanai_ann_nanndesc desc = {0};
+    nanai_ann_nanndesc desc;
+    memset(&desc, 0, sizeof(nanai_ann_nanndesc));
+    
     strcpy(desc.name, "NDBpA");
     strcpy(desc.description, "default");
     desc.nhidden = nhidden;
@@ -313,7 +316,7 @@ namespace nanai {
     }
     
     while (_state != st) {
-      sleep(slt);
+      usleep(slt);
     }
   }
   

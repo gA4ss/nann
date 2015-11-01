@@ -40,7 +40,7 @@ void ann_hidden_error(int h,
   delta_h->create(o_h->size());
   nanmath::nanmath_vector delta_sum = w_kh->right_mul(*delta_k);
   
-  for (int i = 0; i < o_h->size(); i++) {
+  for (size_t i = 0; i < o_h->size(); i++) {
     delta_h->set(i, o_h->at(i) * (1 - o_h->at(i)) * delta_sum[i]);
   }
 }
@@ -59,8 +59,8 @@ void ann_hidden_adjust_weight(int h,
   static const double momentum = 0.03;/* 冲量项 */
   
   /* 这里是遍历列向量 */
-  for (int i = 0; i < delta->size(); i++) {          /* 矩阵的列 */
-    for (int j = 0; j < layer->size(); j++) {        /* 矩阵的行 */
+  for (size_t i = 0; i < delta->size(); i++) {          /* 矩阵的列 */
+    for (size_t j = 0; j < layer->size(); j++) {        /* 矩阵的行 */
       /* 让上一层的每个输入向量都乘以当前的偏差值
        * 然后在修订这个偏差值的权向量
        */
@@ -144,7 +144,7 @@ static cJSON *parse_conf_file(const std::string &filename) {
   
   /* 映射文件 */
   file.seekg(0, std::ios::end);
-  long filesize = file.tellg();
+  long long filesize = file.tellg();
   
   char *buf = new char [filesize + 1];
   if (buf == nullptr) {

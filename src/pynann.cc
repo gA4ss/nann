@@ -37,7 +37,7 @@ extern "C"
     }
   }
 
-  int version() {
+  double version() {
     if (g_nannmgr == nullptr) {
       return 0;
     }
@@ -113,7 +113,7 @@ static PyObject *wrap_destroy(PyObject *self, PyObject *args) {
 }
 
 static PyObject *wrap_version(PyObject *self, PyObject *args) {
-  return Py_BuildValue("i", version());
+  return Py_BuildValue("d", version());
 }
 
 static PyObject *wrap_errstr(PyObject *self, PyObject *args) {

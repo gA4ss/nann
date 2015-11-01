@@ -36,7 +36,7 @@ nann_libraries = []
 nann_extra_objects = []
 
 # nann extra compile args
-nann_extra_compile_args = []
+nann_extra_compile_args = ['-std=c++11']
 
 # nann extra link args
 nann_extra_link_args = []
@@ -49,6 +49,7 @@ nann_extension = Extension('nann',
                            undef_macros=nann_undef_macros,
                            library_dirs=nann_library_dirs,
                            libraries=nann_libraries,
+                           extra_compile_args=nann_extra_compile_args,
                            extra_link_args=nann_extra_link_args)
 
 # nann python interface source codes

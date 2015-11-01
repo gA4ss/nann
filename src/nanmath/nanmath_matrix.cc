@@ -43,7 +43,7 @@ namespace nanmath {
       destroy();
       _matrix.resize(r);
       
-      for (int i = 0; i < r; i++) {
+      for (size_t i = 0; i < r; i++) {
         _matrix[i].resize(c);
       }
     } catch (...) {
