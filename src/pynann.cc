@@ -1,142 +1,364 @@
 #include <stdio.h>
+#include <iostream>
+#include <map>
+#include <pthread.h>
+#include <stdexcept>
 #include <Python/Python.h>
 #include <nanai_ann_nannmgr.h>
 
+#include "cJSON.h"
+
 using namespace nanai;
 
-/* 每个pynann唯一的实例子 */
-nanai_ann_nannmgr *g_nannmgr;
-
 #define PYNANN_ERROR_SUCCESS                        0
-#define PYNANN_ERROR_INVALID_ARGUMENT               -1
-#define PYNANN_ERROR_ALLOC_MEMORY                   -2
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-  
+/* 错误信息，不可忽略 */
+#define PYNANN_ERROR_INTERNAL                           0x88000000
+#define PYNANN_ERROR_PARSE_JSON                         0x88000001
+#define PYNANN_ERROR_INVALID_ARGUMENT                   0x88000100
+#define PYNANN_ERROR_INVALID_ARGUMENT_TASK_EXIST        0x88000101
+#define PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST    0x88000102
+#define PYNANN_ERROR_ALLOC_MEMORY                       0x88000200
+#define PYNANN_ERROR_PARSE_JSON                         0x88000001
 
-  int init(int max, int now) {
+/* 警告错误，可忽略 */
+#define PYNANN_WARNING_INTERNAL                         0x87000000
+#define PYNANN_WARNING_INVALID_ARGUMENT                 0x87000100
+#define PYNANN_WARNING_INVALID_ARGUMENT_TASK_EXIST      0x87000101
+#define PYNANN_WARNING_INVALID_ARGUMENT_TASK_NOT_EXIST  0x87000102
+
+typedef struct _nannmgr_node {
+  std::string task;
+  std::string alg;
+  nanai_ann_nanncalc::ann_t ann;
+  nanai_ann_nannmgr *mgr;
+} nannmgr_node_t;
+
+pthread_mutex_t g_lock;
+static std::map<std::string, nannmgr_node_t> g_mgrlist;
+static const char *g_str_this_version_not_implemented = "this version  ot implemented!!!";
+static bool g_throw_exp = true;
+
+static PyObject *do_except(int code, const char *str=nullptr);
+PyObject *do_except(int code, const char *str) {
+  static const struct {
+    int code;
+    PyObject* pye;
+    const char *msg;
+  } msgs[] = {
+    { static_cast<int>(PYNANN_ERROR_INTERNAL), PyExc_Exception, "internal error" },
+    { static_cast<int>(PYNANN_ERROR_PARSE_JSON), PyExc_SyntaxError, "parse json error" },
+    { static_cast<int>(PYNANN_ERROR_INVALID_ARGUMENT), PyExc_StandardError, "invalid argument" },
+    { static_cast<int>(PYNANN_ERROR_INVALID_ARGUMENT_TASK_EXIST), PyExc_StandardError, "task already exist" },
+    { static_cast<int>(PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST), PyExc_StandardError, "task not exist" },
+    { static_cast<int>(PYNANN_ERROR_ALLOC_MEMORY), PyExc_MemoryError, "alloc memory failed" },
+    { static_cast<int>(PYNANN_WARNING_INTERNAL), PyExc_Warning, "internal warning" },
+    { static_cast<int>(PYNANN_WARNING_INVALID_ARGUMENT), PyExc_RuntimeWarning, "invalid argument warning level" },
+    { static_cast<int>(PYNANN_WARNING_INVALID_ARGUMENT_TASK_EXIST), PyExc_RuntimeWarning, "task already exist warning level" },
+    { static_cast<int>(PYNANN_WARNING_INVALID_ARGUMENT_TASK_NOT_EXIST), PyExc_RuntimeWarning, "task not exist warning level" }
+  };
   
-    if (max < now) {
-      return PYNANN_ERROR_INVALID_ARGUMENT;
+  char *outstr = nullptr;
+  for (int x = 0; x < (int)(sizeof(msgs) / sizeof(msgs[0])); x++) {
+    if (msgs[x].code == code) {
+      
+      if (str) outstr = const_cast<char*>(str);
+      else outstr = const_cast<char*>(msgs[x].msg);
+      
+      if (g_throw_exp) PyErr_SetString(msgs[x].pye, outstr);
+      return Py_BuildValue("i", code);
     }
-  
-    g_nannmgr = new nanai_ann_nannmgr(max, now);
-    if (g_nannmgr == nullptr) {
-      return PYNANN_ERROR_ALLOC_MEMORY;
-    }
-  
-    return PYNANN_ERROR_SUCCESS;
   }
-
-  void destroy() {
-    if (g_nannmgr) {
-      delete g_nannmgr; g_nannmgr = nullptr;
-    }
-  }
-
-  double version() {
-    if (g_nannmgr == nullptr) {
-      return 0;
-    }
-    return g_nannmgr->version();
-  }
-
-  const char * const errstr(int code) {
-  
-    static const struct {
-      int code;
-      const char *msg;
-    } msgs[] = {
-      { PYNANN_ERROR_SUCCESS, "succeeful" },
-      { PYNANN_ERROR_INVALID_ARGUMENT, "invalid argument" },
-      { PYNANN_ERROR_ALLOC_MEMORY, "alloc memory failed" }
-    };
-  
-    int x;
-    for (x = 0; x < (int)(sizeof(msgs) / sizeof(msgs[0])); x++) {
-      if (msgs[x].code == code) {
-        return msgs[x].msg;
-      }
-    }
-    return "invalid error code";
-  }
-  
-  void train(nanmath::nanmath_vector &input,
-             nanmath::nanmath_vector &target,
-             nanai_ann_nanncalc *dcalc=nullptr,
-             const char *task=nullptr,
-             nanai_ann_nanncalc::ann_t *ann=nullptr,
-             const char *alg=nullptr) {
-    
-  }
-  
-  /*
-  virtual nanai_ann_nanncalc *training_notarget(nanmath::nanmath_vector &input,
-                                                nanai_ann_nanncalc *dcalc=nullptr,
-                                                const char *task=nullptr,
-                                                nanai_ann_nanncalc::ann_t *ann=nullptr,
-                                                const char *alg=nullptr);
-   
-  virtual nanai_ann_nanncalc *training_nooutput(nanmath::nanmath_vector &input,
-                                                nanmath::nanmath_vector &target,
-                                                nanai_ann_nanncalc *dcalc=nullptr,
-                                                const char *task=nullptr,
-                                                nanai_ann_nanncalc::ann_t *ann=nullptr,
-                                                const char *alg=nullptr);
-  
-  virtual nanai_ann_nanncalc *nnn_read(const std::string &nnn);
-  virtual void nnn_write(const std::string &nnn,
-                         nanai_ann_nanncalc *calc);
-  */
-
-#ifdef __cplusplus
+  return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
 }
-#endif
 
-static PyObject *wrap_init(PyObject *self, PyObject *args) {
-  int max_calc = 0, now_calc = 0;
-  
-  if (!PyArg_ParseTuple(args, "i|i", &max_calc, &now_calc)) {
-    PyErr_SetString(PyExc_TypeError, "both of integer type");
+static void lock() {
+  if (pthread_mutex_lock(&g_lock) != 0) {
+    PyErr_SetString(PyExc_RuntimeWarning, "pthread_mutex_lock failed");
+  }
+}
+
+static void unlock() {
+  if (pthread_mutex_unlock(&g_lock) != 0) {
+    PyErr_SetString(PyExc_RuntimeWarning, "pthread_mutex_lock failed");
+  }
+}
+
+static PyObject *wrap_test(PyObject *self, PyObject *args) {
+  std::cout << "hello nanan" << std::endl;
+  Py_RETURN_NONE;
+}
+
+static cJSON *parse_conf(char *text) {
+  cJSON *json=cJSON_Parse(text);
+  if (!json) {
+    //printf("Error before: [%s]\n",cJSON_GetErrorPtr());
     return nullptr;
   }
   
-  return Py_BuildValue("i", init(max_calc, now_calc));
+  //if (json) {
+  //  char *out=cJSON_Print(json);
+  //  printf("%s\n",out);
+  //  free(out);
+  //}
+  
+  return json;
+}
+static PyObject *wrap_create(PyObject *self, PyObject *args) {
+  int max_calc = 0, now_calc = 0;
+  char *task = nullptr, *json = nullptr;
+  std::string alg;
+  nanai_ann_nanncalc::ann_t ann;
+  
+  if (!PyArg_ParseTuple(args, "ssi|i", &task, &json, &max_calc, &now_calc)) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+  }
+  
+  /* 解析json */
+  cJSON *cjson = parse_conf(json);
+  if (cjson == nullptr) {
+    return do_except(PYNANN_ERROR_PARSE_JSON);
+  }
+  
+  if (max_calc < now_calc) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+  }
+  
+  nanai_ann_nannmgr *nannmgr = nullptr;
+  try {
+    nannmgr = new nanai_ann_nannmgr(max_calc, now_calc);
+  } catch (std::exception e) {
+    return do_except(PYNANN_ERROR_INTERNAL, e.what());
+  }
+  
+  if (nannmgr == nullptr) {
+    return do_except(PYNANN_ERROR_ALLOC_MEMORY);
+  }
+  
+  nannmgr_node_t node;
+  node.task = task;
+  node.alg = alg;
+  node.ann = ann;
+  node.mgr = nannmgr;
+  
+  lock();
+  if (g_mgrlist.find(task) != g_mgrlist.end()) {
+    /* 任务已经存在 ...  */
+    unlock();
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT_TASK_EXIST);
+  }
+  g_mgrlist[task] = node;
+  unlock();
+  
+  return Py_BuildValue("i", g_mgrlist.size()-1);
 }
 
 static PyObject *wrap_destroy(PyObject *self, PyObject *args) {
-  destroy();
-  Py_RETURN_NONE;
+  char *task_arg = nullptr;
+  std::string task;
+  
+  if (!PyArg_ParseTuple(args, "s", &task)) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+  }
+  task = task_arg;
+  
+  
+  lock();
+  if (g_mgrlist.empty()) {
+    return do_except(PYNANN_WARNING_INVALID_ARGUMENT);
+  }
+  
+  if (g_mgrlist.find(task) == g_mgrlist.end()) {
+    /* 任务不存在 ...  */
+    unlock();
+    return do_except(PYNANN_WARNING_INVALID_ARGUMENT_TASK_NOT_EXIST);
+  }
+  
+  if (g_mgrlist[task].mgr) {
+    try {
+      delete g_mgrlist[task].mgr; g_mgrlist[task].mgr = nullptr;
+      g_mgrlist.erase(task);
+    } catch (std::exception e) {
+      return do_except(PYNANN_ERROR_INTERNAL, e.what());
+    }
+  }
+  unlock();
+  
+  return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
 }
 
 static PyObject *wrap_version(PyObject *self, PyObject *args) {
-  return Py_BuildValue("d", version());
+  return Py_BuildValue("s", nanai_ann_nannmgr::version());
 }
 
-static PyObject *wrap_errstr(PyObject *self, PyObject *args) {
+static PyObject *wrap_exptype(PyObject *self, PyObject *args) {
   int code = 0;
   
   if (!PyArg_ParseTuple(args, "i", &code)) {
-    PyErr_SetString(PyExc_TypeError, "argument must be integer type");
-    return nullptr;
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
   }
   
-  return Py_BuildValue("s", errstr(code));
-}
-
-static PyObject *wrap_train(PyObject *self, PyObject *args) {
+  g_throw_exp = (code > 0);
+  
   Py_RETURN_NONE;
 }
 
+static PyObject *wrap_training(PyObject *self, PyObject *args) {
+  char *task_arg = nullptr, *json = nullptr;
+  std::string task;
+  nanmath::nanmath_vector input, target;
+  
+  if (!PyArg_ParseTuple(args, "ss", &task_arg, &json)) {
+    PyErr_SetString(PyExc_TypeError, "type error");
+    return nullptr;
+  }
+  
+  task = task_arg;
+  if (g_mgrlist.find(task) == g_mgrlist.end()) {
+    /* 没有找到任务，则返回警告 */
+    return do_except(PYNANN_WARNING_INVALID_ARGUMENT_TASK_NOT_EXIST);
+  }
+  
+  /* 解析json文件 */
+  cJSON *cjson = parse_conf(json);
+  if (cjson == nullptr) {
+    return do_except(PYNANN_ERROR_PARSE_JSON);
+  }
+  
+  try {
+    g_mgrlist[task].mgr->train(input, target);
+  } catch (std::exception e) {
+    return do_except(PYNANN_ERROR_INTERNAL, e.what());
+  }
+  
+  return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
+}
+
+static PyObject *wrap_training_notarget(PyObject *self, PyObject *args) {
+  char *task_arg = nullptr, *json = nullptr;
+  std::string task;
+  nanmath::nanmath_vector input;
+  
+  if (!PyArg_ParseTuple(args, "ss", &task_arg, &json)) {
+    return do_except(PYNANN_ERROR_SUCCESS);
+  }
+  
+  task = task_arg;
+  if (g_mgrlist.find(task) == g_mgrlist.end()) {
+    /* 没有找到任务，则返回警告 */
+    return do_except(PYNANN_WARNING_INVALID_ARGUMENT_TASK_NOT_EXIST);
+  }
+  
+  /* 解析json文件 */
+  cJSON *cjson = parse_conf(json);
+  if (cjson == nullptr) {
+    return do_except(PYNANN_ERROR_PARSE_JSON);
+  }
+  
+  try {
+    g_mgrlist[task].mgr->training_notarget(input);
+  } catch (std::exception e) {
+    return do_except(PYNANN_ERROR_INTERNAL, e.what());
+  }
+  
+  return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
+}
+
+static PyObject *wrap_training_nooutput(PyObject *self, PyObject *args) {
+  char *task_arg = nullptr, *json = nullptr;
+  std::string task;
+  nanmath::nanmath_vector input, target;
+  
+  if (!PyArg_ParseTuple(args, "ss", &task_arg, &json)) {
+    return do_except(PYNANN_WARNING_INVALID_ARGUMENT);
+  }
+  
+  task = task_arg;
+  if (g_mgrlist.find(task) == g_mgrlist.end()) {
+    /* 没有找到任务，则返回警告 */
+    return do_except(PYNANN_WARNING_INVALID_ARGUMENT_TASK_NOT_EXIST);
+  }
+  
+  /* 解析json文件 */
+  cJSON *cjson = parse_conf(json);
+  if (cjson == nullptr) {
+    return do_except(PYNANN_ERROR_PARSE_JSON);
+  }
+  
+  try {
+    g_mgrlist[task].mgr->training_nooutput(input, target);
+  } catch (std::exception e) {
+    return do_except(PYNANN_ERROR_INTERNAL, e.what());
+  }
+  
+  return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
+}
+
+static PyObject *wrap_training2(PyObject *self, PyObject *args) {
+  std::cout << g_str_this_version_not_implemented << std::endl;
+  Py_RETURN_NONE;
+}
+
+static PyObject *wrap_training2_notarget(PyObject *self, PyObject *args) {
+  std::cout << g_str_this_version_not_implemented << std::endl;
+  Py_RETURN_NONE;
+}
+
+static PyObject *wrap_training2_nooutput(PyObject *self, PyObject *args) {
+  std::cout << g_str_this_version_not_implemented << std::endl;
+  Py_RETURN_NONE;
+}
+
+static PyObject *wrap_nnn_read(PyObject *self, PyObject *args) {
+  std::cout << g_str_this_version_not_implemented << std::endl;
+  Py_RETURN_NONE;
+}
+
+static PyObject *wrap_nnn_write(PyObject *self, PyObject *args) {
+  std::cout << g_str_this_version_not_implemented << std::endl;
+  Py_RETURN_NONE;
+}
+
+static PyObject *wrap_load(PyObject *self, PyObject *args) {
+  if (pthread_mutex_init(&g_lock, NULL) != 0) {
+    return do_except(PYNANN_ERROR_INTERNAL);
+  }
+  
+  return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
+}
+
+static PyObject *wrap_unload(PyObject *self, PyObject *args) {
+  
+  for (auto i : g_mgrlist) {
+    if (i.second.mgr) delete i.second.mgr;
+  }
+  g_mgrlist.clear();
+  
+  if (pthread_mutex_destroy(&g_lock) != 0) {
+    return do_except(PYNANN_WARNING_INTERNAL);
+  }
+  
+  return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
+}
+
 static PyMethodDef nannMethods[] = {
-  { "test", wrap_version, METH_NOARGS, "get nann version." },
-  { "init", wrap_init, METH_VARARGS, "nann init." },
+  { "load", wrap_load, METH_NOARGS, "load nann." },
+  { "unload", wrap_unload, METH_NOARGS, "unload nann." },
+  { "test", wrap_test, METH_NOARGS, "test nann." },
+  { "version", wrap_version, METH_NOARGS, "get nann version." },
+  { "create", wrap_create, METH_VARARGS, "nann init." },
   { "destroy", wrap_destroy, METH_NOARGS, "nann close." },
-  { "errstr", wrap_errstr, METH_VARARGS, "return string descript error." },
-  { "train", wrap_train, METH_VARARGS, "train sample, adjust weight & output result." },
+  { "exptype", wrap_exptype, METH_VARARGS, "change handle except type." },
+  { "training", wrap_training, METH_VARARGS, "train sample, adjust weight & output result." },
+  { "training_notarget", wrap_training_notarget, METH_VARARGS, "train sample, not adjust weight & output result." },
+  { "training_nooutput", wrap_training_nooutput, METH_VARARGS, "train sample, adjust weight & not output result." },
+  { "training2", wrap_training2, METH_VARARGS, "train sample, adjust weight & output result immediately, not call callback." },
+  { "training2_notarget", wrap_training2_notarget, METH_VARARGS,
+    "train sample, not adjust weight & output result immediately, not call callback." },
+  { "training2_nooutput", wrap_training2_nooutput, METH_VARARGS,
+    "train sample, adjust weight & not output result, not call callback." },
+  { "nnn_read", wrap_nnn_read, METH_VARARGS, "read an ann from nnn file." },
+  { "nnn_write", wrap_nnn_write, METH_VARARGS, "write an ann to nnn file." },
   { NULL, NULL, 0, NULL }
 };
 

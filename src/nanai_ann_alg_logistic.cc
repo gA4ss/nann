@@ -119,18 +119,17 @@ nanai::nanai_ann_nanndesc *ann_alg_setup(const char *conf_dir) {
 }
 
 static cJSON *parse_conf(char *text) {
-  char *out;cJSON *json;
-  
-  json=cJSON_Parse(text);
+  cJSON *json=cJSON_Parse(text);
   if (!json) {
     printf("Error before: [%s]\n",cJSON_GetErrorPtr());
     return nullptr;
   }
-  if (json) {
-    out=cJSON_Print(json);
-    printf("%s\n",out);
-    free(out);
-  }
+  
+  //if (json) {
+  //  char *out=cJSON_Print(json);
+  //  printf("%s\n",out);
+  //  free(out);
+  //}
   
   return json;
 }

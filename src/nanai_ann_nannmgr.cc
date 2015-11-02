@@ -190,7 +190,7 @@ namespace nanai {
     }
     
     file.seekg(0, std::ios::beg);
-    file.read((char*)buf, filesize);
+    file.read((char*)buf, (int)filesize);
     /* 修改ann的配置 */
     nanai_ann_nanncalc::ann_t ann = nanai_ann_nnn_read(buf);
   
@@ -247,8 +247,9 @@ namespace nanai {
     _max_calc = max;
   }
   
-  double nanai_ann_nannmgr::version() const {
-    return NANAI_ANN_VERSION;
+  /* static */
+  const char *nanai_ann_nannmgr::version() {
+    return NANAI_ANN_VERSION_STR;
   }
   
   void nanai_ann_nannmgr::configure() {
@@ -380,17 +381,6 @@ namespace nanai {
     }
   }
   
-  /* 有些C++编译器没有支持匿名函数,为排序函数提供支持 */
-  static bool s_cmp1(const nanai_ann_nanncalc *a,
-                  const nanai_ann_nanncalc *b) {
-    return a->get_cmdlist_count() > b->get_cmdlist_count();
-  }
-  
-  static bool s_cmp2(const nanai_ann_nanncalc *a,
-                   const nanai_ann_nanncalc *b) {
-    return a->get_cmdlist_count() < b->get_cmdlist_count();
-  }
-  
   nanai_ann_nanncalc *nanai_ann_nannmgr::generate(nanai_ann_nanndesc &desc,
                                                   nanai_ann_nanncalc::ann_t *ann,
                                                   const char *task) {
@@ -412,13 +402,10 @@ namespace nanai {
         /* 找到了，则找一个命令数量最多的
          * 这里的目的是延迟计算，让同等任务名的计算优先计算完毕
          */
-        /* 有些C++编译器不支持匿名函数
         std::sort(found_node.begin(), found_node.end(),
                   [](nanai_ann_nanncalc *a, nanai_ann_nanncalc *b) {
                     return a->get_cmdlist_count() > b->get_cmdlist_count();
                   });
-         */
-        std::sort(found_node.begin(), found_node.end(), s_cmp1);
         /* 这里可能也会造成算法更替，所以这里替换算法保障计算正确 */
         found_node[0]->ann_configure(desc);
       } else {/* 如果没有找到则进行策略2 */
@@ -432,24 +419,18 @@ namespace nanai {
         
         /* 如果没有找到则直接选定一个命令数量最小的，进行重新配置 */
         if (found_node.empty()) {
-          /* 有些C++编译器不支持匿名函数
           std::sort(_calcs.begin(), _calcs.end(),
                     [](nanai_ann_nanncalc *a, nanai_ann_nanncalc *b) {
                       return a->get_cmdlist_count() < b->get_cmdlist_count();
                     });
-           */
-          std::sort(_calcs.begin(), _calcs.end(), s_cmp2);
           found_node.push_back(_calcs[0]);
           found_node[0]->ann_configure(desc);
         } else {
           /* 从已经找到的结点中寻找一个命令数量最少的 */
-          /* 有些C++编译器不支持匿名函数
           std::sort(found_node.begin(), found_node.end(),
                     [](nanai_ann_nanncalc *a, nanai_ann_nanncalc *b) {
                       return a->get_cmdlist_count() < b->get_cmdlist_count();
                     });
-           */
-          std::sort(found_node.begin(), found_node.end(), s_cmp2);
         }
       }
       
