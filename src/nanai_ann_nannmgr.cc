@@ -40,6 +40,18 @@ namespace nanai {
     }
   }
   
+  nanai_ann_nannmgr::nanai_ann_nannmgr(std::string alg,
+                                       nanai_ann_nanncalc::ann_t &ann,
+                                       nanmath::nanmath_vector *target,
+                                       int max,
+                                       int now_start) {
+    _alg = alg;
+    _ann = ann;
+    if (target) _target = *target;
+    
+    nanai_ann_nannmgr(max, now_start);
+  }
+  
   nanai_ann_nannmgr::~nanai_ann_nannmgr() {
     
     /* 释放所有计算结点 */
@@ -59,7 +71,7 @@ namespace nanai {
   }
   
   nanai_ann_nanncalc *nanai_ann_nannmgr::train(nanmath::nanmath_vector &input,
-                                               nanmath::nanmath_vector &target,
+                                               nanmath::nanmath_vector *target,
                                                nanai_ann_nanncalc *dcalc,
                                                const char *task,
                                                nanai_ann_nanncalc::ann_t *ann,
@@ -79,7 +91,10 @@ namespace nanai {
       if (ann) {
         dcalc->do_ann_exchange(*ann);
       }
-      dcalc->ann_training(input, target, task);
+      
+      if (target) dcalc->ann_training(input, *target, task);
+      else dcalc->ann_training(input, _target, task);
+      
       return dcalc;
     }
     
@@ -90,7 +105,10 @@ namespace nanai {
     }
     
     nanai_ann_nanncalc *calc = generate(*desc, ann, task);
-    calc->ann_training(input, target, task);
+    
+    if (target) calc->ann_training(input, *target, task);
+    else calc->ann_training(input, _target, task);
+    
     return calc;
   }
   
@@ -128,7 +146,7 @@ namespace nanai {
   }
 
   nanai_ann_nanncalc *nanai_ann_nannmgr::training_nooutput(nanmath::nanmath_vector &input,
-                                                nanmath::nanmath_vector &target,
+                                                nanmath::nanmath_vector *target,
                                                 nanai_ann_nanncalc *dcalc,
                                                 const char *task,
                                                 nanai_ann_nanncalc::ann_t *ann,
@@ -146,7 +164,9 @@ namespace nanai {
       if (ann) {
         dcalc->do_ann_exchange(*ann);
       }
-      dcalc->ann_training_nooutput(input, target, task);
+      if (target) dcalc->ann_training_nooutput(input, *target, task);
+      else dcalc->ann_training_nooutput(input, _target, task);
+      
       return dcalc;
     }
     
@@ -157,7 +177,9 @@ namespace nanai {
     }
     
     nanai_ann_nanncalc *calc = generate(*desc, ann, task);
-    calc->ann_training_nooutput(input, target, task);
+    if (target) calc->ann_training_nooutput(input, *target, task);
+    else calc->ann_training_nooutput(input, _target, task);
+    
     return calc;
   }
   

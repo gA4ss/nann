@@ -89,21 +89,28 @@ namespace nanmath {
   }
   
   void nanmath_matrix::set(const nanmath_matrix &mat) {
-    try {
-      destroy();
-      size_t r = mat.row_size(), c = mat.col_size();
-      _matrix.resize(r);
-      
-      for (size_t i = 0; i < r; i++) {
-        _matrix[i].resize(c);
-        for (size_t j = 0; j < c; j++) {
-          _matrix[r][c] = mat.at(i, j);
-        }
-      }
-    } catch (...) {
-      // error
-      throw;
+    destroy();
+    size_t r = mat.row_size();
+    _matrix.clear();
+    for (size_t i = 0; i < r; i++) {
+      _matrix.push_back(mat[i]);
     }
+  }
+  
+  void nanmath_matrix::set_row(size_t r, const std::vector<double> &row) {
+    if (r > _matrix.size()) {
+      throw std::range_error("argument r over the matrix row size");
+    }
+    
+    _matrix[r] = row;
+  }
+  
+  void nanmath_matrix::set_col(size_t c, const std::vector<double> &col) {
+    
+  }
+  
+  void nanmath_matrix::push_row(const std::vector<double> &row) {
+    _matrix.push_back(row);
   }
   
   std::vector<std::vector<double> > nanmath_matrix::get() {

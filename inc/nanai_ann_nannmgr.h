@@ -11,13 +11,18 @@ namespace nanai {
   class nanai_ann_nannmgr : public nanai_object {
   public:
     nanai_ann_nannmgr(int max=1024, int now_start=0);
+    nanai_ann_nannmgr(std::string alg,
+                      nanai_ann_nanncalc::ann_t &ann,
+                      nanmath::nanmath_vector *target,
+                      int max,
+                      int now_start);
     //nanai_ann_nannmgr(int max=1024, const char *ip="127.0.0.1", short port=8393);
     virtual ~nanai_ann_nannmgr();
     
   public:
     /* 输出结果，并调整误差 */
     virtual nanai_ann_nanncalc *train(nanmath::nanmath_vector &input,
-                                      nanmath::nanmath_vector &target,
+                                      nanmath::nanmath_vector *target,
                                       nanai_ann_nanncalc *dcalc=nullptr,
                                       const char *task=nullptr,
                                       nanai_ann_nanncalc::ann_t *ann=nullptr,
@@ -31,7 +36,7 @@ namespace nanai {
                                                   const char *alg=nullptr);
     /* 不输出结果，调整误差 */
     virtual nanai_ann_nanncalc *training_nooutput(nanmath::nanmath_vector &input,
-                                                  nanmath::nanmath_vector &target,
+                                                  nanmath::nanmath_vector *target,
                                                   nanai_ann_nanncalc *dcalc=nullptr,
                                                   const char *task=nullptr,
                                                   nanai_ann_nanncalc::ann_t *ann=nullptr,
@@ -58,20 +63,28 @@ namespace nanai {
                                          const char *task=NULL);
     virtual nanai_ann_nanncalc *make(nanai_ann_nanndesc &desc);
     
+  protected:
     /*
      * 重载基类虚函数
      */
-  protected:
     void on_error(int err);
     
+  protected:
     /*
      * 环境变量
      */
-  protected:
     std::string _home_dir;
     std::string _lib_dir;
     std::string _etc_dir;
     std::string _log_dir;
+    
+  protected:
+    /* 
+     * 管理器唯一性识别 
+     */
+    std::string _alg;
+    nanai_ann_nanncalc::ann_t _ann;
+    nanmath::nanmath_vector _target;
     
   protected:
     int _max_calc;

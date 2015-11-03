@@ -23,6 +23,9 @@ namespace nanmath {
     virtual size_t col_size() const;
     virtual void set(size_t r, size_t c, double v);
     virtual void set(const nanmath_matrix &mat);
+    virtual void set_row(size_t r, const std::vector<double> &row);
+    virtual void set_col(size_t c, const std::vector<double> &col);
+    virtual void push_row(const std::vector<double> &row);
     virtual std::vector<std::vector<double> > get();
     virtual void resize(size_t r, size_t c);
     virtual void print();

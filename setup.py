@@ -61,5 +61,6 @@ setup(name='nann',
       author='devilogic',
       author_email='logic.yan@me.com',
       url='https://git.coding.net/devilogic/nann.git',
-      ext_modules=[nann_extension]
+      ext_modules=[nann_extension],
+      packages=['pynann']
      )
