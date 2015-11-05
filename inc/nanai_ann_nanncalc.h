@@ -45,6 +45,30 @@ namespace nanai {
   
   class nanai_ann_nanncalc : public nanai_object {
   public:
+    /* 
+     * 内部类
+     */
+    class ann_t {
+    public:
+      ann_t();
+      ann_t(std::vector<nanmath::nanmath_matrix> &wm,
+            std::vector<nanmath::nanmath_matrix> *dwm=nullptr);
+      virtual ~ann_t();
+    public:
+      int make(std::vector<nanmath::nanmath_matrix> &wm,
+               std::vector<nanmath::nanmath_matrix> *dwm=nullptr);
+      void clear();
+      
+    public:
+      size_t ninput;                                              /* 输入层个数 */
+      size_t nhidden;                                             /* 隐藏层个数 */
+      size_t noutput;                                             /* 输出层个数 */
+      std::vector<size_t> nneural;                                /* 每个隐藏层有多少个神经元 */
+      std::vector<nanmath::nanmath_matrix> weight_matrixes;       /* 权值矩阵 */
+      std::vector<nanmath::nanmath_matrix> delta_weight_matrixes; /* 权值误差矩阵 */
+    };
+    
+  public:
     nanai_ann_nanncalc(nanai_ann_nanndesc &desc, const char *lp="./");
     virtual ~nanai_ann_nanncalc();
     
@@ -72,20 +96,12 @@ namespace nanai {
                                        const char *task=NULL);
     
     virtual void ann_configure(nanai_ann_nanndesc &desc);
-    
-    typedef struct _ann_t {
-      int ninput;                                                 /* 输入层个数 */
-      int nhidden;                                                /* 隐藏层个数 */
-      int noutput;                                                /* 输出层个数 */
-      std::vector<int> nneural;                                   /* 每个隐藏层有多少个神经元 */
-      std::vector<nanmath::nanmath_matrix> weight_matrix;         /* 权值矩阵 */
-      std::vector<nanmath::nanmath_matrix> delta_weight_matrix;   /* 权值误差矩阵 */
-    } ann_t;
     virtual void ann_exchange(const nanai_ann_nanncalc::ann_t &ann);
     virtual void ann_stop();
     virtual void ann_destroy();
     virtual void ann_wait(int st=NANNCALC_ST_STOP,
                           int slt=100);
+    virtual nanai_ann_nanncalc::ann_t ann_get();
     
     /* 返回当前计算结点信息 */
   public:

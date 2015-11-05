@@ -77,7 +77,7 @@ namespace nanai {
       } else if (cmd == NANNCALC_CMD_ANN_EXCHANGE) {
         calc->set_state(NANNCALC_ST_ANN_EXCHANGING);
         ann = ncmd.ann;
-        if (ann.weight_matrix.empty() == false) {
+        if (ann.weight_matrixes.empty() == false) {
           calc->do_ann_exchange(ann);
         }
         calc->set_state(NANNCALC_ST_ANN_EXCHANGED);
@@ -92,6 +92,62 @@ namespace nanai {
     
     calc->set_state(NANNCALC_ST_STOP);
     pthread_exit(0);
+  }
+  
+  nanai_ann_nanncalc::ann_t::ann_t() {
+    clear();
+  }
+  
+  nanai_ann_nanncalc::ann_t::ann_t(std::vector<nanmath::nanmath_matrix> &wm,
+                                   std::vector<nanmath::nanmath_matrix> *dwm) {
+    make(wm, dwm);
+  }
+  
+  nanai_ann_nanncalc::ann_t::~ann_t() {
+    clear();
+  }
+
+  int nanai_ann_nanncalc::ann_t::make(std::vector<nanmath::nanmath_matrix> &wm,
+                                      std::vector<nanmath::nanmath_matrix> *dwm) {
+    weight_matrixes = wm;
+    
+    if (dwm) {
+      delta_weight_matrixes = *dwm;
+      if (wm.size() != dwm->size()) goto _error;
+    }
+    
+    delta_weight_matrixes.resize(wm.size());
+    for (size_t i = 0; i < wm.size(); i++) {
+      
+      if (dwm) {
+        if (wm[i].row_size() != (*dwm)[i].row_size()) goto _error;
+        if (wm[i].col_size() != (*dwm)[i].col_size()) goto _error;
+      } else {
+        delta_weight_matrixes[i].create(wm[i].row_size(), wm[i].col_size());
+      }
+      
+      if (i < wm.size() - 1) {
+        nneural.push_back(wm[i].col_size());
+      }
+    }
+    
+    nhidden = wm.size() - 1;
+    ninput = wm[0].row_size();
+    noutput = wm[nhidden].col_size();
+    
+    return 0;
+  _error:
+    clear();
+    return -1;
+  }
+  
+  void nanai_ann_nanncalc::ann_t::clear() {
+    nhidden = 0;
+    ninput = 0;
+    noutput = 0;
+    weight_matrixes.clear();
+    delta_weight_matrixes.clear();
+    nneural.clear();
   }
   
   nanai_ann_nanncalc::nanai_ann_nanncalc(nanai_ann_nanndesc &desc, const char *lp) : _state(NANNCALC_CMD_STOP) {
@@ -282,12 +338,7 @@ namespace nanai {
     _output_error.destroy();
     _alg.clear();
     
-    _ann.ninput = 0;
-    _ann.nhidden = 0;
-    _ann.noutput = 0;
-    _ann.nneural.clear();
-    _ann.weight_matrix.clear();
-    _ann.delta_weight_matrix.clear();
+    _ann.clear();
     
     _hiddens.clear();
     _outputs.clear();
@@ -318,6 +369,10 @@ namespace nanai {
     while (_state != st) {
       usleep(slt);
     }
+  }
+  
+  nanai_ann_nanncalc::ann_t nanai_ann_nanncalc::ann_get() {
+    return _ann;
   }
   
   std::string nanai_ann_nanncalc::get_task_name() const {
@@ -470,8 +525,8 @@ namespace nanai {
     _ann.nhidden = ann.nhidden;
     _ann.noutput = ann.noutput;
     _ann.nneural = ann.nneural;
-    _ann.weight_matrix = ann.weight_matrix;
-    _ann.delta_weight_matrix = ann.delta_weight_matrix;
+    _ann.weight_matrixes = ann.weight_matrixes;
+    _ann.delta_weight_matrixes = ann.delta_weight_matrixes;
     ann_log("ann exchanged");
   }
   
@@ -537,8 +592,8 @@ namespace nanai {
     ann_log("total of weight matrix = %d", _ann.nhidden+1);
     
     _hiddens.resize(_ann.nhidden);
-    _ann.weight_matrix.resize(_ann.nhidden + 1);
-    _ann.delta_weight_matrix.resize(_ann.nhidden + 1);
+    _ann.weight_matrixes.resize(_ann.nhidden + 1);
+    _ann.delta_weight_matrixes.resize(_ann.nhidden + 1);
     for (int i = 0; i < _ann.nhidden + 1; i++) {
       /* 隐藏层的个数要比需要的权重矩阵个数少1 */
       if (i < _ann.nhidden) {
@@ -552,24 +607,24 @@ namespace nanai {
        */
       if (i == 0) {
         /* 处理第一层，第一层是由输入向量 与 第一个隐藏层之间的权值矩阵 */
-        _ann.weight_matrix[i].create(_ann.ninput, _ann.nneural[i]);
+        _ann.weight_matrixes[i].create(_ann.ninput, _ann.nneural[i]);
       } else if (i == _ann.nhidden) {
         /* 处理最后一层，最后一层是最后一个隐藏层 与 输出向量之间的权值矩阵 
          * 因为权值矩阵的个数要比隐藏层的个数多一个，所以到达这个时候要获取
          * 最后一个隐藏层必须退回一个索引
          */
-        _ann.weight_matrix[i].create(_ann.nneural[i-1], _ann.noutput);
+        _ann.weight_matrixes[i].create(_ann.nneural[i-1], _ann.noutput);
       } else {
         /* 其余是隐藏层 与 隐藏层之间的权值矩阵 */
-        _ann.weight_matrix[i].create(_ann.nneural[i-1], _ann.nneural[i]);
+        _ann.weight_matrixes[i].create(_ann.nneural[i-1], _ann.nneural[i]);
       }
       
       /* 初始化当前层的权值矩阵 */
-      _ann.delta_weight_matrix[i].zero();
+      _ann.delta_weight_matrixes[i].zero();
       if (_fptr_hidden_inits) {
-        _fptr_hidden_inits(i, &_ann.weight_matrix[i]);
+        _fptr_hidden_inits(i, &_ann.weight_matrixes[i]);
       } else {
-        _ann.weight_matrix[i].random();
+        _ann.weight_matrixes[i].random();
       }
     }
     
@@ -698,15 +753,15 @@ namespace nanai {
       if (i == 0) {
         l1 = input;
         l2 = _hiddens[i];
-        wm = _ann.weight_matrix[i];
+        wm = _ann.weight_matrixes[i];
       } else if (i == _ann.nhidden) {
         l1 = _hiddens[i-1];
         l2 = output;
-        wm = _ann.weight_matrix[i];
+        wm = _ann.weight_matrixes[i];
       } else {
         l1 = _hiddens[i-1];
         l2 = _hiddens[i];
-        wm = _ann.weight_matrix[i];
+        wm = _ann.weight_matrixes[i];
       }
       
       if (_fptr_hidden_calcs) {
@@ -794,7 +849,7 @@ namespace nanai {
     nanmath::nanmath_vector i;
     
     /* 隐藏层比权值矩阵少一个 */
-    for (size_t h = _ann.weight_matrix.size() - 1; h > 0; h--) {
+    for (size_t h = _ann.weight_matrixes.size() - 1; h > 0; h--) {
       /* 所需重要的变量
        * h 处于第几个权值矩阵运算
        * delta_k 上一层的误差向量
@@ -812,15 +867,15 @@ namespace nanai {
       }
       
       if (_fptr_hidden_errors) {
-        _fptr_hidden_errors((int)h, &delta_k, &_ann.weight_matrix[h], &i, &delta_k);
+        _fptr_hidden_errors((int)h, &delta_k, &_ann.weight_matrixes[h], &i, &delta_k);
       } else {
-        delta_k = ann_calc_hidden_delta(h, delta_k, _ann.weight_matrix[h], i);
+        delta_k = ann_calc_hidden_delta(h, delta_k, _ann.weight_matrixes[h], i);
       }
       
       /* 调整当前的权值矩阵 */
       if (_fptr_hidden_adjust_weights) {
         _fptr_hidden_adjust_weights((int)h, &i, &delta_k,
-                                       &_ann.weight_matrix[h], &_ann.delta_weight_matrix[h]);
+                                       &_ann.weight_matrixes[h], &_ann.delta_weight_matrixes[h]);
       } else {
         ann_adjust_weight(h, i, delta_k);
       }
@@ -832,8 +887,8 @@ namespace nanai {
                                              nanmath::nanmath_vector &delta) {
     static const double s_eta = 0.05;/* 学习速率 */
     static const double momentum = 0.03;/* 冲量项 */
-    nanmath::nanmath_matrix &wm = _ann.weight_matrix[h];
-    nanmath::nanmath_matrix &prev_dwm = _ann.delta_weight_matrix[h];
+    nanmath::nanmath_matrix &wm = _ann.weight_matrixes[h];
+    nanmath::nanmath_matrix &prev_dwm = _ann.delta_weight_matrixes[h];
     
     /* 这里是遍历列向量 */
     for (int i = 0; i < delta.size(); i++) {          /* 矩阵的列 */

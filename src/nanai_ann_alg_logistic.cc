@@ -12,9 +12,10 @@
 #include "cJSON.h"
 
 nanai::nanai_ann_nanndesc nanai_ann_alg_logistic_desc;
+static double g_eta = 0.05;
+static double g_momentum = 0.03;
 
 void ann_input_filter(void *input, void *input_filted) {
-  /* TODO : 做归一化处理 */
 }
 
 void ann_result(nanmath::nanmath_vector *output, nanmath::nanmath_vector* result) {
@@ -55,16 +56,13 @@ void ann_hidden_adjust_weight(int h,
                               nanmath::nanmath_vector *delta,
                               nanmath::nanmath_matrix *wm,
                               nanmath::nanmath_matrix *prev_dwm) {
-  static const double s_eta = 0.05;/* 学习速率 */
-  static const double momentum = 0.03;/* 冲量项 */
-  
   /* 这里是遍历列向量 */
   for (size_t i = 0; i < delta->size(); i++) {          /* 矩阵的列 */
     for (size_t j = 0; j < layer->size(); j++) {        /* 矩阵的行 */
       /* 让上一层的每个输入向量都乘以当前的偏差值
        * 然后在修订这个偏差值的权向量
        */
-      double new_dw = (s_eta * delta->at(i) * layer->at(j)) + (momentum * prev_dwm->at(j, i));
+      double new_dw = (g_eta * delta->at(i) * layer->at(j)) + (g_momentum * prev_dwm->at(j, i));
       double t = wm->at(j, i) + new_dw;
       wm->set(j, i, t);
       prev_dwm->set(j, i, new_dw);
@@ -72,23 +70,37 @@ void ann_hidden_adjust_weight(int h,
   }
 }
 
-void ann_monitor_except(int cid, const char *task, int errcode, nanai::nanai_ann_nanncalc *arg) {
+void ann_monitor_except(int cid,
+                        const char *task,
+                        int errcode,
+                        nanai::nanai_ann_nanncalc *arg) {
   printf("ann_alg_logistic - <%d>[%s]:except with errcode - %d\n", cid, task, errcode);
 }
 
-void ann_monitor_trained(int cid, const char *task, nanai::nanai_ann_nanncalc *arg) {
+void ann_monitor_trained(int cid,
+                         const char *task,
+                         nanai::nanai_ann_nanncalc *arg) {
+  printf("ann_alg_logistic - <%d>[%s]:trained\n", cid, task);
+  
+  /* 按照任务进行计数，直到一个数字，进行合并结果，并发送到服务器 */
+}
+
+void ann_monitor_trained_nooutput(int cid,
+                                  const char *task,
+                                  nanai::nanai_ann_nanncalc *arg) {
   printf("ann_alg_logistic - <%d>[%s]:trained\n", cid, task);
 }
 
-void ann_monitor_trained_nooutput(int cid, const char *task, nanai::nanai_ann_nanncalc *arg) {
-  printf("ann_alg_logistic - <%d>[%s]:trained\n", cid, task);
-}
-
-void ann_monitor_calculated(int cid, const char *task, nanai::nanai_ann_nanncalc *arg) {
+void ann_monitor_calculated(int cid,
+                            const char *task,
+                            nanai::nanai_ann_nanncalc *arg) {
   printf("ann_alg_logistic - <%d>[%s]:calculated\n", cid, task);
 }
 
-void ann_monitor_progress(int cid, const char *task, int progress, void *arg) {
+void ann_monitor_progress(int cid,
+                          const char *task,
+                          int progress,
+                          void *arg) {
   /* 日志进度 */
   if (progress == NANNCALC_PROCESS_LOG) {
     printf("ann_alg_logistic - <%d>[%s]:%s\n", cid, task, (char*)arg);
@@ -105,7 +117,7 @@ void ann_calculate(std::string *task,
                    nanmath::nanmath_vector *output,
                    nanai::nanai_ann_nanncalc *arg) {
   if (input == nullptr) {
-    // error
+    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
   }
 }
 
@@ -168,19 +180,22 @@ nanai::nanai_ann_nanndesc *ann_alg_logistic_setup(const char *conf_dir) {
   strcpy(nanai_ann_alg_logistic_desc.description, "use logistic function");
   
   nanai_ann_alg_logistic_desc.fptr_input_filter = ann_input_filter;
-  nanai_ann_alg_logistic_desc.fptr_result = (nanai::fptr_ann_result)ann_result;
+  nanai_ann_alg_logistic_desc.fptr_result = reinterpret_cast<nanai::fptr_ann_result>(ann_result);
   nanai_ann_alg_logistic_desc.fptr_output_error = ann_output_error;
   nanai_ann_alg_logistic_desc.fptr_calculate = nullptr;
   
-  nanai_ann_alg_logistic_desc.fptr_hidden_inits = (nanai::fptr_ann_hidden_init)ann_hidden_init;
+  nanai_ann_alg_logistic_desc.fptr_hidden_inits = reinterpret_cast<nanai::fptr_ann_hidden_init>(ann_hidden_init);
   nanai_ann_alg_logistic_desc.fptr_hidden_calcs = ann_hidden_calc;
-  nanai_ann_alg_logistic_desc.fptr_hidden_errors = (nanai::fptr_ann_hidden_error)ann_hidden_error;
-  nanai_ann_alg_logistic_desc.fptr_hidden_adjust_weights = (nanai::fptr_ann_hidden_adjust_weight)ann_hidden_adjust_weight;
+  nanai_ann_alg_logistic_desc.fptr_hidden_errors = reinterpret_cast<nanai::fptr_ann_hidden_error>(ann_hidden_error);
+  nanai_ann_alg_logistic_desc.fptr_hidden_adjust_weights =
+    reinterpret_cast<nanai::fptr_ann_hidden_adjust_weight>(ann_hidden_adjust_weight);
   
-  nanai_ann_alg_logistic_desc.callback_monitor_except = (nanai::fptr_ann_monitor_except)ann_monitor_except;
-  nanai_ann_alg_logistic_desc.callback_monitor_trained = (nanai::fptr_ann_monitor_trained)ann_monitor_trained;
-  nanai_ann_alg_logistic_desc.callback_monitor_trained_nooutput = (nanai::fptr_ann_monitor_trained2)ann_monitor_trained_nooutput;
-  nanai_ann_alg_logistic_desc.callback_monitor_calculated = (nanai::fptr_ann_monitor_calculated)ann_monitor_calculated;
+  nanai_ann_alg_logistic_desc.callback_monitor_except = reinterpret_cast<nanai::fptr_ann_monitor_except>(ann_monitor_except);
+  nanai_ann_alg_logistic_desc.callback_monitor_trained = reinterpret_cast<nanai::fptr_ann_monitor_trained>(ann_monitor_trained);
+  nanai_ann_alg_logistic_desc.callback_monitor_trained_nooutput =
+    reinterpret_cast<nanai::fptr_ann_monitor_trained2>(ann_monitor_trained_nooutput);
+  nanai_ann_alg_logistic_desc.callback_monitor_calculated =
+    reinterpret_cast<nanai::fptr_ann_monitor_calculated>(ann_monitor_calculated);
   nanai_ann_alg_logistic_desc.callback_monitor_progress = ann_monitor_progress;
   nanai_ann_alg_logistic_desc.callback_monitor_alg_uninstall = ann_monitor_alg_uninstall;
   nanai_ann_alg_logistic_desc.fptr_main = ann_alg_logistic_main;
@@ -203,15 +218,15 @@ nanai::nanai_ann_nanndesc *ann_alg_logistic_setup(const char *conf_dir) {
     /* 读取json配置文件 */
     cJSON *json = parse_conf_file(conf_file);
     if (json == nullptr) {
-      // error();
+      nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     }
     cJSON *json_child = json->child;
     if (json_child == nullptr) {
-      // error();
+      nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     }
     
     if (strcmp(json_child->string, "ann") != 0) {
-      // error();
+      nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     }
     
     if (json->child) {
@@ -230,7 +245,9 @@ nanai::nanai_ann_nanndesc *ann_alg_logistic_setup(const char *conf_dir) {
             tmp = tmp->next;
           }
         } else if (strcmp(json_next->string, "eta") == 0 ) {
+          g_eta = json_next->valuedouble;
         } else if (strcmp(json_next->string, "momentum") == 0 ) {
+          g_momentum = json_next->valuedouble;
         } else {
           // continue
         }
@@ -238,7 +255,7 @@ nanai::nanai_ann_nanndesc *ann_alg_logistic_setup(const char *conf_dir) {
         json_next = json_next->next;
       }
     } else {
-      // error('ann no context');
+      nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     }
     
     if (json) {

@@ -21,12 +21,12 @@ namespace nanai {
     
   public:
     /* 输出结果，并调整误差 */
-    virtual nanai_ann_nanncalc *train(nanmath::nanmath_vector &input,
-                                      nanmath::nanmath_vector *target,
-                                      nanai_ann_nanncalc *dcalc=nullptr,
-                                      const char *task=nullptr,
-                                      nanai_ann_nanncalc::ann_t *ann=nullptr,
-                                      const char *alg=nullptr);
+    virtual nanai_ann_nanncalc *training(nanmath::nanmath_vector &input,
+                                         nanmath::nanmath_vector *target,
+                                         nanai_ann_nanncalc *dcalc=nullptr,
+                                         const char *task=nullptr,
+                                         nanai_ann_nanncalc::ann_t *ann=nullptr,
+                                         const char *alg=nullptr);
     
     /* 输出结果，不调整误差 */
     virtual nanai_ann_nanncalc *training_notarget(nanmath::nanmath_vector &input,
@@ -47,6 +47,32 @@ namespace nanai {
                            nanai_ann_nanncalc *calc);
     virtual void waits();
     virtual void set_max(int max);
+    
+    /* 合并任务神经网络 */
+    virtual void merge_ann_by_task(std::string task);
+  protected:
+    virtual nanai_ann_nanncalc::ann_t merge_ann(nanai_ann_nanncalc::ann_t &a,
+                                                nanai_ann_nanncalc::ann_t &b);
+    
+    virtual nanmath::nanmath_matrix merge_matrix(nanmath::nanmath_matrix &mat1,
+                                                 nanmath::nanmath_matrix &mat2,
+                                                 nanmath::nanmath_matrix &dmat1,
+                                                 nanmath::nanmath_matrix &dmat2);
+    virtual nanmath::nanmath_matrix merge_delta_matrix(nanmath::nanmath_matrix &dmat1,
+                                                       nanmath::nanmath_matrix &dmat2);
+    
+    
+  public:
+    /*
+     * 针对任务的产查询
+     */
+    virtual int dead_task();
+    virtual int exist_task(std::string task);
+    
+  public:
+    /*
+     * 静态函数
+     */
     static const char *version();
     
   protected:

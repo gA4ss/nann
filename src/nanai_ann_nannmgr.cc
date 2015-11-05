@@ -70,12 +70,12 @@ namespace nanai {
     }
   }
   
-  nanai_ann_nanncalc *nanai_ann_nannmgr::train(nanmath::nanmath_vector &input,
-                                               nanmath::nanmath_vector *target,
-                                               nanai_ann_nanncalc *dcalc,
-                                               const char *task,
-                                               nanai_ann_nanncalc::ann_t *ann,
-                                               const char *alg) {
+  nanai_ann_nanncalc *nanai_ann_nannmgr::training(nanmath::nanmath_vector &input,
+                                                  nanmath::nanmath_vector *target,
+                                                  nanai_ann_nanncalc *dcalc,
+                                                  const char *task,
+                                                  nanai_ann_nanncalc::ann_t *ann,
+                                                  const char *alg) {
     
     
     if (dcalc) {
@@ -265,8 +265,150 @@ namespace nanai {
     }
   }
   
+  int nanai_ann_nannmgr::exist_task(std::string task) {
+    int ret = 0;
+    lock();
+    
+    for (auto i : _calcs) {
+      /* 匹配到任务名 */
+      if (i->get_task_name() == task) {
+        if ((i->get_state() != NANNCALC_ST_WAITING) ||
+            (i->get_state() != NANNCALC_ST_STOP)){
+          ret++;
+        }
+      }
+    }
+    
+    unlock();
+    return ret;
+  }
+  
+  int nanai_ann_nannmgr::dead_task() {
+    int ret = 0;
+    lock();
+    
+    for (auto i : _calcs) {
+      if (i->get_state() != NANNCALC_ST_STOP) {
+        ret++;
+      }
+    }
+    
+    unlock();
+    return ret;
+  }
+  
   void nanai_ann_nannmgr::set_max(int max) {
     _max_calc = max;
+  }
+  
+  nanmath::nanmath_matrix nanai_ann_nannmgr::merge_delta_matrix(nanmath::nanmath_matrix &dmat1,
+                                                                nanmath::nanmath_matrix &dmat2) {
+    
+    if (dmat1.row_size() == dmat2.row_size()) {
+      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    }
+    
+    if (dmat1.col_size() == dmat2.col_size()) {
+      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    }
+    
+    nanmath::nanmath_matrix c(dmat1.row_size(), dmat1.col_size());
+    for (size_t i = 0; i < dmat1.row_size(); i++) {
+      for (size_t j = 0; j < dmat1.col_size(); j++) {
+        /* 偏差越小在融合后的矩阵中所占值越大 */
+        double delta_a = 1 - (dmat1[i][j] / dmat1[i][j] + dmat2[i][j]);
+        double delta_b = 1 - (dmat2[i][j] / dmat1[i][j] + dmat2[i][j]);
+        
+        double c_n = 1/2 * (delta_a * dmat1[i][j] + delta_b * dmat2[i][j]);
+        c.set(i, j, c_n);
+      }
+    }
+    
+    return c;
+  }
+  
+  nanmath::nanmath_matrix nanai_ann_nannmgr::merge_matrix(nanmath::nanmath_matrix &mat1,
+                                                          nanmath::nanmath_matrix &mat2,
+                                                          nanmath::nanmath_matrix &dmat1,
+                                                          nanmath::nanmath_matrix &dmat2) {
+    if ((mat1.row_size() == mat2.row_size()) &&
+        (mat1.row_size() == mat2.row_size()) &&
+        (mat1.row_size() == dmat1.row_size()) &&
+        (mat1.row_size() == dmat2.row_size())) {
+      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    }
+    
+    if ((mat1.col_size() == mat2.col_size()) &&
+        (mat1.col_size() == mat2.col_size()) &&
+        (mat1.col_size() == dmat1.col_size()) &&
+        (mat1.col_size() == dmat2.col_size())) {
+      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    }
+    
+    nanmath::nanmath_matrix c(mat1.row_size(), mat1.col_size());
+    for (size_t i = 0; i < mat1.row_size(); i++) {
+      for (size_t j = 0; j < mat1.col_size(); j++) {
+        double delta_a = 1 - (dmat1[i][j] / dmat1[i][j] + dmat2[i][j]);
+        double delta_b = 1 - (dmat2[i][j] / dmat1[i][j] + dmat2[i][j]);
+        
+        double c_n = 1/2 * (delta_a * mat1[i][j] + delta_b * mat2[i][j]);
+        c.set(i, j, c_n);
+      }
+    }
+    
+    return c;
+  }
+  
+  nanai_ann_nanncalc::ann_t nanai_ann_nannmgr::merge_ann(nanai_ann_nanncalc::ann_t &a,
+                                                         nanai_ann_nanncalc::ann_t &b) {
+    nanai_ann_nanncalc::ann_t c;
+    if (a.weight_matrixes.size() != b.weight_matrixes.size()) {
+      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    }
+    
+    if ((a.delta_weight_matrixes.size() == 0) || (b.delta_weight_matrixes.size() == 0)) {
+      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    }
+    
+    c = a;
+    std::vector<nanmath::nanmath_matrix> wm;
+    std::vector<nanmath::nanmath_matrix> dwm;
+    
+    /* 遍历每层的权值矩阵 */
+    for (size_t i = 0; i < a.weight_matrixes.size(); i++) {
+      wm.push_back(merge_matrix(a.weight_matrixes[i], b.weight_matrixes[i],
+                                a.delta_weight_matrixes[i], b.delta_weight_matrixes[i]));
+      dwm.push_back(merge_delta_matrix(a.delta_weight_matrixes[i], b.delta_weight_matrixes[i]));
+    }
+    c.weight_matrixes = wm;
+    c.delta_weight_matrixes = dwm;
+    
+    return c;
+  }
+  
+  void nanai_ann_nannmgr::merge_ann_by_task(std::string task) {
+    lock();
+    std::vector<nanai_ann_nanncalc::ann_t> anns;
+    for (auto i : _calcs) {
+      if (i->get_task_name() == task) {
+        /* 状态等于等待 */
+        if (i->get_state() != NANNCALC_ST_WAITING) {
+          anns.push_back(i->ann_get());
+        }
+      }
+    }
+    
+    if (anns.size() <= 1) {
+      return;
+    }
+    
+    /* 进行合并 */
+    nanai_ann_nanncalc::ann_t a = anns[0];
+    for (size_t i = 1; i < anns.size(); i++) {
+      a = merge_ann(a, anns[i]);
+    }
+    
+    unlock();
   }
   
   /* static */
@@ -279,13 +421,24 @@ namespace nanai {
     get_algs(_lib_dir);
   }
   
+  static void change_path(char *path) {
+    char *plocal = realpath(path, nullptr);
+    if (plocal) {
+      strcpy(path, plocal);
+    }
+    free(plocal);
+  }
+  
   void nanai_ann_nannmgr::get_env() {
     char *home = getenv("NANN_HOME");
     if (home) {
       _home_dir = home;
       if (_home_dir.back() != '/') _home_dir += '/';
     } else {
-      _home_dir = "/Users/devilogic/.nann/";
+      char buf[256];
+      strcpy(buf, "~/.nann/");
+      change_path(buf);
+      _home_dir = buf;
     }
     
     char *lib_dir = getenv("NANN_LIB_DIR");

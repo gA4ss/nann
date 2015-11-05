@@ -1,7 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
 #include <stdexcept>
+#include <iomanip>
 #include <nanmath_matrix.h>
 
 namespace nanmath {
@@ -9,7 +10,6 @@ namespace nanmath {
   nanmath_matrix nm_null;
   
   nanmath_matrix::nanmath_matrix() {
-    create(4, 4);
   }
   
   nanmath_matrix::nanmath_matrix(size_t r, size_t c) {
@@ -219,37 +219,31 @@ namespace nanmath {
     nanmath_vector res;
     size_t c = 0, r = 0;
     /* 矩阵与向量相乘，向量的个数或者等于矩阵的列数或者等于列数 */
-    try {
+    c = col_size();
+    r = row_size();
       
-      c = col_size();
-      r = row_size();
-      
-      if (v.size() == r) {
-        res.resize(c);
+    if (v.size() == r) {
+      res.resize(c);
         
-        for (size_t i = 0; i < c; i++) {
-          for (size_t j = 0; j < r; j++) {
-            res.set(i, v[j] * _matrix[j][i]);
-          }
+      for (size_t i = 0; i < c; i++) {
+        for (size_t j = 0; j < r; j++) {
+          res.set(i, v[j] * _matrix[j][i]);
         }
-        
-      } else if (v.size() == c) {
-        res.resize(r);
-        
-        for (size_t i = 0; i < r; i++) {
-          for (size_t j = 0; j < c; j++) {
-            res.set(i, v[j] * _matrix[i][j]);
-          }
-        }
-        
-      } else {
-        throw std::invalid_argument("inner matrix dimensions must agree");
       }
-      
-    } catch (...) {
-      // error
-      throw;
+        
+    } else if (v.size() == c) {
+      res.resize(r);
+        
+      for (size_t i = 0; i < r; i++) {
+        for (size_t j = 0; j < c; j++) {
+          res.set(i, v[j] * _matrix[i][j]);
+        }
+      }
+        
+    } else {
+      throw std::invalid_argument("inner matrix dimensions must agree");
     }
+    
     return res;
   }
   
@@ -260,24 +254,20 @@ namespace nanmath {
   }
   
   void nanmath_matrix::print() {
-#if 0
     for (size_t i = 0; i < row_size(); i++) {
       for (size_t j = 0; j < col_size(); j++) {
-        
+        std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(2)
+                  << std::setiosflags(std::ios::left) << std::setw(8) << _matrix[i][j];
+        if (j == col_size() - 1) {
+          std::cout << std::endl;
+        } else {
+          std::cout << " ";
+        }
       }
     }
-#endif
   }
   
   std::vector<double> nanmath_matrix::operator [](size_t r) const {
-    std::vector<double> res;
-    
-    try {
-      res = _matrix[r];
-    } catch (...) {
-      // error
-      throw;
-    }
-    return res;
+    return _matrix[r];
   }
 }

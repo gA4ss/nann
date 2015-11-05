@@ -1,6 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <iomanip>
 #include <stdexcept>
 #include <nanmath_vector.h>
 #include <nanmath_matrix.h>
@@ -9,7 +10,6 @@ namespace nanmath {
   nanmath_vector nv_null;
   
   nanmath_vector::nanmath_vector() {
-    create(4);
   }
   
   nanmath_vector::nanmath_vector(size_t n) {
@@ -201,7 +201,11 @@ namespace nanmath {
   }
   
   void nanmath_vector::print() {
-    
+    for (auto i : _vector) {
+      std::cout << std::setiosflags(std::ios::fixed) << std::setiosflags(std::ios::left)
+                << std::setprecision(2) << std::setw(8) << i;
+    }
+    std::cout << std::endl;
   }
   
   double nanmath_vector::operator [](size_t i) const {

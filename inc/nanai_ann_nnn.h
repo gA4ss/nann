@@ -15,10 +15,10 @@ namespace nanai {
     int version;
     char algname[32];
     char taskname[32];
-    int ninput;
-    int nhidden;
-    int noutput;
-    int nneure[MAX_HIDDEN_NUMBER];
+    size_t ninput;
+    size_t nhidden;
+    size_t noutput;
+    size_t nneure[MAX_HIDDEN_NUMBER];
     int exist_weight_deltas;
   } nanai_ann_nnn;
   
