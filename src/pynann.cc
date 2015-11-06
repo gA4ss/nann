@@ -351,7 +351,7 @@ static PyObject *wrap_destroy(PyObject *self, PyObject *args) {
   char *task_arg = nullptr;
   std::string task;
   
-  if (!PyArg_ParseTuple(args, "s", &task)) {
+  if (!PyArg_ParseTuple(args, "s", &task_arg)) {
     return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
   }
   task = task_arg;
@@ -711,7 +711,7 @@ static PyMethodDef nannMethods[] = {
   { "test", wrap_test, METH_NOARGS, "test nann." },
   { "version", wrap_version, METH_NOARGS, "get nann version." },
   { "create", wrap_create, METH_VARARGS, "nann init." },
-  { "destroy", wrap_destroy, METH_NOARGS, "nann close." },
+  { "destroy", wrap_destroy, METH_VARARGS, "nann close." },
   { "exptype", wrap_exptype, METH_VARARGS, "change handle except type." },
   { "training", wrap_training, METH_VARARGS, "train sample, adjust weight & output result." },
   { "training_notarget", wrap_training_notarget, METH_VARARGS, "train sample, not adjust weight & output result." },

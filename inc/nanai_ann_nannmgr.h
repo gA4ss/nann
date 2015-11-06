@@ -18,6 +18,8 @@ namespace nanai {
                       int now_start);
     //nanai_ann_nannmgr(int max=1024, const char *ip="127.0.0.1", short port=8393);
     virtual ~nanai_ann_nannmgr();
+  protected:
+    virtual void init(int max, int now_start);
     
   public:
     /* 输出结果，并调整误差 */
@@ -117,7 +119,7 @@ namespace nanai {
     int _curr_calc;
     std::vector<nanai_ann_nanncalc*> _calcs;
     std::vector<nanai_ann_nanndesc> _descs;
-    std::vector<std::pair<void*, fptr_ann_alg_setup> > _algs;
+    std::vector<std::pair<void*, fptr_ann_alg_setup> > _algs;/* 从外部加载的算法都要保存在这里 */
     
     pthread_mutex_t _lock;
   };

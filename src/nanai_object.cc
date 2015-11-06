@@ -24,6 +24,10 @@ namespace nanai {
     _errcode = NANAI_ERROR_LOGIC_TASK_NOT_MATCHED;
   }
   
+  nanai_error_logic_home_dir_not_config::nanai_error_logic_home_dir_not_config() : std::logic_error("home dir not config") {
+    _errcode = NANAI_ERROR_LOGIC_HOME_DIR_NOT_CONFIG;
+  }
+  
   nanai_error_runtime_create_thread::nanai_error_runtime_create_thread() : std::runtime_error("create thread failed") {
     _errcode = NANAI_ERROR_RUNTIME_CREATE_THREAD;
   }
@@ -63,6 +67,7 @@ namespace nanai {
   static nanai_error_logic_invalid_config logic_invalid_config;
   static nanai_error_logic_alg_not_found logic_alg_not_found;
   static nanai_error_logic_task_not_matched logic_task_not_matched;
+  static nanai_error_logic_home_dir_not_config logic_home_dir_not_config;
   static nanai_error_runtime_create_thread runtime_create_thread;
   static nanai_error_runtime_init_mutex runtime_init_mutex;
   static nanai_error_runtime_destroy_mutex runtime_destroy_mutex;
@@ -79,6 +84,7 @@ namespace nanai {
     {static_cast<int>(NANAI_ERROR_LOGIC_INVALID_CONFIG), logic_invalid_config},
     {static_cast<int>(NANAI_ERROR_LOGIC_ALG_NOT_FOUND), logic_alg_not_found},
     {static_cast<int>(NANAI_ERROR_LOGIC_TASK_NOT_MATCHED), logic_task_not_matched},
+    {static_cast<int>(NANAI_ERROR_LOGIC_HOME_DIR_NOT_CONFIG), logic_home_dir_not_config},
     {static_cast<int>(NANAI_ERROR_RUNTIME_CREATE_THREAD), runtime_create_thread},
     {static_cast<int>(NANAI_ERROR_RUNTIME_INIT_MUTEX), runtime_init_mutex},
     {static_cast<int>(NANAI_ERROR_RUNTIME_DESTROY_MUTEX), runtime_destroy_mutex},

@@ -21,23 +21,8 @@
 #include <nanai_ann_alg_logistic.h>
 
 namespace nanai {  
-  nanai_ann_nannmgr::nanai_ann_nannmgr(int max, int now_start) : _max_calc(max){
-    _curr_calc = 0;
-    configure();
-    
-    if (pthread_mutex_init(&_lock, NULL) != 0) {
-      error(NANAI_ERROR_RUNTIME_INIT_MUTEX);
-    }
-    
-    if (now_start != 0) {
-      if (now_start > max) {
-        error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
-      }
-      
-      while (now_start--) {
-        make(_descs[0]);
-      }
-    }
+  nanai_ann_nannmgr::nanai_ann_nannmgr(int max, int now_start) {
+    init(max, now_start);
   }
   
   nanai_ann_nannmgr::nanai_ann_nannmgr(std::string alg,
@@ -49,7 +34,7 @@ namespace nanai {
     _ann = ann;
     if (target) _target = *target;
     
-    nanai_ann_nannmgr(max, now_start);
+    init(max, now_start);
   }
   
   nanai_ann_nannmgr::~nanai_ann_nannmgr() {
@@ -67,6 +52,26 @@ namespace nanai {
     
     if (pthread_mutex_destroy(&_lock) != 0) {
       error(NANAI_ERROR_RUNTIME_DESTROY_MUTEX);
+    }
+  }
+  
+  void nanai_ann_nannmgr::init(int max, int now_start) {
+    _max_calc = max;
+    _curr_calc = 0;
+    configure();
+    
+    if (pthread_mutex_init(&_lock, NULL) != 0) {
+      error(NANAI_ERROR_RUNTIME_INIT_MUTEX);
+    }
+    
+    if (now_start != 0) {
+      if (now_start > max) {
+        error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      }
+      
+      while (now_start--) {
+        make(_descs[0]);
+      }
     }
   }
   
@@ -421,6 +426,7 @@ namespace nanai {
     get_algs(_lib_dir);
   }
   
+  /*
   static void change_path(char *path) {
     char *plocal = realpath(path, nullptr);
     if (plocal) {
@@ -428,6 +434,7 @@ namespace nanai {
     }
     free(plocal);
   }
+  */
   
   void nanai_ann_nannmgr::get_env() {
     char *home = getenv("NANN_HOME");
@@ -435,10 +442,8 @@ namespace nanai {
       _home_dir = home;
       if (_home_dir.back() != '/') _home_dir += '/';
     } else {
-      char buf[256];
-      strcpy(buf, "~/.nann/");
-      change_path(buf);
-      _home_dir = buf;
+      //_home_dir = "/Users/devilogic/.nann/";
+      error(NANAI_ERROR_LOGIC_HOME_DIR_NOT_CONFIG);
     }
     
     char *lib_dir = getenv("NANN_LIB_DIR");
