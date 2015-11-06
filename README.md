@@ -2,6 +2,13 @@
 
 ## nann Python接口
 
+在**nann**目录中使用以下命令进行安装
+```
+python setup.py build
+sudo python setup.py install
+```
+安装完成后，在_python_代码中使用`import nann`，即可使用。
+
 ### 接口列表
 
 |接口名|参数|参数说明|返回值|说明|
