@@ -1,0 +1,402 @@
+\hypertarget{classnanmath_1_1nanmath__matrix}{}\section{nanmath\+:\+:nanmath\+\_\+matrix类 参考}
+\label{classnanmath_1_1nanmath__matrix}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+
+
+{\ttfamily \#include $<$nanmath\+\_\+matrix.\+h$>$}
+
+\subsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classnanmath_1_1nanmath__matrix_a4f0a09745fd4a7563a9462358a4cf9f3}{nanmath\+\_\+matrix} ()
+\item 
+\hyperlink{classnanmath_1_1nanmath__matrix_a16873cc6b8741de29e1d7a596ee8836c}{nanmath\+\_\+matrix} (size\+\_\+t r, size\+\_\+t c)
+\item 
+\hyperlink{classnanmath_1_1nanmath__matrix_ad2712c998744cec123026fe3cbb7b5da}{nanmath\+\_\+matrix} (const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&mat)
+\item 
+\hyperlink{classnanmath_1_1nanmath__matrix_aa0a5698fe01db8ee25bd9d8fbe646628}{nanmath\+\_\+matrix} (const \hyperlink{classnanmath_1_1nanmath__matrix}{nanmath\+\_\+matrix} \&t)
+\item 
+virtual \hyperlink{classnanmath_1_1nanmath__matrix_a41cc1dac91f6ef08f9b3ec1baf1af3e3}{$\sim$nanmath\+\_\+matrix} ()
+\item 
+virtual void \hyperlink{classnanmath_1_1nanmath__matrix_a0d9762b03f6e27563bbdf821be78342d}{create} (size\+\_\+t r, size\+\_\+t c)
+\item 
+virtual void \hyperlink{classnanmath_1_1nanmath__matrix_a8a1432e6ebd91c5035285ee47c747798}{destroy} ()
+\item 
+virtual void \hyperlink{classnanmath_1_1nanmath__matrix_a65c42ef1d4dca4553ffd13fcc0258a74}{clear} ()
+\item 
+virtual double \hyperlink{classnanmath_1_1nanmath__matrix_abeecd392efba8d91e4f0e1151199d063}{at} (size\+\_\+t r, size\+\_\+t c) const 
+\item 
+virtual size\+\_\+t \hyperlink{classnanmath_1_1nanmath__matrix_a15dc80fe330112c1a17ef6f7de168943}{row\+\_\+size} () const 
+\item 
+virtual size\+\_\+t \hyperlink{classnanmath_1_1nanmath__matrix_a4fcc48d81fc393f7cbee5e3c1fe04f75}{col\+\_\+size} () const 
+\item 
+virtual void \hyperlink{classnanmath_1_1nanmath__matrix_a96c4e5fed99527adee5ff5b756589d0d}{set} (size\+\_\+t r, size\+\_\+t c, double v)
+\item 
+virtual void \hyperlink{classnanmath_1_1nanmath__matrix_a0074200e9eaa3ffb2b9ce6602e1bfd5d}{set} (const \hyperlink{classnanmath_1_1nanmath__matrix}{nanmath\+\_\+matrix} \&mat)
+\item 
+virtual void \hyperlink{classnanmath_1_1nanmath__matrix_afd46732914cf6da29d584cbbb4a47499}{set\+\_\+row} (size\+\_\+t r, const std\+::vector$<$ double $>$ \&row)
+\item 
+virtual void \hyperlink{classnanmath_1_1nanmath__matrix_af5eea2f6b98686e9b243c02513908d16}{set\+\_\+col} (size\+\_\+t c, const std\+::vector$<$ double $>$ \&col)
+\item 
+virtual void \hyperlink{classnanmath_1_1nanmath__matrix_a2611cc9aef30706e7f11e15cd2405699}{push\+\_\+row} (const std\+::vector$<$ double $>$ \&row)
+\item 
+virtual std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \hyperlink{classnanmath_1_1nanmath__matrix_aac2fd129eff7ea0248ccc49e24414454}{get} ()
+\item 
+virtual void \hyperlink{classnanmath_1_1nanmath__matrix_ac27e457cd31058c95b9b5ccf7b4809c0}{resize} (size\+\_\+t r, size\+\_\+t c)
+\item 
+virtual void \hyperlink{classnanmath_1_1nanmath__matrix_a114b8a9aa414e94b06c0ddd9496a34d8}{print} ()
+\item 
+virtual void \hyperlink{classnanmath_1_1nanmath__matrix_aa4dadc0c46659f398ad576eac8c3b064}{zero} ()
+\item 
+virtual void \hyperlink{classnanmath_1_1nanmath__matrix_a625284547b9fbbef11b331cf312cd74e}{random} (int t=0)
+\item 
+virtual \hyperlink{classnanmath_1_1nanmath__matrix}{nanmath\+\_\+matrix} \hyperlink{classnanmath_1_1nanmath__matrix_a1e04289b0bfb7556f2d4c25d49a8198d}{T} () const 
+\item 
+virtual \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+\_\+vector} \hyperlink{classnanmath_1_1nanmath__matrix_aaebae090e22fdb90b531ea376a958959}{left\+\_\+mul} (const \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+\_\+vector} \&v)
+\item 
+virtual \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+\_\+vector} \hyperlink{classnanmath_1_1nanmath__matrix_a785f78f5f75769e2e4d1dbe23c37ea2a}{right\+\_\+mul} (const \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+\_\+vector} \&v)
+\item 
+virtual \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+\_\+vector} \hyperlink{classnanmath_1_1nanmath__matrix_a947460315b7a871de1c7084cde469e3e}{mul} (const \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+\_\+vector} \&v)
+\item 
+virtual \hyperlink{classnanmath_1_1nanmath__matrix}{nanmath\+\_\+matrix} \hyperlink{classnanmath_1_1nanmath__matrix_aec27097c5a8ec49fd44378a3942eebb5}{mul} (const \hyperlink{classnanmath_1_1nanmath__matrix}{nanmath\+\_\+matrix} \&mat)
+\item 
+std\+::vector$<$ double $>$ \hyperlink{classnanmath_1_1nanmath__matrix_afb04741def3ef6e1fe2b489211d631f6}{operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t r) const 
+\end{DoxyCompactItemize}
+\subsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \hyperlink{classnanmath_1_1nanmath__matrix_a2e376e4d599abc18c1bac142dcc89ab2}{\+\_\+matrix}
+\end{DoxyCompactItemize}
+
+
+\subsection{详细描述}
+
+
+在文件 nanmath\+\_\+matrix.\+h 第 9 行定义.
+
+
+
+\subsection{构造及析构函数说明}
+\hypertarget{classnanmath_1_1nanmath__matrix_a4f0a09745fd4a7563a9462358a4cf9f3}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!nanmath\+\_\+matrix@{nanmath\+\_\+matrix}}
+\index{nanmath\+\_\+matrix@{nanmath\+\_\+matrix}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{nanmath\+\_\+matrix()}]{\setlength{\rightskip}{0pt plus 5cm}nanmath\+::nanmath\+\_\+matrix\+::nanmath\+\_\+matrix (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classnanmath_1_1nanmath__matrix_a4f0a09745fd4a7563a9462358a4cf9f3}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 12 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a16873cc6b8741de29e1d7a596ee8836c}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!nanmath\+\_\+matrix@{nanmath\+\_\+matrix}}
+\index{nanmath\+\_\+matrix@{nanmath\+\_\+matrix}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{nanmath\+\_\+matrix(size\+\_\+t r, size\+\_\+t c)}]{\setlength{\rightskip}{0pt plus 5cm}nanmath\+::nanmath\+\_\+matrix\+::nanmath\+\_\+matrix (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{r, }
+\item[{size\+\_\+t}]{c}
+\end{DoxyParamCaption}
+)}\label{classnanmath_1_1nanmath__matrix_a16873cc6b8741de29e1d7a596ee8836c}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 15 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_ad2712c998744cec123026fe3cbb7b5da}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!nanmath\+\_\+matrix@{nanmath\+\_\+matrix}}
+\index{nanmath\+\_\+matrix@{nanmath\+\_\+matrix}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{nanmath\+\_\+matrix(const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&mat)}]{\setlength{\rightskip}{0pt plus 5cm}nanmath\+::nanmath\+\_\+matrix\+::nanmath\+\_\+matrix (
+\begin{DoxyParamCaption}
+\item[{const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&}]{mat}
+\end{DoxyParamCaption}
+)}\label{classnanmath_1_1nanmath__matrix_ad2712c998744cec123026fe3cbb7b5da}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 19 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_aa0a5698fe01db8ee25bd9d8fbe646628}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!nanmath\+\_\+matrix@{nanmath\+\_\+matrix}}
+\index{nanmath\+\_\+matrix@{nanmath\+\_\+matrix}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{nanmath\+\_\+matrix(const nanmath\+\_\+matrix \&t)}]{\setlength{\rightskip}{0pt plus 5cm}nanmath\+::nanmath\+\_\+matrix\+::nanmath\+\_\+matrix (
+\begin{DoxyParamCaption}
+\item[{const {\bf nanmath\+\_\+matrix} \&}]{t}
+\end{DoxyParamCaption}
+)}\label{classnanmath_1_1nanmath__matrix_aa0a5698fe01db8ee25bd9d8fbe646628}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 32 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a41cc1dac91f6ef08f9b3ec1baf1af3e3}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!````~nanmath\+\_\+matrix@{$\sim$nanmath\+\_\+matrix}}
+\index{````~nanmath\+\_\+matrix@{$\sim$nanmath\+\_\+matrix}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{$\sim$nanmath\+\_\+matrix()}]{\setlength{\rightskip}{0pt plus 5cm}nanmath\+::nanmath\+\_\+matrix\+::$\sim$nanmath\+\_\+matrix (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a41cc1dac91f6ef08f9b3ec1baf1af3e3}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 36 行定义.
+
+
+
+\subsection{成员函数说明}
+\hypertarget{classnanmath_1_1nanmath__matrix_abeecd392efba8d91e4f0e1151199d063}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!at@{at}}
+\index{at@{at}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{at(size\+\_\+t r, size\+\_\+t c) const }]{\setlength{\rightskip}{0pt plus 5cm}double nanmath\+::nanmath\+\_\+matrix\+::at (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{r, }
+\item[{size\+\_\+t}]{c}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_abeecd392efba8d91e4f0e1151199d063}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 63 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a65c42ef1d4dca4553ffd13fcc0258a74}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!clear@{clear}}
+\index{clear@{clear}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{clear()}]{\setlength{\rightskip}{0pt plus 5cm}void nanmath\+::nanmath\+\_\+matrix\+::clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a65c42ef1d4dca4553ffd13fcc0258a74}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 59 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a4fcc48d81fc393f7cbee5e3c1fe04f75}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!col\+\_\+size@{col\+\_\+size}}
+\index{col\+\_\+size@{col\+\_\+size}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{col\+\_\+size() const }]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t nanmath\+::nanmath\+\_\+matrix\+::col\+\_\+size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a4fcc48d81fc393f7cbee5e3c1fe04f75}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 78 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a0d9762b03f6e27563bbdf821be78342d}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!create@{create}}
+\index{create@{create}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{create(size\+\_\+t r, size\+\_\+t c)}]{\setlength{\rightskip}{0pt plus 5cm}void nanmath\+::nanmath\+\_\+matrix\+::create (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{r, }
+\item[{size\+\_\+t}]{c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a0d9762b03f6e27563bbdf821be78342d}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 40 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a8a1432e6ebd91c5035285ee47c747798}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!destroy@{destroy}}
+\index{destroy@{destroy}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{destroy()}]{\setlength{\rightskip}{0pt plus 5cm}void nanmath\+::nanmath\+\_\+matrix\+::destroy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a8a1432e6ebd91c5035285ee47c747798}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 55 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_aac2fd129eff7ea0248ccc49e24414454}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!get@{get}}
+\index{get@{get}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{get()}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ std\+::vector$<$ double $>$ $>$ nanmath\+::nanmath\+\_\+matrix\+::get (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_aac2fd129eff7ea0248ccc49e24414454}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 116 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_aaebae090e22fdb90b531ea376a958959}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!left\+\_\+mul@{left\+\_\+mul}}
+\index{left\+\_\+mul@{left\+\_\+mul}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{left\+\_\+mul(const nanmath\+\_\+vector \&v)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanmath\+\_\+vector} nanmath\+::nanmath\+\_\+matrix\+::left\+\_\+mul (
+\begin{DoxyParamCaption}
+\item[{const {\bf nanmath\+\_\+vector} \&}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_aaebae090e22fdb90b531ea376a958959}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 175 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a947460315b7a871de1c7084cde469e3e}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!mul@{mul}}
+\index{mul@{mul}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{mul(const nanmath\+\_\+vector \&v)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanmath\+\_\+vector} nanmath\+::nanmath\+\_\+matrix\+::mul (
+\begin{DoxyParamCaption}
+\item[{const {\bf nanmath\+\_\+vector} \&}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a947460315b7a871de1c7084cde469e3e}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 218 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_aec27097c5a8ec49fd44378a3942eebb5}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!mul@{mul}}
+\index{mul@{mul}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{mul(const nanmath\+\_\+matrix \&mat)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanmath\+\_\+matrix} nanmath\+::nanmath\+\_\+matrix\+::mul (
+\begin{DoxyParamCaption}
+\item[{const {\bf nanmath\+\_\+matrix} \&}]{mat}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_aec27097c5a8ec49fd44378a3942eebb5}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 250 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_afb04741def3ef6e1fe2b489211d631f6}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!operator\mbox{[}$\,$\mbox{]}@{operator[]}}
+\index{operator\mbox{[}$\,$\mbox{]}@{operator[]}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{operator[](size\+\_\+t r) const }]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ double $>$ nanmath\+::nanmath\+\_\+matrix\+::operator\mbox{[}$\,$\mbox{]} (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{r}
+\end{DoxyParamCaption}
+) const}\label{classnanmath_1_1nanmath__matrix_afb04741def3ef6e1fe2b489211d631f6}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 270 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a114b8a9aa414e94b06c0ddd9496a34d8}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!print@{print}}
+\index{print@{print}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{print()}]{\setlength{\rightskip}{0pt plus 5cm}void nanmath\+::nanmath\+\_\+matrix\+::print (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a114b8a9aa414e94b06c0ddd9496a34d8}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 256 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a2611cc9aef30706e7f11e15cd2405699}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!push\+\_\+row@{push\+\_\+row}}
+\index{push\+\_\+row@{push\+\_\+row}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{push\+\_\+row(const std\+::vector$<$ double $>$ \&row)}]{\setlength{\rightskip}{0pt plus 5cm}void nanmath\+::nanmath\+\_\+matrix\+::push\+\_\+row (
+\begin{DoxyParamCaption}
+\item[{const std\+::vector$<$ double $>$ \&}]{row}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a2611cc9aef30706e7f11e15cd2405699}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 112 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a625284547b9fbbef11b331cf312cd74e}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!random@{random}}
+\index{random@{random}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{random(int t=0)}]{\setlength{\rightskip}{0pt plus 5cm}void nanmath\+::nanmath\+\_\+matrix\+::random (
+\begin{DoxyParamCaption}
+\item[{int}]{t = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a625284547b9fbbef11b331cf312cd74e}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 143 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_ac27e457cd31058c95b9b5ccf7b4809c0}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!resize@{resize}}
+\index{resize@{resize}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{resize(size\+\_\+t r, size\+\_\+t c)}]{\setlength{\rightskip}{0pt plus 5cm}void nanmath\+::nanmath\+\_\+matrix\+::resize (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{r, }
+\item[{size\+\_\+t}]{c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_ac27e457cd31058c95b9b5ccf7b4809c0}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 120 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a785f78f5f75769e2e4d1dbe23c37ea2a}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!right\+\_\+mul@{right\+\_\+mul}}
+\index{right\+\_\+mul@{right\+\_\+mul}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{right\+\_\+mul(const nanmath\+\_\+vector \&v)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanmath\+\_\+vector} nanmath\+::nanmath\+\_\+matrix\+::right\+\_\+mul (
+\begin{DoxyParamCaption}
+\item[{const {\bf nanmath\+\_\+vector} \&}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a785f78f5f75769e2e4d1dbe23c37ea2a}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 196 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a15dc80fe330112c1a17ef6f7de168943}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!row\+\_\+size@{row\+\_\+size}}
+\index{row\+\_\+size@{row\+\_\+size}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{row\+\_\+size() const }]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t nanmath\+::nanmath\+\_\+matrix\+::row\+\_\+size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a15dc80fe330112c1a17ef6f7de168943}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 74 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a96c4e5fed99527adee5ff5b756589d0d}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!set@{set}}
+\index{set@{set}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{set(size\+\_\+t r, size\+\_\+t c, double v)}]{\setlength{\rightskip}{0pt plus 5cm}void nanmath\+::nanmath\+\_\+matrix\+::set (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{r, }
+\item[{size\+\_\+t}]{c, }
+\item[{double}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a96c4e5fed99527adee5ff5b756589d0d}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 82 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a0074200e9eaa3ffb2b9ce6602e1bfd5d}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!set@{set}}
+\index{set@{set}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{set(const nanmath\+\_\+matrix \&mat)}]{\setlength{\rightskip}{0pt plus 5cm}void nanmath\+::nanmath\+\_\+matrix\+::set (
+\begin{DoxyParamCaption}
+\item[{const {\bf nanmath\+\_\+matrix} \&}]{mat}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a0074200e9eaa3ffb2b9ce6602e1bfd5d}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 91 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_af5eea2f6b98686e9b243c02513908d16}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!set\+\_\+col@{set\+\_\+col}}
+\index{set\+\_\+col@{set\+\_\+col}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{set\+\_\+col(size\+\_\+t c, const std\+::vector$<$ double $>$ \&col)}]{\setlength{\rightskip}{0pt plus 5cm}void nanmath\+::nanmath\+\_\+matrix\+::set\+\_\+col (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{c, }
+\item[{const std\+::vector$<$ double $>$ \&}]{col}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_af5eea2f6b98686e9b243c02513908d16}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 108 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_afd46732914cf6da29d584cbbb4a47499}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!set\+\_\+row@{set\+\_\+row}}
+\index{set\+\_\+row@{set\+\_\+row}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{set\+\_\+row(size\+\_\+t r, const std\+::vector$<$ double $>$ \&row)}]{\setlength{\rightskip}{0pt plus 5cm}void nanmath\+::nanmath\+\_\+matrix\+::set\+\_\+row (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{r, }
+\item[{const std\+::vector$<$ double $>$ \&}]{row}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_afd46732914cf6da29d584cbbb4a47499}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 100 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_a1e04289b0bfb7556f2d4c25d49a8198d}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!T@{T}}
+\index{T@{T}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{T() const }]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanmath\+\_\+matrix} nanmath\+::nanmath\+\_\+matrix\+::\+T (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_a1e04289b0bfb7556f2d4c25d49a8198d}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 154 行定义.
+
+\hypertarget{classnanmath_1_1nanmath__matrix_aa4dadc0c46659f398ad576eac8c3b064}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!zero@{zero}}
+\index{zero@{zero}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{zero()}]{\setlength{\rightskip}{0pt plus 5cm}void nanmath\+::nanmath\+\_\+matrix\+::zero (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanmath_1_1nanmath__matrix_aa4dadc0c46659f398ad576eac8c3b064}
+
+
+在文件 nanmath\+\_\+matrix.\+cc 第 125 行定义.
+
+
+
+\subsection{类成员变量说明}
+\hypertarget{classnanmath_1_1nanmath__matrix_a2e376e4d599abc18c1bac142dcc89ab2}{}\index{nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}!\+\_\+matrix@{\+\_\+matrix}}
+\index{\+\_\+matrix@{\+\_\+matrix}!nanmath\+::nanmath\+\_\+matrix@{nanmath\+::nanmath\+\_\+matrix}}
+\subsubsection[{\+\_\+matrix}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$std\+::vector$<$double$>$ $>$ nanmath\+::nanmath\+\_\+matrix\+::\+\_\+matrix\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanmath_1_1nanmath__matrix_a2e376e4d599abc18c1bac142dcc89ab2}
+
+
+在文件 nanmath\+\_\+matrix.\+h 第 46 行定义.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+inc/nanmath/\hyperlink{nanmath__matrix_8h}{nanmath\+\_\+matrix.\+h}\item 
+src/nanmath/\hyperlink{nanmath__matrix_8cc}{nanmath\+\_\+matrix.\+cc}\end{DoxyCompactItemize}

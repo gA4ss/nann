@@ -1,0 +1,28 @@
+digraph "nanai::nanai_ann_nanncalc::ann_layer_forward"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="nanai::nanai_ann_nanncalc\l::ann_layer_forward",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="nanmath::nanmath_matrix\l::left_mul",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__matrix.html#aaebae090e22fdb90b531ea376a958959"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="nanmath::nanmath_matrix\l::row_size",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__matrix.html#a15dc80fe330112c1a17ef6f7de168943"];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="nanmath::nanmath_matrix\l::col_size",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__matrix.html#a4fcc48d81fc393f7cbee5e3c1fe04f75"];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="nanmath::nanmath_vector\l::size",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__vector.html#a3cf8be42dcdac880c4107bd19ba2d034"];
+  Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="nanmath::nanmath_vector\l::resize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__vector.html#ab83eb8611ce5cc0056f3d66455a2c268"];
+  Node2 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="nanmath::nanmath_vector::set",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__vector.html#aa56db6b2a630c59c94b473c459ff4673"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="nanai::nanai_object\l::error",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__object.html#a9b05c72f0058867e692dcbba020436c6"];
+  Node8 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="nanai::nanai_object\l::on_error",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__object.html#a87f162335cead23a1409f7c0570a3284"];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="nanmath::nanmath_vector\l::clear",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__vector.html#a011d39d80690df03197309b2f09105a7"];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="nanmath::nanmath_vector\l::push",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__vector.html#af8019f9e3eb27a88c77cd302bd4e0f49"];
+}

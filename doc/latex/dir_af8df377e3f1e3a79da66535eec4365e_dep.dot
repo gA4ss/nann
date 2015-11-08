@@ -1,0 +1,9 @@
+digraph "inc/nanmath" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_bfccd401955b95cf8c75461437045ac0 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="inc" fontname="Helvetica", fontsize="10", URL="dir_bfccd401955b95cf8c75461437045ac0.html"]
+  dir_af8df377e3f1e3a79da66535eec4365e [shape=box, label="nanmath", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_af8df377e3f1e3a79da66535eec4365e.html"];
+  }
+}

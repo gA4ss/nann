@@ -1,0 +1,595 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.10"/>
+<title>nann: 类成员 - 函数</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wKioL1V3FuPR9INCAAAcOL1G2mw663.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">nann
+   &#160;<span id="projectnumber">V3.1</span>
+   </div>
+   <div id="projectbrief">南南分布式人工神经网络计算库</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.10 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="pages.html"><span>相关页面</span></a></li>
+      <li><a href="namespaces.html"><span>命名空间</span></a></li>
+      <li class="current"><a href="annotated.html"><span>类</span></a></li>
+      <li><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="搜索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>类列表</span></a></li>
+      <li><a href="classes.html"><span>类索引</span></a></li>
+      <li><a href="hierarchy.html"><span>类继承关系</span></a></li>
+      <li class="current"><a href="functions.html"><span>类成员</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow3" class="tabs2">
+    <ul class="tablist">
+      <li><a href="functions.html"><span>全部</span></a></li>
+      <li class="current"><a href="functions_func.html"><span>函数</span></a></li>
+      <li><a href="functions_vars.html"><span>变量</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index_a"><span>a</span></a></li>
+      <li><a href="#index_b"><span>b</span></a></li>
+      <li><a href="#index_c"><span>c</span></a></li>
+      <li><a href="#index_d"><span>d</span></a></li>
+      <li><a href="#index_e"><span>e</span></a></li>
+      <li><a href="#index_f"><span>f</span></a></li>
+      <li><a href="#index_g"><span>g</span></a></li>
+      <li><a href="#index_i"><span>i</span></a></li>
+      <li><a href="#index_l"><span>l</span></a></li>
+      <li><a href="#index_m"><span>m</span></a></li>
+      <li><a href="#index_n"><span>n</span></a></li>
+      <li><a href="#index_o"><span>o</span></a></li>
+      <li><a href="#index_p"><span>p</span></a></li>
+      <li><a href="#index_r"><span>r</span></a></li>
+      <li><a href="#index_s"><span>s</span></a></li>
+      <li><a href="#index_t"><span>t</span></a></li>
+      <li><a href="#index_u"><span>u</span></a></li>
+      <li><a href="#index_v"><span>v</span></a></li>
+      <li><a href="#index_w"><span>w</span></a></li>
+      <li><a href="#index_z"><span>z</span></a></li>
+      <li class="current"><a href="#index_~"><span>~</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="contents">
+&#160;
+
+<h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
+<li>add()
+: <a class="el" href="classnanmath_1_1nanmath__vector.html#a1fe657deb1a6f3b098cd3c1b386f592e">nanmath::nanmath_vector</a>
+</li>
+<li>add_alg()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#aaf4b292087f8f3f48f6a77140dd512ca">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>ann_adjust_weight()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a6066093c9c477445b6bc93261608c1b1">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_calc_hidden_delta()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#ac3254f506152da643ce0dd7b3077ff92">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_calculate()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#aeebc06b5241f6f9e1e5b78daa7e31911">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_configure()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a8563aaf57e70ab959dcdec8961af9447">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_create()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a05aa50ca275dade2e3ef735df4a5114d">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_default_create()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a9a2bdcebe0c659e6f6e3466674cc9143">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_destroy()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a4fb9643a590238c96e8e387022626bd6">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_exchange()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a6ec3d7893411dcab2edf4e19ae3bb017">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_forward()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a59b33730cd75893be549ba6cbe1cd7aa">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_get()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a41ca7081ea2c4244c7013b8edc86e6ba">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_hiddens_error()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a655e79fd2845915c691081094b02e121">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_layer_forward()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#af70fe54abb55d464459e2ce4548b1ff2">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_log()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a54ed62943cc681da143bb6a2e1782430">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_on_alg_uninstall()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#ae7fd1a715938713b89830f78bb946c97">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_on_calculated()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a1d59205c70a0aae1acd02ccd513c64ae">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_on_except()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#aa83cff70c2111905341f6b62c9ebd727">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_on_trained()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#aa06770b84f20aee6463d57d50c85eb0b">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_on_trained_nooutput()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a718b94361144b9d57eca8e9f665e713a">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_output_error()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a95e7765ed618d5ab2e4f90593f053d89">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_process()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a20f343f658f4babef5552133159f6c63">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_stop()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#ab7c70e33ab6d4ddcc46fcbdd69a14281">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_t()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html#ae7afd80669ae15785019431171f791c6">nanai::nanai_ann_nanncalc::ann_t</a>
+</li>
+<li>ann_training()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a0f2a230581dd2c530f35d22d1cd11982">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_training_nooutput()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a2b1396b5691391e33859c17ab748a39d">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_training_notarget()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a95e5d9672cf1a74e4180389fbf41b899">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>ann_wait()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a7b69abc3ab21a6249f360f2c8f319501">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>at()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#abeecd392efba8d91e4f0e1151199d063">nanmath::nanmath_matrix</a>
+, <a class="el" href="classnanmath_1_1nanmath__vector.html#a601939a78266b097d86c2df0ea4504e6">nanmath::nanmath_vector</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_b"></a>- b -</h3><ul>
+<li>back()
+: <a class="el" href="classnanmath_1_1nanmath__vector.html#aee746173d201103146b602dbb48582c4">nanmath::nanmath_vector</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
+<li>clear()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html#acbeda89aa6636ea5e0e7d2ee711baaba">nanai::nanai_ann_nanncalc::ann_t</a>
+, <a class="el" href="classnanmath_1_1nanmath__matrix.html#a65c42ef1d4dca4553ffd13fcc0258a74">nanmath::nanmath_matrix</a>
+, <a class="el" href="classnanmath_1_1nanmath__vector.html#a011d39d80690df03197309b2f09105a7">nanmath::nanmath_vector</a>
+</li>
+<li>col_size()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#a4fcc48d81fc393f7cbee5e3c1fe04f75">nanmath::nanmath_matrix</a>
+</li>
+<li>configure()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a4097cd6c0d8c9fbd38df08d4474162d7">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>create()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#a0d9762b03f6e27563bbdf821be78342d">nanmath::nanmath_matrix</a>
+, <a class="el" href="classnanmath_1_1nanmath__vector.html#af9f7f3a965aee9befe0fff50746848ee">nanmath::nanmath_vector</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
+<li>dead_task()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a5e88711b173c6074539af3a1b32e761d">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>destroy()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#a8a1432e6ebd91c5035285ee47c747798">nanmath::nanmath_matrix</a>
+, <a class="el" href="classnanmath_1_1nanmath__vector.html#a901586a8e1f67af4c1b5c7e5e4126dc0">nanmath::nanmath_vector</a>
+</li>
+<li>do_ann_exchange()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a3501b12051f6bb169b408a3671196f16">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>do_configure()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#ad76affc9e9819af44025704d424ce3ec">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>do_stop()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a1973ea663b28bcc31a7297d75bae139e">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>dot()
+: <a class="el" href="classnanmath_1_1nanmath__vector.html#a146b0021c851cd9bf84ddc66dad014e7">nanmath::nanmath_vector</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_e"></a>- e -</h3><ul>
+<li>error()
+: <a class="el" href="classnanai_1_1nanai__object.html#a9b05c72f0058867e692dcbba020436c6">nanai::nanai_object</a>
+</li>
+<li>exist_task()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a1cc1df92755308a610a78c1f16e602c0">nanai::nanai_ann_nannmgr</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
+<li>find_alg()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#aa3fdb4c566c9f8b670631fb559cf1b02">nanai::nanai_ann_nannmgr</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
+<li>generate()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a66d329677b38c6d967a737adabaae13e">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>get()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#aac2fd129eff7ea0248ccc49e24414454">nanmath::nanmath_matrix</a>
+</li>
+<li>get_alg_name()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a19cc8a310068a44c568ada1c9e72d028">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>get_algs()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#af20462056d6628462b18b865197083a5">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>get_ann()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#aefda6586e9dd96625b2e2948baec8e18">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>get_cmd()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a18869c97f279df6aa8d467c32fdc7944">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>get_cmdlist_count()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#aa3adf3454d9953ae48e3b0f98ea0cee0">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>get_def_algs()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a2041f91a11e801557c4e2a310fae4355">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>get_env()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a910e51066acc0cefa5a13d441080020a">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>get_last_error()
+: <a class="el" href="classnanai_1_1nanai__object.html#ab70ce957f8be26e1a4c61461de9c4aa7">nanai::nanai_object</a>
+</li>
+<li>get_output()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#adc64a3c1efeef53374803673ee44c152">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>get_state()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#abc792abf872514a95a9863cbb3e49cd4">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>get_task_name()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#aa75fcea728a087178b4699a2e2e86a6f">nanai::nanai_ann_nanncalc</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
+<li>init()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#ae4bd257f8c13617deb792e90f72574ea">nanai::nanai_ann_nannmgr</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_l"></a>- l -</h3><ul>
+<li>left_mul()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#aaebae090e22fdb90b531ea376a958959">nanmath::nanmath_matrix</a>
+</li>
+<li>lock()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#ad67bf88a3df568c5ed07c2adca863be8">nanai::nanai_ann_nannmgr</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
+<li>make()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html#a20e243d38063b430a487f870416457e5">nanai::nanai_ann_nanncalc::ann_t</a>
+, <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a5f3d6ac53777ccec4d85cde98267693f">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>merge_ann()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a569b5527d3efd6615b1ed5fe311d3e55">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>merge_ann_by_task()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a892c55b5c4a4b22dfd738c1227476ab0">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>merge_delta_matrix()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a1d9acf82974a0c785349370f40d583af">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>merge_matrix()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a7a9f384ebe727ed9722cbc04e82d30c8">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>mul()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#aec27097c5a8ec49fd44378a3942eebb5">nanmath::nanmath_matrix</a>
+, <a class="el" href="classnanmath_1_1nanmath__vector.html#ad39a2000dbf1c548f38d142295083020">nanmath::nanmath_vector</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_n"></a>- n -</h3><ul>
+<li>nanai_ann_nanncalc()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a0d26e7efdef5368c0212b3dd02f63767">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>nanai_ann_nannmgr()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#ac0ab089eae09f4d317218fcad3cfe804">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>nanai_error_logic_alg_not_found()
+: <a class="el" href="classnanai_1_1nanai__error__logic__alg__not__found.html#a37482f1286e3edda3e41e8db08be3899">nanai::nanai_error_logic_alg_not_found</a>
+</li>
+<li>nanai_error_logic_home_dir_not_config()
+: <a class="el" href="classnanai_1_1nanai__error__logic__home__dir__not__config.html#a8419fcfc218bb7ec2522eee55fdc6870">nanai::nanai_error_logic_home_dir_not_config</a>
+</li>
+<li>nanai_error_logic_invalid_argument()
+: <a class="el" href="classnanai_1_1nanai__error__logic__invalid__argument.html#a4a7a923d0bdaff2a9a450bdfe946adf2">nanai::nanai_error_logic_invalid_argument</a>
+</li>
+<li>nanai_error_logic_invalid_config()
+: <a class="el" href="classnanai_1_1nanai__error__logic__invalid__config.html#a438680feb6cf552fe30c2227286e2a3b">nanai::nanai_error_logic_invalid_config</a>
+</li>
+<li>nanai_error_logic_task_not_matched()
+: <a class="el" href="classnanai_1_1nanai__error__logic__task__not__matched.html#a94f76745dd25d220afd5dea030f07496">nanai::nanai_error_logic_task_not_matched</a>
+</li>
+<li>nanai_error_runtime_alloc_memory()
+: <a class="el" href="classnanai_1_1nanai__error__runtime__alloc__memory.html#aa638631a5e632fc47409027525c58401">nanai::nanai_error_runtime_alloc_memory</a>
+</li>
+<li>nanai_error_runtime_create_thread()
+: <a class="el" href="classnanai_1_1nanai__error__runtime__create__thread.html#aace42682861730c6af0a207b76b3c329">nanai::nanai_error_runtime_create_thread</a>
+</li>
+<li>nanai_error_runtime_destroy_mutex()
+: <a class="el" href="classnanai_1_1nanai__error__runtime__destroy__mutex.html#a8cf012bdc03827ba61f3d3825c9c3ee4">nanai::nanai_error_runtime_destroy_mutex</a>
+</li>
+<li>nanai_error_runtime_init_mutex()
+: <a class="el" href="classnanai_1_1nanai__error__runtime__init__mutex.html#a0013394fd311166a8407be53eba690a6">nanai::nanai_error_runtime_init_mutex</a>
+</li>
+<li>nanai_error_runtime_join_thread()
+: <a class="el" href="classnanai_1_1nanai__error__runtime__join__thread.html#aa6319913367e8964e54866f35c763435">nanai::nanai_error_runtime_join_thread</a>
+</li>
+<li>nanai_error_runtime_lock_mutex()
+: <a class="el" href="classnanai_1_1nanai__error__runtime__lock__mutex.html#ab4db66d8a33d10c1cfffc880adba1d2f">nanai::nanai_error_runtime_lock_mutex</a>
+</li>
+<li>nanai_error_runtime_open_file()
+: <a class="el" href="classnanai_1_1nanai__error__runtime__open__file.html#a7ecafd733718b1371cd049961c862bd2">nanai::nanai_error_runtime_open_file</a>
+</li>
+<li>nanai_error_runtime_unlock_mutex()
+: <a class="el" href="classnanai_1_1nanai__error__runtime__unlock__mutex.html#a7f077e10b1c5ecf91f7b001d4bf5436f">nanai::nanai_error_runtime_unlock_mutex</a>
+</li>
+<li>nanai_error_unknow_error()
+: <a class="el" href="classnanai_1_1nanai__error__unknow__error.html#afdeee689504293bd5d7ff4950c32b709">nanai::nanai_error_unknow_error</a>
+</li>
+<li>nanai_object()
+: <a class="el" href="classnanai_1_1nanai__object.html#a2c2b99938e659b07204690ab51b148c7">nanai::nanai_object</a>
+</li>
+<li>nanmath_matrix()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#a16873cc6b8741de29e1d7a596ee8836c">nanmath::nanmath_matrix</a>
+</li>
+<li>nanmath_vector()
+: <a class="el" href="classnanmath_1_1nanmath__vector.html#ac28098c53c4291ce037e15365cfd4b88">nanmath::nanmath_vector</a>
+</li>
+<li>nnn_read()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#aa4bf6ea43af41a463213c1620757685a">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>nnn_write()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a04ac84eff31dab37e338807a4d44d0b9">nanai::nanai_ann_nannmgr</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
+<li>on_error()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a675afb775a34013e6aff1f8d669e7de0">nanai::nanai_ann_nanncalc</a>
+, <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a28ea36058e9dfd5ce6b80d6011931acc">nanai::nanai_ann_nannmgr</a>
+, <a class="el" href="classnanai_1_1nanai__object.html#a87f162335cead23a1409f7c0570a3284">nanai::nanai_object</a>
+</li>
+<li>operator[]()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#afb04741def3ef6e1fe2b489211d631f6">nanmath::nanmath_matrix</a>
+, <a class="el" href="classnanmath_1_1nanmath__vector.html#aa1a70b8264872ac95c4ce36005ffe23b">nanmath::nanmath_vector</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
+<li>pop()
+: <a class="el" href="classnanmath_1_1nanmath__vector.html#ad93f89bf79b97ada43b1b5eb6a20f3b8">nanmath::nanmath_vector</a>
+</li>
+<li>print()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#a114b8a9aa414e94b06c0ddd9496a34d8">nanmath::nanmath_matrix</a>
+, <a class="el" href="classnanmath_1_1nanmath__vector.html#a2040460e12d62f93075a0ac5dcb47b67">nanmath::nanmath_vector</a>
+</li>
+<li>push()
+: <a class="el" href="classnanmath_1_1nanmath__vector.html#af8019f9e3eb27a88c77cd302bd4e0f49">nanmath::nanmath_vector</a>
+</li>
+<li>push_row()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#a2611cc9aef30706e7f11e15cd2405699">nanmath::nanmath_matrix</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>random()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#a625284547b9fbbef11b331cf312cd74e">nanmath::nanmath_matrix</a>
+, <a class="el" href="classnanmath_1_1nanmath__vector.html#a4a174f6e1c4b2e9b5ab605c2cbbfca85">nanmath::nanmath_vector</a>
+</li>
+<li>resize()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#ac27e457cd31058c95b9b5ccf7b4809c0">nanmath::nanmath_matrix</a>
+, <a class="el" href="classnanmath_1_1nanmath__vector.html#ab83eb8611ce5cc0056f3d66455a2c268">nanmath::nanmath_vector</a>
+</li>
+<li>right_mul()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#a785f78f5f75769e2e4d1dbe23c37ea2a">nanmath::nanmath_matrix</a>
+</li>
+<li>row_size()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#a15dc80fe330112c1a17ef6f7de168943">nanmath::nanmath_matrix</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
+<li>set()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#a96c4e5fed99527adee5ff5b756589d0d">nanmath::nanmath_matrix</a>
+, <a class="el" href="classnanmath_1_1nanmath__vector.html#aa56db6b2a630c59c94b473c459ff4673">nanmath::nanmath_vector</a>
+</li>
+<li>set_cmd()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a0db0e8b62dbea77377e40a5d39f6265c">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>set_col()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#af5eea2f6b98686e9b243c02513908d16">nanmath::nanmath_matrix</a>
+</li>
+<li>set_max()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#ae0a3866bf95574f3d12543da7a326b08">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>set_output()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a5102b94199ba413bd8601e66be5d2293">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>set_row()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#afd46732914cf6da29d584cbbb4a47499">nanmath::nanmath_matrix</a>
+</li>
+<li>set_state()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a2c8aa9f4f29bb093f0bc26fa9ba6cc41">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>size()
+: <a class="el" href="classnanmath_1_1nanmath__vector.html#a3cf8be42dcdac880c4107bd19ba2d034">nanmath::nanmath_vector</a>
+</li>
+<li>sub()
+: <a class="el" href="classnanmath_1_1nanmath__vector.html#a2d41772f5b4341d49b33e05aa37133bc">nanmath::nanmath_vector</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
+<li>T()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#a1e04289b0bfb7556f2d4c25d49a8198d">nanmath::nanmath_matrix</a>
+</li>
+<li>training()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a1b99f051a2a7b2b1ebb21bb45d567afa">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>training_nooutput()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a7461a5cad561f578869c850adf1e9639">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>training_notarget()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a7a28db94886caffa0824206c0e2b2fa9">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>Tuser()
+: <a class="el" href="class_tuser.html#ace9dca809b9dcab7646789c4ffa78e67">Tuser</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
+<li>unlock()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a061504e906faa17ab8cfeccb0f6c17bf">nanai::nanai_ann_nannmgr</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_v"></a>- v -</h3><ul>
+<li>version()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a94024506784918f4808bbe28c4721335">nanai::nanai_ann_nannmgr</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_w"></a>- w -</h3><ul>
+<li>waits()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a41e95105ae57bf782fb5ad3b517c4a6a">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>what()
+: <a class="el" href="classnanai_1_1nanai__error__unknow__error.html#a4e27460d5ed88e9cb297499c5c213253">nanai::nanai_error_unknow_error</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_z"></a>- z -</h3><ul>
+<li>zero()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#aa4dadc0c46659f398ad576eac8c3b064">nanmath::nanmath_matrix</a>
+, <a class="el" href="classnanmath_1_1nanmath__vector.html#a61b03b8b22481dc0fb233aca6062498a">nanmath::nanmath_vector</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_~"></a>- ~ -</h3><ul>
+<li>~ann_t()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html#a73fe38762c283afdb7980b9909124daf">nanai::nanai_ann_nanncalc::ann_t</a>
+</li>
+<li>~nanai_ann_nanncalc()
+: <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a2f5530f782f2585958c79c94bc3232d7">nanai::nanai_ann_nanncalc</a>
+</li>
+<li>~nanai_ann_nannmgr()
+: <a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a2594f0a16aed65087e4aebca1b07894e">nanai::nanai_ann_nannmgr</a>
+</li>
+<li>~nanai_object()
+: <a class="el" href="classnanai_1_1nanai__object.html#a7aaa650c4408749ac7e0ca70547920ee">nanai::nanai_object</a>
+</li>
+<li>~nanmath_matrix()
+: <a class="el" href="classnanmath_1_1nanmath__matrix.html#a41cc1dac91f6ef08f9b3ec1baf1af3e3">nanmath::nanmath_matrix</a>
+</li>
+<li>~nanmath_vector()
+: <a class="el" href="classnanmath_1_1nanmath__vector.html#abda71a8b607d76e947db2b6f60274e83">nanmath::nanmath_vector</a>
+</li>
+<li>~Tuser()
+: <a class="el" href="class_tuser.html#a30a83f7c745d63351e4f46ba5c0461ae">Tuser</a>
+</li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者 &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.10
+</small></address>
+</body>
+</html>

@@ -1,0 +1,743 @@
+\hypertarget{c_j_s_o_n_8h}{}\section{src/c\+J\+S\+O\+N.h 文件参考}
+\label{c_j_s_o_n_8h}\index{src/c\+J\+S\+O\+N.\+h@{src/c\+J\+S\+O\+N.\+h}}
+\subsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N}
+\item 
+struct \hyperlink{structc_j_s_o_n___hooks}{c\+J\+S\+O\+N\+\_\+\+Hooks}
+\end{DoxyCompactItemize}
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_a2d240682316354b5748f909ad220184b}{c\+J\+S\+O\+N\+\_\+\+False}~0
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_aad4e442b8095939decddfb67d87d9324}{c\+J\+S\+O\+N\+\_\+\+True}~1
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_aeadaba63ddb68aaa518528595d503dcd}{c\+J\+S\+O\+N\+\_\+\+N\+U\+L\+L}~2
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_a15e77e2f6457dc9b19c10ddb032af971}{c\+J\+S\+O\+N\+\_\+\+Number}~3
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_aa2cb4765308e2bbdf01988b2acdf92d9}{c\+J\+S\+O\+N\+\_\+\+String}~4
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_a57cffa126740a8efcdcb7bcef80e8897}{c\+J\+S\+O\+N\+\_\+\+Array}~5
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_a22c6e13481c090629afbd77b7cebd24c}{c\+J\+S\+O\+N\+\_\+\+Object}~6
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_ad3d18116aae3bfa46f13bcfd7fd6d4e7}{c\+J\+S\+O\+N\+\_\+\+Is\+Reference}~256
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_a491c3484a36f3915cc4710088f55971f}{c\+J\+S\+O\+N\+\_\+\+String\+Is\+Const}~512
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_a7a02f3a43ca58698933294a95c90a6e6}{c\+J\+S\+O\+N\+\_\+\+Add\+Null\+To\+Object}(object,  name)~\hyperlink{c_j_s_o_n_8h_a096004811663311569e95aa77518959c}{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}(object, name, \hyperlink{c_j_s_o_n_8h_a83ea2a0b33071a1120b9052170a2bc13}{c\+J\+S\+O\+N\+\_\+\+Create\+Null}())
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_a0bb61d70afe61f6bf209999458f170ac}{c\+J\+S\+O\+N\+\_\+\+Add\+True\+To\+Object}(object,  name)~\hyperlink{c_j_s_o_n_8h_a096004811663311569e95aa77518959c}{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}(object, name, \hyperlink{c_j_s_o_n_8h_a07b3d4616c5a682aa558180713ce858a}{c\+J\+S\+O\+N\+\_\+\+Create\+True}())
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_a7069c1ed4b02a9ed2dc6063b2e62d675}{c\+J\+S\+O\+N\+\_\+\+Add\+False\+To\+Object}(object,  name)~\hyperlink{c_j_s_o_n_8h_a096004811663311569e95aa77518959c}{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}(object, name, \hyperlink{c_j_s_o_n_8h_a33dcdd4d4f5da12bc91372376908c42b}{c\+J\+S\+O\+N\+\_\+\+Create\+False}())
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_ae9b6c76048eda06c6b92ff5e32f2e02e}{c\+J\+S\+O\+N\+\_\+\+Add\+Bool\+To\+Object}(object,  name,  b)~\hyperlink{c_j_s_o_n_8h_a096004811663311569e95aa77518959c}{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}(object, name, \hyperlink{c_j_s_o_n_8h_a06b0c43427994498d770e65b0089f8a8}{c\+J\+S\+O\+N\+\_\+\+Create\+Bool}(b))
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_aedf8e7037a7332b3653f90be04519862}{c\+J\+S\+O\+N\+\_\+\+Add\+Number\+To\+Object}(object,  name,  n)~\hyperlink{c_j_s_o_n_8h_a096004811663311569e95aa77518959c}{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}(object, name, \hyperlink{c_j_s_o_n_8h_a220d076d7d3a309049d6889be6d4904a}{c\+J\+S\+O\+N\+\_\+\+Create\+Number}(n))
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_a3e2f334ba489b1c267ca40b3e046d5ee}{c\+J\+S\+O\+N\+\_\+\+Add\+String\+To\+Object}(object,  name,  s)~\hyperlink{c_j_s_o_n_8h_a096004811663311569e95aa77518959c}{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}(object, name, \hyperlink{c_j_s_o_n_8h_a5987bbc1c94d9f602d719a4015ff0e6c}{c\+J\+S\+O\+N\+\_\+\+Create\+String}(s))
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_a548f0c2ae589c8ea4a1bab43d198854e}{c\+J\+S\+O\+N\+\_\+\+Set\+Int\+Value}(object,  val)~((object)?(object)-\/$>$valueint=(object)-\/$>$valuedouble=(val)\+:(val))
+\item 
+\#define \hyperlink{c_j_s_o_n_8h_a3e23a54bc9aa6860fe74b6e882df5ef2}{c\+J\+S\+O\+N\+\_\+\+Set\+Number\+Value}(object,  val)~((object)?(object)-\/$>$valueint=(object)-\/$>$valuedouble=(val)\+:(val))
+\end{DoxyCompactItemize}
+\subsection*{类型定义}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} \hyperlink{c_j_s_o_n_8h_a417c667b0692c463cf3c6c435f1d5978}{c\+J\+S\+O\+N}
+\item 
+typedef struct \hyperlink{structc_j_s_o_n___hooks}{c\+J\+S\+O\+N\+\_\+\+Hooks} \hyperlink{c_j_s_o_n_8h_a4c24043be07442b38adc0ef79fcfb3f8}{c\+J\+S\+O\+N\+\_\+\+Hooks}
+\end{DoxyCompactItemize}
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{c_j_s_o_n_8h_a20837ed285a3c2abf578330f2bd97ad4}{c\+J\+S\+O\+N\+\_\+\+Init\+Hooks} (\hyperlink{structc_j_s_o_n___hooks}{c\+J\+S\+O\+N\+\_\+\+Hooks} $\ast$hooks)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_ad3df5f943457d4befebe4109d48e4a50}{c\+J\+S\+O\+N\+\_\+\+Parse} (const char $\ast$value)
+\item 
+char $\ast$ \hyperlink{c_j_s_o_n_8h_aea4f15b04dba4dff2edc2bb1d387b555}{c\+J\+S\+O\+N\+\_\+\+Print} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$item)
+\item 
+char $\ast$ \hyperlink{c_j_s_o_n_8h_a5539c9504a8e65390a94852707f105d4}{c\+J\+S\+O\+N\+\_\+\+Print\+Unformatted} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$item)
+\item 
+char $\ast$ \hyperlink{c_j_s_o_n_8h_a4354cf61f1d9b71688c34ab626b726ce}{c\+J\+S\+O\+N\+\_\+\+Print\+Buffered} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$item, int prebuffer, int fmt)
+\item 
+void \hyperlink{c_j_s_o_n_8h_ab18060251de70a2b55a18dec694f8f8a}{c\+J\+S\+O\+N\+\_\+\+Delete} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$c)
+\item 
+int \hyperlink{c_j_s_o_n_8h_adb5c049d3211599c90cd5a3d5e68d854}{c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Size} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$array)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_ac48335f22f743aff913991d809e0d620}{c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Item} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$array, int item)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_aba766c9d2c20996e323522cbf2ba46c6}{c\+J\+S\+O\+N\+\_\+\+Get\+Object\+Item} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$object, const char $\ast$string)
+\item 
+const char $\ast$ \hyperlink{c_j_s_o_n_8h_a5e81ffc372644963c759103865b0cad1}{c\+J\+S\+O\+N\+\_\+\+Get\+Error\+Ptr} (void)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a83ea2a0b33071a1120b9052170a2bc13}{c\+J\+S\+O\+N\+\_\+\+Create\+Null} (void)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a07b3d4616c5a682aa558180713ce858a}{c\+J\+S\+O\+N\+\_\+\+Create\+True} (void)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a33dcdd4d4f5da12bc91372376908c42b}{c\+J\+S\+O\+N\+\_\+\+Create\+False} (void)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a06b0c43427994498d770e65b0089f8a8}{c\+J\+S\+O\+N\+\_\+\+Create\+Bool} (int b)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a220d076d7d3a309049d6889be6d4904a}{c\+J\+S\+O\+N\+\_\+\+Create\+Number} (double num)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a5987bbc1c94d9f602d719a4015ff0e6c}{c\+J\+S\+O\+N\+\_\+\+Create\+String} (const char $\ast$string)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a29e5808c66c1cf1f3edbf117babe07b3}{c\+J\+S\+O\+N\+\_\+\+Create\+Array} (void)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a9c5f44afdd781b16dead90042fe74085}{c\+J\+S\+O\+N\+\_\+\+Create\+Object} (void)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a12576edcea9baca64be6fe7a6ae8d4fa}{c\+J\+S\+O\+N\+\_\+\+Create\+Int\+Array} (const int $\ast$numbers, int count)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a328fe12c04efcf2073b218bbf35ac6ec}{c\+J\+S\+O\+N\+\_\+\+Create\+Float\+Array} (const float $\ast$numbers, int count)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a04cb41ee475a68bd2ee63e92d8534049}{c\+J\+S\+O\+N\+\_\+\+Create\+Double\+Array} (const double $\ast$numbers, int count)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_abeecb344ac9a0318cd42ac32b6e22289}{c\+J\+S\+O\+N\+\_\+\+Create\+String\+Array} (const char $\ast$$\ast$strings, int count)
+\item 
+void \hyperlink{c_j_s_o_n_8h_a164dcefd36af8654942116c444bd0b6a}{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Array} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$array, \hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$item)
+\item 
+void \hyperlink{c_j_s_o_n_8h_a096004811663311569e95aa77518959c}{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$object, const char $\ast$string, \hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$item)
+\item 
+void \hyperlink{c_j_s_o_n_8h_af5153e89d76785c5b2ebdd0d8e8f258e}{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object\+C\+S} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$object, const char $\ast$string, \hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$item)
+\item 
+void \hyperlink{c_j_s_o_n_8h_a076941e875d547f20959c66de97beee5}{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Array} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$array, \hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$item)
+\item 
+void \hyperlink{c_j_s_o_n_8h_a001634f84d255810784155f4c8e4e288}{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Object} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$object, const char $\ast$string, \hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$item)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a68b9e0b2d984f1d873fb571425a98b9b}{c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Array} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$array, int which)
+\item 
+void \hyperlink{c_j_s_o_n_8h_a2b08ee3d172cb94e9abea1e4031a366f}{c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Array} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$array, int which)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a7010822d267256f274e0adf22be2b202}{c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Object} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$object, const char $\ast$string)
+\item 
+void \hyperlink{c_j_s_o_n_8h_a148a56617a2a97921d9b9dfbe5dc85bf}{c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Object} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$object, const char $\ast$string)
+\item 
+void \hyperlink{c_j_s_o_n_8h_a26521dbb099b8247457808972930547b}{c\+J\+S\+O\+N\+\_\+\+Insert\+Item\+In\+Array} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$array, int which, \hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$newitem)
+\item 
+void \hyperlink{c_j_s_o_n_8h_a567d357a7a0c3c0c9c896d98aae3dcec}{c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Array} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$array, int which, \hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$newitem)
+\item 
+void \hyperlink{c_j_s_o_n_8h_a31202ffebc9e4f86c3db12f9793b6800}{c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Object} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$object, const char $\ast$string, \hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$newitem)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a9acb1410be711f33d7c6d39f916b2d35}{c\+J\+S\+O\+N\+\_\+\+Duplicate} (\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$item, int recurse)
+\item 
+\hyperlink{structc_j_s_o_n}{c\+J\+S\+O\+N} $\ast$ \hyperlink{c_j_s_o_n_8h_a9c63df4d9350bee4bd1726f8f23ad536}{c\+J\+S\+O\+N\+\_\+\+Parse\+With\+Opts} (const char $\ast$value, const char $\ast$$\ast$return\+\_\+parse\+\_\+end, int require\+\_\+null\+\_\+terminated)
+\item 
+void \hyperlink{c_j_s_o_n_8h_afd416be779f90b6369a189437d3bcc05}{c\+J\+S\+O\+N\+\_\+\+Minify} (char $\ast$json)
+\end{DoxyCompactItemize}
+
+
+\subsection{宏定义说明}
+\hypertarget{c_j_s_o_n_8h_ae9b6c76048eda06c6b92ff5e32f2e02e}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Add\+Bool\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+Bool\+To\+Object}}
+\index{c\+J\+S\+O\+N\+\_\+\+Add\+Bool\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+Bool\+To\+Object}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Add\+Bool\+To\+Object}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+Add\+Bool\+To\+Object(
+\begin{DoxyParamCaption}
+\item[{}]{object, }
+\item[{}]{name, }
+\item[{}]{b}
+\end{DoxyParamCaption}
+)~{\bf c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}(object, name, {\bf c\+J\+S\+O\+N\+\_\+\+Create\+Bool}(b))}\label{c_j_s_o_n_8h_ae9b6c76048eda06c6b92ff5e32f2e02e}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 137 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a7069c1ed4b02a9ed2dc6063b2e62d675}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Add\+False\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+False\+To\+Object}}
+\index{c\+J\+S\+O\+N\+\_\+\+Add\+False\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+False\+To\+Object}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Add\+False\+To\+Object}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+Add\+False\+To\+Object(
+\begin{DoxyParamCaption}
+\item[{}]{object, }
+\item[{}]{name}
+\end{DoxyParamCaption}
+)~{\bf c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}(object, name, {\bf c\+J\+S\+O\+N\+\_\+\+Create\+False}())}\label{c_j_s_o_n_8h_a7069c1ed4b02a9ed2dc6063b2e62d675}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 136 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a7a02f3a43ca58698933294a95c90a6e6}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Add\+Null\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+Null\+To\+Object}}
+\index{c\+J\+S\+O\+N\+\_\+\+Add\+Null\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+Null\+To\+Object}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Add\+Null\+To\+Object}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+Add\+Null\+To\+Object(
+\begin{DoxyParamCaption}
+\item[{}]{object, }
+\item[{}]{name}
+\end{DoxyParamCaption}
+)~{\bf c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}(object, name, {\bf c\+J\+S\+O\+N\+\_\+\+Create\+Null}())}\label{c_j_s_o_n_8h_a7a02f3a43ca58698933294a95c90a6e6}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 134 行定义.
+
+\hypertarget{c_j_s_o_n_8h_aedf8e7037a7332b3653f90be04519862}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Add\+Number\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+Number\+To\+Object}}
+\index{c\+J\+S\+O\+N\+\_\+\+Add\+Number\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+Number\+To\+Object}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Add\+Number\+To\+Object}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+Add\+Number\+To\+Object(
+\begin{DoxyParamCaption}
+\item[{}]{object, }
+\item[{}]{name, }
+\item[{}]{n}
+\end{DoxyParamCaption}
+)~{\bf c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}(object, name, {\bf c\+J\+S\+O\+N\+\_\+\+Create\+Number}(n))}\label{c_j_s_o_n_8h_aedf8e7037a7332b3653f90be04519862}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 138 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a3e2f334ba489b1c267ca40b3e046d5ee}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Add\+String\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+String\+To\+Object}}
+\index{c\+J\+S\+O\+N\+\_\+\+Add\+String\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+String\+To\+Object}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Add\+String\+To\+Object}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+Add\+String\+To\+Object(
+\begin{DoxyParamCaption}
+\item[{}]{object, }
+\item[{}]{name, }
+\item[{}]{s}
+\end{DoxyParamCaption}
+)~{\bf c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}(object, name, {\bf c\+J\+S\+O\+N\+\_\+\+Create\+String}(s))}\label{c_j_s_o_n_8h_a3e2f334ba489b1c267ca40b3e046d5ee}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 139 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a0bb61d70afe61f6bf209999458f170ac}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Add\+True\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+True\+To\+Object}}
+\index{c\+J\+S\+O\+N\+\_\+\+Add\+True\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+True\+To\+Object}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Add\+True\+To\+Object}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+Add\+True\+To\+Object(
+\begin{DoxyParamCaption}
+\item[{}]{object, }
+\item[{}]{name}
+\end{DoxyParamCaption}
+)~{\bf c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}(object, name, {\bf c\+J\+S\+O\+N\+\_\+\+Create\+True}())}\label{c_j_s_o_n_8h_a0bb61d70afe61f6bf209999458f170ac}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 135 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a57cffa126740a8efcdcb7bcef80e8897}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Array@{c\+J\+S\+O\+N\+\_\+\+Array}}
+\index{c\+J\+S\+O\+N\+\_\+\+Array@{c\+J\+S\+O\+N\+\_\+\+Array}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Array}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+Array~5}\label{c_j_s_o_n_8h_a57cffa126740a8efcdcb7bcef80e8897}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 37 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a2d240682316354b5748f909ad220184b}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+False@{c\+J\+S\+O\+N\+\_\+\+False}}
+\index{c\+J\+S\+O\+N\+\_\+\+False@{c\+J\+S\+O\+N\+\_\+\+False}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+False}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+False~0}\label{c_j_s_o_n_8h_a2d240682316354b5748f909ad220184b}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 32 行定义.
+
+\hypertarget{c_j_s_o_n_8h_ad3d18116aae3bfa46f13bcfd7fd6d4e7}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Is\+Reference@{c\+J\+S\+O\+N\+\_\+\+Is\+Reference}}
+\index{c\+J\+S\+O\+N\+\_\+\+Is\+Reference@{c\+J\+S\+O\+N\+\_\+\+Is\+Reference}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Is\+Reference}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+Is\+Reference~256}\label{c_j_s_o_n_8h_ad3d18116aae3bfa46f13bcfd7fd6d4e7}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 40 行定义.
+
+\hypertarget{c_j_s_o_n_8h_aeadaba63ddb68aaa518528595d503dcd}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+N\+U\+L\+L@{c\+J\+S\+O\+N\+\_\+\+N\+U\+L\+L}}
+\index{c\+J\+S\+O\+N\+\_\+\+N\+U\+L\+L@{c\+J\+S\+O\+N\+\_\+\+N\+U\+L\+L}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+N\+U\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+N\+U\+L\+L~2}\label{c_j_s_o_n_8h_aeadaba63ddb68aaa518528595d503dcd}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 34 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a15e77e2f6457dc9b19c10ddb032af971}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Number@{c\+J\+S\+O\+N\+\_\+\+Number}}
+\index{c\+J\+S\+O\+N\+\_\+\+Number@{c\+J\+S\+O\+N\+\_\+\+Number}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Number}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+Number~3}\label{c_j_s_o_n_8h_a15e77e2f6457dc9b19c10ddb032af971}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 35 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a22c6e13481c090629afbd77b7cebd24c}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Object@{c\+J\+S\+O\+N\+\_\+\+Object}}
+\index{c\+J\+S\+O\+N\+\_\+\+Object@{c\+J\+S\+O\+N\+\_\+\+Object}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Object}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+Object~6}\label{c_j_s_o_n_8h_a22c6e13481c090629afbd77b7cebd24c}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 38 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a548f0c2ae589c8ea4a1bab43d198854e}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Set\+Int\+Value@{c\+J\+S\+O\+N\+\_\+\+Set\+Int\+Value}}
+\index{c\+J\+S\+O\+N\+\_\+\+Set\+Int\+Value@{c\+J\+S\+O\+N\+\_\+\+Set\+Int\+Value}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Set\+Int\+Value}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+Set\+Int\+Value(
+\begin{DoxyParamCaption}
+\item[{}]{object, }
+\item[{}]{val}
+\end{DoxyParamCaption}
+)~((object)?(object)-\/$>$valueint=(object)-\/$>$valuedouble=(val)\+:(val))}\label{c_j_s_o_n_8h_a548f0c2ae589c8ea4a1bab43d198854e}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 142 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a3e23a54bc9aa6860fe74b6e882df5ef2}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Set\+Number\+Value@{c\+J\+S\+O\+N\+\_\+\+Set\+Number\+Value}}
+\index{c\+J\+S\+O\+N\+\_\+\+Set\+Number\+Value@{c\+J\+S\+O\+N\+\_\+\+Set\+Number\+Value}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Set\+Number\+Value}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+Set\+Number\+Value(
+\begin{DoxyParamCaption}
+\item[{}]{object, }
+\item[{}]{val}
+\end{DoxyParamCaption}
+)~((object)?(object)-\/$>$valueint=(object)-\/$>$valuedouble=(val)\+:(val))}\label{c_j_s_o_n_8h_a3e23a54bc9aa6860fe74b6e882df5ef2}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 143 行定义.
+
+\hypertarget{c_j_s_o_n_8h_aa2cb4765308e2bbdf01988b2acdf92d9}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+String@{c\+J\+S\+O\+N\+\_\+\+String}}
+\index{c\+J\+S\+O\+N\+\_\+\+String@{c\+J\+S\+O\+N\+\_\+\+String}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+String}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+String~4}\label{c_j_s_o_n_8h_aa2cb4765308e2bbdf01988b2acdf92d9}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 36 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a491c3484a36f3915cc4710088f55971f}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+String\+Is\+Const@{c\+J\+S\+O\+N\+\_\+\+String\+Is\+Const}}
+\index{c\+J\+S\+O\+N\+\_\+\+String\+Is\+Const@{c\+J\+S\+O\+N\+\_\+\+String\+Is\+Const}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+String\+Is\+Const}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+String\+Is\+Const~512}\label{c_j_s_o_n_8h_a491c3484a36f3915cc4710088f55971f}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 41 行定义.
+
+\hypertarget{c_j_s_o_n_8h_aad4e442b8095939decddfb67d87d9324}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+True@{c\+J\+S\+O\+N\+\_\+\+True}}
+\index{c\+J\+S\+O\+N\+\_\+\+True@{c\+J\+S\+O\+N\+\_\+\+True}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+True}]{\setlength{\rightskip}{0pt plus 5cm}\#define c\+J\+S\+O\+N\+\_\+\+True~1}\label{c_j_s_o_n_8h_aad4e442b8095939decddfb67d87d9324}
+
+
+在文件 c\+J\+S\+O\+N.\+h 第 33 行定义.
+
+
+
+\subsection{类型定义说明}
+\hypertarget{c_j_s_o_n_8h_a417c667b0692c463cf3c6c435f1d5978}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N@{c\+J\+S\+O\+N}}
+\index{c\+J\+S\+O\+N@{c\+J\+S\+O\+N}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf c\+J\+S\+O\+N}  {\bf c\+J\+S\+O\+N}}\label{c_j_s_o_n_8h_a417c667b0692c463cf3c6c435f1d5978}
+\hypertarget{c_j_s_o_n_8h_a4c24043be07442b38adc0ef79fcfb3f8}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Hooks@{c\+J\+S\+O\+N\+\_\+\+Hooks}}
+\index{c\+J\+S\+O\+N\+\_\+\+Hooks@{c\+J\+S\+O\+N\+\_\+\+Hooks}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Hooks}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf c\+J\+S\+O\+N\+\_\+\+Hooks}  {\bf c\+J\+S\+O\+N\+\_\+\+Hooks}}\label{c_j_s_o_n_8h_a4c24043be07442b38adc0ef79fcfb3f8}
+
+
+\subsection{函数说明}
+\hypertarget{c_j_s_o_n_8h_a076941e875d547f20959c66de97beee5}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Array@{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Array}}
+\index{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Array@{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Array}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Array(c\+J\+S\+O\+N $\ast$array, c\+J\+S\+O\+N $\ast$item)}]{\setlength{\rightskip}{0pt plus 5cm}void c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Array (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{array, }
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{item}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a076941e875d547f20959c66de97beee5}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 674 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a001634f84d255810784155f4c8e4e288}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Object}}
+\index{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Object}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Object(c\+J\+S\+O\+N $\ast$object, const char $\ast$string, c\+J\+S\+O\+N $\ast$item)}]{\setlength{\rightskip}{0pt plus 5cm}void c\+J\+S\+O\+N\+\_\+\+Add\+Item\+Reference\+To\+Object (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{object, }
+\item[{const char $\ast$}]{string, }
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{item}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a001634f84d255810784155f4c8e4e288}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 675 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a164dcefd36af8654942116c444bd0b6a}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Array@{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Array}}
+\index{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Array@{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Array}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Array(c\+J\+S\+O\+N $\ast$array, c\+J\+S\+O\+N $\ast$item)}]{\setlength{\rightskip}{0pt plus 5cm}void c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Array (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{array, }
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{item}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a164dcefd36af8654942116c444bd0b6a}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 671 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a096004811663311569e95aa77518959c}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}}
+\index{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object@{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object(c\+J\+S\+O\+N $\ast$object, const char $\ast$string, c\+J\+S\+O\+N $\ast$item)}]{\setlength{\rightskip}{0pt plus 5cm}void c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{object, }
+\item[{const char $\ast$}]{string, }
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{item}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a096004811663311569e95aa77518959c}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 672 行定义.
+
+\hypertarget{c_j_s_o_n_8h_af5153e89d76785c5b2ebdd0d8e8f258e}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object\+C\+S@{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object\+C\+S}}
+\index{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object\+C\+S@{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object\+C\+S}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object\+C\+S(c\+J\+S\+O\+N $\ast$object, const char $\ast$string, c\+J\+S\+O\+N $\ast$item)}]{\setlength{\rightskip}{0pt plus 5cm}void c\+J\+S\+O\+N\+\_\+\+Add\+Item\+To\+Object\+C\+S (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{object, }
+\item[{const char $\ast$}]{string, }
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{item}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_af5153e89d76785c5b2ebdd0d8e8f258e}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 673 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a29e5808c66c1cf1f3edbf117babe07b3}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Create\+Array@{c\+J\+S\+O\+N\+\_\+\+Create\+Array}}
+\index{c\+J\+S\+O\+N\+\_\+\+Create\+Array@{c\+J\+S\+O\+N\+\_\+\+Create\+Array}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Create\+Array(void)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Create\+Array (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a29e5808c66c1cf1f3edbf117babe07b3}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 698 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a06b0c43427994498d770e65b0089f8a8}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Create\+Bool@{c\+J\+S\+O\+N\+\_\+\+Create\+Bool}}
+\index{c\+J\+S\+O\+N\+\_\+\+Create\+Bool@{c\+J\+S\+O\+N\+\_\+\+Create\+Bool}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Create\+Bool(int b)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Create\+Bool (
+\begin{DoxyParamCaption}
+\item[{int}]{b}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a06b0c43427994498d770e65b0089f8a8}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 695 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a04cb41ee475a68bd2ee63e92d8534049}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Create\+Double\+Array@{c\+J\+S\+O\+N\+\_\+\+Create\+Double\+Array}}
+\index{c\+J\+S\+O\+N\+\_\+\+Create\+Double\+Array@{c\+J\+S\+O\+N\+\_\+\+Create\+Double\+Array}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Create\+Double\+Array(const double $\ast$numbers, int count)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Create\+Double\+Array (
+\begin{DoxyParamCaption}
+\item[{const double $\ast$}]{numbers, }
+\item[{int}]{count}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a04cb41ee475a68bd2ee63e92d8534049}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 704 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a33dcdd4d4f5da12bc91372376908c42b}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Create\+False@{c\+J\+S\+O\+N\+\_\+\+Create\+False}}
+\index{c\+J\+S\+O\+N\+\_\+\+Create\+False@{c\+J\+S\+O\+N\+\_\+\+Create\+False}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Create\+False(void)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Create\+False (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a33dcdd4d4f5da12bc91372376908c42b}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 694 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a328fe12c04efcf2073b218bbf35ac6ec}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Create\+Float\+Array@{c\+J\+S\+O\+N\+\_\+\+Create\+Float\+Array}}
+\index{c\+J\+S\+O\+N\+\_\+\+Create\+Float\+Array@{c\+J\+S\+O\+N\+\_\+\+Create\+Float\+Array}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Create\+Float\+Array(const float $\ast$numbers, int count)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Create\+Float\+Array (
+\begin{DoxyParamCaption}
+\item[{const float $\ast$}]{numbers, }
+\item[{int}]{count}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a328fe12c04efcf2073b218bbf35ac6ec}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 703 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a12576edcea9baca64be6fe7a6ae8d4fa}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Create\+Int\+Array@{c\+J\+S\+O\+N\+\_\+\+Create\+Int\+Array}}
+\index{c\+J\+S\+O\+N\+\_\+\+Create\+Int\+Array@{c\+J\+S\+O\+N\+\_\+\+Create\+Int\+Array}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Create\+Int\+Array(const int $\ast$numbers, int count)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Create\+Int\+Array (
+\begin{DoxyParamCaption}
+\item[{const int $\ast$}]{numbers, }
+\item[{int}]{count}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a12576edcea9baca64be6fe7a6ae8d4fa}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 702 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a83ea2a0b33071a1120b9052170a2bc13}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Create\+Null@{c\+J\+S\+O\+N\+\_\+\+Create\+Null}}
+\index{c\+J\+S\+O\+N\+\_\+\+Create\+Null@{c\+J\+S\+O\+N\+\_\+\+Create\+Null}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Create\+Null(void)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Create\+Null (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a83ea2a0b33071a1120b9052170a2bc13}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 692 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a220d076d7d3a309049d6889be6d4904a}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Create\+Number@{c\+J\+S\+O\+N\+\_\+\+Create\+Number}}
+\index{c\+J\+S\+O\+N\+\_\+\+Create\+Number@{c\+J\+S\+O\+N\+\_\+\+Create\+Number}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Create\+Number(double num)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Create\+Number (
+\begin{DoxyParamCaption}
+\item[{double}]{num}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a220d076d7d3a309049d6889be6d4904a}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 696 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a9c5f44afdd781b16dead90042fe74085}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Create\+Object@{c\+J\+S\+O\+N\+\_\+\+Create\+Object}}
+\index{c\+J\+S\+O\+N\+\_\+\+Create\+Object@{c\+J\+S\+O\+N\+\_\+\+Create\+Object}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Create\+Object(void)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Create\+Object (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a9c5f44afdd781b16dead90042fe74085}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 699 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a5987bbc1c94d9f602d719a4015ff0e6c}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Create\+String@{c\+J\+S\+O\+N\+\_\+\+Create\+String}}
+\index{c\+J\+S\+O\+N\+\_\+\+Create\+String@{c\+J\+S\+O\+N\+\_\+\+Create\+String}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Create\+String(const char $\ast$string)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Create\+String (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{string}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a5987bbc1c94d9f602d719a4015ff0e6c}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 697 行定义.
+
+\hypertarget{c_j_s_o_n_8h_abeecb344ac9a0318cd42ac32b6e22289}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Create\+String\+Array@{c\+J\+S\+O\+N\+\_\+\+Create\+String\+Array}}
+\index{c\+J\+S\+O\+N\+\_\+\+Create\+String\+Array@{c\+J\+S\+O\+N\+\_\+\+Create\+String\+Array}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Create\+String\+Array(const char $\ast$$\ast$strings, int count)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Create\+String\+Array (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$$\ast$}]{strings, }
+\item[{int}]{count}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_abeecb344ac9a0318cd42ac32b6e22289}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 705 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a07b3d4616c5a682aa558180713ce858a}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Create\+True@{c\+J\+S\+O\+N\+\_\+\+Create\+True}}
+\index{c\+J\+S\+O\+N\+\_\+\+Create\+True@{c\+J\+S\+O\+N\+\_\+\+Create\+True}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Create\+True(void)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Create\+True (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a07b3d4616c5a682aa558180713ce858a}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 693 行定义.
+
+\hypertarget{c_j_s_o_n_8h_ab18060251de70a2b55a18dec694f8f8a}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Delete@{c\+J\+S\+O\+N\+\_\+\+Delete}}
+\index{c\+J\+S\+O\+N\+\_\+\+Delete@{c\+J\+S\+O\+N\+\_\+\+Delete}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Delete(c\+J\+S\+O\+N $\ast$c)}]{\setlength{\rightskip}{0pt plus 5cm}void c\+J\+S\+O\+N\+\_\+\+Delete (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{c}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_ab18060251de70a2b55a18dec694f8f8a}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 81 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a2b08ee3d172cb94e9abea1e4031a366f}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Array@{c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Array}}
+\index{c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Array@{c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Array}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Array(c\+J\+S\+O\+N $\ast$array, int which)}]{\setlength{\rightskip}{0pt plus 5cm}void c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Array (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{array, }
+\item[{int}]{which}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a2b08ee3d172cb94e9abea1e4031a366f}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 679 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a148a56617a2a97921d9b9dfbe5dc85bf}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Object@{c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Object}}
+\index{c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Object@{c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Object}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Object(c\+J\+S\+O\+N $\ast$object, const char $\ast$string)}]{\setlength{\rightskip}{0pt plus 5cm}void c\+J\+S\+O\+N\+\_\+\+Delete\+Item\+From\+Object (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{object, }
+\item[{const char $\ast$}]{string}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a148a56617a2a97921d9b9dfbe5dc85bf}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 681 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a68b9e0b2d984f1d873fb571425a98b9b}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Array@{c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Array}}
+\index{c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Array@{c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Array}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Array(c\+J\+S\+O\+N $\ast$array, int which)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Array (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{array, }
+\item[{int}]{which}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a68b9e0b2d984f1d873fb571425a98b9b}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 677 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a7010822d267256f274e0adf22be2b202}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Object@{c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Object}}
+\index{c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Object@{c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Object}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Object(c\+J\+S\+O\+N $\ast$object, const char $\ast$string)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Detach\+Item\+From\+Object (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{object, }
+\item[{const char $\ast$}]{string}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a7010822d267256f274e0adf22be2b202}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 680 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a9acb1410be711f33d7c6d39f916b2d35}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Duplicate@{c\+J\+S\+O\+N\+\_\+\+Duplicate}}
+\index{c\+J\+S\+O\+N\+\_\+\+Duplicate@{c\+J\+S\+O\+N\+\_\+\+Duplicate}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Duplicate(c\+J\+S\+O\+N $\ast$item, int recurse)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Duplicate (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{item, }
+\item[{int}]{recurse}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a9acb1410be711f33d7c6d39f916b2d35}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 708 行定义.
+
+\hypertarget{c_j_s_o_n_8h_ac48335f22f743aff913991d809e0d620}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Item@{c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Item}}
+\index{c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Item@{c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Item}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Item(c\+J\+S\+O\+N $\ast$array, int item)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Item (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{array, }
+\item[{int}]{item}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_ac48335f22f743aff913991d809e0d620}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 662 行定义.
+
+\hypertarget{c_j_s_o_n_8h_adb5c049d3211599c90cd5a3d5e68d854}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Size@{c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Size}}
+\index{c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Size@{c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Size}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Size(c\+J\+S\+O\+N $\ast$array)}]{\setlength{\rightskip}{0pt plus 5cm}int c\+J\+S\+O\+N\+\_\+\+Get\+Array\+Size (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{array}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_adb5c049d3211599c90cd5a3d5e68d854}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 661 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a5e81ffc372644963c759103865b0cad1}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Get\+Error\+Ptr@{c\+J\+S\+O\+N\+\_\+\+Get\+Error\+Ptr}}
+\index{c\+J\+S\+O\+N\+\_\+\+Get\+Error\+Ptr@{c\+J\+S\+O\+N\+\_\+\+Get\+Error\+Ptr}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Get\+Error\+Ptr(void)}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ c\+J\+S\+O\+N\+\_\+\+Get\+Error\+Ptr (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a5e81ffc372644963c759103865b0cad1}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 37 行定义.
+
+\hypertarget{c_j_s_o_n_8h_aba766c9d2c20996e323522cbf2ba46c6}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Get\+Object\+Item@{c\+J\+S\+O\+N\+\_\+\+Get\+Object\+Item}}
+\index{c\+J\+S\+O\+N\+\_\+\+Get\+Object\+Item@{c\+J\+S\+O\+N\+\_\+\+Get\+Object\+Item}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Get\+Object\+Item(c\+J\+S\+O\+N $\ast$object, const char $\ast$string)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Get\+Object\+Item (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{object, }
+\item[{const char $\ast$}]{string}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_aba766c9d2c20996e323522cbf2ba46c6}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 663 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a20837ed285a3c2abf578330f2bd97ad4}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Init\+Hooks@{c\+J\+S\+O\+N\+\_\+\+Init\+Hooks}}
+\index{c\+J\+S\+O\+N\+\_\+\+Init\+Hooks@{c\+J\+S\+O\+N\+\_\+\+Init\+Hooks}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Init\+Hooks(c\+J\+S\+O\+N\+\_\+\+Hooks $\ast$hooks)}]{\setlength{\rightskip}{0pt plus 5cm}void c\+J\+S\+O\+N\+\_\+\+Init\+Hooks (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N\+\_\+\+Hooks} $\ast$}]{hooks}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a20837ed285a3c2abf578330f2bd97ad4}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 60 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a26521dbb099b8247457808972930547b}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Insert\+Item\+In\+Array@{c\+J\+S\+O\+N\+\_\+\+Insert\+Item\+In\+Array}}
+\index{c\+J\+S\+O\+N\+\_\+\+Insert\+Item\+In\+Array@{c\+J\+S\+O\+N\+\_\+\+Insert\+Item\+In\+Array}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Insert\+Item\+In\+Array(c\+J\+S\+O\+N $\ast$array, int which, c\+J\+S\+O\+N $\ast$newitem)}]{\setlength{\rightskip}{0pt plus 5cm}void c\+J\+S\+O\+N\+\_\+\+Insert\+Item\+In\+Array (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{array, }
+\item[{int}]{which, }
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{newitem}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a26521dbb099b8247457808972930547b}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 684 行定义.
+
+\hypertarget{c_j_s_o_n_8h_afd416be779f90b6369a189437d3bcc05}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Minify@{c\+J\+S\+O\+N\+\_\+\+Minify}}
+\index{c\+J\+S\+O\+N\+\_\+\+Minify@{c\+J\+S\+O\+N\+\_\+\+Minify}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Minify(char $\ast$json)}]{\setlength{\rightskip}{0pt plus 5cm}void c\+J\+S\+O\+N\+\_\+\+Minify (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{json}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_afd416be779f90b6369a189437d3bcc05}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 735 行定义.
+
+\hypertarget{c_j_s_o_n_8h_ad3df5f943457d4befebe4109d48e4a50}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Parse@{c\+J\+S\+O\+N\+\_\+\+Parse}}
+\index{c\+J\+S\+O\+N\+\_\+\+Parse@{c\+J\+S\+O\+N\+\_\+\+Parse}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Parse(const char $\ast$value)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Parse (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{value}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_ad3df5f943457d4befebe4109d48e4a50}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 339 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a9c63df4d9350bee4bd1726f8f23ad536}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Parse\+With\+Opts@{c\+J\+S\+O\+N\+\_\+\+Parse\+With\+Opts}}
+\index{c\+J\+S\+O\+N\+\_\+\+Parse\+With\+Opts@{c\+J\+S\+O\+N\+\_\+\+Parse\+With\+Opts}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Parse\+With\+Opts(const char $\ast$value, const char $\ast$$\ast$return\+\_\+parse\+\_\+end, int require\+\_\+null\+\_\+terminated)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\+J\+S\+O\+N}$\ast$ c\+J\+S\+O\+N\+\_\+\+Parse\+With\+Opts (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{value, }
+\item[{const char $\ast$$\ast$}]{return\+\_\+parse\+\_\+end, }
+\item[{int}]{require\+\_\+null\+\_\+terminated}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a9c63df4d9350bee4bd1726f8f23ad536}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 323 行定义.
+
+\hypertarget{c_j_s_o_n_8h_aea4f15b04dba4dff2edc2bb1d387b555}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Print@{c\+J\+S\+O\+N\+\_\+\+Print}}
+\index{c\+J\+S\+O\+N\+\_\+\+Print@{c\+J\+S\+O\+N\+\_\+\+Print}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Print(c\+J\+S\+O\+N $\ast$item)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ c\+J\+S\+O\+N\+\_\+\+Print (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{item}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_aea4f15b04dba4dff2edc2bb1d387b555}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 342 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a4354cf61f1d9b71688c34ab626b726ce}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Print\+Buffered@{c\+J\+S\+O\+N\+\_\+\+Print\+Buffered}}
+\index{c\+J\+S\+O\+N\+\_\+\+Print\+Buffered@{c\+J\+S\+O\+N\+\_\+\+Print\+Buffered}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Print\+Buffered(c\+J\+S\+O\+N $\ast$item, int prebuffer, int fmt)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ c\+J\+S\+O\+N\+\_\+\+Print\+Buffered (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{item, }
+\item[{int}]{prebuffer, }
+\item[{int}]{fmt}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a4354cf61f1d9b71688c34ab626b726ce}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 345 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a5539c9504a8e65390a94852707f105d4}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Print\+Unformatted@{c\+J\+S\+O\+N\+\_\+\+Print\+Unformatted}}
+\index{c\+J\+S\+O\+N\+\_\+\+Print\+Unformatted@{c\+J\+S\+O\+N\+\_\+\+Print\+Unformatted}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Print\+Unformatted(c\+J\+S\+O\+N $\ast$item)}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ c\+J\+S\+O\+N\+\_\+\+Print\+Unformatted (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{item}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a5539c9504a8e65390a94852707f105d4}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 343 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a567d357a7a0c3c0c9c896d98aae3dcec}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Array@{c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Array}}
+\index{c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Array@{c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Array}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Array(c\+J\+S\+O\+N $\ast$array, int which, c\+J\+S\+O\+N $\ast$newitem)}]{\setlength{\rightskip}{0pt plus 5cm}void c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Array (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{array, }
+\item[{int}]{which, }
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{newitem}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a567d357a7a0c3c0c9c896d98aae3dcec}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 686 行定义.
+
+\hypertarget{c_j_s_o_n_8h_a31202ffebc9e4f86c3db12f9793b6800}{}\index{c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}!c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Object@{c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Object}}
+\index{c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Object@{c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Object}!c\+J\+S\+O\+N.\+h@{c\+J\+S\+O\+N.\+h}}
+\subsubsection[{c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Object(c\+J\+S\+O\+N $\ast$object, const char $\ast$string, c\+J\+S\+O\+N $\ast$newitem)}]{\setlength{\rightskip}{0pt plus 5cm}void c\+J\+S\+O\+N\+\_\+\+Replace\+Item\+In\+Object (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{object, }
+\item[{const char $\ast$}]{string, }
+\item[{{\bf c\+J\+S\+O\+N} $\ast$}]{newitem}
+\end{DoxyParamCaption}
+)}\label{c_j_s_o_n_8h_a31202ffebc9e4f86c3db12f9793b6800}
+
+
+在文件 c\+J\+S\+O\+N.\+cc 第 689 行定义.
+

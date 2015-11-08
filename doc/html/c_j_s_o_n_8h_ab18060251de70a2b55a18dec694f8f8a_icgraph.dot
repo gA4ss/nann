@@ -1,0 +1,35 @@
+digraph "cJSON_Delete"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="cJSON_Delete",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="cJSON_ParseWithOpts",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$c_j_s_o_n_8h.html#a9c63df4d9350bee4bd1726f8f23ad536"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="cJSON_Parse",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$c_j_s_o_n_8h.html#ad3df5f943457d4befebe4109d48e4a50"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="cJSON_DeleteItemFromArray",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$c_j_s_o_n_8h.html#a2b08ee3d172cb94e9abea1e4031a366f"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="cJSON_DeleteItemFromObject",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$c_j_s_o_n_8h.html#a148a56617a2a97921d9b9dfbe5dc85bf"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="cJSON_ReplaceItemInArray",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$c_j_s_o_n_8h.html#a567d357a7a0c3c0c9c896d98aae3dcec"];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="cJSON_ReplaceItemInObject",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$c_j_s_o_n_8h.html#a31202ffebc9e4f86c3db12f9793b6800"];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="cJSON_Duplicate",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$c_j_s_o_n_8h.html#a9acb1410be711f33d7c6d39f916b2d35"];
+  Node8 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="ann_alg_logistic_setup",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$nanai__ann__alg__logistic_8cc.html#ad91d250f591564487951f4bcf9ced372"];
+  Node9 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="nanai::nanai_ann_nannmgr\l::get_def_algs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nannmgr.html#a2041f91a11e801557c4e2a310fae4355"];
+  Node10 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="nanai::nanai_ann_nannmgr\l::get_algs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nannmgr.html#af20462056d6628462b18b865197083a5"];
+  Node11 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="nanai::nanai_ann_nannmgr\l::configure",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nannmgr.html#a4097cd6c0d8c9fbd38df08d4474162d7"];
+  Node12 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="nanai::nanai_ann_nannmgr\l::init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nannmgr.html#ae4bd257f8c13617deb792e90f72574ea"];
+  Node13 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="nanai::nanai_ann_nannmgr\l::nanai_ann_nannmgr",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nannmgr.html#ac0ab089eae09f4d317218fcad3cfe804"];
+}

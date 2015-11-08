@@ -1,13 +1,15 @@
 #include <cstdio>
 #include <iostream>
+#include <fstream>
 #include <map>
 #include <pthread.h>
 #include <stdexcept>
 #include <iomanip>
 #include <Python/Python.h>
+#include <nanai_common.h>
 #include <nanai_ann_nannmgr.h>
-
-#include "cJSON.h"
+#include <nanai_object.h>
+#include <nanai_ann_nnn.h>
 
 using namespace nanai;
 
@@ -72,22 +74,6 @@ PyObject *do_except(int code, const char *str) {
   return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
 }
 
-static cJSON *parse_conf(char *text) {
-  cJSON *json=cJSON_Parse(text);
-  if (!json) {
-    //printf("Error before: [%s]\n",cJSON_GetErrorPtr());
-    return nullptr;
-  }
-  
-  //if (json) {
-  //  char *out=cJSON_Print(json);
-  //  printf("%s\n",out);
-  //  free(out);
-  //}
-  
-  return json;
-}
-
 static void lock() {
   if (pthread_mutex_lock(&g_lock) != 0) {
     PyErr_SetString(PyExc_RuntimeWarning, "pthread_mutex_lock failed");
@@ -105,222 +91,40 @@ static PyObject *wrap_test(PyObject *self, PyObject *args) {
   Py_RETURN_NONE;
 }
 
-static int parse_create_json_read_matrix(cJSON *json,
-                                         nanmath::nanmath_matrix &matrix) {
-  int nrow = 0, ncol = 0, nprev = 0;
-  cJSON *row = json, *col = nullptr;
-  std::vector<double> row_v;
-  matrix.clear();
-  
-  while (row) {
-    col = row->child;
-    if (col == nullptr) {
-      return PYNANN_ERROR_PARSE_JSON;
-    }
-    
-    ncol = 0;
-    row_v.clear();
-    while (col) {
-      if (col->valuedouble == 0.0) row_v.push_back((double)col->valueint);
-      else row_v.push_back(col->valuedouble);
-      ncol++;
-      col = col->next;
-    }
-    
-    if (nprev) {
-      /* 每列必须一样的数量 */
-      if (nprev != ncol) {
-        matrix.clear();
-        return PYNANN_ERROR_PARSE_JSON;
-      }
-    }
-    nprev = ncol;
-    
-    /* 压入一行 */
-    matrix.push_row(row_v);
-    
-    nrow++;
-    row = row->next;
-  }
-  
-  return 0;
-}
-
-static int parse_create_json_matrixes(cJSON *json,
-                                      size_t &ninput,
-                                      size_t &nhidden,
-                                      size_t &noutput,
-                                      std::vector<nanmath::nanmath_matrix> &matrixes) {
-  ninput = 0;
-  nhidden = 0;
-  noutput = 0;
-  
-  cJSON *curr = json, *jmat = nullptr;
-  int i = 0, ret = 0;
-  nanmath::nanmath_matrix mat;
-  
-  while (curr) {
-    jmat = curr->child;
-    if (jmat == nullptr) { ret = PYNANN_ERROR_PARSE_JSON; goto _error; }
-    
-    if (i == 0) {
-      /* 输入层到隐藏层 */
-      ret = parse_create_json_read_matrix(jmat, mat);
-      if (ret) goto _error;
-      
-      ninput = mat.row_size();
-      
-    } else if (curr->next == nullptr) {
-      /* 隐藏层到输出层 */
-      
-      ret = parse_create_json_read_matrix(jmat, mat);
-      if (ret) goto _error;
-      
-      noutput = mat.col_size();
-      
-    } else {
-      /* 隐藏层之间 */
-      ret = parse_create_json_read_matrix(jmat, mat);
-      if (ret) goto _error;
-    }
-    
-    matrixes.push_back(mat);
-    i++;
-    curr = curr->next;
-  }
-  nhidden = i - 1;
-  
-  return 0;
-_error:
-  matrixes.clear();
-  return ret;
-}
-
-static int parse_create_json(cJSON *json,
-                             std::string &alg,
-                             nanai_ann_nanncalc::ann_t &ann,
-                             nanmath::nanmath_vector &target) {
-  int ret = PYNANN_ERROR_SUCCESS;
-  if (json == nullptr) {
-    return PYNANN_ERROR_INTERNAL;
-  }
-  cJSON *json_child = json->child;
-  if (json_child == nullptr) {
-    return PYNANN_ERROR_PARSE_JSON;
-  }
-  
-  /* 遍历根结点 */
-  bool handle_alg = false, handle_ann = false;
-  while (json_child) {
-    if (strcmp(json_child->string, "alg") == 0) {
-      alg = json_child->valuestring;
-      handle_alg = true;
-    } else if (strcmp(json_child->string, "ann") == 0) {
-      cJSON *json_next = json_child->child;
-      size_t wm_ninput = 0, dwm_ninput = 0,
-             wm_nhidden = 0, dwm_nhidden = 0,
-             wm_noutput = 0, dwm_noutput = 0;
-      
-      std::vector<int> wm_nneure, dwm_nneure;
-      while (json_next) {
-        if (strcmp(json_next->string, "weight matrixes") == 0) {
-          if ((ret = parse_create_json_matrixes(json_next->child,
-                                                wm_ninput,
-                                                wm_nhidden,
-                                                wm_noutput,
-                                                ann.weight_matrixes)) != PYNANN_ERROR_SUCCESS) {
-            goto _error;
-          }
-        } else if (strcmp(json_next->string, "delta weight matrixes") == 0) {
-          if ((ret = parse_create_json_matrixes(json_next->child,
-                                                dwm_ninput,
-                                                dwm_nhidden,
-                                                dwm_noutput,
-                                                ann.delta_weight_matrixes)) != PYNANN_ERROR_SUCCESS) {
-            goto _error;
-          }
-        }
-        json_next = json_next->next;
-      }/* end while */
-      handle_ann = true;
-      
-      if (ann.weight_matrixes.empty()) {
-        ret = PYNANN_ERROR_PARSE_JSON;
-        goto _error;
-      }
-      
-      /* 偏差权值矩阵不为空 */
-      if (ann.delta_weight_matrixes.empty() == false) {
-        if ((wm_ninput != dwm_ninput) ||
-            (wm_nhidden != dwm_nhidden) ||
-            (wm_noutput != dwm_noutput) ||
-            (ann.weight_matrixes.size() != ann.delta_weight_matrixes.size())) {
-          ret = PYNANN_ERROR_PARSE_JSON;
-          goto _error;
-        }
-      }/* end if */
-      
-      ann.ninput = wm_ninput;
-      ann.nhidden = wm_nhidden;
-      ann.noutput = wm_noutput;
-      
-    } else if (strcmp(json_child->string, "target") == 0) {
-      cJSON *json_next = json_child->child;
-      if (json_next == nullptr) { ret = PYNANN_ERROR_PARSE_JSON; goto _error; }
-      target.clear();
-      while (json_next) {
-        if (json_next->valuedouble) target.push(json_next->valuedouble);
-        else target.push((double)json_next->valueint);
-        json_next = json_next->next;
-      }
-    }
-    
-    json_child = json_child->next;
-  }/* end while */
-  
-  if ((handle_ann == false) || (handle_alg == false)) {
-    ret = PYNANN_ERROR_PARSE_JSON;
-    goto _error;
-  }
-  
-  if (json) cJSON_Delete(json);
-  return 0;
-_error:
-  alg.clear();
-  ann.clear();
-  target.clear();
-  return ret;
-}
-
-static PyObject *wrap_create(PyObject *self, PyObject *args) {
-  int max_calc = 0, now_calc = 0;
-  char *task = nullptr, *json = nullptr;
+static PyObject *create_nannmgr(const char *task,
+                                const char *json,
+                                int max_calc,
+                                int now_calc) {
   std::string alg;
   nanai_ann_nanncalc::ann_t ann;
   nanmath::nanmath_vector target;
-  int ret = PYNANN_ERROR_SUCCESS;
   
-  if (!PyArg_ParseTuple(args, "ssi|i", &task, &json, &max_calc, &now_calc)) {
-    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+  if (max_calc) {
+    if ((max_calc < now_calc) || (now_calc < 0)) {
+      return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+    }
   }
   
-  /* 解析json */
-  cJSON *cjson = parse_conf(json);
-  if (cjson == nullptr) {
+  /* 读取create.json */
+  try {
+    nanai_ann_nnn_read(json, alg, ann, &target);
+  } catch (nanai_error_logic_invalid_argument e) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+  } catch (nanai_error_logic_invalid_config e) {
     return do_except(PYNANN_ERROR_PARSE_JSON);
   }
   
-  if ((ret = parse_create_json(cjson, alg, ann, target))) {
-    return do_except(ret);
-  }
-  
-  if (max_calc < now_calc) {
-    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+  lock();
+  if (g_mgrlist.find(task) != g_mgrlist.end()) {
+    /* 任务已经存在 ...  */
+    unlock();
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT_TASK_EXIST);
   }
   
   nanai_ann_nannmgr *nannmgr = nullptr;
   try {
-    nannmgr = new nanai_ann_nannmgr(max_calc, now_calc);
+    if (max_calc == 0) nannmgr = new nanai_ann_nannmgr(alg, ann, &target);
+    else nannmgr = new nanai_ann_nannmgr(alg, ann, &target, max_calc, now_calc);
   } catch (std::exception e) {
     return do_except(PYNANN_ERROR_INTERNAL, e.what());
   }
@@ -335,16 +139,24 @@ static PyObject *wrap_create(PyObject *self, PyObject *args) {
   node.ann = ann;
   node.mgr = nannmgr;
   
-  lock();
-  if (g_mgrlist.find(task) != g_mgrlist.end()) {
-    /* 任务已经存在 ...  */
-    unlock();
-    return do_except(PYNANN_ERROR_INVALID_ARGUMENT_TASK_EXIST);
-  }
   g_mgrlist[task] = node;
   unlock();
   
   return Py_BuildValue("i", g_mgrlist.size()-1);
+}
+
+static PyObject *wrap_create(PyObject *self, PyObject *args) {
+  int max_calc = 0, now_calc = 0;
+  char *task = nullptr, *json = nullptr;
+  std::string alg;
+  nanai_ann_nanncalc::ann_t ann;
+  nanmath::nanmath_vector target;
+  
+  if (!PyArg_ParseTuple(args, "ssi|i", &task, &json, &max_calc, &now_calc)) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+  }
+  
+  return create_nannmgr(task, json, max_calc, now_calc);
 }
 
 static PyObject *wrap_destroy(PyObject *self, PyObject *args) {
@@ -355,7 +167,6 @@ static PyObject *wrap_destroy(PyObject *self, PyObject *args) {
     return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
   }
   task = task_arg;
-  
   
   lock();
   if (g_mgrlist.empty()) {
@@ -397,88 +208,11 @@ static PyObject *wrap_exptype(PyObject *self, PyObject *args) {
   Py_RETURN_NONE;
 }
 
-
-static int parse_samples(cJSON *json,
-                         std::vector<nanmath::nanmath_vector> &samples,
-                         nanmath::nanmath_vector *target) {
-  nanmath::nanmath_vector input;
-  int ncol = 0, nprev = 0;
-  int ret = PYNANN_ERROR_SUCCESS;
-  cJSON *curr = json->child;
-  if (curr == nullptr) {
-    ret = PYNANN_ERROR_PARSE_JSON;
-    goto _error;
-  }
-  
-  while (curr) {
-    if (strcmp(curr->string, "samples") == 0) {
-      cJSON *vec = curr->child;
-      if (vec == nullptr) {
-        ret = PYNANN_ERROR_PARSE_JSON;
-        goto _error;
-      }
-      
-      while (vec) {
-        cJSON *val = vec->child;
-        
-        ncol = 0;
-        input.clear();
-        while (val) {
-          if (val->valuedouble) input.push(val->valuedouble);
-          else input.push(val->valueint);
-          ncol++;
-          val = val->next;
-        }
-        
-        /* 每个输入的向量个数必须一样 */
-        if (nprev) {
-          if (nprev != ncol) {
-            ret = PYNANN_ERROR_PARSE_JSON;
-            goto _error;
-          }
-        }
-        nprev = ncol;
-        samples.push_back(input);
-        vec = vec->next;
-      }
-      
-    } else if (strcmp(curr->string, "target") == 0) {
-      
-      if (target == nullptr) {
-        continue;
-      }
-      
-      cJSON *vec = curr->child;
-      if (vec == nullptr) {
-        ret = PYNANN_ERROR_PARSE_JSON;
-        goto _error;
-      }
-      
-      /* 读入一条向量 */
-      while (vec) {
-        if (vec->valuedouble) target->push(vec->valuedouble);
-        else target->push(vec->valueint);
-        vec = vec->next;
-      }
-      
-    }
-    
-    curr = curr->next;
-  }
-  
-  return PYNANN_ERROR_SUCCESS;
-_error:
-  samples.clear();
-  if (target) target->clear();
-  return ret;
-}
-
 static PyObject *wrap_training(PyObject *self, PyObject *args) {
   char *task_arg = nullptr, *json = nullptr;
   std::string task;
-  nanmath::nanmath_vector target;
   std::vector<nanmath::nanmath_vector> samples;
-  int ret = PYNANN_ERROR_SUCCESS;
+  nanmath::nanmath_vector target;
   
   if (!PyArg_ParseTuple(args, "ss", &task_arg, &json)) {
     PyErr_SetString(PyExc_TypeError, "type error");
@@ -492,14 +226,12 @@ static PyObject *wrap_training(PyObject *self, PyObject *args) {
   }
   
   /* 解析json文件 */
-  cJSON *cjson = parse_conf(json);
-  if (cjson == nullptr) {
+  try {
+    nanai_support_input_json(json, samples, &target);
+  } catch (nanai_error_logic_invalid_argument e) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+  } catch (nanai_error_logic_invalid_config e) {
     return do_except(PYNANN_ERROR_PARSE_JSON);
-  }
-  
-  target.clear();
-  if ((ret = parse_samples(cjson, samples, &target))) {
-    return do_except(ret);
   }
   
   try {
@@ -518,7 +250,6 @@ static PyObject *wrap_training_notarget(PyObject *self, PyObject *args) {
   char *task_arg = nullptr, *json = nullptr;
   std::string task;
   std::vector<nanmath::nanmath_vector> samples;
-  int ret = PYNANN_ERROR_SUCCESS;
   
   if (!PyArg_ParseTuple(args, "ss", &task_arg, &json)) {
     return do_except(PYNANN_ERROR_SUCCESS);
@@ -531,13 +262,12 @@ static PyObject *wrap_training_notarget(PyObject *self, PyObject *args) {
   }
   
   /* 解析json文件 */
-  cJSON *cjson = parse_conf(json);
-  if (cjson == nullptr) {
+  try {
+    nanai_support_input_json(json, samples, nullptr);
+  } catch (nanai_error_logic_invalid_argument e) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+  } catch (nanai_error_logic_invalid_config e) {
     return do_except(PYNANN_ERROR_PARSE_JSON);
-  }
-  
-  if ((ret = parse_samples(cjson, samples, nullptr))) {
-    return do_except(ret);
   }
   
   try {
@@ -568,8 +298,11 @@ static PyObject *wrap_training_nooutput(PyObject *self, PyObject *args) {
   }
   
   /* 解析json文件 */
-  cJSON *cjson = parse_conf(json);
-  if (cjson == nullptr) {
+  try {
+    nanai_support_input_json(json, samples, nullptr);
+  } catch (nanai_error_logic_invalid_argument e) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+  } catch (nanai_error_logic_invalid_config e) {
     return do_except(PYNANN_ERROR_PARSE_JSON);
   }
   
@@ -585,28 +318,36 @@ static PyObject *wrap_training_nooutput(PyObject *self, PyObject *args) {
   return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
 }
 
-static PyObject *wrap_training2(PyObject *self, PyObject *args) {
-  std::cout << g_str_this_version_not_implemented << std::endl;
-  Py_RETURN_NONE;
-}
-
-static PyObject *wrap_training2_notarget(PyObject *self, PyObject *args) {
-  std::cout << g_str_this_version_not_implemented << std::endl;
-  Py_RETURN_NONE;
-}
-
-static PyObject *wrap_training2_nooutput(PyObject *self, PyObject *args) {
-  std::cout << g_str_this_version_not_implemented << std::endl;
-  Py_RETURN_NONE;
-}
-
 static PyObject *wrap_nnn_read(PyObject *self, PyObject *args) {
-  std::cout << g_str_this_version_not_implemented << std::endl;
-  Py_RETURN_NONE;
+  char *json_path = nullptr;
+  
+  if (!PyArg_ParseTuple(args, "s", &json_path)) {
+    return do_except(PYNANN_ERROR_SUCCESS);
+  }
+  
+  /* 取出任务名 */
+  std::string task = nanai_support_just_filename(json_path);
+  
+  std::fstream file;
+  file.open(json_path, std::ios::in);
+  if (file.is_open() == false) {
+    do_except(PYNANN_ERROR_INVALID_ARGUMENT, json_path);
+  }
+  
+  std::string json_context;
+  file >> json_context;
+  file.close();
+  
+  return create_nannmgr(task.c_str(), json_context.c_str(), 0, 0);
 }
 
 static PyObject *wrap_nnn_write(PyObject *self, PyObject *args) {
-  std::cout << g_str_this_version_not_implemented << std::endl;
+  char *json_path = nullptr;
+  
+  if (!PyArg_ParseTuple(args, "s", &json_path)) {
+    return do_except(PYNANN_ERROR_SUCCESS);
+  }
+  
   Py_RETURN_NONE;
 }
 
@@ -632,7 +373,7 @@ static PyObject *wrap_unload(PyObject *self, PyObject *args) {
   return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
 }
 
-static PyObject *wrap_print(PyObject *self, PyObject *args) {
+static PyObject *wrap_print_info(PyObject *self, PyObject *args) {
   char *task = nullptr;
   if (!PyArg_ParseTuple(args, "s", &task)) {
     return do_except(PYNANN_WARNING_INVALID_ARGUMENT);
@@ -705,27 +446,54 @@ static PyObject *wrap_merge(PyObject *self, PyObject *args) {
   return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
 }
 
+/**************************************************************************************************************/
+
+static PyObject *wrap_calc_create(PyObject *self, PyObject *args) {
+  Py_RETURN_NONE;
+}
+
+static PyObject *wrap_calc_destroy(PyObject *self, PyObject *args) {
+  Py_RETURN_NONE;
+}
+
+static PyObject *wrap_calc_training(PyObject *self, PyObject *args) {
+  Py_RETURN_NONE;
+}
+
+static PyObject *wrap_calc_training_notarget(PyObject *self, PyObject *args) {
+  Py_RETURN_NONE;
+}
+
+static PyObject *wrap_calc_training_nooutput(PyObject *self, PyObject *args) {
+  Py_RETURN_NONE;
+}
+
+/**************************************************************************************************************/
+
 static PyMethodDef nannMethods[] = {
   { "load", wrap_load, METH_NOARGS, "load nann." },
   { "unload", wrap_unload, METH_NOARGS, "unload nann." },
   { "test", wrap_test, METH_NOARGS, "test nann." },
   { "version", wrap_version, METH_NOARGS, "get nann version." },
-  { "create", wrap_create, METH_VARARGS, "nann init." },
-  { "destroy", wrap_destroy, METH_VARARGS, "nann close." },
+  { "create", wrap_create, METH_VARARGS, "create nann manager." },
+  { "destroy", wrap_destroy, METH_VARARGS, "nann manager close." },
   { "exptype", wrap_exptype, METH_VARARGS, "change handle except type." },
   { "training", wrap_training, METH_VARARGS, "train sample, adjust weight & output result." },
   { "training_notarget", wrap_training_notarget, METH_VARARGS, "train sample, not adjust weight & output result." },
   { "training_nooutput", wrap_training_nooutput, METH_VARARGS, "train sample, adjust weight & not output result." },
-  { "training2", wrap_training2, METH_VARARGS, "train sample, adjust weight & output result immediately, not call callback." },
-  { "training2_notarget", wrap_training2_notarget, METH_VARARGS,
-    "train sample, not adjust weight & output result immediately, not call callback." },
-  { "training2_nooutput", wrap_training2_nooutput, METH_VARARGS,
-    "train sample, adjust weight & not output result, not call callback." },
   { "nnn_read", wrap_nnn_read, METH_VARARGS, "read an ann from nnn file." },
   { "nnn_write", wrap_nnn_write, METH_VARARGS, "write an ann to nnn file." },
-  { "print", wrap_print, METH_NOARGS, "print ann from task." },
+  { "print_info", wrap_print_info, METH_VARARGS, "print ann from task." },
   { "iscalcing", wrap_iscalcing, METH_VARARGS, "some task is running." },
   { "merge", wrap_merge, METH_VARARGS, "merge task's all ann to one." },
+  { "calc_create", wrap_calc_create, METH_VARARGS, "create nann calc node." },
+  { "calc_destroy", wrap_calc_destroy, METH_VARARGS, "destroy nann calc node." },
+  { "calc_training", wrap_calc_training, METH_VARARGS,
+    "nann calc train sample, adjust weight & output result." },
+  { "calc_training_notarget", wrap_calc_training_notarget, METH_VARARGS,
+    "nann calc train sample, not adjust weight & output result." },
+  { "calc_training_nooutput", wrap_calc_training_nooutput, METH_VARARGS,
+    "nann calc train sample, adjust weight & not output result." },
   { NULL, NULL, 0, NULL }
 };
 

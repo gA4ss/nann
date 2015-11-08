@@ -51,6 +51,8 @@ lib/
 test/
 bak/
 bk*/
+doc/html/
+doc/latex/
 *.org
 *.0*
 *.out

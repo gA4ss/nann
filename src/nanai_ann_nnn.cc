@@ -1,172 +1,256 @@
-#include <string.h>
+#include <cstring>
+#include <string>
+#include <sstream>
 #include <stdexcept>
+#include <iomanip>
 #include <nanai_ann_nnn.h>
+
+#include "cJSON.h"
 
 namespace nanai {
   
-  static double *s_to_mat(size_t ninput,
-                          size_t nhidden,
-                          size_t noutput,
-                          std::vector<size_t> &nneural,
-                          std::vector<nanmath::nanmath_matrix> &mat,
-                          double *source) {
-    for (size_t i = 0; i < nhidden+1; i++) {
-      
-      size_t nl1 = 0, nl2 = 0;
-      
-      if (i == 0) {
-        nl1 = ninput;
-      } else {
-        nl1 = nneural[i];
+  static void parse_create_json_read_matrix(cJSON *json,
+                                            nanmath::nanmath_matrix &matrix) {
+    int nrow = 0, ncol = 0, nprev = 0;
+    cJSON *row = json, *col = nullptr;
+    std::vector<double> row_v;
+    matrix.clear();
+    
+    while (row) {
+      col = row->child;
+      if (col == nullptr) {
+        error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
       }
       
-      if (i == nhidden) {
-        nl2 = noutput;
-      } else {
-        nl2 = nneural[i+1];
+      ncol = 0;
+      row_v.clear();
+      while (col) {
+        if (col->valuedouble) row_v.push_back(col->valuedouble);
+        else row_v.push_back(static_cast<double>(col->valueint));
+        ncol++;
+        col = col->next;
       }
       
-      for (size_t n = 0; n < nl1; n++) {
-        for (size_t m = 0; m < nl2; m++) {
-          mat[i][n][m] = *source++;
+      if (nprev) {
+        /* 每列必须一样的数量 */
+        if (nprev != ncol) {
+          matrix.clear();
+          error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
         }
       }
+      nprev = ncol;
+      
+      /* 压入一行 */
+      matrix.push_row(row_v);
+      
+      nrow++;
+      row = row->next;
     }
-    
-    return source;
   }
   
-  static int s_to_nnn(size_t ninput,
-                      size_t nhidden,
-                      size_t noutput,
-                      const std::vector<size_t> &nneural,
-                      const std::vector<nanmath::nanmath_matrix> &mat,
-                      double *dest) {
-    double *s = dest;
-    for (size_t i = 0; i < nhidden; i++) {
-      
-      size_t nl1 = 0, nl2 = 0;
+  static void parse_create_json_matrixes(cJSON *json,
+                                         size_t &ninput,
+                                         size_t &nhidden,
+                                         size_t &noutput,
+                                         std::vector<nanmath::nanmath_matrix> &matrixes) {
+    ninput = 0;
+    nhidden = 0;
+    noutput = 0;
+    
+    cJSON *curr = json, *jmat = nullptr;
+    int i = 0;
+    nanmath::nanmath_matrix mat;
+    
+    while (curr) {
+      jmat = curr->child;
+      if (jmat == nullptr) { error(NANAI_ERROR_LOGIC_INVALID_CONFIG); }
       
       if (i == 0) {
-        nl1 = ninput;
+        /* 输入层到隐藏层 */
+        parse_create_json_read_matrix(jmat, mat);
+        ninput = mat.row_size();
+        
+      } else if (curr->next == nullptr) {
+        /* 隐藏层到输出层 */
+        
+        parse_create_json_read_matrix(jmat, mat);
+        noutput = mat.col_size();
+        
       } else {
-        nl1 = nneural[i];
+        /* 隐藏层之间 */
+        parse_create_json_read_matrix(jmat, mat);
       }
       
-      if (i == nhidden) {
-        nl2 = noutput;
-      } else {
-        nl2 = nneural[i+1];
-      }
-      
-      for (size_t n = 0; n < nl1; n++) {
-        for (size_t m = 0; m < nl2; m++) {
-          *dest++ = mat[i][n][m];
+      matrixes.push_back(mat);
+      i++;
+      curr = curr->next;
+    }
+    nhidden = i - 1;
+  }
+  
+  static void parse_create_json(cJSON *json,
+                                std::string &alg,
+                                nanai_ann_nanncalc::ann_t &ann,
+                                nanmath::nanmath_vector *target) {
+    if (json == nullptr) error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    cJSON *json_child = json->child;
+    if (json_child == nullptr) error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
+    
+    /* 遍历根结点 */
+    bool handle_alg = false, handle_ann = false;
+    while (json_child) {
+      if (strcmp(json_child->string, "alg") == 0) {
+        alg = json_child->valuestring;
+        handle_alg = true;
+      } else if (strcmp(json_child->string, "ann") == 0) {
+        cJSON *json_next = json_child->child;
+        size_t wm_ninput = 0, dwm_ninput = 0,
+        wm_nhidden = 0, dwm_nhidden = 0,
+        wm_noutput = 0, dwm_noutput = 0;
+        
+        std::vector<int> wm_nneure, dwm_nneure;
+        while (json_next) {
+          if (strcmp(json_next->string, "weight matrixes") == 0) {
+            parse_create_json_matrixes(json_next->child,
+                                       wm_ninput,
+                                       wm_nhidden,
+                                       wm_noutput,
+                                       ann.weight_matrixes);
+          } else if (strcmp(json_next->string, "delta weight matrixes") == 0) {
+            parse_create_json_matrixes(json_next->child,
+                                       dwm_ninput,
+                                       dwm_nhidden,
+                                       dwm_noutput,
+                                       ann.delta_weight_matrixes);
+          }
+          json_next = json_next->next;
+        }/* end while */
+        handle_ann = true;
+        
+        if (ann.weight_matrixes.empty()) error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
+        
+        /* 偏差权值矩阵不为空 */
+        if (ann.delta_weight_matrixes.empty() == false) {
+          if ((wm_ninput != dwm_ninput) ||
+              (wm_nhidden != dwm_nhidden) ||
+              (wm_noutput != dwm_noutput) ||
+              (ann.weight_matrixes.size() != ann.delta_weight_matrixes.size())) {
+            error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
+          }
+        }/* end if */
+        
+        ann.ninput = wm_ninput;
+        ann.nhidden = wm_nhidden;
+        ann.noutput = wm_noutput;
+        
+      } else if (strcmp(json_child->string, "target") == 0) {
+        
+        /* target是可选参数 */
+        if (target == nullptr) {
+          continue;
+        }
+        
+        cJSON *json_next = json_child->child;
+        if (json_next == nullptr) { error(NANAI_ERROR_LOGIC_INVALID_CONFIG); }
+        target->clear();
+        while (json_next) {
+          if (json_next->valuedouble) target->push(json_next->valuedouble);
+          else target->push(static_cast<double>(json_next->valueint));
+          json_next = json_next->next;
         }
       }
+      
+      json_child = json_child->next;
+    }/* end while */
+    
+    /* target是可选参数，所以不检查 */
+    if ((handle_ann == false) || (handle_alg == false)) {
+      error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
+    }
+  }
+    
+  void nanai_ann_nnn_read(const std::string &json_context,
+                          std::string &alg,
+                          nanai_ann_nanncalc::ann_t &ann,
+                          nanmath::nanmath_vector *target) {
+    cJSON *json = cJSON_Parse(json_context.c_str());
+    if (json) {
+      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
-    return (int)(dest - s);
+    parse_create_json(json, alg, ann, target);
+    if (json) cJSON_Delete(json);
   }
   
-  nanai_ann_nanncalc::ann_t nanai_ann_nnn_read(void *nnn) {
-    nanai_ann_nanncalc::ann_t ann;
-    nanai_ann_nnn *f = (nanai_ann_nnn*)nnn;
-    double *mat = (double*)((unsigned char*)nnn + sizeof(nanai_ann_nnn));
-    
-    if (f->magic != NNN_MAGIC_CODE) {
-      throw std::logic_error("not a invalid nnn format");
+  void nanai_ann_nnn_write(std::string &json_context,
+                           const std::string &alg,
+                           const nanai_ann_nanncalc::ann_t &ann,
+                           nanmath::nanmath_vector *target) {
+    if (alg.empty()) {
+      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
-    if (f->version != NNN_CURR_VERSION) {
-      throw std::logic_error("curr version not be match");
-    }
+    json_context.clear();
+    std::ostringstream oss;
+    oss << "{" << std::endl;
+    oss << "\t" << "\"alg\": " << "\"" << alg << "\"" << std::endl;
+    oss << "\t" << "\"ann\": {" << std::endl;
     
-    ann.ninput = f->ninput;
-    ann.nhidden = f->nhidden;
-    ann.noutput = f->noutput;
-    
-    for (int i = 0; i < ann.nneural.size(); i++) {
-      ann.nneural[i] = f->nneure[i];
-    }
-    
-    int exist_weight_deltas = f->exist_weight_deltas;
-    
-    mat = s_to_mat(ann.ninput, ann.nhidden, ann.noutput, ann.nneural, ann.weight_matrixes, mat);
-    
-    if (exist_weight_deltas) {
-      mat = s_to_mat(ann.ninput, ann.nhidden, ann.noutput, ann.nneural, ann.delta_weight_matrixes, mat);
-    }
-    
-    if (*(int*)mat != NNN_EOF) {
-      throw std::logic_error("nnn format is broken");
-    }
-    
-    return ann;
-  }
-  
-  int nanai_ann_nnn_write(const nanai_ann_nanncalc::ann_t &ann,
-                          const std::string &alg,
-                          const std::string &task,
-                          void *nnn,
-                          int len) {
-    nanai_ann_nnn f;
-    int ret = sizeof(nanai_ann_nnn), total = 0;
-    unsigned char* dest = (unsigned char*)nnn;
-    
-    if (alg.empty() == false) {
-      strcpy(f.algname, alg.c_str());
-    }
-    
-    if (task.empty() == false) {
-      strcpy(f.taskname, task.c_str());
-    }
-    
-    f.magic = NNN_MAGIC_CODE;
-    f.version = NNN_CURR_VERSION;
-    f.ninput = ann.ninput;
-    f.nhidden = ann.nhidden;
-    f.noutput = ann.noutput;
-    f.exist_weight_deltas = ann.delta_weight_matrixes.empty() ? 0 : 1;
-    
-    total = sizeof(nanai_ann_nnn);
-    for (size_t i = 0; i < ann.nhidden+1; i++) {
-      
-      size_t nl1 = 0, nl2 = 0;
-      
-      if (i == 0) {
-        nl1 = ann.ninput;
-      } else {
-        nl1 = ann.nneural[i];
+    oss << "\t\t" << "\"weight matrixes\": {" << std::endl;
+    for (size_t i = 0; i < ann.weight_matrixes.size(); i++) {
+      oss << "\t\t\t" << "\"" << i << "\": {" << std::endl;
+      for (size_t n = 0; n < ann.weight_matrixes[i].row_size(); n++) {
+        oss << "\t\t\t\t" << "\"r" << n << "\": [";
+        
+        /* 输出一行 */
+        for (size_t m = 0; m < ann.weight_matrixes[i].col_size(); m++) {
+          oss << std::setiosflags(std::ios::fixed) << std::setiosflags(std::ios::left)
+              << std::setprecision(2) << std::setw(4) << ann.weight_matrixes[i][n][m];
+          if (m < (ann.weight_matrixes[i].col_size()-1)) oss << ", ";
+        }
+        
+        if (n < (ann.weight_matrixes[i].row_size()-1)) oss << "]," << std::endl;
+        else oss << "]" << std::endl;
       }
       
-      if (i == ann.nhidden) {
-        nl2 = ann.noutput;
-      } else {
-        nl2 = ann.nneural[i+1];
+      if (i < (ann.weight_matrixes.size()-1)) oss << "\t\t\t}," << std::endl;
+      else oss << "\t\t\t}" << std::endl;
+    }
+    
+    oss << "\t\t" << "\"delta weight matrixes\": {" << std::endl;
+    for (size_t i = 0; i < ann.delta_weight_matrixes.size(); i++) {
+      oss << "\t\t\t" << "\"" << i << "\": {" << std::endl;
+      for (size_t n = 0; n < ann.delta_weight_matrixes[i].row_size(); n++) {
+        oss << "\t\t\t\t" << "\"r" << n << "\": [";
+        
+        /* 输出一行 */
+        for (size_t m = 0; m < ann.delta_weight_matrixes[i].col_size(); m++) {
+          oss << std::setiosflags(std::ios::fixed) << std::setiosflags(std::ios::left)
+          << std::setprecision(2) << std::setw(4) << ann.delta_weight_matrixes[i][n][m];
+          if (m < (ann.delta_weight_matrixes[i].col_size()-1)) oss << ", ";
+        }
+        
+        if (n < (ann.delta_weight_matrixes[i].row_size()-1)) oss << "]," << std::endl;
+        else oss << "]" << std::endl;
       }
       
-      total += (sizeof(double) * (nl1 * nl2));
-    }
-    total += sizeof(int);
-    
-    if (len < total) {
-      throw std::invalid_argument("nnn buffer size too small");
+      if (i < (ann.delta_weight_matrixes.size()-1)) oss << "\t\t\t}," << std::endl;
+      else oss << "\t\t\t}" << std::endl;
     }
     
-    memcpy(dest, &f, sizeof(nanai_ann_nnn));
-    dest += sizeof(nanai_ann_nnn);
-    
-    ret += nanai::s_to_nnn(ann.ninput, ann.nhidden, ann.noutput, ann.nneural, ann.weight_matrixes, (double*)dest);
-    dest += ret;
-    
-    if (f.exist_weight_deltas) {
-      ret += nanai::s_to_nnn(ann.ninput, ann.nhidden, ann.noutput, ann.nneural, ann.delta_weight_matrixes, (double*)dest);
-      dest += ret;
+    if (target) {
+      oss << "\t}," << std::endl;
+      oss << "\t" << "\"target\": [" << std::endl;
+      for (size_t i = 0; i < target->size(); i++) {
+        oss << std::setiosflags(std::ios::fixed) << std::setiosflags(std::ios::left)
+        << std::setprecision(2) << std::setw(4) << (*target)[i];
+      }
+      oss << "]" << std::endl;
+    } else {
+      oss << "\t}" << std::endl;
     }
     
-    *(int *)dest = NNN_EOF;
-    
-    return ret+sizeof(int);
+    oss << "}" << std::endl;
+    json_context = oss.str();
   }
 }

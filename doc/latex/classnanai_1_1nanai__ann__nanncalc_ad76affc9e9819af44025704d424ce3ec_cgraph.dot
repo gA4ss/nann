@@ -1,0 +1,23 @@
+digraph "nanai::nanai_ann_nanncalc::do_configure"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="nanai::nanai_ann_nanncalc\l::do_configure",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="nanai::nanai_ann_nanncalc\l::ann_create",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nanncalc.html#a05aa50ca275dade2e3ef735df4a5114d"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="nanai::nanai_ann_nanncalc\l::ann_destroy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nanncalc.html#a4fb9643a590238c96e8e387022626bd6"];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="nanmath::nanmath_vector\l::destroy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__vector.html#a901586a8e1f67af4c1b5c7e5e4126dc0"];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="nanmath::nanmath_vector\l::clear",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__vector.html#a011d39d80690df03197309b2f09105a7"];
+  Node3 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="nanai::nanai_ann_nanncalc\l::ann_t::clear",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html#acbeda89aa6636ea5e0e7d2ee711baaba"];
+  Node2 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="nanmath::nanmath_vector\l::create",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__vector.html#af9f7f3a965aee9befe0fff50746848ee"];
+  Node7 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="nanai::nanai_ann_nanncalc\l::ann_log",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nanncalc.html#a54ed62943cc681da143bb6a2e1782430"];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+}

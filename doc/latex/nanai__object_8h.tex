@@ -1,0 +1,214 @@
+\hypertarget{nanai__object_8h}{}\section{inc/nanai\+\_\+object.h 文件参考}
+\label{nanai__object_8h}\index{inc/nanai\+\_\+object.\+h@{inc/nanai\+\_\+object.\+h}}
+{\ttfamily \#include $<$stdexcept$>$}\\*
+\subsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__unknow__error}{nanai\+::nanai\+\_\+error\+\_\+unknow\+\_\+error}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__logic__invalid__argument}{nanai\+::nanai\+\_\+error\+\_\+logic\+\_\+invalid\+\_\+argument}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__logic__invalid__config}{nanai\+::nanai\+\_\+error\+\_\+logic\+\_\+invalid\+\_\+config}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__logic__alg__not__found}{nanai\+::nanai\+\_\+error\+\_\+logic\+\_\+alg\+\_\+not\+\_\+found}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__logic__task__not__matched}{nanai\+::nanai\+\_\+error\+\_\+logic\+\_\+task\+\_\+not\+\_\+matched}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__logic__home__dir__not__config}{nanai\+::nanai\+\_\+error\+\_\+logic\+\_\+home\+\_\+dir\+\_\+not\+\_\+config}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__runtime__create__thread}{nanai\+::nanai\+\_\+error\+\_\+runtime\+\_\+create\+\_\+thread}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__runtime__init__mutex}{nanai\+::nanai\+\_\+error\+\_\+runtime\+\_\+init\+\_\+mutex}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__runtime__destroy__mutex}{nanai\+::nanai\+\_\+error\+\_\+runtime\+\_\+destroy\+\_\+mutex}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__runtime__lock__mutex}{nanai\+::nanai\+\_\+error\+\_\+runtime\+\_\+lock\+\_\+mutex}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__runtime__unlock__mutex}{nanai\+::nanai\+\_\+error\+\_\+runtime\+\_\+unlock\+\_\+mutex}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__runtime__join__thread}{nanai\+::nanai\+\_\+error\+\_\+runtime\+\_\+join\+\_\+thread}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__runtime__open__file}{nanai\+::nanai\+\_\+error\+\_\+runtime\+\_\+open\+\_\+file}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__runtime__alloc__memory}{nanai\+::nanai\+\_\+error\+\_\+runtime\+\_\+alloc\+\_\+memory}
+\item 
+class \hyperlink{classnanai_1_1nanai__object}{nanai\+::nanai\+\_\+object}
+\end{DoxyCompactItemize}
+\subsection*{命名空间}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacenanai}{nanai}
+\end{DoxyCompactItemize}
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{nanai__object_8h_ad7597118202b58872a4a874eab3dc1a2}{\+\_\+\+N\+O\+E\+X\+C\+E\+P\+T}~noexcept
+\item 
+\#define \hyperlink{nanai__object_8h_a8e2caaba0af10ef05f00fbf422a9ec92}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+S\+S}~0
+\item 
+\#define \hyperlink{nanai__object_8h_a8202ed89f73ce63d8df81e3561af9b17}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+U\+N\+K\+N\+O\+W\+\_\+\+E\+R\+R\+O\+R}~0x80000000
+\item 
+\#define \hyperlink{nanai__object_8h_a5b02aefdcfe512c3e7e92fe4f2980b4a}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C}~0x80100000
+\item 
+\#define \hyperlink{nanai__object_8h_a489753e64a9934f89667dd6636fdfb6a}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T}~0x80100001
+\item 
+\#define \hyperlink{nanai__object_8h_ac10684c53f958b63a3b36c30b960a8fb}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+C\+O\+N\+F\+I\+G}~0x80100002
+\item 
+\#define \hyperlink{nanai__object_8h_a621d1127c7894b1c41493769a6f6171b}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D}~0x80110001
+\item 
+\#define \hyperlink{nanai__object_8h_a953c68fa6720aa52ceb9181722ecc0cc}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+M\+A\+T\+C\+H\+E\+D}~0x80110002
+\item 
+\#define \hyperlink{nanai__object_8h_a9055ffa2aa4cac170f0100fe5d4b5e5d}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+H\+O\+M\+E\+\_\+\+D\+I\+R\+\_\+\+N\+O\+T\+\_\+\+C\+O\+N\+F\+I\+G}~0x80110003
+\item 
+\#define \hyperlink{nanai__object_8h_a1fc342badd03153553d91cf29441e035}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E}~0x80200000
+\item 
+\#define \hyperlink{nanai__object_8h_aebf992058c8a5e3f5cbee060f942ec0c}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+T\+H\+R\+E\+A\+D}~0x80200001
+\item 
+\#define \hyperlink{nanai__object_8h_ac40c4049275d936d76429f6d7e24d830}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+I\+N\+I\+T\+\_\+\+M\+U\+T\+E\+X}~0x80200002
+\item 
+\#define \hyperlink{nanai__object_8h_add9fd2f8a6c84364fe59229b38bdf421}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+D\+E\+S\+T\+R\+O\+Y\+\_\+\+M\+U\+T\+E\+X}~0x80200003
+\item 
+\#define \hyperlink{nanai__object_8h_ad296ae25f83bafb00580187bf07e72a5}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X}~0x80200004
+\item 
+\#define \hyperlink{nanai__object_8h_ab005004b5cdb3fed72accf00dc544eda}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X}~0x80200005
+\item 
+\#define \hyperlink{nanai__object_8h_a475c0999859fea55d54ddb17de875a78}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+J\+O\+I\+N\+\_\+\+T\+H\+R\+E\+A\+D}~0x80200006
+\item 
+\#define \hyperlink{nanai__object_8h_a0dc464c147ecd321b99f357c3017921e}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E}~0x80200007
+\item 
+\#define \hyperlink{nanai__object_8h_aa9050e5adcee1d8d8ac1b1830f93b225}{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+A\+L\+L\+O\+C\+\_\+\+M\+E\+M\+O\+R\+Y}~0x8020000\+A
+\end{DoxyCompactItemize}
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespacenanai_a89261d96bcefbd9b2e87c85a4370f878}{nanai\+::error} (int err)
+\end{DoxyCompactItemize}
+
+
+\subsection{宏定义说明}
+\hypertarget{nanai__object_8h_ad7597118202b58872a4a874eab3dc1a2}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!\+\_\+\+N\+O\+E\+X\+C\+E\+P\+T@{\+\_\+\+N\+O\+E\+X\+C\+E\+P\+T}}
+\index{\+\_\+\+N\+O\+E\+X\+C\+E\+P\+T@{\+\_\+\+N\+O\+E\+X\+C\+E\+P\+T}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{\+\_\+\+N\+O\+E\+X\+C\+E\+P\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define \+\_\+\+N\+O\+E\+X\+C\+E\+P\+T~noexcept}\label{nanai__object_8h_ad7597118202b58872a4a874eab3dc1a2}
+
+
+在文件 nanai\+\_\+object.\+h 第 7 行定义.
+
+\hypertarget{nanai__object_8h_a5b02aefdcfe512c3e7e92fe4f2980b4a}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C~0x80100000}\label{nanai__object_8h_a5b02aefdcfe512c3e7e92fe4f2980b4a}
+
+
+在文件 nanai\+\_\+object.\+h 第 16 行定义.
+
+\hypertarget{nanai__object_8h_a621d1127c7894b1c41493769a6f6171b}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D~0x80110001}\label{nanai__object_8h_a621d1127c7894b1c41493769a6f6171b}
+
+
+在文件 nanai\+\_\+object.\+h 第 19 行定义.
+
+\hypertarget{nanai__object_8h_a9055ffa2aa4cac170f0100fe5d4b5e5d}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+H\+O\+M\+E\+\_\+\+D\+I\+R\+\_\+\+N\+O\+T\+\_\+\+C\+O\+N\+F\+I\+G@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+H\+O\+M\+E\+\_\+\+D\+I\+R\+\_\+\+N\+O\+T\+\_\+\+C\+O\+N\+F\+I\+G}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+H\+O\+M\+E\+\_\+\+D\+I\+R\+\_\+\+N\+O\+T\+\_\+\+C\+O\+N\+F\+I\+G@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+H\+O\+M\+E\+\_\+\+D\+I\+R\+\_\+\+N\+O\+T\+\_\+\+C\+O\+N\+F\+I\+G}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+H\+O\+M\+E\+\_\+\+D\+I\+R\+\_\+\+N\+O\+T\+\_\+\+C\+O\+N\+F\+I\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+H\+O\+M\+E\+\_\+\+D\+I\+R\+\_\+\+N\+O\+T\+\_\+\+C\+O\+N\+F\+I\+G~0x80110003}\label{nanai__object_8h_a9055ffa2aa4cac170f0100fe5d4b5e5d}
+
+
+在文件 nanai\+\_\+object.\+h 第 21 行定义.
+
+\hypertarget{nanai__object_8h_a489753e64a9934f89667dd6636fdfb6a}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T~0x80100001}\label{nanai__object_8h_a489753e64a9934f89667dd6636fdfb6a}
+
+
+在文件 nanai\+\_\+object.\+h 第 17 行定义.
+
+\hypertarget{nanai__object_8h_ac10684c53f958b63a3b36c30b960a8fb}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+C\+O\+N\+F\+I\+G@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+C\+O\+N\+F\+I\+G}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+C\+O\+N\+F\+I\+G@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+C\+O\+N\+F\+I\+G}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+C\+O\+N\+F\+I\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+C\+O\+N\+F\+I\+G~0x80100002}\label{nanai__object_8h_ac10684c53f958b63a3b36c30b960a8fb}
+
+
+在文件 nanai\+\_\+object.\+h 第 18 行定义.
+
+\hypertarget{nanai__object_8h_a953c68fa6720aa52ceb9181722ecc0cc}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+M\+A\+T\+C\+H\+E\+D@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+M\+A\+T\+C\+H\+E\+D}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+M\+A\+T\+C\+H\+E\+D@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+M\+A\+T\+C\+H\+E\+D}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+M\+A\+T\+C\+H\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+M\+A\+T\+C\+H\+E\+D~0x80110002}\label{nanai__object_8h_a953c68fa6720aa52ceb9181722ecc0cc}
+
+
+在文件 nanai\+\_\+object.\+h 第 20 行定义.
+
+\hypertarget{nanai__object_8h_a1fc342badd03153553d91cf29441e035}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E~0x80200000}\label{nanai__object_8h_a1fc342badd03153553d91cf29441e035}
+
+
+在文件 nanai\+\_\+object.\+h 第 23 行定义.
+
+\hypertarget{nanai__object_8h_aa9050e5adcee1d8d8ac1b1830f93b225}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+A\+L\+L\+O\+C\+\_\+\+M\+E\+M\+O\+R\+Y@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+A\+L\+L\+O\+C\+\_\+\+M\+E\+M\+O\+R\+Y}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+A\+L\+L\+O\+C\+\_\+\+M\+E\+M\+O\+R\+Y@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+A\+L\+L\+O\+C\+\_\+\+M\+E\+M\+O\+R\+Y}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+A\+L\+L\+O\+C\+\_\+\+M\+E\+M\+O\+R\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+A\+L\+L\+O\+C\+\_\+\+M\+E\+M\+O\+R\+Y~0x8020000\+A}\label{nanai__object_8h_aa9050e5adcee1d8d8ac1b1830f93b225}
+
+
+在文件 nanai\+\_\+object.\+h 第 31 行定义.
+
+\hypertarget{nanai__object_8h_aebf992058c8a5e3f5cbee060f942ec0c}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+T\+H\+R\+E\+A\+D@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+T\+H\+R\+E\+A\+D}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+T\+H\+R\+E\+A\+D@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+T\+H\+R\+E\+A\+D}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+T\+H\+R\+E\+A\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+T\+H\+R\+E\+A\+D~0x80200001}\label{nanai__object_8h_aebf992058c8a5e3f5cbee060f942ec0c}
+
+
+在文件 nanai\+\_\+object.\+h 第 24 行定义.
+
+\hypertarget{nanai__object_8h_add9fd2f8a6c84364fe59229b38bdf421}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+D\+E\+S\+T\+R\+O\+Y\+\_\+\+M\+U\+T\+E\+X@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+D\+E\+S\+T\+R\+O\+Y\+\_\+\+M\+U\+T\+E\+X}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+D\+E\+S\+T\+R\+O\+Y\+\_\+\+M\+U\+T\+E\+X@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+D\+E\+S\+T\+R\+O\+Y\+\_\+\+M\+U\+T\+E\+X}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+D\+E\+S\+T\+R\+O\+Y\+\_\+\+M\+U\+T\+E\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+D\+E\+S\+T\+R\+O\+Y\+\_\+\+M\+U\+T\+E\+X~0x80200003}\label{nanai__object_8h_add9fd2f8a6c84364fe59229b38bdf421}
+
+
+在文件 nanai\+\_\+object.\+h 第 26 行定义.
+
+\hypertarget{nanai__object_8h_ac40c4049275d936d76429f6d7e24d830}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+I\+N\+I\+T\+\_\+\+M\+U\+T\+E\+X@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+I\+N\+I\+T\+\_\+\+M\+U\+T\+E\+X}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+I\+N\+I\+T\+\_\+\+M\+U\+T\+E\+X@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+I\+N\+I\+T\+\_\+\+M\+U\+T\+E\+X}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+I\+N\+I\+T\+\_\+\+M\+U\+T\+E\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+I\+N\+I\+T\+\_\+\+M\+U\+T\+E\+X~0x80200002}\label{nanai__object_8h_ac40c4049275d936d76429f6d7e24d830}
+
+
+在文件 nanai\+\_\+object.\+h 第 25 行定义.
+
+\hypertarget{nanai__object_8h_a475c0999859fea55d54ddb17de875a78}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+J\+O\+I\+N\+\_\+\+T\+H\+R\+E\+A\+D@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+J\+O\+I\+N\+\_\+\+T\+H\+R\+E\+A\+D}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+J\+O\+I\+N\+\_\+\+T\+H\+R\+E\+A\+D@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+J\+O\+I\+N\+\_\+\+T\+H\+R\+E\+A\+D}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+J\+O\+I\+N\+\_\+\+T\+H\+R\+E\+A\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+J\+O\+I\+N\+\_\+\+T\+H\+R\+E\+A\+D~0x80200006}\label{nanai__object_8h_a475c0999859fea55d54ddb17de875a78}
+
+
+在文件 nanai\+\_\+object.\+h 第 29 行定义.
+
+\hypertarget{nanai__object_8h_ad296ae25f83bafb00580187bf07e72a5}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X~0x80200004}\label{nanai__object_8h_ad296ae25f83bafb00580187bf07e72a5}
+
+
+在文件 nanai\+\_\+object.\+h 第 27 行定义.
+
+\hypertarget{nanai__object_8h_a0dc464c147ecd321b99f357c3017921e}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E~0x80200007}\label{nanai__object_8h_a0dc464c147ecd321b99f357c3017921e}
+
+
+在文件 nanai\+\_\+object.\+h 第 30 行定义.
+
+\hypertarget{nanai__object_8h_ab005004b5cdb3fed72accf00dc544eda}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+U\+N\+T\+I\+M\+E\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+M\+U\+T\+E\+X~0x80200005}\label{nanai__object_8h_ab005004b5cdb3fed72accf00dc544eda}
+
+
+在文件 nanai\+\_\+object.\+h 第 28 行定义.
+
+\hypertarget{nanai__object_8h_a8e2caaba0af10ef05f00fbf422a9ec92}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+S\+S@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+S\+S}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+S\+S@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+S\+S}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+S\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+S\+S~0}\label{nanai__object_8h_a8e2caaba0af10ef05f00fbf422a9ec92}
+
+
+在文件 nanai\+\_\+object.\+h 第 13 行定义.
+
+\hypertarget{nanai__object_8h_a8202ed89f73ce63d8df81e3561af9b17}{}\index{nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}!N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+U\+N\+K\+N\+O\+W\+\_\+\+E\+R\+R\+O\+R@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+U\+N\+K\+N\+O\+W\+\_\+\+E\+R\+R\+O\+R}}
+\index{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+U\+N\+K\+N\+O\+W\+\_\+\+E\+R\+R\+O\+R@{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+U\+N\+K\+N\+O\+W\+\_\+\+E\+R\+R\+O\+R}!nanai\+\_\+object.\+h@{nanai\+\_\+object.\+h}}
+\subsubsection[{N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+U\+N\+K\+N\+O\+W\+\_\+\+E\+R\+R\+O\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+U\+N\+K\+N\+O\+W\+\_\+\+E\+R\+R\+O\+R~0x80000000}\label{nanai__object_8h_a8202ed89f73ce63d8df81e3561af9b17}
+
+
+在文件 nanai\+\_\+object.\+h 第 14 行定义.
+

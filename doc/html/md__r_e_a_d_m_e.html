@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.10"/>
+<title>nann: README</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wKioL1V3FuPR9INCAAAcOL1G2mw663.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">nann
+   &#160;<span id="projectnumber">V3.1</span>
+   </div>
+   <div id="projectbrief">南南分布式人工神经网络计算库</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.10 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li class="current"><a href="pages.html"><span>相关页面</span></a></li>
+      <li><a href="namespaces.html"><span>命名空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="搜索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">README </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p>#nann</p>
+<h2>nann Python接口</h2>
+<p>在**nann**目录中使用以下命令进行安装 </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;python setup.py build</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;sudo python setup.py install</div>
+</div><!-- fragment --><p> 安装完成后，在_python_代码中使用<code>import nann</code>，即可使用。</p>
+<h3>接口列表</h3>
+<p>|接口名|参数|参数说明|返回值|说明| |&mdash;|&mdash;|&mdash;|&mdash;|&mdash;| |load|无|错误代码|加载nann库，在最之前调用| |unload|无|无|错误代码|卸载nann库，在进程结束时调用，与load成对使用| |create|task|任务名(ID)，用来标示任务|当前创建管理器的总数|创建一个nann管理器，此管理器只训练任务task| ||**create.json**|一段json代码，用于描述神经网络，详细参见后面的章节||| ||max_calc|容纳计算结点(线程)最大数量||| ||now_calc|当前要启动的计算结点(可选参数)||| |destroy|task|任务名|错误代码|销毁与task关联的nann管理器| |exptype|exp|1:抛出异常,0:返回错误代码|无|修改异常处理类型| |training|task|任务名|错误代码|有目标训练，进入回调函数，调整权值矩阵，输出结果| ||**input.json**|一段json代码，用于描述输入，详细参加后面的章节||| |training_notarget|task|任务名|错误代码|无目标训练，进入回调函数，不调整权值矩阵，输出结果，仅用来做分类计算| ||**input.json**|一段json代码，用于描述输入，详细参加后面的章节||| |training_nooutput|task|任务名|错误代码|有目标训练，进入回调函数，调整权值矩阵，不输出结果，仅用来做训练| |nnn_read|filename|文件路径|失败:0成功:1|读取一个nnn文件到内存中，可直接使用任务名进行计算，**当前版本不支持**| |nnn_write|task|任务名|错误代码|写入一个任务的神经网络到nnn文件中，**当前版本不支持**| ||filename|文件名||| |test|无|无|无|测试是否工作正常，无实际意义| |version|无|无|版本字符串|返回当前nann版本(按圆周率计算)| |print|task|任务名|错误代码|打印当前任务的ann内容到控制台| |iscalcing|task|任务名|任务点数量|还有多少正在进行运算的任务结点| |merge|task|任务名|错误代码|合并当前计算完毕的任务结点的ann为一个|</p>
+<p>### 使用说明 </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;import nann</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;print nann.version()  # 不加载也可以使用</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;nann.load()</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;# 修改异常类型为不抛出异常，由自己控制错误代码</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;nann.exptype(0)</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;# 接收任务</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;if (nann.create(task, nann_json) != 0):</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    print &quot;创建错误&quot;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;if (nann.training(task, samples_json) != 0):</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    print &quot;训练错误&quot;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;# ... 其余的代码</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;# 销毁</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;nann.destroy(task)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;# 可创建其他的任务结点</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;nann.unload()</div>
+</div><!-- fragment --> <h3>错误代码</h3>
+<table class="doxtable">
+<tr>
+<th>错误代码</th><th>说明</th><th>级别  </th></tr>
+<tr>
+<td>0x88000000</td><td>内部错误</td><td>错误 </td></tr>
+<tr>
+<td>0x88000001</td><td>分析JSON文件错误</td><td>错误 </td></tr>
+<tr>
+<td>0x88000100</td><td>参数错误</td><td>错误 </td></tr>
+<tr>
+<td>0x88000101</td><td>任务已经存在</td><td>错误 </td></tr>
+<tr>
+<td>0x88000102</td><td>任务不存在</td><td>错误 </td></tr>
+<tr>
+<td>0x88000200</td><td>分配内存失败</td><td>错误 </td></tr>
+<tr>
+<td>0x87000000</td><td>内部警告</td><td>警告 </td></tr>
+<tr>
+<td>0x87000100</td><td>参数错误</td><td>警告 </td></tr>
+<tr>
+<td>0x87000101</td><td>任务已经存在</td><td>警告 </td></tr>
+<tr>
+<td>0x87000102</td><td>任务不存在</td><td>警告 </td></tr>
+</table>
+<p>其中**警告**的意思是，不影响当前运行，但是可能会发生意外。**错误**级别直接退出运行。</p>
+<h3>json输入详解</h3>
+<p>在以下两份json中，都存在**target**一项，其中input.json中的**target**会覆盖掉create.json中的**target**。后者为全局配置目标。在每次实际训练中调节。</p>
+<p>#### create.json </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;{</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    &quot;alg&quot;: &quot;rcalc&quot;,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    &quot;ann&quot;: {</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        &quot;weight matrixes&quot;: {</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            &quot;0&quot;: {</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                &quot;r1&quot;: [0.75, 0.83, 0.39],</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;                &quot;r2&quot;: [0.98, 0.43, 0.12],</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                &quot;r3&quot;: [0.12, 0.45, 0.78],</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                &quot;r4&quot;: [0.11, 0.12, 0.65],</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                &quot;r5&quot;: [0.56, 0.67, 0.34]</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;            },</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;            &quot;1&quot;: {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                &quot;r1&quot;: [0.35, 0.23, 0.19, 0.37],</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                &quot;r2&quot;: [0.51, 0.49, 0.72, 0.11],</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                &quot;r3&quot;: [0.24, 0.31, 0.71, 0.51]</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            },</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            &quot;2&quot;: {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                &quot;r1&quot;: [0.15, 0.25, 0.41],</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                &quot;r2&quot;: [0.21, 0.29, 0.25],</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                &quot;r3&quot;: [0.34, 0.11, 0.87],</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                &quot;r4&quot;: [0.61, 0.92, 0.93]</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            }</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        },</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        &quot;delta weight matrixes&quot;: {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            &quot;0&quot;: {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                &quot;r1&quot;: [0.07, 0.08, 0.09],</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                &quot;r2&quot;: [0.09, 0.04, 0.02],</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                &quot;r3&quot;: [0.01, 0.04, 0.08],</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                &quot;r4&quot;: [0.01, 0.02, 0.05],</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                &quot;r5&quot;: [0.05, 0.07, 0.04]</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            },</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            &quot;1&quot;: {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                &quot;r1&quot;: [0.05, 0.03, 0.09, 0.07],</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                &quot;r2&quot;: [0.01, 0.09, 0.02, 0.01],</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                &quot;r3&quot;: [0.04, 0.01, 0.01, 0.01]</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            },</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            &quot;2&quot;: {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                &quot;r1&quot;: [0.05, 0.05, 0.01],</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                &quot;r2&quot;: [0.01, 0.09, 0.05],</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                &quot;r3&quot;: [0.04, 0.01, 0.07],</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                &quot;r4&quot;: [0.01, 0.02, 0.03]</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    },</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    &quot;target&quot;: [0.11, 0.23, 0.78]</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+</div><!-- fragment --> <h4>input.json</h4>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;{</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    &quot;samples&quot;: {</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        &quot;t1&quot;: [0.1, 0.2, 0.34, 0.45, 0.55],</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        &quot;t2&quot;: [0.21, 0.6, 0.4, 0.23, 0.51],</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        &quot;t3&quot;: [0.31, 0.7, 0.31, 0.1, 0.46],</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        &quot;t4&quot;: [0.41, 0.9, 0.21, 0.61, 0.78]</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    },</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    &quot;target&quot;: [0.11, 0.23, 0.78]</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}</div>
+</div><!-- fragment --> </div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者 &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.10
+</small></address>
+</body>
+</html>

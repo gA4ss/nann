@@ -1,0 +1,9 @@
+digraph "nanai::nanai_ann_nanncalc::ann_t::ann_t"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="nanai::nanai_ann_nanncalc\l::ann_t::ann_t",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="nanai::nanai_ann_nanncalc\l::ann_t::clear",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html#acbeda89aa6636ea5e0e7d2ee711baaba"];
+}

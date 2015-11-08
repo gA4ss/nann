@@ -1,0 +1,1521 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.10"/>
+<title>nann: nanai::nanai_ann_nannmgr类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wKioL1V3FuPR9INCAAAcOL1G2mw663.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">nann
+   &#160;<span id="projectnumber">V3.1</span>
+   </div>
+   <div id="projectbrief">南南分布式人工神经网络计算库</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.10 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="pages.html"><span>相关页面</span></a></li>
+      <li><a href="namespaces.html"><span>命名空间</span></a></li>
+      <li class="current"><a href="annotated.html"><span>类</span></a></li>
+      <li><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="搜索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>类列表</span></a></li>
+      <li><a href="classes.html"><span>类索引</span></a></li>
+      <li><a href="hierarchy.html"><span>类继承关系</span></a></li>
+      <li><a href="functions.html"><span>类成员</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacenanai.html">nanai</a></li><li class="navelem"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html">nanai_ann_nannmgr</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-static-methods">静态 Public 成员函数</a> &#124;
+<a href="#pro-methods">Protected 成员函数</a> &#124;
+<a href="#pro-attribs">Protected 属性</a> &#124;
+<a href="classnanai_1_1nanai__ann__nannmgr-members.html">所有成员列表</a>  </div>
+  <div class="headertitle">
+<div class="title">nanai::nanai_ann_nannmgr类 参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>南南人工神经网络管理器类  
+ <a href="classnanai_1_1nanai__ann__nannmgr.html#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a>&gt;</code></p>
+<div class="dynheader">
+类 nanai::nanai_ann_nannmgr 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classnanai_1_1nanai__ann__nannmgr.png" usemap="#nanai::nanai_ann_nannmgr_map" alt=""/>
+  <map id="nanai::nanai_ann_nannmgr_map" name="nanai::nanai_ann_nannmgr_map">
+<area href="classnanai_1_1nanai__object.html" alt="nanai::nanai_object" shape="rect" coords="0,0,164,24"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:ac0ab089eae09f4d317218fcad3cfe804"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#ac0ab089eae09f4d317218fcad3cfe804">nanai_ann_nannmgr</a> (int max=1024, int now_start=0)</td></tr>
+<tr class="separator:ac0ab089eae09f4d317218fcad3cfe804"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa25b7ed3134765348dca37cf200cff3b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#aa25b7ed3134765348dca37cf200cff3b">nanai_ann_nannmgr</a> (std::string alg, <a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> &amp;ann, <a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> *target, int max, int now_start)</td></tr>
+<tr class="separator:aa25b7ed3134765348dca37cf200cff3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2594f0a16aed65087e4aebca1b07894e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a2594f0a16aed65087e4aebca1b07894e">~nanai_ann_nannmgr</a> ()</td></tr>
+<tr class="separator:a2594f0a16aed65087e4aebca1b07894e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b99f051a2a7b2b1ebb21bb45d567afa"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a1b99f051a2a7b2b1ebb21bb45d567afa">training</a> (<a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> &amp;input, <a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> *target, <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *dcalc=nullptr, const char *task=nullptr, <a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> *ann=nullptr, const char *alg=nullptr)</td></tr>
+<tr class="separator:a1b99f051a2a7b2b1ebb21bb45d567afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a28db94886caffa0824206c0e2b2fa9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a7a28db94886caffa0824206c0e2b2fa9">training_notarget</a> (<a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> &amp;input, <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *dcalc=nullptr, const char *task=nullptr, <a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> *ann=nullptr, const char *alg=nullptr)</td></tr>
+<tr class="separator:a7a28db94886caffa0824206c0e2b2fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7461a5cad561f578869c850adf1e9639"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a7461a5cad561f578869c850adf1e9639">training_nooutput</a> (<a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> &amp;input, <a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> *target, <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *dcalc=nullptr, const char *task=nullptr, <a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> *ann=nullptr, const char *alg=nullptr)</td></tr>
+<tr class="separator:a7461a5cad561f578869c850adf1e9639"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4bf6ea43af41a463213c1620757685a"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#aa4bf6ea43af41a463213c1620757685a">nnn_read</a> (const std::string &amp;nnn)</td></tr>
+<tr class="separator:aa4bf6ea43af41a463213c1620757685a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04ac84eff31dab37e338807a4d44d0b9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a04ac84eff31dab37e338807a4d44d0b9">nnn_write</a> (const std::string &amp;nnn, <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *calc)</td></tr>
+<tr class="separator:a04ac84eff31dab37e338807a4d44d0b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41e95105ae57bf782fb5ad3b517c4a6a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a41e95105ae57bf782fb5ad3b517c4a6a">waits</a> ()</td></tr>
+<tr class="separator:a41e95105ae57bf782fb5ad3b517c4a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0a3866bf95574f3d12543da7a326b08"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#ae0a3866bf95574f3d12543da7a326b08">set_max</a> (int max)</td></tr>
+<tr class="separator:ae0a3866bf95574f3d12543da7a326b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a892c55b5c4a4b22dfd738c1227476ab0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a892c55b5c4a4b22dfd738c1227476ab0">merge_ann_by_task</a> (std::string task)</td></tr>
+<tr class="separator:a892c55b5c4a4b22dfd738c1227476ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e88711b173c6074539af3a1b32e761d"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a5e88711b173c6074539af3a1b32e761d">dead_task</a> ()</td></tr>
+<tr class="separator:a5e88711b173c6074539af3a1b32e761d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cc1df92755308a610a78c1f16e602c0"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a1cc1df92755308a610a78c1f16e602c0">exist_task</a> (std::string task)</td></tr>
+<tr class="separator:a1cc1df92755308a610a78c1f16e602c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classnanai_1_1nanai__object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classnanai_1_1nanai__object')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="classnanai_1_1nanai__object.html">nanai::nanai_object</a></td></tr>
+<tr class="memitem:a066d094b5abc020f08b38ee92220da6a inherit pub_methods_classnanai_1_1nanai__object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__object.html#a066d094b5abc020f08b38ee92220da6a">nanai_object</a> ()</td></tr>
+<tr class="separator:a066d094b5abc020f08b38ee92220da6a inherit pub_methods_classnanai_1_1nanai__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c2b99938e659b07204690ab51b148c7 inherit pub_methods_classnanai_1_1nanai__object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__object.html#a2c2b99938e659b07204690ab51b148c7">nanai_object</a> (const <a class="el" href="classnanai_1_1nanai__object.html">nanai_object</a> &amp;t)</td></tr>
+<tr class="separator:a2c2b99938e659b07204690ab51b148c7 inherit pub_methods_classnanai_1_1nanai__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7aaa650c4408749ac7e0ca70547920ee inherit pub_methods_classnanai_1_1nanai__object"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__object.html#a7aaa650c4408749ac7e0ca70547920ee">~nanai_object</a> ()</td></tr>
+<tr class="separator:a7aaa650c4408749ac7e0ca70547920ee inherit pub_methods_classnanai_1_1nanai__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab70ce957f8be26e1a4c61461de9c4aa7 inherit pub_methods_classnanai_1_1nanai__object"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__object.html#ab70ce957f8be26e1a4c61461de9c4aa7">get_last_error</a> () const </td></tr>
+<tr class="separator:ab70ce957f8be26e1a4c61461de9c4aa7 inherit pub_methods_classnanai_1_1nanai__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b05c72f0058867e692dcbba020436c6 inherit pub_methods_classnanai_1_1nanai__object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__object.html#a9b05c72f0058867e692dcbba020436c6">error</a> (int err)</td></tr>
+<tr class="separator:a9b05c72f0058867e692dcbba020436c6 inherit pub_methods_classnanai_1_1nanai__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+静态 Public 成员函数</h2></td></tr>
+<tr class="memitem:a94024506784918f4808bbe28c4721335"><td class="memItemLeft" align="right" valign="top">static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a94024506784918f4808bbe28c4721335">version</a> ()</td></tr>
+<tr class="separator:a94024506784918f4808bbe28c4721335"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected 成员函数</h2></td></tr>
+<tr class="memitem:ae4bd257f8c13617deb792e90f72574ea"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#ae4bd257f8c13617deb792e90f72574ea">init</a> (int max, int now_start)</td></tr>
+<tr class="separator:ae4bd257f8c13617deb792e90f72574ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a569b5527d3efd6615b1ed5fe311d3e55"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a569b5527d3efd6615b1ed5fe311d3e55">merge_ann</a> (<a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> &amp;a, <a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> &amp;b)</td></tr>
+<tr class="separator:a569b5527d3efd6615b1ed5fe311d3e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a9f384ebe727ed9722cbc04e82d30c8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a7a9f384ebe727ed9722cbc04e82d30c8">merge_matrix</a> (<a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> &amp;mat1, <a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> &amp;mat2, <a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> &amp;dmat1, <a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> &amp;dmat2)</td></tr>
+<tr class="separator:a7a9f384ebe727ed9722cbc04e82d30c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d9acf82974a0c785349370f40d583af"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a1d9acf82974a0c785349370f40d583af">merge_delta_matrix</a> (<a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> &amp;dmat1, <a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> &amp;dmat2)</td></tr>
+<tr class="separator:a1d9acf82974a0c785349370f40d583af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4097cd6c0d8c9fbd38df08d4474162d7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a4097cd6c0d8c9fbd38df08d4474162d7">configure</a> ()</td></tr>
+<tr class="separator:a4097cd6c0d8c9fbd38df08d4474162d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a910e51066acc0cefa5a13d441080020a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a910e51066acc0cefa5a13d441080020a">get_env</a> ()</td></tr>
+<tr class="separator:a910e51066acc0cefa5a13d441080020a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af20462056d6628462b18b865197083a5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#af20462056d6628462b18b865197083a5">get_algs</a> (std::string &amp;path)</td></tr>
+<tr class="separator:af20462056d6628462b18b865197083a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2041f91a11e801557c4e2a310fae4355"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a2041f91a11e801557c4e2a310fae4355">get_def_algs</a> ()</td></tr>
+<tr class="separator:a2041f91a11e801557c4e2a310fae4355"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf4b292087f8f3f48f6a77140dd512ca"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#aaf4b292087f8f3f48f6a77140dd512ca">add_alg</a> (<a class="el" href="namespacenanai.html#a892a8c80381d0005a076b68fbbf2d918">nanai_ann_nanndesc</a> &amp;desc)</td></tr>
+<tr class="separator:aaf4b292087f8f3f48f6a77140dd512ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3fdb4c566c9f8b670631fb559cf1b02"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacenanai.html#a892a8c80381d0005a076b68fbbf2d918">nanai_ann_nanndesc</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#aa3fdb4c566c9f8b670631fb559cf1b02">find_alg</a> (std::string alg)</td></tr>
+<tr class="separator:aa3fdb4c566c9f8b670631fb559cf1b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad67bf88a3df568c5ed07c2adca863be8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#ad67bf88a3df568c5ed07c2adca863be8">lock</a> ()</td></tr>
+<tr class="separator:ad67bf88a3df568c5ed07c2adca863be8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a061504e906faa17ab8cfeccb0f6c17bf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a061504e906faa17ab8cfeccb0f6c17bf">unlock</a> ()</td></tr>
+<tr class="separator:a061504e906faa17ab8cfeccb0f6c17bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66d329677b38c6d967a737adabaae13e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a66d329677b38c6d967a737adabaae13e">generate</a> (<a class="el" href="namespacenanai.html#a892a8c80381d0005a076b68fbbf2d918">nanai_ann_nanndesc</a> &amp;desc, <a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> *ann=NULL, const char *task=NULL)</td></tr>
+<tr class="separator:a66d329677b38c6d967a737adabaae13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f3d6ac53777ccec4d85cde98267693f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a5f3d6ac53777ccec4d85cde98267693f">make</a> (<a class="el" href="namespacenanai.html#a892a8c80381d0005a076b68fbbf2d918">nanai_ann_nanndesc</a> &amp;desc)</td></tr>
+<tr class="separator:a5f3d6ac53777ccec4d85cde98267693f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28ea36058e9dfd5ce6b80d6011931acc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a28ea36058e9dfd5ce6b80d6011931acc">on_error</a> (int err)</td></tr>
+<tr class="separator:a28ea36058e9dfd5ce6b80d6011931acc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected 属性</h2></td></tr>
+<tr class="memitem:a8305b13f05cfd2ec029dc325f0921609"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a8305b13f05cfd2ec029dc325f0921609">_home_dir</a></td></tr>
+<tr class="separator:a8305b13f05cfd2ec029dc325f0921609"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac074b69306e1ff1a381fbcde3d66d75c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#ac074b69306e1ff1a381fbcde3d66d75c">_lib_dir</a></td></tr>
+<tr class="separator:ac074b69306e1ff1a381fbcde3d66d75c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0da1bf8be2e30b97f5414dbba84a9e4c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a0da1bf8be2e30b97f5414dbba84a9e4c">_etc_dir</a></td></tr>
+<tr class="separator:a0da1bf8be2e30b97f5414dbba84a9e4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d3908d8d93cc40191ec8f20f4808ba0"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a7d3908d8d93cc40191ec8f20f4808ba0">_log_dir</a></td></tr>
+<tr class="separator:a7d3908d8d93cc40191ec8f20f4808ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a14b96819511b38e30bd9857dd86b14"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a3a14b96819511b38e30bd9857dd86b14">_alg</a></td></tr>
+<tr class="separator:a3a14b96819511b38e30bd9857dd86b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa808696e65d0f030afe6e2de2b7d3e6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#aa808696e65d0f030afe6e2de2b7d3e6d">_ann</a></td></tr>
+<tr class="separator:aa808696e65d0f030afe6e2de2b7d3e6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a384127c4c4058bc4b28bdf928d59588a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a384127c4c4058bc4b28bdf928d59588a">_target</a></td></tr>
+<tr class="separator:a384127c4c4058bc4b28bdf928d59588a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7133133957796b1b5b75e8d761b54866"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a7133133957796b1b5b75e8d761b54866">_max_calc</a></td></tr>
+<tr class="separator:a7133133957796b1b5b75e8d761b54866"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8531ad0d6391af0c318f286b44fd0604"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a8531ad0d6391af0c318f286b44fd0604">_curr_calc</a></td></tr>
+<tr class="separator:a8531ad0d6391af0c318f286b44fd0604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25dc5374ad7545e1c6255afb647264a9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a25dc5374ad7545e1c6255afb647264a9">_calcs</a></td></tr>
+<tr class="separator:a25dc5374ad7545e1c6255afb647264a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ffd16017f8b8a0aa6dbd0c3210c13d2"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespacenanai.html#a892a8c80381d0005a076b68fbbf2d918">nanai_ann_nanndesc</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a4ffd16017f8b8a0aa6dbd0c3210c13d2">_descs</a></td></tr>
+<tr class="separator:a4ffd16017f8b8a0aa6dbd0c3210c13d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3402ccfa83590793eb0755110e4a023e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; void *, <a class="el" href="namespacenanai.html#af358544d3d83ecb56361b1eaa46a0e98">fptr_ann_alg_setup</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a3402ccfa83590793eb0755110e4a023e">_algs</a></td></tr>
+<tr class="separator:a3402ccfa83590793eb0755110e4a023e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c4963abd61f8aa52b372c01062b5b4d"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nannmgr.html#a9c4963abd61f8aa52b372c01062b5b4d">_lock</a></td></tr>
+<tr class="separator:a9c4963abd61f8aa52b372c01062b5b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classnanai_1_1nanai__object"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classnanai_1_1nanai__object')"><img src="closed.png" alt="-"/>&#160;Protected 属性 继承自 <a class="el" href="classnanai_1_1nanai__object.html">nanai::nanai_object</a></td></tr>
+<tr class="memitem:affc3fedffe027488da1cd445291504b3 inherit pro_attribs_classnanai_1_1nanai__object"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__object.html#affc3fedffe027488da1cd445291504b3">_last_error</a></td></tr>
+<tr class="separator:affc3fedffe027488da1cd445291504b3 inherit pro_attribs_classnanai_1_1nanai__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>南南人工神经网络管理器类 </p>
+<p>管理器类用于管理所有计算结点线程 </p>
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00014">14</a> 行定义.</p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a class="anchor" id="ac0ab089eae09f4d317218fcad3cfe804"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">nanai::nanai_ann_nannmgr::nanai_ann_nannmgr </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max</em> = <code>1024</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>now_start</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>管理器构造函数. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">max</td><td>最大计算结点(线程),默认为1024 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">now_start</td><td>当前就要启动的计算结点数 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00024">24</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa25b7ed3134765348dca37cf200cff3b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">nanai::nanai_ann_nannmgr::nanai_ann_nannmgr </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>alg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>ann</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> *&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>now_start</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>管理器构造函数. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">alg</td><td>要设定的神经网络算法 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ann</td><td>要设定的人工神经网络 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">target</td><td>要训练的目标向量，可选 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">max</td><td>最大计算结点(线程),默认为1024 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">now_start</td><td>当前就要启动的计算结点数 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00028">28</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2594f0a16aed65087e4aebca1b07894e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">nanai::nanai_ann_nannmgr::~nanai_ann_nannmgr </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>析构函数.</p>
+<p>会向所有正在工作的线程发出停止的命令，并等待完成，最后销毁 </p>
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00040">40</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a class="anchor" id="aaf4b292087f8f3f48f6a77140dd512ca"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool nanai::nanai_ann_nannmgr::add_alg </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacenanai.html#a892a8c80381d0005a076b68fbbf2d918">nanai_ann_nanndesc</a> &amp;&#160;</td>
+          <td class="paramname"><em>desc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00530">530</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4097cd6c0d8c9fbd38df08d4474162d7"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nanai::nanai_ann_nannmgr::configure </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00428">428</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5e88711b173c6074539af3a1b32e761d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int nanai::nanai_ann_nannmgr::dead_task </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00295">295</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1cc1df92755308a610a78c1f16e602c0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int nanai::nanai_ann_nannmgr::exist_task </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>task</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00277">277</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa3fdb4c566c9f8b670631fb559cf1b02"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacenanai.html#a892a8c80381d0005a076b68fbbf2d918">nanai_ann_nanndesc</a> * nanai::nanai_ann_nannmgr::find_alg </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>alg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00546">546</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a66d329677b38c6d967a737adabaae13e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> * nanai::nanai_ann_nannmgr::generate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacenanai.html#a892a8c80381d0005a076b68fbbf2d918">nanai_ann_nanndesc</a> &amp;&#160;</td>
+          <td class="paramname"><em>desc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> *&#160;</td>
+          <td class="paramname"><em>ann</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>task</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00568">568</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="af20462056d6628462b18b865197083a5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nanai::nanai_ann_nannmgr::get_algs </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00479">479</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2041f91a11e801557c4e2a310fae4355"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nanai::nanai_ann_nannmgr::get_def_algs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00525">525</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a910e51066acc0cefa5a13d441080020a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nanai::nanai_ann_nannmgr::get_env </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00443">443</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae4bd257f8c13617deb792e90f72574ea"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nanai::nanai_ann_nannmgr::init </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>now_start</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>初始化所有的数据. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">max</td><td>最大计算结点(线程),默认为1024 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">now_start</td><td>当前就要启动的计算结点数 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00058">58</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad67bf88a3df568c5ed07c2adca863be8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nanai::nanai_ann_nannmgr::lock </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00556">556</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5f3d6ac53777ccec4d85cde98267693f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> * nanai::nanai_ann_nannmgr::make </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacenanai.html#a892a8c80381d0005a076b68fbbf2d918">nanai_ann_nanndesc</a> &amp;&#160;</td>
+          <td class="paramname"><em>desc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00637">637</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a569b5527d3efd6615b1ed5fe311d3e55"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> nanai::nanai_ann_nannmgr::merge_ann </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00371">371</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a892c55b5c4a4b22dfd738c1227476ab0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nanai::nanai_ann_nannmgr::merge_ann_by_task </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>task</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00398">398</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1d9acf82974a0c785349370f40d583af"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> nanai::nanai_ann_nannmgr::merge_delta_matrix </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>dmat1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>dmat2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00313">313</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7a9f384ebe727ed9722cbc04e82d30c8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> nanai::nanai_ann_nannmgr::merge_matrix </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>mat1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>mat2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>dmat1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__matrix.html">nanmath::nanmath_matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>dmat2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00339">339</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa4bf6ea43af41a463213c1620757685a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> * nanai::nanai_ann_nannmgr::nnn_read </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>nnn</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00196">196</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a04ac84eff31dab37e338807a4d44d0b9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nanai::nanai_ann_nannmgr::nnn_write </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>nnn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *&#160;</td>
+          <td class="paramname"><em>calc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00235">235</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a28ea36058e9dfd5ce6b80d6011931acc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nanai::nanai_ann_nannmgr::on_error </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>err</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>重载 <a class="el" href="classnanai_1_1nanai__object.html#a87f162335cead23a1409f7c0570a3284">nanai::nanai_object</a> .</p>
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00646">646</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae0a3866bf95574f3d12543da7a326b08"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nanai::nanai_ann_nannmgr::set_max </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00309">309</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1b99f051a2a7b2b1ebb21bb45d567afa"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> * nanai::nanai_ann_nannmgr::training </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> *&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *&#160;</td>
+          <td class="paramname"><em>dcalc</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>task</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> *&#160;</td>
+          <td class="paramname"><em>ann</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>alg</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>输出结果，并调整误差</p>
+<p>如果指定的计算结点dcalc不为空，则直接使用，随后判断是否指定了算法alg。如果指定了则通过alg 寻找算法描述结点，如果没有找打则抛出异常“NANAI_ERROR_LOGIC_ALG_NOT_FOUND”。找到了则 修改当前dcalc计算结点的配置为算法alg的描述结点。如果指定了ann，则应用。如果指定了target 则应用当前指定的目标向量，如果没有指定则使用默认的目标向量。</p>
+<p>如果没有指定计算结点，首先会通过alg参数寻找当前管理器是否加载对应的算法描述插件，没有则抛出 “NANAI_ERROR_LOGIC_ALG_NOT_FOUND”，如果找到，则调用generate产生一个新的计算结点来进行 训练。如果指定了target则应用当前指定的目标向量，如果没有指定则使用默认的目标向量。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>输入样本向量 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">target</td><td>训练目标向量，可选 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dcalc</td><td>要直接使用的计算结点，可选 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">task</td><td>任务的名称，可选 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ann</td><td>人工神经网络，可选 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">alg</td><td>可选用的算法，可选 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00078">78</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7461a5cad561f578869c850adf1e9639"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> * nanai::nanai_ann_nannmgr::training_nooutput </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> *&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *&#160;</td>
+          <td class="paramname"><em>dcalc</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>task</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> *&#160;</td>
+          <td class="paramname"><em>ann</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>alg</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00157">157</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7a28db94886caffa0824206c0e2b2fa9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> * nanai::nanai_ann_nannmgr::training_notarget </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a> *&#160;</td>
+          <td class="paramname"><em>dcalc</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>task</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> *&#160;</td>
+          <td class="paramname"><em>ann</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>alg</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00124">124</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a061504e906faa17ab8cfeccb0f6c17bf"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nanai::nanai_ann_nannmgr::unlock </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00562">562</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a94024506784918f4808bbe28c4721335"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * nanai::nanai_ann_nannmgr::version </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00424">424</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a41e95105ae57bf782fb5ad3b517c4a6a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nanai::nanai_ann_nannmgr::waits </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a> 第 <a class="el" href="nanai__ann__nannmgr_8cc_source.html#l00271">271</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">类成员变量说明</h2>
+<a class="anchor" id="a3a14b96819511b38e30bd9857dd86b14"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string nanai::nanai_ann_nannmgr::_alg</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00139">139</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3402ccfa83590793eb0755110e4a023e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::pair&lt;void*, <a class="el" href="namespacenanai.html#af358544d3d83ecb56361b1eaa46a0e98">fptr_ann_alg_setup</a>&gt; &gt; nanai::nanai_ann_nannmgr::_algs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00148">148</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa808696e65d0f030afe6e2de2b7d3e6d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> nanai::nanai_ann_nannmgr::_ann</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00140">140</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a25dc5374ad7545e1c6255afb647264a9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="classnanai_1_1nanai__ann__nanncalc.html">nanai_ann_nanncalc</a>*&gt; nanai::nanai_ann_nannmgr::_calcs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00146">146</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8531ad0d6391af0c318f286b44fd0604"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int nanai::nanai_ann_nannmgr::_curr_calc</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00145">145</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4ffd16017f8b8a0aa6dbd0c3210c13d2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="namespacenanai.html#a892a8c80381d0005a076b68fbbf2d918">nanai_ann_nanndesc</a>&gt; nanai::nanai_ann_nannmgr::_descs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00147">147</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0da1bf8be2e30b97f5414dbba84a9e4c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string nanai::nanai_ann_nannmgr::_etc_dir</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00132">132</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8305b13f05cfd2ec029dc325f0921609"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string nanai::nanai_ann_nannmgr::_home_dir</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00130">130</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac074b69306e1ff1a381fbcde3d66d75c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string nanai::nanai_ann_nannmgr::_lib_dir</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00131">131</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9c4963abd61f8aa52b372c01062b5b4d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">pthread_mutex_t nanai::nanai_ann_nannmgr::_lock</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00150">150</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7d3908d8d93cc40191ec8f20f4808ba0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string nanai::nanai_ann_nannmgr::_log_dir</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00133">133</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7133133957796b1b5b75e8d761b54866"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int nanai::nanai_ann_nannmgr::_max_calc</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00144">144</a> 行定义.</p>
+
+</div>
+</div>
+<a class="anchor" id="a384127c4c4058bc4b28bdf928d59588a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> nanai::nanai_ann_nannmgr::_target</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a> 第 <a class="el" href="nanai__ann__nannmgr_8h_source.html#l00141">141</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>inc/<a class="el" href="nanai__ann__nannmgr_8h_source.html">nanai_ann_nannmgr.h</a></li>
+<li>src/<a class="el" href="nanai__ann__nannmgr_8cc_source.html">nanai_ann_nannmgr.cc</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者 &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.10
+</small></address>
+</body>
+</html>

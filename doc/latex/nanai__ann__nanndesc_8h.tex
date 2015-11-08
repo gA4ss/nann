@@ -1,0 +1,73 @@
+\hypertarget{nanai__ann__nanndesc_8h}{}\section{inc/nanai\+\_\+ann\+\_\+nanndesc.h 文件参考}
+\label{nanai__ann__nanndesc_8h}\index{inc/nanai\+\_\+ann\+\_\+nanndesc.\+h@{inc/nanai\+\_\+ann\+\_\+nanndesc.\+h}}
+\subsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structnanai_1_1__nanai__ann__nanndesc}{nanai\+::\+\_\+nanai\+\_\+ann\+\_\+nanndesc}
+\end{DoxyCompactItemize}
+\subsection*{命名空间}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacenanai}{nanai}
+\end{DoxyCompactItemize}
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{nanai__ann__nanndesc_8h_a6e62108830287144c83d4681c2d59381}{M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+N\+U\+M\+B\+E\+R}~31
+\item 
+\#define \hyperlink{nanai__ann__nanndesc_8h_a4ca8d25c309ec7a3f823bfb552d84498}{M\+A\+X\+\_\+\+N\+A\+N\+N\+\_\+\+B\+U\+F\+F\+E\+R}~256
+\end{DoxyCompactItemize}
+\subsection*{类型定义}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \+\_\+nanai\+\_\+ann\+\_\+nanndesc \hyperlink{namespacenanai_a892a8c80381d0005a076b68fbbf2d918}{nanai\+::nanai\+\_\+ann\+\_\+nanndesc}
+\item 
+typedef void($\ast$ \hyperlink{namespacenanai_a3be739c74db7d7304ff72dbcefbdc046}{nanai\+::fptr\+\_\+ann\+\_\+main}) ()
+\item 
+typedef void($\ast$ \hyperlink{namespacenanai_a681d28f80aa95597ffc268b3b01abcfc}{nanai\+::fptr\+\_\+ann\+\_\+input\+\_\+filter}) (void $\ast$input, void $\ast$input\+\_\+filted)
+\item 
+typedef void($\ast$ \hyperlink{namespacenanai_ab737ac3c4f32f96a8ee6400db1c5a90f}{nanai\+::fptr\+\_\+ann\+\_\+result}) (void $\ast$output, void $\ast$result)
+\item 
+typedef double($\ast$ \hyperlink{namespacenanai_a5e697a4846a90e7e161e1d2d5be57688}{nanai\+::fptr\+\_\+ann\+\_\+output\+\_\+error}) (double target, double output)
+\item 
+typedef void($\ast$ \hyperlink{namespacenanai_ac1a3ebd721fc3cfe1b9accfe7b65b7fe}{nanai\+::fptr\+\_\+ann\+\_\+calculate}) (void $\ast$task, void $\ast$input, void $\ast$target, void $\ast$output, void $\ast$arg)
+\item 
+typedef void($\ast$ \hyperlink{namespacenanai_a5fc4ff646e59919360af1ef410fe9671}{nanai\+::fptr\+\_\+ann\+\_\+hidden\+\_\+init}) (int h, void $\ast$wmat)
+\item 
+typedef double($\ast$ \hyperlink{namespacenanai_a299d9093f72831a48d205e94e200690c}{nanai\+::fptr\+\_\+ann\+\_\+hidden\+\_\+calc}) (int h, double input)
+\item 
+typedef void($\ast$ \hyperlink{namespacenanai_aa8cd8d38cbd0a27e2818f132a3cfa2a2}{nanai\+::fptr\+\_\+ann\+\_\+hidden\+\_\+error}) (int h, void $\ast$delta\+\_\+k, void $\ast$w\+\_\+kh, void $\ast$o\+\_\+h, void $\ast$delta\+\_\+h)
+\item 
+typedef void($\ast$ \hyperlink{namespacenanai_a1d9a4524c199b1a2891e208ce4b05306}{nanai\+::fptr\+\_\+ann\+\_\+hidden\+\_\+adjust\+\_\+weight}) (int h, void $\ast$layer, void $\ast$delta, void $\ast$wm, void $\ast$prev\+\_\+dwm)
+\item 
+typedef void($\ast$ \hyperlink{namespacenanai_ad9527fac6e647a6c149e4f9a8681e4c1}{nanai\+::fptr\+\_\+ann\+\_\+monitor\+\_\+except}) (int cid, const char $\ast$task, int errcode, void $\ast$arg)
+\item 
+typedef void($\ast$ \hyperlink{namespacenanai_adb209ab120b98e800db2b0c8621cd488}{nanai\+::fptr\+\_\+ann\+\_\+monitor\+\_\+trained}) (int cid, const char $\ast$task, void $\ast$arg)
+\item 
+typedef void($\ast$ \hyperlink{namespacenanai_a598e872bf861dac8080e98d6d155b3b5}{nanai\+::fptr\+\_\+ann\+\_\+monitor\+\_\+trained2}) (int cid, const char $\ast$task, void $\ast$arg)
+\item 
+typedef void($\ast$ \hyperlink{namespacenanai_afc00080af95a1dc2349880f03d7d6a88}{nanai\+::fptr\+\_\+ann\+\_\+monitor\+\_\+calculated}) (int cid, const char $\ast$task, void $\ast$arg)
+\item 
+typedef void($\ast$ \hyperlink{namespacenanai_a5c9964edbd4db8ae35df7cd024020e87}{nanai\+::fptr\+\_\+ann\+\_\+monitor\+\_\+progress}) (int cid, const char $\ast$task, int progress, void $\ast$arg)
+\item 
+typedef void($\ast$ \hyperlink{namespacenanai_a04b231ce428a771ab1a9aace53be65c6}{nanai\+::fptr\+\_\+ann\+\_\+monitor\+\_\+alg\+\_\+uninstall}) (int cid)
+\item 
+typedef nanai\+\_\+ann\+\_\+nanndesc $\ast$($\ast$ \hyperlink{namespacenanai_af358544d3d83ecb56361b1eaa46a0e98}{nanai\+::fptr\+\_\+ann\+\_\+alg\+\_\+setup}) (const char $\ast$conf\+\_\+dir)
+\end{DoxyCompactItemize}
+
+
+\subsection{宏定义说明}
+\hypertarget{nanai__ann__nanndesc_8h_a6e62108830287144c83d4681c2d59381}{}\index{nanai\+\_\+ann\+\_\+nanndesc.\+h@{nanai\+\_\+ann\+\_\+nanndesc.\+h}!M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+N\+U\+M\+B\+E\+R@{M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+N\+U\+M\+B\+E\+R}}
+\index{M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+N\+U\+M\+B\+E\+R@{M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+N\+U\+M\+B\+E\+R}!nanai\+\_\+ann\+\_\+nanndesc.\+h@{nanai\+\_\+ann\+\_\+nanndesc.\+h}}
+\subsubsection[{M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+N\+U\+M\+B\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+N\+U\+M\+B\+E\+R~31}\label{nanai__ann__nanndesc_8h_a6e62108830287144c83d4681c2d59381}
+
+
+在文件 nanai\+\_\+ann\+\_\+nanndesc.\+h 第 30 行定义.
+
+\hypertarget{nanai__ann__nanndesc_8h_a4ca8d25c309ec7a3f823bfb552d84498}{}\index{nanai\+\_\+ann\+\_\+nanndesc.\+h@{nanai\+\_\+ann\+\_\+nanndesc.\+h}!M\+A\+X\+\_\+\+N\+A\+N\+N\+\_\+\+B\+U\+F\+F\+E\+R@{M\+A\+X\+\_\+\+N\+A\+N\+N\+\_\+\+B\+U\+F\+F\+E\+R}}
+\index{M\+A\+X\+\_\+\+N\+A\+N\+N\+\_\+\+B\+U\+F\+F\+E\+R@{M\+A\+X\+\_\+\+N\+A\+N\+N\+\_\+\+B\+U\+F\+F\+E\+R}!nanai\+\_\+ann\+\_\+nanndesc.\+h@{nanai\+\_\+ann\+\_\+nanndesc.\+h}}
+\subsubsection[{M\+A\+X\+\_\+\+N\+A\+N\+N\+\_\+\+B\+U\+F\+F\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+N\+A\+N\+N\+\_\+\+B\+U\+F\+F\+E\+R~256}\label{nanai__ann__nanndesc_8h_a4ca8d25c309ec7a3f823bfb552d84498}
+
+
+在文件 nanai\+\_\+ann\+\_\+nanndesc.\+h 第 31 行定义.
+

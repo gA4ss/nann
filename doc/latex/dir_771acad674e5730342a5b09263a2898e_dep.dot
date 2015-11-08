@@ -1,0 +1,13 @@
+digraph "build/lib.macosx-10.11-intel-2.7" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_4fef79e7177ba769987a8da36c892c5f {
+    graph [ bgcolor="#ddddee", pencolor="black", label="build" fontname="Helvetica", fontsize="10", URL="dir_4fef79e7177ba769987a8da36c892c5f.html"]
+  subgraph clusterdir_771acad674e5730342a5b09263a2898e {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_771acad674e5730342a5b09263a2898e.html"];
+    dir_771acad674e5730342a5b09263a2898e [shape=plaintext label="lib.macosx-10.11-intel-2.7"];
+    dir_0fdcc4eee966afe591fb795a9035c173 [shape=box label="pynann" color="black" fillcolor="white" style="filled" URL="dir_0fdcc4eee966afe591fb795a9035c173.html"];
+  }
+  }
+}

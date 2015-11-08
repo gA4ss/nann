@@ -1,0 +1,28 @@
+digraph "nanai::nanai_ann_nanncalc::ann_t::clear"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="nanai::nanai_ann_nanncalc\l::ann_t::clear",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="nanai::nanai_ann_nanncalc\l::ann_t::ann_t",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html#ac515917b099f147e2a27554fc21e27be"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="nanai::nanai_ann_nanncalc\l::ann_destroy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nanncalc.html#a4fb9643a590238c96e8e387022626bd6"];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="nanai::nanai_ann_nanncalc\l::nanai_ann_nanncalc",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nanncalc.html#a0d26e7efdef5368c0212b3dd02f63767"];
+  Node3 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="nanai::nanai_ann_nanncalc\l::~nanai_ann_nanncalc",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nanncalc.html#a2f5530f782f2585958c79c94bc3232d7"];
+  Node3 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="nanai::nanai_ann_nanncalc\l::ann_create",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nanncalc.html#a05aa50ca275dade2e3ef735df4a5114d"];
+  Node6 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="nanai::nanai_ann_nanncalc\l::ann_default_create",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nanncalc.html#a9a2bdcebe0c659e6f6e3466674cc9143"];
+  Node6 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="nanai::nanai_ann_nanncalc\l::do_configure",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nanncalc.html#ad76affc9e9819af44025704d424ce3ec"];
+  Node8 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="nanai::nanai_ann_nannmgr\l::training",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nannmgr.html#a1b99f051a2a7b2b1ebb21bb45d567afa"];
+  Node8 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="nanai::nanai_ann_nannmgr\l::training_notarget",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nannmgr.html#a7a28db94886caffa0824206c0e2b2fa9"];
+  Node8 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="nanai::nanai_ann_nannmgr\l::training_nooutput",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nannmgr.html#a7461a5cad561f578869c850adf1e9639"];
+}

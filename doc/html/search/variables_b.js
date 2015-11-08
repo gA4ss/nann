@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['name',['name',['../structnanai_1_1__nanai__ann__nanndesc.html#acb2c1033bc070b8e54407420cd55540d',1,'nanai::_nanai_ann_nanndesc']]],
+  ['nanai_5fann_5falg_5flogistic_5fdesc',['nanai_ann_alg_logistic_desc',['../nanai__ann__alg__logistic_8cc.html#ab42fc0a55054de694d9af3d377cf8a9d',1,'nanai_ann_alg_logistic.cc']]],
+  ['nann_5fdefine_5fmacros',['nann_define_macros',['../namespacesetup.html#a707ac5d361a916ed078172866c82b945',1,'setup']]],
+  ['nann_5fextension',['nann_extension',['../namespacesetup.html#aebabf02abf54d1e0cd11949d52c28be5',1,'setup']]],
+  ['nann_5fextra_5fcompile_5fargs',['nann_extra_compile_args',['../namespacesetup.html#a0856af7a2cf5373d7ba13fb91d69da14',1,'setup']]],
+  ['nann_5fextra_5flink_5fargs',['nann_extra_link_args',['../namespacesetup.html#a91c749571f0ed8408640cf8729aa9d7a',1,'setup']]],
+  ['nann_5fextra_5fobjects',['nann_extra_objects',['../namespacesetup.html#a81583b74353eadcdbfd2817fa9302056',1,'setup']]],
+  ['nann_5fh_5ffiles',['nann_h_files',['../namespacesetup.html#a25d264f9c4a7736a9768459d01558f6e',1,'setup']]],
+  ['nann_5flibraries',['nann_libraries',['../namespacesetup.html#ae3bc32a9ba0a115dd20666d52d39eeef',1,'setup']]],
+  ['nann_5flibrary_5fdirs',['nann_library_dirs',['../namespacesetup.html#aa5c01e7a20f0777834d3baeb4a26d4ab',1,'setup']]],
+  ['nann_5fpython_5fsources',['nann_python_sources',['../namespacesetup.html#ada29bda9ada755db57f408d28c2e0b7b',1,'setup']]],
+  ['nann_5fsources',['nann_sources',['../namespacesetup.html#a4b5f9185c7fc55c9c97ee2ff3565c4ae',1,'setup']]],
+  ['nann_5fundef_5fmacros',['nann_undef_macros',['../namespacesetup.html#af38ce6c9c3a49620b55d56731ddc9e25',1,'setup']]],
+  ['next',['next',['../structc_j_s_o_n.html#ade862b880379b5e2a591f7326401fa8d',1,'cJSON']]],
+  ['nhidden',['nhidden',['../classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html#aae78b45e2e8e764fbf1797fd8663c299',1,'nanai::nanai_ann_nanncalc::ann_t::nhidden()'],['../structnanai_1_1__nanai__ann__nanndesc.html#a3921a627a9ddf822036bcaed9d0bf1b5',1,'nanai::_nanai_ann_nanndesc::nhidden()'],['../structnanai_1_1__nanai__ann__nnn.html#a1da94c33f6b4599404417479b858f2f2',1,'nanai::_nanai_ann_nnn::nhidden()']]],
+  ['ninput',['ninput',['../classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html#ac1d98edc134d7b8aaf44c2d9c3516a1f',1,'nanai::nanai_ann_nanncalc::ann_t::ninput()'],['../structnanai_1_1__nanai__ann__nanndesc.html#a71bf45651c89fa76315269228729d929',1,'nanai::_nanai_ann_nanndesc::ninput()'],['../structnanai_1_1__nanai__ann__nnn.html#a8f4a167d7f34af6615a846c9af01dd10',1,'nanai::_nanai_ann_nnn::ninput()']]],
+  ['nm_5fnull',['nm_null',['../namespacenanmath.html#a9c0de52dbad8862e49038ed1db9f70a1',1,'nanmath']]],
+  ['nneural',['nneural',['../classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html#a1d66bbaf003a36733135f7e43df76d90',1,'nanai::nanai_ann_nanncalc::ann_t']]],
+  ['nneure',['nneure',['../structnanai_1_1__nanai__ann__nanndesc.html#a62b3366bcb4042255717c4cfb6b604c4',1,'nanai::_nanai_ann_nanndesc::nneure()'],['../structnanai_1_1__nanai__ann__nnn.html#a941eeb9bbbf91e6366ad0a3e6b9db187',1,'nanai::_nanai_ann_nnn::nneure()']]],
+  ['noutput',['noutput',['../classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html#aaae404e72445cd09ff003c74c41e9954',1,'nanai::nanai_ann_nanncalc::ann_t::noutput()'],['../structnanai_1_1__nanai__ann__nanndesc.html#a769462fc48b0adcf72ee32c9f8026735',1,'nanai::_nanai_ann_nanndesc::noutput()'],['../structnanai_1_1__nanai__ann__nnn.html#aa0dc46c72569cc28a7e6282413d1a68f',1,'nanai::_nanai_ann_nnn::noutput()']]],
+  ['nv_5fnull',['nv_null',['../namespacenanmath.html#a72a622e555a21df499397344dc000321',1,'nanmath']]]
+];

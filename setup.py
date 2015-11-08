@@ -42,7 +42,7 @@ nann_extra_compile_args = ['-std=c++11']
 nann_extra_link_args = []
 
 # nann extension
-nann_extension = Extension('nann',
+nann_extension = Extension('pynann.nann',
                            nann_sources,
                            include_dirs=nann_h_files,
                            define_macros=nann_define_macros,

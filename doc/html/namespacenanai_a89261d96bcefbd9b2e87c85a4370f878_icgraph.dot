@@ -1,0 +1,21 @@
+digraph "nanai::error"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="nanai::error",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ann_calculate",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$nanai__ann__alg__logistic_8cc.html#ab312239cb5785dbc93e733218d3df3ce"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ann_alg_logistic_setup",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$nanai__ann__alg__logistic_8cc.html#ad91d250f591564487951f4bcf9ced372"];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="nanai::nanai_ann_nannmgr\l::get_def_algs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nannmgr.html#a2041f91a11e801557c4e2a310fae4355"];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="nanai::nanai_ann_nannmgr\l::get_algs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nannmgr.html#af20462056d6628462b18b865197083a5"];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="nanai::nanai_ann_nannmgr\l::configure",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nannmgr.html#a4097cd6c0d8c9fbd38df08d4474162d7"];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="nanai::nanai_ann_nannmgr\l::init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nannmgr.html#ae4bd257f8c13617deb792e90f72574ea"];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="nanai::nanai_ann_nannmgr\l::nanai_ann_nannmgr",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanai_1_1nanai__ann__nannmgr.html#ac0ab089eae09f4d317218fcad3cfe804"];
+}

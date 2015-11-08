@@ -1,0 +1,9 @@
+digraph "build/lib.macosx-10.11-intel-2.7/pynann" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_771acad674e5730342a5b09263a2898e {
+    graph [ bgcolor="#ddddee", pencolor="black", label="lib.macosx-10.11-intel-2.7" fontname="Helvetica", fontsize="10", URL="dir_771acad674e5730342a5b09263a2898e.html"]
+  dir_0fdcc4eee966afe591fb795a9035c173 [shape=box, label="pynann", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_0fdcc4eee966afe591fb795a9035c173.html"];
+  }
+}

@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.10"/>
+<title>nann: inc/nanai_object.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="wKioL1V3FuPR9INCAAAcOL1G2mw663.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">nann
+   &#160;<span id="projectnumber">V3.1</span>
+   </div>
+   <div id="projectbrief">南南分布式人工神经网络计算库</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.10 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="pages.html"><span>相关页面</span></a></li>
+      <li><a href="namespaces.html"><span>命名空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="搜索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_bfccd401955b95cf8c75461437045ac0.html">inc</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">nanai_object.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="nanai__object_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef nanai_object_h</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define nanai_object_h</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifndef _NOEXCEPT</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#ad7597118202b58872a4a874eab3dc1a2">    7</a></span>&#160;<span class="preprocessor">#define _NOEXCEPT   noexcept</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacenanai.html">nanai</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="comment">/* error code */</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#a8e2caaba0af10ef05f00fbf422a9ec92">   13</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_SUCCESS                             0</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#a8202ed89f73ce63d8df81e3561af9b17">   14</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_UNKNOW_ERROR                        0x80000000</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#a5b02aefdcfe512c3e7e92fe4f2980b4a">   16</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_LOGIC                               0x80100000</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#a489753e64a9934f89667dd6636fdfb6a">   17</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_LOGIC_INVALID_ARGUMENT              0x80100001</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#ac10684c53f958b63a3b36c30b960a8fb">   18</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_LOGIC_INVALID_CONFIG                0x80100002</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#a621d1127c7894b1c41493769a6f6171b">   19</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_LOGIC_ALG_NOT_FOUND                 0x80110001</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#a953c68fa6720aa52ceb9181722ecc0cc">   20</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_LOGIC_TASK_NOT_MATCHED              0x80110002</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#a9055ffa2aa4cac170f0100fe5d4b5e5d">   21</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_LOGIC_HOME_DIR_NOT_CONFIG           0x80110003</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#a1fc342badd03153553d91cf29441e035">   23</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_RUNTIME                             0x80200000</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#aebf992058c8a5e3f5cbee060f942ec0c">   24</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_RUNTIME_CREATE_THREAD               0x80200001</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#ac40c4049275d936d76429f6d7e24d830">   25</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_RUNTIME_INIT_MUTEX                  0x80200002</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#add9fd2f8a6c84364fe59229b38bdf421">   26</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_RUNTIME_DESTROY_MUTEX               0x80200003</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#ad296ae25f83bafb00580187bf07e72a5">   27</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_RUNTIME_LOCK_MUTEX                  0x80200004</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#ab005004b5cdb3fed72accf00dc544eda">   28</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_RUNTIME_UNLOCK_MUTEX                0x80200005</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#a475c0999859fea55d54ddb17de875a78">   29</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_RUNTIME_JOIN_THREAD                 0x80200006</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#a0dc464c147ecd321b99f357c3017921e">   30</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_RUNTIME_OPEN_FILE                   0x80200007</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="nanai__object_8h.html#aa9050e5adcee1d8d8ac1b1830f93b225">   31</a></span>&#160;<span class="preprocessor">#define NANAI_ERROR_RUNTIME_ALLOC_MEMORY                0x8020000A</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__unknow__error.html">   34</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__unknow__error.html">nanai_error_unknow_error</a> : <span class="keyword">public</span> std::exception {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__unknow__error.html#afdeee689504293bd5d7ff4950c32b709">nanai_error_unknow_error</a>();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classnanai_1_1nanai__error__unknow__error.html#a4e27460d5ed88e9cb297499c5c213253">what</a>() <span class="keyword">const</span> <a class="code" href="nanai__object_8h.html#ad7597118202b58872a4a874eab3dc1a2">_NOEXCEPT</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__unknow__error.html#a1d843ccc2365e828549cfea01bab26f8">   39</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__unknow__error.html#a1d843ccc2365e828549cfea01bab26f8">_errcode</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  };</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__logic__invalid__argument.html">   42</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__logic__invalid__argument.html">nanai_error_logic_invalid_argument</a> : <span class="keyword">public</span> std::invalid_argument {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__logic__invalid__argument.html#a4a7a923d0bdaff2a9a450bdfe946adf2">nanai_error_logic_invalid_argument</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__logic__invalid__argument.html#a7a983c95e803de2afbc6220ca65496f4">   46</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__logic__invalid__argument.html#a7a983c95e803de2afbc6220ca65496f4">_errcode</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  };</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__logic__invalid__config.html">   49</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__logic__invalid__config.html">nanai_error_logic_invalid_config</a> : <span class="keyword">public</span> std::logic_error {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__logic__invalid__config.html#a438680feb6cf552fe30c2227286e2a3b">nanai_error_logic_invalid_config</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__logic__invalid__config.html#aaa8c31731609a42d9d3ba8f0def83aa1">   53</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__logic__invalid__config.html#aaa8c31731609a42d9d3ba8f0def83aa1">_errcode</a>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  };</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__logic__alg__not__found.html">   56</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__logic__alg__not__found.html">nanai_error_logic_alg_not_found</a> : <span class="keyword">public</span> std::logic_error {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__logic__alg__not__found.html#a37482f1286e3edda3e41e8db08be3899">nanai_error_logic_alg_not_found</a>();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__logic__alg__not__found.html#a7701cdbe37605cdaebce0e8a6195e8d9">   60</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__logic__alg__not__found.html#a7701cdbe37605cdaebce0e8a6195e8d9">_errcode</a>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  };</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__logic__task__not__matched.html">   63</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__logic__task__not__matched.html">nanai_error_logic_task_not_matched</a> : <span class="keyword">public</span> std::logic_error {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__logic__task__not__matched.html#a94f76745dd25d220afd5dea030f07496">nanai_error_logic_task_not_matched</a>();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__logic__task__not__matched.html#a3e73ce12d629068c63360384585d62c9">   67</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__logic__task__not__matched.html#a3e73ce12d629068c63360384585d62c9">_errcode</a>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  };</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  </div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__logic__home__dir__not__config.html">   70</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__logic__home__dir__not__config.html">nanai_error_logic_home_dir_not_config</a> : <span class="keyword">public</span> std::logic_error {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__logic__home__dir__not__config.html#a8419fcfc218bb7ec2522eee55fdc6870">nanai_error_logic_home_dir_not_config</a>();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__logic__home__dir__not__config.html#a9bda795d3a757430411d101bbf9a2df4">   74</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__logic__home__dir__not__config.html#a9bda795d3a757430411d101bbf9a2df4">_errcode</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  };</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__create__thread.html">   77</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__runtime__create__thread.html">nanai_error_runtime_create_thread</a> : <span class="keyword">public</span> std::runtime_error {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__runtime__create__thread.html#aace42682861730c6af0a207b76b3c329">nanai_error_runtime_create_thread</a>();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__create__thread.html#abc60a585972bae43ec4d6801097bb5ba">   81</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__runtime__create__thread.html#abc60a585972bae43ec4d6801097bb5ba">_errcode</a>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  };</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  </div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__init__mutex.html">   84</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__runtime__init__mutex.html">nanai_error_runtime_init_mutex</a> : <span class="keyword">public</span> std::runtime_error {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__runtime__init__mutex.html#a0013394fd311166a8407be53eba690a6">nanai_error_runtime_init_mutex</a>();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__init__mutex.html#a9cf39ee56a510b20711a828030b72c96">   88</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__runtime__init__mutex.html#a9cf39ee56a510b20711a828030b72c96">_errcode</a>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  };</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  </div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__destroy__mutex.html">   91</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__runtime__destroy__mutex.html">nanai_error_runtime_destroy_mutex</a> : <span class="keyword">public</span> std::runtime_error {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__runtime__destroy__mutex.html#a8cf012bdc03827ba61f3d3825c9c3ee4">nanai_error_runtime_destroy_mutex</a>();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__destroy__mutex.html#a8d75df933f0f165a5d9ee57173c3dd21">   95</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__runtime__destroy__mutex.html#a8d75df933f0f165a5d9ee57173c3dd21">_errcode</a>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  };</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  </div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__lock__mutex.html">   98</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__runtime__lock__mutex.html">nanai_error_runtime_lock_mutex</a> : <span class="keyword">public</span> std::runtime_error {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__runtime__lock__mutex.html#ab4db66d8a33d10c1cfffc880adba1d2f">nanai_error_runtime_lock_mutex</a>();</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__lock__mutex.html#ab01eae05d07fbef9dc8badb4d9aa1b05">  102</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__runtime__lock__mutex.html#ab01eae05d07fbef9dc8badb4d9aa1b05">_errcode</a>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  };</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  </div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__unlock__mutex.html">  105</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__runtime__unlock__mutex.html">nanai_error_runtime_unlock_mutex</a> : <span class="keyword">public</span> std::runtime_error {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__runtime__unlock__mutex.html#a7f077e10b1c5ecf91f7b001d4bf5436f">nanai_error_runtime_unlock_mutex</a>();</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__unlock__mutex.html#aba361f162e36f4a3a7d9028832bf65e6">  109</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__runtime__unlock__mutex.html#aba361f162e36f4a3a7d9028832bf65e6">_errcode</a>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  };</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  </div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__join__thread.html">  112</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__runtime__join__thread.html">nanai_error_runtime_join_thread</a> : <span class="keyword">public</span> std::runtime_error {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__runtime__join__thread.html#aa6319913367e8964e54866f35c763435">nanai_error_runtime_join_thread</a>();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__join__thread.html#ad213745f7db3d98b873fb826187ed642">  116</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__runtime__join__thread.html#ad213745f7db3d98b873fb826187ed642">_errcode</a>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  };</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  </div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__open__file.html">  119</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__runtime__open__file.html">nanai_error_runtime_open_file</a> : <span class="keyword">public</span> std::runtime_error {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__runtime__open__file.html#a7ecafd733718b1371cd049961c862bd2">nanai_error_runtime_open_file</a>();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__open__file.html#a60f374c9a5f457328bf76a8576a61646">  123</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__runtime__open__file.html#a60f374c9a5f457328bf76a8576a61646">_errcode</a>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  };</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  </div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__alloc__memory.html">  126</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__error__runtime__alloc__memory.html">nanai_error_runtime_alloc_memory</a> : <span class="keyword">public</span> std::runtime_error {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classnanai_1_1nanai__error__runtime__alloc__memory.html#aa638631a5e632fc47409027525c58401">nanai_error_runtime_alloc_memory</a>();</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__error__runtime__alloc__memory.html#a3212283dfac6316bc3ac8e3c2f7578df">  130</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__error__runtime__alloc__memory.html#a3212283dfac6316bc3ac8e3c2f7578df">_errcode</a>;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  };</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  </div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__object.html">  133</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classnanai_1_1nanai__object.html">nanai_object</a> {</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <a class="code" href="classnanai_1_1nanai__object.html#a066d094b5abc020f08b38ee92220da6a">nanai_object</a>();</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <a class="code" href="classnanai_1_1nanai__object.html#a066d094b5abc020f08b38ee92220da6a">nanai_object</a>(<span class="keyword">const</span> <a class="code" href="classnanai_1_1nanai__object.html">nanai_object</a> &amp;t);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classnanai_1_1nanai__object.html#a7aaa650c4408749ac7e0ca70547920ee">~nanai_object</a>();</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classnanai_1_1nanai__object.html#a87f162335cead23a1409f7c0570a3284">on_error</a>(<span class="keywordtype">int</span> err);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__object.html#ab70ce957f8be26e1a4c61461de9c4aa7">get_last_error</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classnanai_1_1nanai__object.html#a9b05c72f0058867e692dcbba020436c6">error</a>(<span class="keywordtype">int</span> err);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="classnanai_1_1nanai__object.html#affc3fedffe027488da1cd445291504b3">  147</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classnanai_1_1nanai__object.html#affc3fedffe027488da1cd445291504b3">_last_error</a>;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  };</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="namespacenanai.html#a89261d96bcefbd9b2e87c85a4370f878">error</a>(<span class="keywordtype">int</span> err);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;}</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* nanai_object_h */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__task__not__matched_html_a94f76745dd25d220afd5dea030f07496"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__task__not__matched.html#a94f76745dd25d220afd5dea030f07496">nanai::nanai_error_logic_task_not_matched::nanai_error_logic_task_not_matched</a></div><div class="ttdeci">nanai_error_logic_task_not_matched()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00023">nanai_object.cc:23</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__invalid__config_html_a438680feb6cf552fe30c2227286e2a3b"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__invalid__config.html#a438680feb6cf552fe30c2227286e2a3b">nanai::nanai_error_logic_invalid_config::nanai_error_logic_invalid_config</a></div><div class="ttdeci">nanai_error_logic_invalid_config()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00015">nanai_object.cc:15</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__alloc__memory_html_a3212283dfac6316bc3ac8e3c2f7578df"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__alloc__memory.html#a3212283dfac6316bc3ac8e3c2f7578df">nanai::nanai_error_runtime_alloc_memory::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00130">nanai_object.h:130</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__invalid__config_html"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__invalid__config.html">nanai::nanai_error_logic_invalid_config</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00049">nanai_object.h:49</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__unknow__error_html_a1d843ccc2365e828549cfea01bab26f8"><div class="ttname"><a href="classnanai_1_1nanai__error__unknow__error.html#a1d843ccc2365e828549cfea01bab26f8">nanai::nanai_error_unknow_error::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00039">nanai_object.h:39</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__open__file_html"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__open__file.html">nanai::nanai_error_runtime_open_file</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00119">nanai_object.h:119</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__lock__mutex_html"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__lock__mutex.html">nanai::nanai_error_runtime_lock_mutex</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00098">nanai_object.h:98</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__alloc__memory_html"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__alloc__memory.html">nanai::nanai_error_runtime_alloc_memory</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00126">nanai_object.h:126</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__create__thread_html"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__create__thread.html">nanai::nanai_error_runtime_create_thread</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00077">nanai_object.h:77</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__lock__mutex_html_ab4db66d8a33d10c1cfffc880adba1d2f"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__lock__mutex.html#ab4db66d8a33d10c1cfffc880adba1d2f">nanai::nanai_error_runtime_lock_mutex::nanai_error_runtime_lock_mutex</a></div><div class="ttdeci">nanai_error_runtime_lock_mutex()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00043">nanai_object.cc:43</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__object_html_a87f162335cead23a1409f7c0570a3284"><div class="ttname"><a href="classnanai_1_1nanai__object.html#a87f162335cead23a1409f7c0570a3284">nanai::nanai_object::on_error</a></div><div class="ttdeci">virtual void on_error(int err)</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00109">nanai_object.cc:109</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__join__thread_html_aa6319913367e8964e54866f35c763435"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__join__thread.html#aa6319913367e8964e54866f35c763435">nanai::nanai_error_runtime_join_thread::nanai_error_runtime_join_thread</a></div><div class="ttdeci">nanai_error_runtime_join_thread()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00051">nanai_object.cc:51</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__task__not__matched_html_a3e73ce12d629068c63360384585d62c9"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__task__not__matched.html#a3e73ce12d629068c63360384585d62c9">nanai::nanai_error_logic_task_not_matched::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00067">nanai_object.h:67</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__open__file_html_a7ecafd733718b1371cd049961c862bd2"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__open__file.html#a7ecafd733718b1371cd049961c862bd2">nanai::nanai_error_runtime_open_file::nanai_error_runtime_open_file</a></div><div class="ttdeci">nanai_error_runtime_open_file()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00055">nanai_object.cc:55</a></div></div>
+<div class="ttc" id="namespacenanai_html"><div class="ttname"><a href="namespacenanai.html">nanai</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__ann__nanncalc_8h_source.html#l00015">nanai_ann_nanncalc.h:15</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__invalid__argument_html_a7a983c95e803de2afbc6220ca65496f4"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__invalid__argument.html#a7a983c95e803de2afbc6220ca65496f4">nanai::nanai_error_logic_invalid_argument::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00046">nanai_object.h:46</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__home__dir__not__config_html_a8419fcfc218bb7ec2522eee55fdc6870"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__home__dir__not__config.html#a8419fcfc218bb7ec2522eee55fdc6870">nanai::nanai_error_logic_home_dir_not_config::nanai_error_logic_home_dir_not_config</a></div><div class="ttdeci">nanai_error_logic_home_dir_not_config()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00027">nanai_object.cc:27</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__home__dir__not__config_html"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__home__dir__not__config.html">nanai::nanai_error_logic_home_dir_not_config</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00070">nanai_object.h:70</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__invalid__config_html_aaa8c31731609a42d9d3ba8f0def83aa1"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__invalid__config.html#aaa8c31731609a42d9d3ba8f0def83aa1">nanai::nanai_error_logic_invalid_config::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00053">nanai_object.h:53</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__unlock__mutex_html_aba361f162e36f4a3a7d9028832bf65e6"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__unlock__mutex.html#aba361f162e36f4a3a7d9028832bf65e6">nanai::nanai_error_runtime_unlock_mutex::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00109">nanai_object.h:109</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__init__mutex_html"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__init__mutex.html">nanai::nanai_error_runtime_init_mutex</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00084">nanai_object.h:84</a></div></div>
+<div class="ttc" id="namespacenanai_html_a89261d96bcefbd9b2e87c85a4370f878"><div class="ttname"><a href="namespacenanai.html#a89261d96bcefbd9b2e87c85a4370f878">nanai::error</a></div><div class="ttdeci">void error(int err)</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00134">nanai_object.cc:134</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__alg__not__found_html"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__alg__not__found.html">nanai::nanai_error_logic_alg_not_found</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00056">nanai_object.h:56</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__destroy__mutex_html"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__destroy__mutex.html">nanai::nanai_error_runtime_destroy_mutex</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00091">nanai_object.h:91</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__unknow__error_html"><div class="ttname"><a href="classnanai_1_1nanai__error__unknow__error.html">nanai::nanai_error_unknow_error</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00034">nanai_object.h:34</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__alg__not__found_html_a7701cdbe37605cdaebce0e8a6195e8d9"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__alg__not__found.html#a7701cdbe37605cdaebce0e8a6195e8d9">nanai::nanai_error_logic_alg_not_found::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00060">nanai_object.h:60</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__alg__not__found_html_a37482f1286e3edda3e41e8db08be3899"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__alg__not__found.html#a37482f1286e3edda3e41e8db08be3899">nanai::nanai_error_logic_alg_not_found::nanai_error_logic_alg_not_found</a></div><div class="ttdeci">nanai_error_logic_alg_not_found()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00019">nanai_object.cc:19</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__object_html_ab70ce957f8be26e1a4c61461de9c4aa7"><div class="ttname"><a href="classnanai_1_1nanai__object.html#ab70ce957f8be26e1a4c61461de9c4aa7">nanai::nanai_object::get_last_error</a></div><div class="ttdeci">int get_last_error() const </div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00113">nanai_object.cc:113</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__unlock__mutex_html_a7f077e10b1c5ecf91f7b001d4bf5436f"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__unlock__mutex.html#a7f077e10b1c5ecf91f7b001d4bf5436f">nanai::nanai_error_runtime_unlock_mutex::nanai_error_runtime_unlock_mutex</a></div><div class="ttdeci">nanai_error_runtime_unlock_mutex()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00047">nanai_object.cc:47</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__unlock__mutex_html"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__unlock__mutex.html">nanai::nanai_error_runtime_unlock_mutex</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00105">nanai_object.h:105</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__open__file_html_a60f374c9a5f457328bf76a8576a61646"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__open__file.html#a60f374c9a5f457328bf76a8576a61646">nanai::nanai_error_runtime_open_file::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00123">nanai_object.h:123</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__invalid__argument_html_a4a7a923d0bdaff2a9a450bdfe946adf2"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__invalid__argument.html#a4a7a923d0bdaff2a9a450bdfe946adf2">nanai::nanai_error_logic_invalid_argument::nanai_error_logic_invalid_argument</a></div><div class="ttdeci">nanai_error_logic_invalid_argument()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00011">nanai_object.cc:11</a></div></div>
+<div class="ttc" id="nanai__object_8h_html_ad7597118202b58872a4a874eab3dc1a2"><div class="ttname"><a href="nanai__object_8h.html#ad7597118202b58872a4a874eab3dc1a2">_NOEXCEPT</a></div><div class="ttdeci">#define _NOEXCEPT</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00007">nanai_object.h:7</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__object_html"><div class="ttname"><a href="classnanai_1_1nanai__object.html">nanai::nanai_object</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00133">nanai_object.h:133</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__init__mutex_html_a9cf39ee56a510b20711a828030b72c96"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__init__mutex.html#a9cf39ee56a510b20711a828030b72c96">nanai::nanai_error_runtime_init_mutex::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00088">nanai_object.h:88</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__create__thread_html_abc60a585972bae43ec4d6801097bb5ba"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__create__thread.html#abc60a585972bae43ec4d6801097bb5ba">nanai::nanai_error_runtime_create_thread::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00081">nanai_object.h:81</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__unknow__error_html_afdeee689504293bd5d7ff4950c32b709"><div class="ttname"><a href="classnanai_1_1nanai__error__unknow__error.html#afdeee689504293bd5d7ff4950c32b709">nanai::nanai_error_unknow_error::nanai_error_unknow_error</a></div><div class="ttdeci">nanai_error_unknow_error()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00006">nanai_object.cc:6</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__object_html_affc3fedffe027488da1cd445291504b3"><div class="ttname"><a href="classnanai_1_1nanai__object.html#affc3fedffe027488da1cd445291504b3">nanai::nanai_object::_last_error</a></div><div class="ttdeci">int _last_error</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00147">nanai_object.h:147</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__unknow__error_html_a4e27460d5ed88e9cb297499c5c213253"><div class="ttname"><a href="classnanai_1_1nanai__error__unknow__error.html#a4e27460d5ed88e9cb297499c5c213253">nanai::nanai_error_unknow_error::what</a></div><div class="ttdeci">virtual const char * what() const _NOEXCEPT</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00009">nanai_object.cc:9</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__alloc__memory_html_aa638631a5e632fc47409027525c58401"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__alloc__memory.html#aa638631a5e632fc47409027525c58401">nanai::nanai_error_runtime_alloc_memory::nanai_error_runtime_alloc_memory</a></div><div class="ttdeci">nanai_error_runtime_alloc_memory()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00059">nanai_object.cc:59</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__invalid__argument_html"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__invalid__argument.html">nanai::nanai_error_logic_invalid_argument</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00042">nanai_object.h:42</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__destroy__mutex_html_a8d75df933f0f165a5d9ee57173c3dd21"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__destroy__mutex.html#a8d75df933f0f165a5d9ee57173c3dd21">nanai::nanai_error_runtime_destroy_mutex::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00095">nanai_object.h:95</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__join__thread_html_ad213745f7db3d98b873fb826187ed642"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__join__thread.html#ad213745f7db3d98b873fb826187ed642">nanai::nanai_error_runtime_join_thread::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00116">nanai_object.h:116</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__join__thread_html"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__join__thread.html">nanai::nanai_error_runtime_join_thread</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00112">nanai_object.h:112</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__task__not__matched_html"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__task__not__matched.html">nanai::nanai_error_logic_task_not_matched</a></div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00063">nanai_object.h:63</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__object_html_a066d094b5abc020f08b38ee92220da6a"><div class="ttname"><a href="classnanai_1_1nanai__object.html#a066d094b5abc020f08b38ee92220da6a">nanai::nanai_object::nanai_object</a></div><div class="ttdeci">nanai_object()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00098">nanai_object.cc:98</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__logic__home__dir__not__config_html_a9bda795d3a757430411d101bbf9a2df4"><div class="ttname"><a href="classnanai_1_1nanai__error__logic__home__dir__not__config.html#a9bda795d3a757430411d101bbf9a2df4">nanai::nanai_error_logic_home_dir_not_config::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00074">nanai_object.h:74</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__destroy__mutex_html_a8cf012bdc03827ba61f3d3825c9c3ee4"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__destroy__mutex.html#a8cf012bdc03827ba61f3d3825c9c3ee4">nanai::nanai_error_runtime_destroy_mutex::nanai_error_runtime_destroy_mutex</a></div><div class="ttdeci">nanai_error_runtime_destroy_mutex()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00039">nanai_object.cc:39</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__lock__mutex_html_ab01eae05d07fbef9dc8badb4d9aa1b05"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__lock__mutex.html#ab01eae05d07fbef9dc8badb4d9aa1b05">nanai::nanai_error_runtime_lock_mutex::_errcode</a></div><div class="ttdeci">int _errcode</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8h_source.html#l00102">nanai_object.h:102</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__object_html_a7aaa650c4408749ac7e0ca70547920ee"><div class="ttname"><a href="classnanai_1_1nanai__object.html#a7aaa650c4408749ac7e0ca70547920ee">nanai::nanai_object::~nanai_object</a></div><div class="ttdeci">virtual ~nanai_object()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00106">nanai_object.cc:106</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__object_html_a9b05c72f0058867e692dcbba020436c6"><div class="ttname"><a href="classnanai_1_1nanai__object.html#a9b05c72f0058867e692dcbba020436c6">nanai::nanai_object::error</a></div><div class="ttdeci">void error(int err)</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00117">nanai_object.cc:117</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__init__mutex_html_a0013394fd311166a8407be53eba690a6"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__init__mutex.html#a0013394fd311166a8407be53eba690a6">nanai::nanai_error_runtime_init_mutex::nanai_error_runtime_init_mutex</a></div><div class="ttdeci">nanai_error_runtime_init_mutex()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00035">nanai_object.cc:35</a></div></div>
+<div class="ttc" id="classnanai_1_1nanai__error__runtime__create__thread_html_aace42682861730c6af0a207b76b3c329"><div class="ttname"><a href="classnanai_1_1nanai__error__runtime__create__thread.html#aace42682861730c6af0a207b76b3c329">nanai::nanai_error_runtime_create_thread::nanai_error_runtime_create_thread</a></div><div class="ttdeci">nanai_error_runtime_create_thread()</div><div class="ttdef"><b>Definition:</b> <a href="nanai__object_8cc_source.html#l00031">nanai_object.cc:31</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者 &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.10
+</small></address>
+</body>
+</html>

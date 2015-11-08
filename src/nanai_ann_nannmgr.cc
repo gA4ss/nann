@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dlfcn.h>
@@ -10,6 +10,7 @@
 #include <fstream>
 #include <algorithm>
 
+#include <nanai_common.h>
 #include <nanai_ann_nnn.h>
 #include <nanai_ann_nanncalc.h>
 #include <nanai_ann_nannmgr.h>
@@ -75,6 +76,27 @@ namespace nanai {
     }
   }
   
+  int nanai_ann_nannmgr::training(const std::string &json,
+                                  nanai_ann_nanncalc *dcalc,
+                                  const char *task,
+                                  nanai_ann_nanncalc::ann_t *ann,
+                                  const char *alg) {
+    std::vector<nanmath::nanmath_vector> inputs;
+    nanmath::nanmath_vector target;
+    int i = 0;
+    
+    /* 解析json */
+    nanai_support_input_json(json, inputs, &target);
+    
+    for (auto x : inputs) {
+      if (target.size()) training(x, &target, dcalc, task, ann, alg);
+      else training(x, nullptr, dcalc, task, ann, alg);
+      i++;
+    }
+    
+    return i;
+  }
+  
   nanai_ann_nanncalc *nanai_ann_nannmgr::training(nanmath::nanmath_vector &input,
                                                   nanmath::nanmath_vector *target,
                                                   nanai_ann_nanncalc *dcalc,
@@ -82,14 +104,17 @@ namespace nanai {
                                                   nanai_ann_nanncalc::ann_t *ann,
                                                   const char *alg) {
     
-    
+    /* 如果计算结点存在则使用 */
     if (dcalc) {
+      /* 如果指定了算法名称 */
       if (alg) {
+        /* 通过算法名，找到算法描述结点 */
         nanai_ann_nanndesc *desc = find_alg(alg);
         /* 没找到 */
         if (desc == nullptr) {
           error(NANAI_ERROR_LOGIC_ALG_NOT_FOUND);
         }
+        /* 修改计算结点的配置 */
         dcalc->do_configure(*desc);
       }
       
@@ -109,12 +134,31 @@ namespace nanai {
       error(NANAI_ERROR_LOGIC_ALG_NOT_FOUND);
     }
     
+    /* 产生新结点进行运算 */
     nanai_ann_nanncalc *calc = generate(*desc, ann, task);
     
     if (target) calc->ann_training(input, *target, task);
     else calc->ann_training(input, _target, task);
     
     return calc;
+  }
+  
+  int nanai_ann_nannmgr::training_notarget(const std::string &json,
+                                           nanai_ann_nanncalc *dcalc,
+                                           const char *task,
+                                           nanai_ann_nanncalc::ann_t *ann,
+                                           const char *alg) {
+    std::vector<nanmath::nanmath_vector> inputs;
+    int i = 0;
+    
+    /* 解析json */
+    nanai_support_input_json(json, inputs, nullptr);
+    for (auto x : inputs) {
+      training_notarget(x, dcalc, task, ann, alg);
+      i++;
+    }
+    
+    return i;
   }
   
   nanai_ann_nanncalc *nanai_ann_nannmgr::training_notarget(nanmath::nanmath_vector &input,
@@ -150,6 +194,26 @@ namespace nanai {
     return calc;
   }
 
+  int nanai_ann_nannmgr::training_nooutput(std::string &json,
+                                           nanai_ann_nanncalc *dcalc,
+                                           const char *task,
+                                           nanai_ann_nanncalc::ann_t *ann,
+                                           const char *alg) {
+    std::vector<nanmath::nanmath_vector> inputs;
+    nanmath::nanmath_vector target;
+    int i = 0;
+    
+    /* 解析json */
+    nanai_support_input_json(json, inputs, &target);
+    for (auto x : inputs) {
+      if (target.size()) training_nooutput(x, &target, dcalc, task, ann, alg);
+      else training_nooutput(x, nullptr, dcalc, task, ann, alg);
+      i++;
+    }
+    
+    return i;
+  }
+  
   nanai_ann_nanncalc *nanai_ann_nannmgr::training_nooutput(nanmath::nanmath_vector &input,
                                                 nanmath::nanmath_vector *target,
                                                 nanai_ann_nanncalc *dcalc,
@@ -192,40 +256,36 @@ namespace nanai {
   nanai_ann_nanncalc *nanai_ann_nannmgr::nnn_read(const std::string &nnn) {
     /* 从nnn文件中读取一个进度，判断当前是否存在算法，不存在则失败 */
     std::fstream file;
-    file.open(nnn, std::ios::in | std::ios::binary);
+    file.open(nnn, std::ios::in);
     if (file.is_open() == false) {
       error(NANAI_ERROR_RUNTIME_OPEN_FILE);
     }
     
-    nanai_ann_nnn header;
-    file.read((char*)&header, sizeof(nanai_ann_nnn));
+    std::string json_context;
+    std::string alg;
+    nanai_ann_nanncalc::ann_t ann;
+    nanmath::nanmath_vector target;
+    
+    file >> json_context;
+    nanai_ann_nnn_read(json_context, alg, ann, &target);
     
     /* 使用默认的算法 */
-    nanai_ann_nanndesc *desc = find_alg(header.algname);
+    nanai_ann_nanndesc *desc = find_alg(alg);
     /* 没有找到匹配算法 */
     if (desc == nullptr) {
       error(NANAI_ERROR_LOGIC_ALG_NOT_FOUND);
     }
     
-    /* 映射文件 */
-    file.seekg(0, std::ios::end);
-    long long filesize = file.tellg();
-    
-    unsigned char *buf = new unsigned char [filesize + 1];
-    if (buf == nullptr) {
-      error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
+    /* 设置全局的目标向量，如果存在的话 */
+    if (target.size() != 0) {
+      _target = target;
     }
     
-    file.seekg(0, std::ios::beg);
-    file.read((char*)buf, (int)filesize);
-    /* 修改ann的配置 */
-    nanai_ann_nanncalc::ann_t ann = nanai_ann_nnn_read(buf);
-  
-    delete [] buf;
     file.close();
     
-    /* 启动一个计算结点，并且应用当前的神经网络 */
-    return generate(*desc, &ann, header.taskname);
+    /* 取出文件名作为任务名，启动一个计算结点，并且应用当前的神经网络 */
+    std::string task = nanai_support_just_filename(nnn);
+    return generate(*desc, &ann, task.c_str());
   }
   
   void nanai_ann_nannmgr::nnn_write(const std::string &nnn,
@@ -239,28 +299,25 @@ namespace nanai {
     }
     
     std::string alg = calc->get_alg_name();
-    std::string task = calc->get_task_name();
-    nanai_ann_nnn header = {0};
-    
-    strcpy(header.algname, alg.c_str());
-    strcpy(header.taskname, task.c_str());
-    
+    std::string task = calc->get_task_name();     /* 作为最后的文件名 */
     nanai_ann_nanncalc::ann_t ann = calc->get_ann();
-    /* FIXME:这里用的临时空间，固定大小 */
-    unsigned char *tmp_buf = new unsigned char [1024 * 1024];   /* 1MB临时空间 */
-    if (tmp_buf == nullptr) {
-      error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
-    }
-    int ret = nanai_ann_nnn_write(ann, alg, task, tmp_buf, 1024 * 1024);
+    std::string json_context;
+    
+    nanai_ann_nnn_write(json_context, alg, ann, &_target);
     
     /* 写入到文件 */
-    std::fstream file;
-    file.open(nnn, std::ios::out | std::ios::binary);
+    std::ofstream file;
+    std::string outfile = nnn;
+    if (outfile.back() != '/') outfile += "/";
+    outfile += task;
+    outfile += ".json";
+    
+    file.open(outfile, std::ios::out);
     if (file.is_open() == false) {
       error(NANAI_ERROR_RUNTIME_OPEN_FILE);
     }
     
-    file.write((const char*)tmp_buf, ret);
+    file << json_context;
     file.close();
   }
   

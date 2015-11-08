@@ -1,0 +1,22 @@
+digraph "nanmath::nanmath_matrix::destroy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="nanmath::nanmath_matrix\l::destroy",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="nanmath::nanmath_matrix\l::nanmath_matrix",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__matrix.html#ad2712c998744cec123026fe3cbb7b5da"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="nanmath::nanmath_matrix\l::~nanmath_matrix",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__matrix.html#a41cc1dac91f6ef08f9b3ec1baf1af3e3"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="nanmath::nanmath_matrix\l::create",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__matrix.html#a0d9762b03f6e27563bbdf821be78342d"];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="nanmath::nanmath_matrix\l::nanmath_matrix",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__matrix.html#a16873cc6b8741de29e1d7a596ee8836c"];
+  Node4 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="nanmath::nanmath_matrix\l::resize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__matrix.html#ac27e457cd31058c95b9b5ccf7b4809c0"];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="nanmath::nanmath_matrix::T",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__matrix.html#a1e04289b0bfb7556f2d4c25d49a8198d"];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="nanmath::nanmath_matrix::set",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classnanmath_1_1nanmath__matrix.html#a0074200e9eaa3ffb2b9ce6602e1bfd5d"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

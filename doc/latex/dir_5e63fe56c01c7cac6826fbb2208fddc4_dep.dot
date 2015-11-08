@@ -1,0 +1,15 @@
+digraph "projects/nann" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_a9ec1ef424966475f993eb98877e3088 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="projects" fontname="Helvetica", fontsize="10", URL="dir_a9ec1ef424966475f993eb98877e3088.html"]
+  subgraph clusterdir_5e63fe56c01c7cac6826fbb2208fddc4 {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_5e63fe56c01c7cac6826fbb2208fddc4.html"];
+    dir_5e63fe56c01c7cac6826fbb2208fddc4 [shape=plaintext label="nann"];
+    dir_9f87c533d3e3bf2881155dd3a5762e82 [shape=box label="nann" color="black" fillcolor="white" style="filled" URL="dir_9f87c533d3e3bf2881155dd3a5762e82.html"];
+  }
+  }
+  dir_bfccd401955b95cf8c75461437045ac0 [shape=box label="inc" fillcolor="white" style="filled" color="red" URL="dir_bfccd401955b95cf8c75461437045ac0.html"];
+  dir_9f87c533d3e3bf2881155dd3a5762e82->dir_bfccd401955b95cf8c75461437045ac0 [headlabel="2", labeldistance=1.5 headhref="dir_000004_000000.html"];
+}
