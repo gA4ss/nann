@@ -19,7 +19,8 @@ namespace nanai {
 #define NANAI_ERROR_LOGIC_ALG_NOT_FOUND                 0x80110001
 #define NANAI_ERROR_LOGIC_TASK_NOT_MATCHED              0x80110002
 #define NANAI_ERROR_LOGIC_HOME_DIR_NOT_CONFIG           0x80110003
-  
+#define NANAI_ERROR_LOGIC_ANN_NUMBER_LESS_2             0x80110004
+
 #define NANAI_ERROR_RUNTIME                             0x80200000
 #define NANAI_ERROR_RUNTIME_CREATE_THREAD               0x80200001
 #define NANAI_ERROR_RUNTIME_INIT_MUTEX                  0x80200002
@@ -70,6 +71,13 @@ namespace nanai {
   class nanai_error_logic_home_dir_not_config : public std::logic_error {
   public:
     explicit nanai_error_logic_home_dir_not_config();
+  public:
+    int _errcode;
+  };
+  
+  class nanai_error_logic_ann_number_less_2 : public std::logic_error {
+  public:
+    explicit nanai_error_logic_ann_number_less_2();
   public:
     int _errcode;
   };

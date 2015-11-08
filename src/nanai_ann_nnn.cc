@@ -174,7 +174,7 @@ namespace nanai {
                           nanai_ann_nanncalc::ann_t &ann,
                           nanmath::nanmath_vector *target) {
     cJSON *json = cJSON_Parse(json_context.c_str());
-    if (json) {
+    if (json == nullptr) {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     

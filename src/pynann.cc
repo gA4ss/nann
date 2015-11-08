@@ -18,6 +18,7 @@ using namespace nanai;
 /* 错误信息，不可忽略 */
 #define PYNANN_ERROR_INTERNAL                           0x88000000
 #define PYNANN_ERROR_PARSE_JSON                         0x88000001
+#define PYNANN_ERROR_OPEN_FILE                          0x88000002
 #define PYNANN_ERROR_INVALID_ARGUMENT                   0x88000100
 #define PYNANN_ERROR_INVALID_ARGUMENT_TASK_EXIST        0x88000101
 #define PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST    0x88000102
@@ -38,7 +39,7 @@ typedef struct _nannmgr_node {
 
 pthread_mutex_t g_lock;
 static std::map<std::string, nannmgr_node_t> g_mgrlist;
-static const char *g_str_this_version_not_implemented = "this version  ot implemented!!!";
+//static const char *g_str_this_version_not_implemented = "this version  ot implemented!!!";
 static bool g_throw_exp = true;
 
 static PyObject *do_except(int code, const char *str=nullptr);
@@ -50,6 +51,7 @@ PyObject *do_except(int code, const char *str) {
   } msgs[] = {
     { static_cast<int>(PYNANN_ERROR_INTERNAL), PyExc_Exception, "internal error" },
     { static_cast<int>(PYNANN_ERROR_PARSE_JSON), PyExc_SyntaxError, "parse json error" },
+    { static_cast<int>(PYNANN_ERROR_OPEN_FILE), PyExc_OSError, "open file error" },
     { static_cast<int>(PYNANN_ERROR_INVALID_ARGUMENT), PyExc_StandardError, "invalid argument" },
     { static_cast<int>(PYNANN_ERROR_INVALID_ARGUMENT_TASK_EXIST), PyExc_StandardError, "task already exist" },
     { static_cast<int>(PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST), PyExc_StandardError, "task not exist" },
@@ -109,9 +111,11 @@ static PyObject *create_nannmgr(const char *task,
   try {
     nanai_ann_nnn_read(json, alg, ann, &target);
   } catch (nanai_error_logic_invalid_argument e) {
-    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT, e.what());
   } catch (nanai_error_logic_invalid_config e) {
-    return do_except(PYNANN_ERROR_PARSE_JSON);
+    return do_except(PYNANN_ERROR_PARSE_JSON, e.what());
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL);
   }
   
   lock();
@@ -123,10 +127,10 @@ static PyObject *create_nannmgr(const char *task,
   
   nanai_ann_nannmgr *nannmgr = nullptr;
   try {
-    if (max_calc == 0) nannmgr = new nanai_ann_nannmgr(alg, ann, &target);
-    else nannmgr = new nanai_ann_nannmgr(alg, ann, &target, max_calc, now_calc);
-  } catch (std::exception e) {
-    return do_except(PYNANN_ERROR_INTERNAL, e.what());
+    if (max_calc == 0) nannmgr = new nanai_ann_nannmgr(alg, ann, &target, task);
+    else nannmgr = new nanai_ann_nannmgr(alg, ann, &target, task, max_calc, now_calc);
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL);
   }
   
   if (nannmgr == nullptr) {
@@ -183,8 +187,8 @@ static PyObject *wrap_destroy(PyObject *self, PyObject *args) {
     try {
       delete g_mgrlist[task].mgr; g_mgrlist[task].mgr = nullptr;
       g_mgrlist.erase(task);
-    } catch (std::exception e) {
-      return do_except(PYNANN_ERROR_INTERNAL, e.what());
+    } catch (...) {
+      return do_except(PYNANN_ERROR_INTERNAL);
     }
   }
   unlock();
@@ -229,9 +233,11 @@ static PyObject *wrap_training(PyObject *self, PyObject *args) {
   try {
     nanai_support_input_json(json, samples, &target);
   } catch (nanai_error_logic_invalid_argument e) {
-    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT, e.what());
   } catch (nanai_error_logic_invalid_config e) {
-    return do_except(PYNANN_ERROR_PARSE_JSON);
+    return do_except(PYNANN_ERROR_PARSE_JSON, e.what());
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL);
   }
   
   try {
@@ -265,9 +271,11 @@ static PyObject *wrap_training_notarget(PyObject *self, PyObject *args) {
   try {
     nanai_support_input_json(json, samples, nullptr);
   } catch (nanai_error_logic_invalid_argument e) {
-    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT, e.what());
   } catch (nanai_error_logic_invalid_config e) {
-    return do_except(PYNANN_ERROR_PARSE_JSON);
+    return do_except(PYNANN_ERROR_PARSE_JSON, e.what());
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL);
   }
   
   try {
@@ -301,9 +309,11 @@ static PyObject *wrap_training_nooutput(PyObject *self, PyObject *args) {
   try {
     nanai_support_input_json(json, samples, nullptr);
   } catch (nanai_error_logic_invalid_argument e) {
-    return do_except(PYNANN_ERROR_INVALID_ARGUMENT);
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT, e.what());
   } catch (nanai_error_logic_invalid_config e) {
-    return do_except(PYNANN_ERROR_PARSE_JSON);
+    return do_except(PYNANN_ERROR_PARSE_JSON, e.what());
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL);
   }
   
   try {
@@ -333,9 +343,16 @@ static PyObject *wrap_nnn_read(PyObject *self, PyObject *args) {
   if (file.is_open() == false) {
     do_except(PYNANN_ERROR_INVALID_ARGUMENT, json_path);
   }
-  
-  std::string json_context;
-  file >> json_context;
+  file.seekg(0, std::ios::end);
+  size_t fs = static_cast<size_t>(file.tellg());
+  char *buf = new char [fs+1];
+  if (buf == nullptr) {
+    error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
+  }
+  memset(buf, 0, fs+1);
+  file.read(buf, fs);
+  std::string json_context = buf;
+  delete [] buf;
   file.close();
   
   return create_nannmgr(task.c_str(), json_context.c_str(), 0, 0);
@@ -343,12 +360,60 @@ static PyObject *wrap_nnn_read(PyObject *self, PyObject *args) {
 
 static PyObject *wrap_nnn_write(PyObject *self, PyObject *args) {
   char *json_path = nullptr;
+  char *task = nullptr;
   
-  if (!PyArg_ParseTuple(args, "s", &json_path)) {
+  if (!PyArg_ParseTuple(args, "s|s", &task, &json_path)) {
     return do_except(PYNANN_ERROR_SUCCESS);
   }
   
-  Py_RETURN_NONE;
+  lock();
+  if (g_mgrlist.find(task) == g_mgrlist.end()) {
+    /* 任务已经存在 ...  */
+    unlock();
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST);
+  }
+  unlock();
+  
+  std::string dir;
+  if (json_path) dir = json_path;
+  else dir = g_mgrlist[task].mgr->get_home_dir();
+  
+  try {
+    /* 首先合并所有网络 */
+    nanai_ann_nanncalc::ann_t ann;
+    g_mgrlist[task].mgr->merge_ann_by_task(task, ann);
+    
+    std::string alg = g_mgrlist[task].mgr->get_alg();
+    nanmath::nanmath_vector target = g_mgrlist[task].mgr->get_target();
+    std::string json_context;
+    nanai_ann_nnn_write(json_context, alg, ann, &target);
+    
+    /* 写入到文件 */
+    std::ofstream file;
+    std::string outfile = dir;
+    if (outfile.back() != '/') outfile += "/";
+    outfile += task;
+    outfile += ".json";
+    
+    file.open(outfile, std::ios::out);
+    if (file.is_open() == false) {
+      return do_except(PYNANN_ERROR_OPEN_FILE);
+    }
+    
+    file << json_context;
+    file.close();
+    
+  } catch (nanai_error_logic_invalid_argument e) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT, e.what());
+  } catch (nanai_error_logic_invalid_config e) {
+    return do_except(PYNANN_ERROR_PARSE_JSON, e.what());
+  } catch (nanai_error_logic_ann_number_less_2 e) {
+    return do_except(PYNANN_ERROR_INTERNAL, e.what());
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL);
+  }
+  
+  return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
 }
 
 static PyObject *wrap_load(PyObject *self, PyObject *args) {
@@ -436,36 +501,26 @@ static PyObject *wrap_merge(PyObject *self, PyObject *args) {
     return do_except(PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST);
   }
   
-  /* 检查正在计算的数量 */
+  std::string json_context;
   try {
-    g_mgrlist[task].mgr->merge_ann_by_task(task);
-  } catch (std::exception e) {
+    /* 首先合并所有网络 */
+    nanai_ann_nanncalc::ann_t ann;
+    g_mgrlist[task].mgr->merge_ann_by_task(task, ann);
+    
+    std::string alg = g_mgrlist[task].mgr->get_alg();
+    nanmath::nanmath_vector target = g_mgrlist[task].mgr->get_target();
+    nanai_ann_nnn_write(json_context, alg, ann, &target);
+  } catch (nanai_error_logic_invalid_argument e) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT, e.what());
+  } catch (nanai_error_logic_invalid_config e) {
+    return do_except(PYNANN_ERROR_PARSE_JSON, e.what());
+  } catch (nanai_error_logic_ann_number_less_2 e) {
     return do_except(PYNANN_ERROR_INTERNAL, e.what());
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL);
   }
   
-  return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
-}
-
-/**************************************************************************************************************/
-
-static PyObject *wrap_calc_create(PyObject *self, PyObject *args) {
-  Py_RETURN_NONE;
-}
-
-static PyObject *wrap_calc_destroy(PyObject *self, PyObject *args) {
-  Py_RETURN_NONE;
-}
-
-static PyObject *wrap_calc_training(PyObject *self, PyObject *args) {
-  Py_RETURN_NONE;
-}
-
-static PyObject *wrap_calc_training_notarget(PyObject *self, PyObject *args) {
-  Py_RETURN_NONE;
-}
-
-static PyObject *wrap_calc_training_nooutput(PyObject *self, PyObject *args) {
-  Py_RETURN_NONE;
+  return Py_BuildValue("s", json_context.c_str());
 }
 
 /**************************************************************************************************************/
@@ -486,14 +541,6 @@ static PyMethodDef nannMethods[] = {
   { "print_info", wrap_print_info, METH_VARARGS, "print ann from task." },
   { "iscalcing", wrap_iscalcing, METH_VARARGS, "some task is running." },
   { "merge", wrap_merge, METH_VARARGS, "merge task's all ann to one." },
-  { "calc_create", wrap_calc_create, METH_VARARGS, "create nann calc node." },
-  { "calc_destroy", wrap_calc_destroy, METH_VARARGS, "destroy nann calc node." },
-  { "calc_training", wrap_calc_training, METH_VARARGS,
-    "nann calc train sample, adjust weight & output result." },
-  { "calc_training_notarget", wrap_calc_training_notarget, METH_VARARGS,
-    "nann calc train sample, not adjust weight & output result." },
-  { "calc_training_nooutput", wrap_calc_training_nooutput, METH_VARARGS,
-    "nann calc train sample, adjust weight & not output result." },
   { NULL, NULL, 0, NULL }
 };
 

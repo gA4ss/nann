@@ -28,6 +28,10 @@ namespace nanai {
     _errcode = NANAI_ERROR_LOGIC_HOME_DIR_NOT_CONFIG;
   }
   
+  nanai_error_logic_ann_number_less_2::nanai_error_logic_ann_number_less_2() : std::logic_error("number of ann less 2") {
+    _errcode = NANAI_ERROR_LOGIC_ANN_NUMBER_LESS_2;
+  }
+  
   nanai_error_runtime_create_thread::nanai_error_runtime_create_thread() : std::runtime_error("create thread failed") {
     _errcode = NANAI_ERROR_RUNTIME_CREATE_THREAD;
   }

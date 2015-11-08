@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <fstream>
 #include <nanai_common.h>
 #include <nanai_ann_nanncalc.h>
 
@@ -91,10 +92,23 @@ namespace nanai {
     std::string jfilename;
     size_t f = path.rfind("/");
     if (f != std::string::npos) {
-      jfilename = path.substr(f);
-      jfilename = jfilename.substr(0, jfilename.rfind(".")-1);
+      jfilename = path.substr(f+1);
+      jfilename = jfilename.substr(0, jfilename.rfind("."));
     }
     return jfilename;
+  }
+  
+  size_t nanai_support_get_file_size(const std::string &path) {
+    std::fstream file;
+    
+    file.open(path, std::ios::in);
+    if (file.is_open() == false) {
+      error(NANAI_ERROR_RUNTIME_OPEN_FILE);
+    }
+    file.seekg(0, std::ios::end);
+    size_t r = static_cast<size_t>(file.tellg());
+    file.close();
+    return r;
   }
   
 }

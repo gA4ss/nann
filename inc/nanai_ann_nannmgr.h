@@ -22,6 +22,7 @@ namespace nanai {
     nanai_ann_nannmgr(std::string alg,                  /*!< [in] 要设定的神经网络算法 */
                       nanai_ann_nanncalc::ann_t &ann,   /*!< [in] 要设定的人工神经网络 */
                       nanmath::nanmath_vector *target,  /*!< [in] 要训练的目标向量，可选*/
+                      const char *task=nullptr,         /*!< [in] 直接赋予的任务名 */
                       int max=1024,                     /*!< [in] 最大计算结点(线程),默认为1024 */
                       int now_start=0                   /*!< [in] 当前就要启动的计算结点数 */
                       );
@@ -33,7 +34,8 @@ namespace nanai {
   protected:
     /*! 初始化所有的数据. */
     virtual void init(int max,          /*!< [in] 最大计算结点(线程),默认为1024 */
-                      int now_start     /*!< [in] 当前就要启动的计算结点数 */
+                      int now_start,    /*!< [in] 当前就要启动的计算结点数 */
+                      const char *task  /*!< [in] 任务名 */
                       );
     
   public:
@@ -159,7 +161,17 @@ namespace nanai {
     virtual void set_max(int max);
     
     /*! 合并任务神经网络 */
-    virtual void merge_ann_by_task(std::string task);
+    virtual void merge_ann_by_task(std::string task,
+                                   nanai_ann_nanncalc::ann_t &ann);
+    
+    virtual std::string get_home_dir() const;
+    virtual std::string get_lib_dir() const;
+    virtual std::string get_etc_dir() const;
+    virtual std::string get_log_dir() const;
+    virtual nanai_ann_nanncalc::ann_t get_ann() const;
+    virtual std::string get_alg() const;
+    virtual nanmath::nanmath_vector get_target() const;
+    
   protected:
     virtual nanai_ann_nanncalc::ann_t merge_ann(nanai_ann_nanncalc::ann_t &a,
                                                 nanai_ann_nanncalc::ann_t &b);
@@ -170,8 +182,6 @@ namespace nanai {
                                                  nanmath::nanmath_matrix &dmat2);
     virtual nanmath::nanmath_matrix merge_delta_matrix(nanmath::nanmath_matrix &dmat1,
                                                        nanmath::nanmath_matrix &dmat2);
-    
-    
   public:
     /*
      * 针对任务的产查询
@@ -197,7 +207,8 @@ namespace nanai {
     virtual nanai_ann_nanncalc *generate(nanai_ann_nanndesc &desc,
                                          nanai_ann_nanncalc::ann_t *ann=NULL,
                                          const char *task=NULL);
-    virtual nanai_ann_nanncalc *make(nanai_ann_nanndesc &desc);
+    virtual nanai_ann_nanncalc *make(nanai_ann_nanndesc &desc,
+                                     const char *task=nullptr);
     
   protected:
     /*

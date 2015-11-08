@@ -69,7 +69,9 @@ namespace nanai {
     };
     
   public:
-    nanai_ann_nanncalc(nanai_ann_nanndesc &desc, const char *lp="./");
+    nanai_ann_nanncalc(nanai_ann_nanndesc &desc,
+                       const char *lp="./",
+                       const char *task=nullptr);
     virtual ~nanai_ann_nanncalc();
     
     /* 禁止拷贝构造函数 */

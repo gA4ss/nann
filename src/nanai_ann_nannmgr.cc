@@ -23,19 +23,20 @@
 
 namespace nanai {  
   nanai_ann_nannmgr::nanai_ann_nannmgr(int max, int now_start) {
-    init(max, now_start);
+    init(max, now_start, nullptr);
   }
   
   nanai_ann_nannmgr::nanai_ann_nannmgr(std::string alg,
                                        nanai_ann_nanncalc::ann_t &ann,
                                        nanmath::nanmath_vector *target,
+                                       const char *task,
                                        int max,
                                        int now_start) {
     _alg = alg;
     _ann = ann;
     if (target) _target = *target;
     
-    init(max, now_start);
+    init(max, now_start, task);
   }
   
   nanai_ann_nannmgr::~nanai_ann_nannmgr() {
@@ -56,7 +57,9 @@ namespace nanai {
     }
   }
   
-  void nanai_ann_nannmgr::init(int max, int now_start) {
+  void nanai_ann_nannmgr::init(int max,
+                               int now_start,
+                               const char *task) {
     _max_calc = max;
     _curr_calc = 0;
     configure();
@@ -71,7 +74,7 @@ namespace nanai {
       }
       
       while (now_start--) {
-        make(_descs[0]);
+        make(_descs[0], task);
       }
     }
   }
@@ -261,12 +264,21 @@ namespace nanai {
       error(NANAI_ERROR_RUNTIME_OPEN_FILE);
     }
     
-    std::string json_context;
     std::string alg;
     nanai_ann_nanncalc::ann_t ann;
     nanmath::nanmath_vector target;
+
+    file.seekg(0, std::ios::end);
+    size_t fs = static_cast<size_t>(file.tellg());
+    char *buf = new char [fs+1];
+    if (buf == nullptr) {
+      error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
+    }
+    memset(buf, 0, fs+1);
+    file.read(buf, fs);
+    std::string json_context = buf;
+    delete [] buf;
     
-    file >> json_context;
     nanai_ann_nnn_read(json_context, alg, ann, &target);
     
     /* 使用默认的算法 */
@@ -448,7 +460,8 @@ namespace nanai {
     return c;
   }
   
-  void nanai_ann_nannmgr::merge_ann_by_task(std::string task) {
+  void nanai_ann_nannmgr::merge_ann_by_task(std::string task,
+                                            nanai_ann_nanncalc::ann_t &ann) {
     lock();
     std::vector<nanai_ann_nanncalc::ann_t> anns;
     for (auto i : _calcs) {
@@ -461,16 +474,44 @@ namespace nanai {
     }
     
     if (anns.size() <= 1) {
-      return;
+      error(NANAI_ERROR_LOGIC_ANN_NUMBER_LESS_2);
     }
     
     /* 进行合并 */
-    nanai_ann_nanncalc::ann_t a = anns[0];
+    _ann = anns[0];
     for (size_t i = 1; i < anns.size(); i++) {
-      a = merge_ann(a, anns[i]);
+      _ann = merge_ann(_ann, anns[i]);
     }
-    
     unlock();
+    ann = _ann;
+  }
+  
+  std::string nanai_ann_nannmgr::get_home_dir() const {
+    return _home_dir;
+  }
+  
+  std::string nanai_ann_nannmgr::get_lib_dir() const {
+    return _lib_dir;
+  }
+  
+  std::string nanai_ann_nannmgr::get_etc_dir() const {
+    return _etc_dir;
+  }
+  
+  std::string nanai_ann_nannmgr::get_log_dir() const {
+    return _log_dir;
+  }
+  
+  nanai_ann_nanncalc::ann_t nanai_ann_nannmgr::get_ann() const {
+    return _ann;
+  }
+  
+  std::string nanai_ann_nannmgr::get_alg() const {
+    return _alg;
+  }
+  
+  nanmath::nanmath_vector nanai_ann_nannmgr::get_target() const {
+    return _target;
   }
   
   /* static */
@@ -673,7 +714,7 @@ namespace nanai {
       
       calc = found_node[0];
     } else {
-      calc = make(desc);
+      calc = make(desc, task);
       _curr_calc++;
     }
     
@@ -687,8 +728,9 @@ namespace nanai {
     return calc;
   }
   
-  nanai_ann_nanncalc *nanai_ann_nannmgr::make(nanai_ann_nanndesc &desc) {
-    nanai_ann_nanncalc *calc = new nanai_ann_nanncalc(desc, _log_dir.c_str());
+  nanai_ann_nanncalc *nanai_ann_nannmgr::make(nanai_ann_nanndesc &desc,
+                                              const char *task) {
+    nanai_ann_nanncalc *calc = new nanai_ann_nanncalc(desc, _log_dir.c_str(), task);
     if (calc == NULL) {
       error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
     }

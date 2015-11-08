@@ -20,6 +20,7 @@ namespace nanai {
                                 std::vector<nanmath::nanmath_vector> &inputs,
                                 nanmath::nanmath_vector *target);
   std::string nanai_support_just_filename(const std::string &path);
+  size_t nanai_support_get_file_size(const std::string &path);
 }
 
 #endif /* nanai_common_h */

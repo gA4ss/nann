@@ -150,7 +150,9 @@ namespace nanai {
     nneural.clear();
   }
   
-  nanai_ann_nanncalc::nanai_ann_nanncalc(nanai_ann_nanndesc &desc, const char *lp) : _state(NANNCALC_CMD_STOP) {
+  nanai_ann_nanncalc::nanai_ann_nanncalc(nanai_ann_nanndesc &desc,
+                                         const char *lp,
+                                         const char *task) : _state(NANNCALC_CMD_STOP) {
     
     ann_destroy();
     
@@ -158,6 +160,10 @@ namespace nanai {
     _birthday = time(nullptr);
     srandom((unsigned)_birthday);
     _cid = nanai_support_nid(*(int*)this);
+    
+    if (task) {
+      _task = task;
+    }
     
     /* 系统输出目录 */
     if (lp != nullptr) {
@@ -277,6 +283,7 @@ namespace nanai {
     ncmd.input = input;
     ncmd.target = target;
     if (task) ncmd.task = task;
+    else ncmd.task = _task;
     set_cmd(ncmd);
   }
   
@@ -286,6 +293,7 @@ namespace nanai {
     ncmd.cmd = NANNCALC_CMD_TRAINING_NOTARGET;
     ncmd.input = input;
     if (task) ncmd.task = task;
+    else ncmd.task = _task;
     set_cmd(ncmd);
   }
   
@@ -297,6 +305,7 @@ namespace nanai {
     ncmd.input = input;
     ncmd.target = target;
     if (task) ncmd.task = task;
+    else ncmd.task = _task;
     set_cmd(ncmd);
   }
   
