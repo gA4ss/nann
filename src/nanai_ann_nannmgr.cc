@@ -255,11 +255,10 @@ namespace nanai {
     return calc;
   }
   
-  
   nanai_ann_nanncalc *nanai_ann_nannmgr::nnn_read(const std::string &nnn) {
     /* 从nnn文件中读取一个进度，判断当前是否存在算法，不存在则失败 */
     std::fstream file;
-    file.open(nnn, std::ios::in);
+    file.open(nnn, std::ios::in|std::ios::binary);
     if (file.is_open() == false) {
       error(NANAI_ERROR_RUNTIME_OPEN_FILE);
     }

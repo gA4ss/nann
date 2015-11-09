@@ -57,6 +57,12 @@ namespace nanai {
     public:
       int make(std::vector<nanmath::nanmath_matrix> &wm,
                std::vector<nanmath::nanmath_matrix> *dwm=nullptr);
+      /*! 有些算法不填充每层神经元个数nneural，这里负责填充
+       
+          按照weight_matrixes进行填充，如果weight_matrixes为空，则清空nneural变量
+       
+       */
+      void fill_nneural();
       void clear();
       
     public:
@@ -74,9 +80,10 @@ namespace nanai {
                        const char *task=nullptr);
     virtual ~nanai_ann_nanncalc();
     
-    /* 禁止拷贝构造函数 */
   private:
+    /*！禁止拷贝构造函数 */
     nanai_ann_nanncalc(const nanai_ann_nanncalc &t);
+    /*！禁止拷贝构造函数 */
     nanai_ann_nanncalc& operator=(const nanai_ann_nanncalc &t);
     
   public:

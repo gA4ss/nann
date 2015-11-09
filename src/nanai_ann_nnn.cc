@@ -179,6 +179,10 @@ namespace nanai {
     }
     
     parse_create_json(json, alg, ann, target);
+    
+    /* 主动填充神经网络的nnearul */
+    ann.fill_nneural();
+    
     if (json) cJSON_Delete(json);
   }
   

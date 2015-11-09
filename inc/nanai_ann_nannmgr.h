@@ -157,90 +157,124 @@ namespace nanai {
     virtual void nnn_write(const std::string &nnn,            /*!< [in] 要输出的路径 */
                            nanai_ann_nanncalc *calc           /*!< [in] 要输出的计算结点指针 */
                            );
+    /*! 等待所有计算结点线程结束 */
     virtual void waits();
-    virtual void set_max(int max);
+    
+    /*! 设置最大计算结点数量 */
+    virtual void set_max(int max                              /*!< [in] 计算结点最大数量 */
+                         );
     
     /*! 合并任务神经网络 */
-    virtual void merge_ann_by_task(std::string task,
-                                   nanai_ann_nanncalc::ann_t &ann);
+    virtual void merge_ann_by_task(std::string task,                  /*!< [in] 任务名称 */
+                                   nanai_ann_nanncalc::ann_t &ann     /*!< [in] 神经网络 */
+                                   );
     
+    /*! 获取主目录 */
     virtual std::string get_home_dir() const;
+    /*! 获取库目录 */
     virtual std::string get_lib_dir() const;
+    /*! 获取配置目录 */
     virtual std::string get_etc_dir() const;
+    /*! 获取日志目录 */
     virtual std::string get_log_dir() const;
+    /*! 获取当前默认神经网络 */
     virtual nanai_ann_nanncalc::ann_t get_ann() const;
+    /*! 获取当前默认算法 */
     virtual std::string get_alg() const;
+    /*! 获取目标向量 */
     virtual nanmath::nanmath_vector get_target() const;
     
   protected:
-    virtual nanai_ann_nanncalc::ann_t merge_ann(nanai_ann_nanncalc::ann_t &a,
-                                                nanai_ann_nanncalc::ann_t &b);
+    /*! 合并神经网络 */
+    virtual nanai_ann_nanncalc::ann_t merge_ann(nanai_ann_nanncalc::ann_t &a,                 /*!< 要合并的神经网络1 */
+                                                nanai_ann_nanncalc::ann_t &b                  /*!< 要合并的神经网络2 */
+                                                );
     
-    virtual nanmath::nanmath_matrix merge_matrix(nanmath::nanmath_matrix &mat1,
-                                                 nanmath::nanmath_matrix &mat2,
-                                                 nanmath::nanmath_matrix &dmat1,
-                                                 nanmath::nanmath_matrix &dmat2);
-    virtual nanmath::nanmath_matrix merge_delta_matrix(nanmath::nanmath_matrix &dmat1,
-                                                       nanmath::nanmath_matrix &dmat2);
+    /*! 合并矩阵 */
+    virtual nanmath::nanmath_matrix merge_matrix(nanmath::nanmath_matrix &mat1,               /*!< 要合并的权值矩阵1 */
+                                                 nanmath::nanmath_matrix &mat2,               /*!< 要合并的权值矩阵2 */
+                                                 nanmath::nanmath_matrix &dmat1,              /*!< 要合并的偏差矩阵1 */
+                                                 nanmath::nanmath_matrix &dmat2               /*!< 要合并的偏差矩阵2 */
+                                                 );
+    /*! 合并偏差矩阵 */
+    virtual nanmath::nanmath_matrix merge_delta_matrix(nanmath::nanmath_matrix &dmat1,        /*!< 要合并的偏差矩阵1 */
+                                                       nanmath::nanmath_matrix &dmat2         /*!< 要合并的偏差矩阵2 */
+                                                       );
   public:
-    /*
-     * 针对任务的产查询
-     */
+    /*! 已经死亡的计算结点数量 */
     virtual int dead_task();
-    virtual int exist_task(std::string task);
+    /*! 当前任务有多少正在计算的结点 */
+    virtual int exist_task(std::string task       /*!< 任务名 */
+                           );
     
   public:
-    /*
-     * 静态函数
-     */
+    /*! 获取版本号 */
     static const char *version();
     
   protected:
+    /*! 内部配置调用get_env与get_algs */
     virtual void configure();
+    /*! 获取当前运行环境，获取一些主目录路径等... */
     virtual void get_env();
-    virtual void get_algs(std::string &path);
+    /*! 获取算法 */
+    virtual void get_algs(std::string &path               /*!< 要加载的算法插件配置文件路径 */
+                          );
+    
+    /*! 获取内置默认算法描述 */
     virtual void get_def_algs();
-    virtual bool add_alg(nanai_ann_nanndesc &desc);
-    virtual nanai_ann_nanndesc *find_alg(std::string alg);
+    
+    /*! 增加一个算法 */
+    virtual bool add_alg(nanai_ann_nanndesc &desc         /*!< 算法描述结构 */
+                         );
+    
+    /*! 寻找已经安装的算法，找到返回描述指针，没找到返回nullptr */
+    virtual nanai_ann_nanndesc *find_alg(std::string alg  /*!< 算法名称 */
+                                         );
+    
+    /*! 内部运行锁 */
     virtual void lock();
+    /*! 内部运行解锁 */
     virtual void unlock();
-    virtual nanai_ann_nanncalc *generate(nanai_ann_nanndesc &desc,
-                                         nanai_ann_nanncalc::ann_t *ann=NULL,
-                                         const char *task=NULL);
-    virtual nanai_ann_nanncalc *make(nanai_ann_nanndesc &desc,
-                                     const char *task=nullptr);
     
-  protected:
-    /*
-     * 重载基类虚函数
+    /*! 产生一个计算结点
+     
+        这里有一套策略来控制计算结点的生成，
+     
      */
-    void on_error(int err);
+    virtual nanai_ann_nanncalc *generate(nanai_ann_nanndesc &desc,                /*!< 算法描述 */
+                                         nanai_ann_nanncalc::ann_t *ann=NULL,     /*!< 神经网络指针 */
+                                         const char *task=NULL                    /*!< 任务名 */
+                                         );
+    
+    /*! 产生计算结点 */
+    virtual nanai_ann_nanncalc *make(nanai_ann_nanndesc &desc,                    /*!< 算法描述结点 */
+                                     const char *task=nullptr                     /*!< 任务名 */
+                                     );
     
   protected:
-    /*
-     * 环境变量
-     */
-    std::string _home_dir;
-    std::string _lib_dir;
-    std::string _etc_dir;
-    std::string _log_dir;
+    /*! 当出错时触发，重载基函数 */
+    void on_error(int err             /*!< 发生错误时的代码 */
+                  );
     
   protected:
-    /* 
-     * 管理器唯一性识别 
-     */
-    std::string _alg;
-    nanai_ann_nanncalc::ann_t _ann;
-    nanmath::nanmath_vector _target;
+    std::string _home_dir;            /*!< 工作主目录 */
+    std::string _lib_dir;             /*!< 库目录 */
+    std::string _etc_dir;             /*!< 算法配置文件目录 */
+    std::string _log_dir;             /*!< 日志目录 */
     
   protected:
-    int _max_calc;
-    int _curr_calc;
-    std::vector<nanai_ann_nanncalc*> _calcs;
-    std::vector<nanai_ann_nanndesc> _descs;
-    std::vector<std::pair<void*, fptr_ann_alg_setup> > _algs;/* 从外部加载的算法都要保存在这里 */
+    std::string _alg;                 /*!< 默认算法名称 */
+    nanai_ann_nanncalc::ann_t _ann;   /*!< 默认神经网络 */
+    nanmath::nanmath_vector _target;  /*!< 目标向量 */
     
-    pthread_mutex_t _lock;
+  protected:
+    int _max_calc;                                              /*!< 最大计算结点数量 */
+    int _curr_calc;                                             /*!< 当前计算结点数量 */
+    std::vector<nanai_ann_nanncalc*> _calcs;                    /*!< 计算结点队列指针 */
+    std::vector<nanai_ann_nanndesc> _descs;                     /*!< 算法描述结果队列 */
+    std::vector<std::pair<void*, fptr_ann_alg_setup> > _algs;   /*!< 从外部加载的算法都要保存在这里 */
+    
+    pthread_mutex_t _lock;                                      /*!< 全局锁，保护_calcs队列 */
   };
 }
 

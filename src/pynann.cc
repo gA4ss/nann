@@ -339,7 +339,7 @@ static PyObject *wrap_nnn_read(PyObject *self, PyObject *args) {
   std::string task = nanai_support_just_filename(json_path);
   
   std::fstream file;
-  file.open(json_path, std::ios::in);
+  file.open(json_path, std::ios::in|std::ios::binary);
   if (file.is_open() == false) {
     do_except(PYNANN_ERROR_INVALID_ARGUMENT, json_path);
   }
@@ -438,6 +438,7 @@ static PyObject *wrap_unload(PyObject *self, PyObject *args) {
   return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
 }
 
+/*! 打印指定任务配置信息 */
 static PyObject *wrap_print_info(PyObject *self, PyObject *args) {
   char *task = nullptr;
   if (!PyArg_ParseTuple(args, "s", &task)) {
@@ -455,7 +456,7 @@ static PyObject *wrap_print_info(PyObject *self, PyObject *args) {
 
   std::cout << "numbers of neural on each hidden = [";
   for (auto i : g_mgrlist[task].ann.nneural) {
-    std::cout << std::setw(4) << i;
+    std::cout << std::setiosflags(std::ios::left) << std::setw(4) << i;
   }
   std::cout << "]" << std::endl;
   

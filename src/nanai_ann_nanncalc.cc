@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <iostream>
 #include <fcntl.h>
 #include <unistd.h>
 #include <math.h>
@@ -141,6 +142,18 @@ namespace nanai {
     return -1;
   }
   
+  void nanai_ann_nanncalc::ann_t::fill_nneural() {
+    if (weight_matrixes.empty()) {
+      nneural.clear();
+    }
+    
+    for (size_t i = 0; i < weight_matrixes.size(); i++) {
+      if (i < weight_matrixes.size() - 1) {
+        nneural.push_back(weight_matrixes[i].col_size());
+      }
+    }
+  }
+  
   void nanai_ann_nanncalc::ann_t::clear() {
     nhidden = 0;
     ninput = 0;
@@ -160,10 +173,6 @@ namespace nanai {
     _birthday = time(nullptr);
     srandom((unsigned)_birthday);
     _cid = nanai_support_nid(*(int*)this);
-    
-    if (task) {
-      _task = task;
-    }
     
     /* 系统输出目录 */
     if (lp != nullptr) {
@@ -214,6 +223,11 @@ namespace nanai {
                          thread_nanai_ann_worker, (void *)this);
     if (err != 0) {
       error(NANAI_ERROR_RUNTIME_CREATE_THREAD);
+    }
+    
+    if (task) {
+      _task = task;
+      ann_log("set task = %s", _task.c_str());
     }
   }
   
