@@ -9,7 +9,10 @@
 
 namespace nanai {
   //! 南南人工神经网络管理器类
-  /*! 管理器类用于管理所有计算结点线程
+  /*! 管理器类用于管理所有计算结点线程，为了能做到高并发，并且可以在外部获取到计算的结果，
+      这里将一组task分解成n个job，例如一个任务名为:"task"，则当有多个训练样本时，管理器会
+      维护一个计数器用来计数job，然后再以task.jid的形式下发给计算结点。计算结点以task.jid
+      为任务名进行计算
    */
   class nanai_ann_nannmgr : public nanai_object {
   public:
@@ -39,6 +42,7 @@ namespace nanai {
                       );
     
   public:
+    
     /*! 输出结果，并调整误差
      
         使用json参数中的“input.json”格式进行训练样本与目标的输入。
@@ -147,7 +151,7 @@ namespace nanai {
      
         读入后立刻创建一个计算结点，并等待训练命令。其中以文件名作为任务名进行设置。
      */
-    virtual nanai_ann_nanncalc *nnn_read(const std::string &nnn           /*!< 要读入的神经网络文件路径 */
+    virtual nanai_ann_nanncalc *nnn_read(const std::string &nnn           /*!< [in] 要读入的神经网络文件路径 */
                                          );
     
     /*! 写入calc当前的神经网络到nnn指定的路径。
@@ -163,6 +167,19 @@ namespace nanai {
     /*! 设置最大计算结点数量 */
     virtual void set_max(int max                              /*!< [in] 计算结点最大数量 */
                          );
+    
+    /*! 获取一个任务的所有输出 */
+    virtual std::vector<nanai_ann_nanncalc::task_output_t> get_all_outputs(std::string task,      /*!< [in] 任务名 */
+                                                                           bool lock_c=true,      /*!< [in] 与计算结点同步运算 */
+                                                                           bool not_pop=false     /*!< [in] 不弹出输出结果 */
+                                                                           );
+    
+    /*! 获取一个任务+jid的输出 */
+    virtual nanmath::nanmath_vector get_job_output(std::string task,          /*!< [in] 任务名 */
+                                                   int jid,                   /*!< [in] job id */
+                                                   bool lock_c=true,          /*!< [in] 与计算结点同步运算 */
+                                                   bool not_pop=false         /*!< [in] 不弹出输出结果 */
+                                                   );
     
     /*! 合并任务神经网络 */
     virtual void merge_ann_by_task(std::string task,                  /*!< [in] 任务名称 */
@@ -200,11 +217,14 @@ namespace nanai {
     virtual nanmath::nanmath_matrix merge_delta_matrix(nanmath::nanmath_matrix &dmat1,        /*!< 要合并的偏差矩阵1 */
                                                        nanmath::nanmath_matrix &dmat2         /*!< 要合并的偏差矩阵2 */
                                                        );
+    /*! 获取jobid */
+    virtual int get_jid(std::string &task     /*!< [in] 任务名 */
+                        );
   public:
     /*! 已经死亡的计算结点数量 */
     virtual int dead_task();
     /*! 当前任务有多少正在计算的结点 */
-    virtual int exist_task(std::string task       /*!< 任务名 */
+    virtual int exist_task(std::string task         /*!< 任务名 */
                            );
     
   public:
@@ -237,16 +257,16 @@ namespace nanai {
     virtual void unlock();
     
     /*! 按照任务名产生策略 */
-    static nanai_ann_nanncalc *generate_by_task(std::vector<nanai_ann_nanncalc*> &calcs,        /*!< 计算结点队列 */
-                                                nanai_ann_nanndesc &desc,                       /*!< 算法描述指针 */
-                                                const char *task,                               /*!< 指定的任务名 */
-                                                nanai_ann_nanncalc::ann_t *ann                  /*!< 要更换的神经网络指针  */
+    static nanai_ann_nanncalc *generate_by_task(std::vector<nanai_ann_nanncalc*> &calcs,        /*!< [in] 计算结点队列 */
+                                                nanai_ann_nanndesc &desc,                       /*!< [in] 算法描述指针 */
+                                                const char *task,                               /*!< [in] 指定的任务名 */
+                                                nanai_ann_nanncalc::ann_t *ann                  /*!< [in] 要更换的神经网络指针  */
                                                 );
     /*! 按照描述产生策略 */
-    static nanai_ann_nanncalc *generate_by_desc(std::vector<nanai_ann_nanncalc*> &calcs,        /*!< 计算结点队列 */
-                                                nanai_ann_nanndesc &desc,                       /*!< 算法描述指针 */
-                                                const char *task,                               /*!< 指定的任务名 */
-                                                nanai_ann_nanncalc::ann_t *ann                  /*!< 要更换的神经网络指针  */
+    static nanai_ann_nanncalc *generate_by_desc(std::vector<nanai_ann_nanncalc*> &calcs,        /*!< [in] 计算结点队列 */
+                                                nanai_ann_nanndesc &desc,                       /*!< [in] 算法描述指针 */
+                                                const char *task,                               /*!< [in] 指定的任务名 */
+                                                nanai_ann_nanncalc::ann_t *ann                  /*!< [in] 要更换的神经网络指针  */
                                                 );
     
     /*! 产生一个计算结点
@@ -254,23 +274,29 @@ namespace nanai {
         这里有一套策略来控制计算结点的生成，
      
      */
-    virtual nanai_ann_nanncalc *generate(nanai_ann_nanndesc &desc,                /*!< 算法描述 */
-                                         nanai_ann_nanncalc::ann_t *ann=NULL,     /*!< 神经网络指针 */
-                                         const char *task=NULL                    /*!< 任务名 */
+    virtual nanai_ann_nanncalc *generate(nanai_ann_nanndesc &desc,                /*!< [in] 算法描述 */
+                                         nanai_ann_nanncalc::ann_t *ann=NULL,     /*!< [in] 神经网络指针 */
+                                         const char *task=NULL                    /*!< [in] 任务名 */
                                          );
     
     /*! 产生计算结点 */
-    virtual nanai_ann_nanncalc *make(nanai_ann_nanndesc &desc,                    /*!< 算法描述结点 */
-                                     const char *task=nullptr,                    /*!< 任务名 */
-                                     nanai_ann_nanncalc::ann_t *ann=nullptr       /*!< 神经网络 */
+    virtual nanai_ann_nanncalc *make(nanai_ann_nanndesc &desc,                    /*!< [in] 算法描述结点 */
+                                     const char *task=nullptr,                    /*!< [in] 任务名 */
+                                     nanai_ann_nanncalc::ann_t *ann=nullptr       /*!< [in] 神经网络 */
                                      );
+    
+    /*!< 匹配任务名 */
+    static bool match_task_name(const std::string &task,          /*!< [in] 匹配任务名 */
+                                const std::string &calc_task      /*!< [in] 计算结点的任务名 */
+                                );
     
   protected:
     /*! 当出错时触发，重载基函数 */
-    void on_error(int err             /*!< 发生错误时的代码 */
+    void on_error(int err             /*!< [in] 发生错误时的代码 */
                   );
    
   protected:
+    /*!< 策略产生函数指针 */
     typedef nanai_ann_nanncalc *(*fptr_policy_generate)
     (std::vector<nanai_ann_nanncalc*> &calcs, nanai_ann_nanndesc &desc, const char *task, nanai_ann_nanncalc::ann_t *ann);
     std::vector<fptr_policy_generate> _fptr_policy_generates;                      /*!< 产生计算结点策略函数指针 */
@@ -292,6 +318,7 @@ namespace nanai {
     std::vector<nanai_ann_nanncalc*> _calcs;                    /*!< 计算结点队列指针 */
     std::vector<nanai_ann_nanndesc> _descs;                     /*!< 算法描述结果队列 */
     std::vector<std::pair<void*, fptr_ann_alg_setup> > _algs;   /*!< 从外部加载的算法都要保存在这里 */
+    std::map<std::string, int> _jobs;
     
     pthread_mutex_t _lock;                                      /*!< 全局锁，保护_calcs队列 */
   };

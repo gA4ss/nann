@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <math.h>
+#include <cmath>
 #include <string>
 #include <fstream>
 
@@ -14,6 +14,7 @@
 nanai::nanai_ann_nanndesc nanai_ann_alg_logistic_desc;
 static double g_eta = 0.05;
 static double g_momentum = 0.03;
+//std::ofstream g_logfile;
 
 void ann_input_filter(nanmath::nanmath_vector *input,
                       nanmath::nanmath_vector *input_filted) {
@@ -98,11 +99,10 @@ void ann_monitor_trained(int cid,
   
   /* 按照任务进行计数，直到一个数字，进行合并结果，并发送到服务器 */
   std::string task_name = task;
-  nanmath::nanmath_vector o = arg->get_output(task_name);
+  nanmath::nanmath_vector o = arg->get_output(task_name, false, true);
   printf("ann_alg_logistic - <%d>[%s]: output = [", cid, task);
   o.print();
   printf("]\n");
-  
 }
 
 void ann_monitor_trained_nooutput(int cid,

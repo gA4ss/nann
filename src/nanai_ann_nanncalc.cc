@@ -1,12 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstdarg>
 #include <iostream>
+#include <cmath>
+#include <ctime>
+#include <stdexcept>
+#include <regex>
+
 #include <fcntl.h>
 #include <unistd.h>
-#include <math.h>
-#include <time.h>
-#include <stdexcept>
 
 #include <nanai_common.h>
 #include <nanai_ann_nanncalc.h>
@@ -504,14 +506,8 @@ namespace nanai {
       }
     }
     
-    /* 没有找到则创建 */
-    if (_outputs.find(task) == _outputs.end()) {
-      std::vector<nanmath::nanmath_vector> v;
-      v.push_back(output);
-      _outputs[task] = v;
-    } else {
-      _outputs[task].push_back(output);
-    }
+    /* 无论是否找到都设置 */
+    _outputs[task] = output;
     
     if (lock) {
       if (pthread_mutex_unlock(&_outputs_lock) != 0) {
@@ -521,7 +517,8 @@ namespace nanai {
   }
   
   nanmath::nanmath_vector nanai_ann_nanncalc::get_output(std::string &task,
-                                                         bool lock) {
+                                                         bool lock,
+                                                         bool not_pop) {
     nanmath::nanmath_vector output;
     
     if (lock) {
@@ -535,8 +532,11 @@ namespace nanai {
       return output;
     }
     
-    output = _outputs[task].back();
-    _outputs[task].pop_back();
+    output = _outputs[task];
+    
+    if (not_pop == false) {
+      _outputs.erase(task);
+    }
     
     if (lock) {
       if (pthread_mutex_unlock(&_outputs_lock) != 0) {
@@ -545,6 +545,43 @@ namespace nanai {
     }
     
     return output;
+  }
+  
+  std::vector<nanai_ann_nanncalc::task_output_t> nanai_ann_nanncalc::get_matched_outputs(std::string &rstr,
+                                                                                         bool lock,
+                                                                                         bool not_pop) {
+    
+    std::vector<task_output_t> outputs;
+    
+    if (lock) {
+      if (pthread_mutex_lock(&_outputs_lock) != 0) {
+        error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
+      }
+    }
+    
+    std::cmatch match;
+    std::regex rgx(rstr);
+    
+    for (auto i : _outputs) {
+      if (std::regex_search(i.first.c_str(), match, rgx)) {
+        /* 如果匹配正则表达式 */
+        task_output_t output;
+        
+        output = std::make_pair(i.first, i.second);
+        outputs.push_back(output);
+        if (not_pop == false) {
+          _outputs.erase(i.first);
+        }
+      }
+    }
+    
+    if (lock) {
+      if (pthread_mutex_unlock(&_outputs_lock) != 0) {
+        error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
+      }
+    }
+    
+    return outputs;
   }
   
   void nanai_ann_nanncalc::do_configure(nanai_ann_nanndesc &desc) {

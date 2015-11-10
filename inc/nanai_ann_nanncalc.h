@@ -144,14 +144,23 @@ namespace nanai {
     virtual int get_state(bool lock=false);
     
     /*! 设置指定任务的输出向量 */
-    virtual void set_output(std::string &task,                      /*!< 任务名 */
-                            nanmath::nanmath_vector &output,        /*!< 要设置的输出向量 */
-                            bool lock=false                         /*!< 是否进行输出锁控制 */
+    virtual void set_output(std::string &task,                      /*!< [in] 任务名 */
+                            nanmath::nanmath_vector &output,        /*!< [in] 要设置的输出向量 */
+                            bool lock=false                         /*!< [in] 是否进行输出锁控制 */
                             );
     /*! 获取指定任务的最后一个输出向量 */
-    virtual nanmath::nanmath_vector get_output(std::string &task,   /*!< 任务名 */
-                                               bool lock=false      /*!< 是否进行输出锁控制 */
+    virtual nanmath::nanmath_vector get_output(std::string &task,   /*!< [in] 任务名 */
+                                               bool lock=false,     /*!< [in] 是否进行输出锁控制 */
+                                               bool not_pop=false   /*!< [in] 是否取走 */
                                                );
+    
+    /*! 按照匹配进行搜索输出 */
+    typedef std::pair<std::string, nanmath::nanmath_vector> task_output_t;
+    virtual std::vector<task_output_t> get_matched_outputs(std::string &rstr,     /*!< [in] 正则表达式 */
+                                                           bool lock=false,       /*!< [in] 是否进行输出锁控制 */
+                                                           bool not_pop=false     /*!< [in] 是否取走 */
+                                                           );
+    
     virtual void do_configure(nanai_ann_nanndesc &desc);
     virtual void do_ann_exchange(const nanai_ann_nanncalc::ann_t &ann);
     virtual nanai_ann_nanncalc::ann_t get_ann(bool lock=false);
@@ -209,7 +218,7 @@ namespace nanai {
     std::string _task;                                            /*!< 当前任务名称 - 例如:Aid_Uid_ACTid */
     std::vector<nanmath::nanmath_vector> _hiddens;                /*!< 隐藏层 */
     pthread_mutex_t _outputs_lock;                                /*!< 输出向量锁 */
-    typedef std::map<std::string, std::vector<nanmath::nanmath_vector> > nanncalc_output_t;
+    typedef std::map<std::string, nanmath::nanmath_vector > nanncalc_output_t;
     nanncalc_output_t _outputs;                                   /*!< 输出向量队列 */
     nanmath::nanmath_vector _output_error;                        /*!< 输出误差向量 */
     

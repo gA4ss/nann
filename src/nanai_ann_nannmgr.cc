@@ -8,8 +8,10 @@
 #include <dirent.h>
 #include <pthread.h>
 #include <fstream>
+#include <sstream>
 #include <iostream>
 #include <algorithm>
+#include <regex>
 
 #include <nanai_common.h>
 #include <nanai_ann_nnn.h>
@@ -342,9 +344,11 @@ namespace nanai {
     int ret = 0;
     lock();
     
+
+    
     for (auto i : _calcs) {
       /* 匹配到任务名 */
-      if (i->get_task_name() == task) {
+      if (match_task_name(task, i->get_task_name())) {
         if ((i->get_state() != NANNCALC_ST_WAITING) ||
             (i->get_state() != NANNCALC_ST_STOP)){
           ret++;
@@ -372,6 +376,57 @@ namespace nanai {
   
   void nanai_ann_nannmgr::set_max(int max) {
     _max_calc = max;
+  }
+  
+  std::vector<nanai_ann_nanncalc::task_output_t> nanai_ann_nannmgr::get_all_outputs(std::string task,
+                                                                                    bool lock_c,
+                                                                                    bool not_pop) {
+    std::vector<nanai_ann_nanncalc::task_output_t> outputs, tmps;
+    
+    lock();
+    
+    std::string reg = "^" + task;
+    for (auto calc : _calcs) {
+      tmps = calc->get_matched_outputs(task, lock_c, not_pop);
+      if (tmps.empty()) continue;
+      for (auto i : tmps) outputs.push_back(i);
+    }
+  
+    unlock();
+  
+    return outputs;
+  }
+  
+  nanmath::nanmath_vector nanai_ann_nannmgr::get_job_output(std::string task,
+                                                            int jid,
+                                                            bool lock_c,
+                                                            bool not_pop) {
+    nanmath::nanmath_vector output;
+    
+    if (task.empty()) {
+      return output;
+    }
+    
+    std::vector<nanai_ann_nanncalc::task_output_t> outputs = get_all_outputs(task, lock_c, not_pop);
+    if (outputs.empty()) {
+      return output;
+    }
+    
+    lock();
+    
+    std::ostringstream task_jid;
+    task_jid << task << "." << jid;
+    
+    for (auto o : outputs) {
+      if (o.first == task_jid.str()) {
+        output = o.second;
+        break;
+      }
+    }
+    
+    unlock();
+    
+    return output;
   }
   
   nanmath::nanmath_matrix nanai_ann_nannmgr::merge_delta_matrix(nanmath::nanmath_matrix &dmat1,
@@ -459,12 +514,24 @@ namespace nanai {
     return c;
   }
   
+  int nanai_ann_nannmgr::get_jid(std::string &task) {
+    if (task.empty()) {
+      return -1;
+    }
+    
+    if (_jobs.find(task) == _jobs.end()) {
+      _jobs[task] = 0;
+    }
+    
+    return _jobs[task]++;
+  }
+  
   void nanai_ann_nannmgr::merge_ann_by_task(std::string task,
                                             nanai_ann_nanncalc::ann_t &ann) {
     lock();
     std::vector<nanai_ann_nanncalc::ann_t> anns;
     for (auto i : _calcs) {
-      if (i->get_task_name() == task) {
+      if (match_task_name(task, i->get_task_name())) {
         /* 状态等于等待 */
         if (i->get_state() != NANNCALC_ST_WAITING) {
           anns.push_back(i->ann_get());
@@ -681,8 +748,9 @@ namespace nanai {
     std::vector<nanai_ann_nanncalc*> found_node;
     
     /* 从所有线程中找到相同任务名的所有结点 */
+    std::string task_ = task;
     for (auto i : calcs) {
-      if (i->get_task_name() == task) {
+      if (match_task_name(task_, i->get_task_name())) {
         found_node.push_back(i);
       }
     }
@@ -793,6 +861,23 @@ namespace nanai {
     }
     
     return calc;
+  }
+  
+  bool nanai_ann_nannmgr::match_task_name(const std::string &task,
+                                          const std::string &calc_task) {
+    if (task.empty() || calc_task.empty()) {
+      return false;
+    }
+    
+    std::string reg = "^" + task;
+    std::regex rgx(reg);
+    std::cmatch match;
+    
+    if (std::regex_search(calc_task.c_str(), match, rgx)) {
+      return true;
+    }
+    
+    return false;
   }
   
   void nanai_ann_nannmgr::on_error(int err) {
