@@ -209,7 +209,7 @@ namespace nanmath {
       std::cout << std::setiosflags(std::ios::fixed) << std::setiosflags(std::ios::left)
                 << std::setprecision(2) << std::setw(8) << i;
     }
-    std::cout << std::endl;
+    //std::cout << std::endl;
   }
   
   double nanmath_vector::operator [](size_t i) const {

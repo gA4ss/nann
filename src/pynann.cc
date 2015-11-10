@@ -242,8 +242,18 @@ static PyObject *wrap_training(PyObject *self, PyObject *args) {
   
   try {
     for (auto i : samples) {
-      if (target.size() == 0) g_mgrlist[task].mgr->training(i, nullptr);
-      else g_mgrlist[task].mgr->training(i, &target);
+      if (target.size() == 0) g_mgrlist[task].mgr->training(i,
+                                                            nullptr,
+                                                            nullptr,
+                                                            task_arg,
+                                                            nullptr,
+                                                            g_mgrlist[task].alg.c_str());
+      else g_mgrlist[task].mgr->training(i,
+                                         &target,
+                                         nullptr,
+                                         task_arg,
+                                         nullptr,
+                                         g_mgrlist[task].alg.c_str());;
     }
   } catch (std::exception e) {
     return do_except(PYNANN_ERROR_INTERNAL, e.what());
@@ -280,7 +290,11 @@ static PyObject *wrap_training_notarget(PyObject *self, PyObject *args) {
   
   try {
     for (auto i : samples) {
-      g_mgrlist[task].mgr->training_notarget(i);
+      g_mgrlist[task].mgr->training_notarget(i,
+                                             nullptr,
+                                             task_arg,
+                                             nullptr,
+                                             g_mgrlist[task].alg.c_str());
     }
   } catch (std::exception e) {
     return do_except(PYNANN_ERROR_INTERNAL, e.what());
@@ -318,8 +332,18 @@ static PyObject *wrap_training_nooutput(PyObject *self, PyObject *args) {
   
   try {
     for (auto i : samples) {
-      if (target.size() == 0) g_mgrlist[task].mgr->training_nooutput(i, &target);
-      else g_mgrlist[task].mgr->training_nooutput(i, nullptr);
+      if (target.size() == 0) g_mgrlist[task].mgr->training_nooutput(i,
+                                                                     &target,
+                                                                     nullptr,
+                                                                     task_arg,
+                                                                     nullptr,
+                                                                     g_mgrlist[task].alg.c_str());
+      else g_mgrlist[task].mgr->training_nooutput(i,
+                                                  nullptr,
+                                                  nullptr,
+                                                  task_arg,
+                                                  nullptr,
+                                                  g_mgrlist[task].alg.c_str());
     }
   } catch (std::exception e) {
     return do_except(PYNANN_ERROR_INTERNAL, e.what());

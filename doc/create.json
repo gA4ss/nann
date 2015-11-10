@@ -1,5 +1,5 @@
 {
-	"alg": "rcalc",
+	"alg": "ann_alg_logistic",
 	"ann": {
 		"weight matrixes": {
 			"0": {

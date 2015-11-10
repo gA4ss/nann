@@ -237,7 +237,17 @@ namespace nanai {
     virtual void unlock();
     
     /*! 按照任务名产生策略 */
-    virtual nanai_ann_nanncalc *generate_by_task(std::string &task);
+    static nanai_ann_nanncalc *generate_by_task(std::vector<nanai_ann_nanncalc*> &calcs,        /*!< 计算结点队列 */
+                                                nanai_ann_nanndesc &desc,                       /*!< 算法描述指针 */
+                                                const char *task,                               /*!< 指定的任务名 */
+                                                nanai_ann_nanncalc::ann_t *ann                  /*!< 要更换的神经网络指针  */
+                                                );
+    /*! 按照描述产生策略 */
+    static nanai_ann_nanncalc *generate_by_desc(std::vector<nanai_ann_nanncalc*> &calcs,        /*!< 计算结点队列 */
+                                                nanai_ann_nanndesc &desc,                       /*!< 算法描述指针 */
+                                                const char *task,                               /*!< 指定的任务名 */
+                                                nanai_ann_nanncalc::ann_t *ann                  /*!< 要更换的神经网络指针  */
+                                                );
     
     /*! 产生一个计算结点
      
@@ -251,7 +261,8 @@ namespace nanai {
     
     /*! 产生计算结点 */
     virtual nanai_ann_nanncalc *make(nanai_ann_nanndesc &desc,                    /*!< 算法描述结点 */
-                                     const char *task=nullptr                     /*!< 任务名 */
+                                     const char *task=nullptr,                    /*!< 任务名 */
+                                     nanai_ann_nanncalc::ann_t *ann=nullptr       /*!< 神经网络 */
                                      );
     
   protected:
@@ -260,7 +271,8 @@ namespace nanai {
                   );
    
   protected:
-    typedef void (*fptr_policy_generate)();
+    typedef nanai_ann_nanncalc *(*fptr_policy_generate)
+    (std::vector<nanai_ann_nanncalc*> &calcs, nanai_ann_nanndesc &desc, const char *task, nanai_ann_nanncalc::ann_t *ann);
     std::vector<fptr_policy_generate> _fptr_policy_generates;                      /*!< 产生计算结点策略函数指针 */
     
   protected:

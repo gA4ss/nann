@@ -8,6 +8,7 @@
 #include <dirent.h>
 #include <pthread.h>
 #include <fstream>
+#include <iostream>
 #include <algorithm>
 
 #include <nanai_common.h>
@@ -106,7 +107,6 @@ namespace nanai {
                                                   const char *task,
                                                   nanai_ann_nanncalc::ann_t *ann,
                                                   const char *alg) {
-    
     /* 如果计算结点存在则使用 */
     if (dcalc) {
       /* 如果指定了算法名称 */
@@ -392,7 +392,7 @@ namespace nanai {
         double delta_a = 1 - (dmat1[i][j] / dmat1[i][j] + dmat2[i][j]);
         double delta_b = 1 - (dmat2[i][j] / dmat1[i][j] + dmat2[i][j]);
         
-        double c_n = 1/2 * (delta_a * dmat1[i][j] + delta_b * dmat2[i][j]);
+        double c_n = delta_a * dmat1[i][j] + delta_b * dmat2[i][j];
         c.set(i, j, c_n);
       }
     }
@@ -424,7 +424,7 @@ namespace nanai {
         double delta_a = 1 - (dmat1[i][j] / dmat1[i][j] + dmat2[i][j]);
         double delta_b = 1 - (dmat2[i][j] / dmat1[i][j] + dmat2[i][j]);
         
-        double c_n = 1/2 * (delta_a * mat1[i][j] + delta_b * mat2[i][j]);
+        double c_n = delta_a * mat1[i][j] + delta_b * mat2[i][j];
         c.set(i, j, c_n);
       }
     }
@@ -521,6 +521,9 @@ namespace nanai {
   void nanai_ann_nannmgr::configure() {
     get_env();
     get_algs(_lib_dir);
+    
+    _fptr_policy_generates.push_back(generate_by_task);
+    _fptr_policy_generates.push_back(generate_by_desc);
   }
   
   /*
@@ -640,13 +643,17 @@ namespace nanai {
   }
   
   nanai_ann_nanndesc *nanai_ann_nannmgr::find_alg(std::string alg) {
+    if (alg.empty()) {
+      return nullptr;
+    }
+    
     for (std::vector<nanai_ann_nanndesc>::iterator i = _descs.begin();
          i != _descs.end(); i++) {
       if ((*i).name == alg) {
         return &(*i);
       }
     }
-    return NULL;
+    return nullptr;
   }
   
   void nanai_ann_nannmgr::lock() {
@@ -661,68 +668,110 @@ namespace nanai {
     }
   }
   
+  nanai_ann_nanncalc *nanai_ann_nannmgr::generate_by_task(std::vector<nanai_ann_nanncalc*> &calcs,
+                                                          nanai_ann_nanndesc &desc,
+                                                          const char *task,
+                                                          nanai_ann_nanncalc::ann_t *ann) {
+    
+    if (task == nullptr) {
+      return nullptr;
+    }
+    
+    /* 从所有线程中找到相同任务名的所有结点 */
+    std::vector<nanai_ann_nanncalc*> found_node;
+    
+    /* 从所有线程中找到相同任务名的所有结点 */
+    for (auto i : calcs) {
+      if (i->get_task_name() == task) {
+        found_node.push_back(i);
+      }
+    }
+    
+    if (found_node.empty() == false) {
+      /* 找到了，则找一个命令数量最多的
+       * 这里的目的是延迟计算，让同等任务名的计算优先计算完毕
+       */
+      std::sort(found_node.begin(), found_node.end(),
+                [](nanai_ann_nanncalc *a, nanai_ann_nanncalc *b) {
+                  return a->get_cmdlist_count() > b->get_cmdlist_count();
+                });
+      /* 这里可能也会造成算法更替，所以这里替换算法保障计算正确 */
+      found_node[0]->ann_configure(desc);
+      
+      if (ann) {
+        found_node[0]->ann_exchange(*ann);
+      }
+      
+    } else return nullptr;
+    
+    return found_node[0];
+  }
+
+  nanai_ann_nanncalc *nanai_ann_nannmgr::generate_by_desc(std::vector<nanai_ann_nanncalc*> &calcs,
+                                                          nanai_ann_nanndesc &desc,
+                                                          const char *task,
+                                                          nanai_ann_nanncalc::ann_t *ann) {
+    std::vector<nanai_ann_nanncalc*> found_node;
+    
+    /* 从所有线程中找到相同算法的所有结点 */
+    for (auto i : calcs) {
+      if (i->get_alg_name() == desc.name) {
+        found_node.push_back(i);
+      }
+    }
+    
+    /* 如果没有找到则直接选定一个命令数量最小的，进行重新配置 */
+    if (found_node.empty() == false) {
+      /* 从已经找到的结点中寻找一个命令数量最少的 */
+      std::sort(found_node.begin(), found_node.end(),
+                [](nanai_ann_nanncalc *a, nanai_ann_nanncalc *b) {
+                  return a->get_cmdlist_count() < b->get_cmdlist_count();
+                });
+      
+      if (ann) {
+        found_node[0]->ann_exchange(*ann);
+      }
+      
+    } else return nullptr;
+    
+    return found_node[0];
+  }
+  
   nanai_ann_nanncalc *nanai_ann_nannmgr::generate(nanai_ann_nanndesc &desc,
                                                   nanai_ann_nanncalc::ann_t *ann,
                                                   const char *task) {
     lock();
     nanai_ann_nanncalc *calc = nullptr;
-    if (_curr_calc >= _max_calc) {
-      
-      /* 从所有线程中找到相同任务名的所有结点 */
-      std::vector<nanai_ann_nanncalc*> found_node;
-      
-      /* 从所有线程中找到相同任务名的所有结点 */
-      for (auto i : _calcs) {
-        if (i->get_task_name() == task) {
-          found_node.push_back(i);
-        }
-      }
-      
-      if (found_node.empty() == false) {
-        /* 找到了，则找一个命令数量最多的
-         * 这里的目的是延迟计算，让同等任务名的计算优先计算完毕
-         */
-        std::sort(found_node.begin(), found_node.end(),
-                  [](nanai_ann_nanncalc *a, nanai_ann_nanncalc *b) {
-                    return a->get_cmdlist_count() > b->get_cmdlist_count();
-                  });
-        /* 这里可能也会造成算法更替，所以这里替换算法保障计算正确 */
-        found_node[0]->ann_configure(desc);
-      } else {/* 如果没有找到则进行策略2 */
-        found_node.clear();
-        /* 从所有线程中找到相同算法的所有结点 */
-        for (auto i : _calcs) {
-          if (i->get_alg_name() == desc.name) {
-            found_node.push_back(i);
-          }
-        }
-        
-        /* 如果没有找到则直接选定一个命令数量最小的，进行重新配置 */
-        if (found_node.empty()) {
-          std::sort(_calcs.begin(), _calcs.end(),
-                    [](nanai_ann_nanncalc *a, nanai_ann_nanncalc *b) {
-                      return a->get_cmdlist_count() < b->get_cmdlist_count();
-                    });
-          found_node.push_back(_calcs[0]);
-          found_node[0]->ann_configure(desc);
-        } else {
-          /* 从已经找到的结点中寻找一个命令数量最少的 */
-          std::sort(found_node.begin(), found_node.end(),
-                    [](nanai_ann_nanncalc *a, nanai_ann_nanncalc *b) {
-                      return a->get_cmdlist_count() < b->get_cmdlist_count();
-                    });
-        }
-      }
-      
-      calc = found_node[0];
-    } else {
-      calc = make(desc, task);
-      _curr_calc++;
-    }
     
-    /* 替换神经网络 */
-    if (ann) {
-      calc->do_ann_exchange(*ann);
+    if (_curr_calc >= _max_calc) {
+      for (auto f : _fptr_policy_generates) {
+        calc = f(_calcs, desc, task, ann);
+      }
+      if (calc == nullptr) {
+        /* 找一个命令最少的 */
+        std::sort(_calcs.begin(), _calcs.end(),
+                  [](nanai_ann_nanncalc *a, nanai_ann_nanncalc *b) {
+                    return a->get_cmdlist_count() < b->get_cmdlist_count();
+                  });
+      }
+      
+      calc = _calcs[0];
+      
+      /* FIXME:不现实状况 */
+      if (calc == nullptr) {
+        unlock();
+        error(NANAI_ERROR_LOGIC);
+      }
+      
+      calc->do_configure(desc);
+      
+      if (ann) {
+        calc->do_ann_exchange(*ann);
+      }
+      
+    } else {
+      calc = make(desc, task, ann);
+      _curr_calc++;
     }
     
     unlock();
@@ -731,12 +780,18 @@ namespace nanai {
   }
   
   nanai_ann_nanncalc *nanai_ann_nannmgr::make(nanai_ann_nanndesc &desc,
-                                              const char *task) {
+                                              const char *task,
+                                              nanai_ann_nanncalc::ann_t *ann) {
     nanai_ann_nanncalc *calc = new nanai_ann_nanncalc(desc, _log_dir.c_str(), task);
     if (calc == NULL) {
       error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
     }
     _calcs.push_back(calc);
+    
+    if (ann) {
+      calc->do_ann_exchange(*ann);
+    }
+    
     return calc;
   }
   

@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <math.h>
 #include <string>
 #include <fstream>
@@ -15,10 +15,13 @@ nanai::nanai_ann_nanndesc nanai_ann_alg_logistic_desc;
 static double g_eta = 0.05;
 static double g_momentum = 0.03;
 
-void ann_input_filter(void *input, void *input_filted) {
+void ann_input_filter(nanmath::nanmath_vector *input,
+                      nanmath::nanmath_vector *input_filted) {
+  *input_filted = *input;
 }
 
-void ann_result(nanmath::nanmath_vector *output, nanmath::nanmath_vector* result) {
+void ann_result(nanmath::nanmath_vector *output, nanmath::nanmath_vector *result) {
+  *result = *output;
 }
 
 void ann_hidden_init(int h, nanmath::nanmath_matrix *wmat) {
@@ -51,11 +54,18 @@ double ann_output_error(double target, double output) {
   return delta;
 }
 
-void ann_hidden_adjust_weight(int h,
-                              nanmath::nanmath_vector *layer,
-                              nanmath::nanmath_vector *delta,
-                              nanmath::nanmath_matrix *wm,
-                              nanmath::nanmath_matrix *prev_dwm) {
+void ann_hidden_adjust_weight(int h,                                    /*!< 第几个隐藏层 */
+                              nanmath::nanmath_vector *layer,           /*!< 输入层向量 */
+                              nanmath::nanmath_vector *delta,           /*!< 误差向量 */
+                              nanmath::nanmath_matrix *wm,              /*!< 要调节的权值矩阵 */
+                              nanmath::nanmath_matrix *prev_dwm         /*!< 保存偏差矩阵 */
+                              )
+{
+  if (wm->col_size() != delta->size() ||
+      (wm->row_size() != layer->size())) {
+    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+  }
+                                
   /* 这里是遍历列向量 */
   for (size_t i = 0; i < delta->size(); i++) {          /* 矩阵的列 */
     for (size_t j = 0; j < layer->size(); j++) {        /* 矩阵的行 */
@@ -82,7 +92,17 @@ void ann_monitor_trained(int cid,
                          nanai::nanai_ann_nanncalc *arg) {
   printf("ann_alg_logistic - <%d>[%s]:trained\n", cid, task);
   
+  if (task == nullptr) {
+    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+  }
+  
   /* 按照任务进行计数，直到一个数字，进行合并结果，并发送到服务器 */
+  std::string task_name = task;
+  nanmath::nanmath_vector o = arg->get_output(task_name);
+  printf("ann_alg_logistic - <%d>[%s]: output = [", cid, task);
+  o.print();
+  printf("]\n");
+  
 }
 
 void ann_monitor_trained_nooutput(int cid,
@@ -179,7 +199,7 @@ nanai::nanai_ann_nanndesc *ann_alg_logistic_setup(const char *conf_dir) {
   strcpy(nanai_ann_alg_logistic_desc.name, alg_name);
   strcpy(nanai_ann_alg_logistic_desc.description, "use logistic function");
   
-  nanai_ann_alg_logistic_desc.fptr_input_filter = ann_input_filter;
+  nanai_ann_alg_logistic_desc.fptr_input_filter = reinterpret_cast<nanai::fptr_ann_input_filter>(ann_input_filter);
   nanai_ann_alg_logistic_desc.fptr_result = reinterpret_cast<nanai::fptr_ann_result>(ann_result);
   nanai_ann_alg_logistic_desc.fptr_output_error = ann_output_error;
   nanai_ann_alg_logistic_desc.fptr_calculate = nullptr;

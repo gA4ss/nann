@@ -535,7 +535,7 @@ namespace nanai {
       return output;
     }
     
-    output = *(_outputs[task].end());
+    output = _outputs[task].back();
     _outputs[task].pop_back();
     
     if (lock) {
@@ -640,15 +640,18 @@ namespace nanai {
       if (i == 0) {
         /* 处理第一层，第一层是由输入向量 与 第一个隐藏层之间的权值矩阵 */
         _ann.weight_matrixes[i].create(_ann.ninput, _ann.nneural[i]);
+        _ann.delta_weight_matrixes[i].create(_ann.ninput, _ann.nneural[i]);
       } else if (i == _ann.nhidden) {
         /* 处理最后一层，最后一层是最后一个隐藏层 与 输出向量之间的权值矩阵 
          * 因为权值矩阵的个数要比隐藏层的个数多一个，所以到达这个时候要获取
          * 最后一个隐藏层必须退回一个索引
          */
         _ann.weight_matrixes[i].create(_ann.nneural[i-1], _ann.noutput);
+        _ann.delta_weight_matrixes[i].create(_ann.nneural[i-1], _ann.noutput);
       } else {
         /* 其余是隐藏层 与 隐藏层之间的权值矩阵 */
         _ann.weight_matrixes[i].create(_ann.nneural[i-1], _ann.nneural[i]);
+        _ann.delta_weight_matrixes[i].create(_ann.nneural[i-1], _ann.nneural[i]);
       }
       
       /* 初始化当前层的权值矩阵 */
@@ -756,6 +759,9 @@ namespace nanai {
       i = input;
     }
     
+    /* 设定输出的向量数目 */
+    o.create(_ann.noutput);
+    
     /* 前馈计算 */
     ann_forward(i, o);
     
@@ -798,7 +804,7 @@ namespace nanai {
       
       if (_fptr_hidden_calcs) {
         ann_layer_forward(i, l1, l2, wm, _fptr_hidden_calcs);
-      }
+      } else ann_layer_forward(i, l1, l2, wm, nullptr);
       
     }
     
@@ -875,13 +881,15 @@ namespace nanai {
     return delta_h;
   }
   
-  void nanai_ann_nanncalc::ann_hiddens_error(nanmath::nanmath_vector &input, nanmath::nanmath_vector &output_delta) {
+  void nanai_ann_nanncalc::ann_hiddens_error(nanmath::nanmath_vector &input,
+                                             nanmath::nanmath_vector &output_delta) {
     /* 遍历所有隐藏权值矩阵 */
-    nanmath::nanmath_vector delta_k = output_delta;
+    nanmath::nanmath_vector delta_k, delta_k_next = output_delta;
     nanmath::nanmath_vector i;
     
     /* 隐藏层比权值矩阵少一个 */
-    for (size_t h = _ann.weight_matrixes.size() - 1; h > 0; h--) {
+    for (long h = static_cast<long>(_ann.nhidden); h >= 0; h--) {
+      delta_k = delta_k_next;
       /* 所需重要的变量
        * h 处于第几个权值矩阵运算
        * delta_k 上一层的误差向量
@@ -891,17 +899,20 @@ namespace nanai {
        * 目的是求出delta_h，当前隐藏层的相对于上一次的偏差
        */
       
-      if (h == 1) {
+      if (h == 0) {
         /* 上一层就是输入层 */
         i = input;
       } else {
         i = _hiddens[h-1];
       }
       
+      
       if (_fptr_hidden_errors) {
-        _fptr_hidden_errors((int)h, &delta_k, &_ann.weight_matrixes[h], &i, &delta_k);
+        nanmath::nanmath_vector res;        /*!< 临时变量缓存结果 */
+        _fptr_hidden_errors((int)h, &delta_k, &_ann.weight_matrixes[h], &i, &res);
+        delta_k_next = res;
       } else {
-        delta_k = ann_calc_hidden_delta(h, delta_k, _ann.weight_matrixes[h], i);
+        delta_k_next = ann_calc_hidden_delta(h, delta_k, _ann.weight_matrixes[h], i);
       }
       
       /* 调整当前的权值矩阵 */
@@ -923,8 +934,8 @@ namespace nanai {
     nanmath::nanmath_matrix &prev_dwm = _ann.delta_weight_matrixes[h];
     
     /* 这里是遍历列向量 */
-    for (int i = 0; i < delta.size(); i++) {          /* 矩阵的列 */
-      for (int j = 0; j < layer.size(); j++) {        /* 矩阵的行 */
+    for (size_t i = 0; i < delta.size(); i++) {          /* 矩阵的列 */
+      for (size_t j = 0; j < layer.size(); j++) {        /* 矩阵的行 */
         /* 让上一层的每个输入向量都乘以当前的偏差值
          * 然后在修订这个偏差值的权向量
          */
