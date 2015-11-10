@@ -56,6 +56,10 @@ namespace nanmath {
     clear();
   }
   
+  bool nanmath_matrix::empty() const {
+    return _matrix.empty();
+  }
+  
   void nanmath_matrix::clear() {
     _matrix.clear();
   }

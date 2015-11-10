@@ -1,7 +1,10 @@
 \hypertarget{nanai__support_8cc}{}\section{src/nanai\+\_\+support.cc 文件参考}
 \label{nanai__support_8cc}\index{src/nanai\+\_\+support.\+cc@{src/nanai\+\_\+support.\+cc}}
-{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$cstdio$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
 {\ttfamily \#include $<$nanai\+\_\+common.\+h$>$}\\*
+{\ttfamily \#include $<$nanai\+\_\+ann\+\_\+nanncalc.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}c\+J\+S\+O\+N.\+h\char`\"{}}\\*
 \subsection*{命名空间}
 \begin{DoxyCompactItemize}
 \item 
@@ -13,4 +16,10 @@
 int \hyperlink{namespacenanai_a8955229cdf11e2d23ab55fc290c48149}{nanai\+::nanai\+\_\+support\+\_\+nid} (int adr)
 \item 
 int \hyperlink{namespacenanai_a8580e60e0a68dee6dcbc37c87bb96c64}{nanai\+::nanai\+\_\+support\+\_\+tid} ()
+\item 
+void \hyperlink{namespacenanai_a79e141583981fcfd056e2d0840b6f266}{nanai\+::nanai\+\_\+support\+\_\+input\+\_\+json} (const std\+::string \&json\+\_\+context, std\+::vector$<$ \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $>$ \&inputs, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$target)
+\item 
+std\+::string \hyperlink{namespacenanai_ac074f99f45eae555eead257e190c0bc8}{nanai\+::nanai\+\_\+support\+\_\+just\+\_\+filename} (const std\+::string \&path)
+\item 
+size\+\_\+t \hyperlink{namespacenanai_ab80cfceeef0eaa6bdc340551049b08b0}{nanai\+::nanai\+\_\+support\+\_\+get\+\_\+file\+\_\+size} (const std\+::string \&path)
 \end{DoxyCompactItemize}

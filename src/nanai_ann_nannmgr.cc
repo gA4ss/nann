@@ -539,8 +539,11 @@ namespace nanai {
       _home_dir = home;
       if (_home_dir.back() != '/') _home_dir += '/';
     } else {
-      //_home_dir = "/Users/devilogic/.nann/";
+#if NDEBUG==0
+      _home_dir = "/Users/devilogic/.nann/";
+#else
       error(NANAI_ERROR_LOGIC_HOME_DIR_NOT_CONFIG);
+#endif
     }
     
     char *lib_dir = getenv("NANN_LIB_DIR");

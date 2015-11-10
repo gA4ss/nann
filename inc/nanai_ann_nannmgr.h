@@ -236,6 +236,9 @@ namespace nanai {
     /*! 内部运行解锁 */
     virtual void unlock();
     
+    /*! 按照任务名产生策略 */
+    virtual nanai_ann_nanncalc *generate_by_task(std::string &task);
+    
     /*! 产生一个计算结点
      
         这里有一套策略来控制计算结点的生成，
@@ -255,6 +258,10 @@ namespace nanai {
     /*! 当出错时触发，重载基函数 */
     void on_error(int err             /*!< 发生错误时的代码 */
                   );
+   
+  protected:
+    typedef void (*fptr_policy_generate)();
+    std::vector<fptr_policy_generate> _fptr_policy_generates;                      /*!< 产生计算结点策略函数指针 */
     
   protected:
     std::string _home_dir;            /*!< 工作主目录 */

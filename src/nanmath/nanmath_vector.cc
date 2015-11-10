@@ -33,6 +33,10 @@ namespace nanmath {
     clear();
   }
   
+  bool nanmath_vector::empty() const {
+    return _vector.empty();
+  }
+  
   void nanmath_vector::clear() {
     _vector.clear();
   }

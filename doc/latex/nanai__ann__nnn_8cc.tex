@@ -1,8 +1,12 @@
 \hypertarget{nanai__ann__nnn_8cc}{}\section{src/nanai\+\_\+ann\+\_\+nnn.cc 文件参考}
 \label{nanai__ann__nnn_8cc}\index{src/nanai\+\_\+ann\+\_\+nnn.\+cc@{src/nanai\+\_\+ann\+\_\+nnn.\+cc}}
-{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$cstring$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$sstream$>$}\\*
 {\ttfamily \#include $<$stdexcept$>$}\\*
+{\ttfamily \#include $<$iomanip$>$}\\*
 {\ttfamily \#include $<$nanai\+\_\+ann\+\_\+nnn.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}c\+J\+S\+O\+N.\+h\char`\"{}}\\*
 \subsection*{命名空间}
 \begin{DoxyCompactItemize}
 \item 
@@ -11,7 +15,7 @@
 \subsection*{函数}
 \begin{DoxyCompactItemize}
 \item 
-nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \hyperlink{namespacenanai_a2110c709a5eb7407e8f0c6f3b8d019fb}{nanai\+::nanai\+\_\+ann\+\_\+nnn\+\_\+read} (void $\ast$nnn)
+void \hyperlink{namespacenanai_a20e02521fe935d028e8b2d88a313c2a5}{nanai\+::nanai\+\_\+ann\+\_\+nnn\+\_\+read} (const std\+::string \&json\+\_\+context, std\+::string \&alg, nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \&ann, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$target=nullptr)
 \item 
-int \hyperlink{namespacenanai_a0ed58a3fd976881313c718c85f77a168}{nanai\+::nanai\+\_\+ann\+\_\+nnn\+\_\+write} (const nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \&ann, const std\+::string \&alg, const std\+::string \&task, void $\ast$nnn, int len)
+void \hyperlink{namespacenanai_ae4c32003caaa1ec76a3cb62ad31a1357}{nanai\+::nanai\+\_\+ann\+\_\+nnn\+\_\+write} (std\+::string \&json\+\_\+context, const std\+::string \&alg, const nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \&ann, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$target=nullptr)
 \end{DoxyCompactItemize}

@@ -2,58 +2,15 @@
 \label{nanai__ann__nnn_8h}\index{inc/nanai\+\_\+ann\+\_\+nnn.\+h@{inc/nanai\+\_\+ann\+\_\+nnn.\+h}}
 {\ttfamily \#include $<$vector$>$}\\*
 {\ttfamily \#include $<$nanai\+\_\+ann\+\_\+nanncalc.\+h$>$}\\*
-\subsection*{类}
-\begin{DoxyCompactItemize}
-\item 
-struct \hyperlink{structnanai_1_1__nanai__ann__nnn}{nanai\+::\+\_\+nanai\+\_\+ann\+\_\+nnn}
-\end{DoxyCompactItemize}
 \subsection*{命名空间}
 \begin{DoxyCompactItemize}
 \item 
  \hyperlink{namespacenanai}{nanai}
 \end{DoxyCompactItemize}
-\subsection*{宏定义}
-\begin{DoxyCompactItemize}
-\item 
-\#define \hyperlink{nanai__ann__nnn_8h_a56f06146d4a4a0b1e953fc01e2e53177}{N\+N\+N\+\_\+\+C\+U\+R\+R\+\_\+\+V\+E\+R\+S\+I\+O\+N}~0x100
-\item 
-\#define \hyperlink{nanai__ann__nnn_8h_a6fb97bf03113af51ea9407ca054c2f33}{N\+N\+N\+\_\+\+M\+A\+G\+I\+C\+\_\+\+C\+O\+D\+E}~0x08080808
-\item 
-\#define \hyperlink{nanai__ann__nnn_8h_ad383f05f8ff81039b98322a1c0c18500}{N\+N\+N\+\_\+\+E\+O\+F}~0x08080808
-\end{DoxyCompactItemize}
-\subsection*{类型定义}
-\begin{DoxyCompactItemize}
-\item 
-typedef struct \hyperlink{structnanai_1_1__nanai__ann__nnn}{nanai\+::\+\_\+nanai\+\_\+ann\+\_\+nnn} \hyperlink{namespacenanai_a2a6647c825fde0177764e042130b8b99}{nanai\+::nanai\+\_\+ann\+\_\+nnn}
-\end{DoxyCompactItemize}
 \subsection*{函数}
 \begin{DoxyCompactItemize}
 \item 
-nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \hyperlink{namespacenanai_a2110c709a5eb7407e8f0c6f3b8d019fb}{nanai\+::nanai\+\_\+ann\+\_\+nnn\+\_\+read} (void $\ast$nnn)
+void \hyperlink{namespacenanai_a20e02521fe935d028e8b2d88a313c2a5}{nanai\+::nanai\+\_\+ann\+\_\+nnn\+\_\+read} (const std\+::string \&json\+\_\+context, std\+::string \&alg, nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \&ann, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$target=nullptr)
 \item 
-int \hyperlink{namespacenanai_a0ed58a3fd976881313c718c85f77a168}{nanai\+::nanai\+\_\+ann\+\_\+nnn\+\_\+write} (const nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \&ann, const std\+::string \&alg, const std\+::string \&task, void $\ast$nnn, int len)
+void \hyperlink{namespacenanai_ae4c32003caaa1ec76a3cb62ad31a1357}{nanai\+::nanai\+\_\+ann\+\_\+nnn\+\_\+write} (std\+::string \&json\+\_\+context, const std\+::string \&alg, const nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \&ann, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$target=nullptr)
 \end{DoxyCompactItemize}
-
-
-\subsection{宏定义说明}
-\hypertarget{nanai__ann__nnn_8h_a56f06146d4a4a0b1e953fc01e2e53177}{}\index{nanai\+\_\+ann\+\_\+nnn.\+h@{nanai\+\_\+ann\+\_\+nnn.\+h}!N\+N\+N\+\_\+\+C\+U\+R\+R\+\_\+\+V\+E\+R\+S\+I\+O\+N@{N\+N\+N\+\_\+\+C\+U\+R\+R\+\_\+\+V\+E\+R\+S\+I\+O\+N}}
-\index{N\+N\+N\+\_\+\+C\+U\+R\+R\+\_\+\+V\+E\+R\+S\+I\+O\+N@{N\+N\+N\+\_\+\+C\+U\+R\+R\+\_\+\+V\+E\+R\+S\+I\+O\+N}!nanai\+\_\+ann\+\_\+nnn.\+h@{nanai\+\_\+ann\+\_\+nnn.\+h}}
-\subsubsection[{N\+N\+N\+\_\+\+C\+U\+R\+R\+\_\+\+V\+E\+R\+S\+I\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+N\+N\+\_\+\+C\+U\+R\+R\+\_\+\+V\+E\+R\+S\+I\+O\+N~0x100}\label{nanai__ann__nnn_8h_a56f06146d4a4a0b1e953fc01e2e53177}
-
-
-在文件 nanai\+\_\+ann\+\_\+nnn.\+h 第 9 行定义.
-
-\hypertarget{nanai__ann__nnn_8h_ad383f05f8ff81039b98322a1c0c18500}{}\index{nanai\+\_\+ann\+\_\+nnn.\+h@{nanai\+\_\+ann\+\_\+nnn.\+h}!N\+N\+N\+\_\+\+E\+O\+F@{N\+N\+N\+\_\+\+E\+O\+F}}
-\index{N\+N\+N\+\_\+\+E\+O\+F@{N\+N\+N\+\_\+\+E\+O\+F}!nanai\+\_\+ann\+\_\+nnn.\+h@{nanai\+\_\+ann\+\_\+nnn.\+h}}
-\subsubsection[{N\+N\+N\+\_\+\+E\+O\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+N\+N\+\_\+\+E\+O\+F~0x08080808}\label{nanai__ann__nnn_8h_ad383f05f8ff81039b98322a1c0c18500}
-
-
-在文件 nanai\+\_\+ann\+\_\+nnn.\+h 第 11 行定义.
-
-\hypertarget{nanai__ann__nnn_8h_a6fb97bf03113af51ea9407ca054c2f33}{}\index{nanai\+\_\+ann\+\_\+nnn.\+h@{nanai\+\_\+ann\+\_\+nnn.\+h}!N\+N\+N\+\_\+\+M\+A\+G\+I\+C\+\_\+\+C\+O\+D\+E@{N\+N\+N\+\_\+\+M\+A\+G\+I\+C\+\_\+\+C\+O\+D\+E}}
-\index{N\+N\+N\+\_\+\+M\+A\+G\+I\+C\+\_\+\+C\+O\+D\+E@{N\+N\+N\+\_\+\+M\+A\+G\+I\+C\+\_\+\+C\+O\+D\+E}!nanai\+\_\+ann\+\_\+nnn.\+h@{nanai\+\_\+ann\+\_\+nnn.\+h}}
-\subsubsection[{N\+N\+N\+\_\+\+M\+A\+G\+I\+C\+\_\+\+C\+O\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+N\+N\+\_\+\+M\+A\+G\+I\+C\+\_\+\+C\+O\+D\+E~0x08080808}\label{nanai__ann__nnn_8h_a6fb97bf03113af51ea9407ca054c2f33}
-
-
-在文件 nanai\+\_\+ann\+\_\+nnn.\+h 第 10 行定义.
-

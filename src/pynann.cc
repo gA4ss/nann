@@ -475,6 +475,7 @@ static PyObject *wrap_print_info(PyObject *self, PyObject *args) {
   Py_RETURN_NONE;
 }
 
+/*! 指定任务名的正在计算结点有多少个 */
 static PyObject *wrap_iscalcing(PyObject *self, PyObject *args) {
   
   char *task = nullptr;

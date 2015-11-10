@@ -5,13 +5,13 @@
 \item 
 struct \hyperlink{structnanai_1_1__nanai__ann__nanndesc}{\+\_\+nanai\+\_\+ann\+\_\+nanndesc}
 \item 
-struct \hyperlink{structnanai_1_1__nanai__ann__nnn}{\+\_\+nanai\+\_\+ann\+\_\+nnn}
-\item 
 class \hyperlink{classnanai_1_1nanai__ann__nanncalc}{nanai\+\_\+ann\+\_\+nanncalc}
 \item 
 class \hyperlink{classnanai_1_1nanai__ann__nannmgr}{nanai\+\_\+ann\+\_\+nannmgr}
 \begin{DoxyCompactList}\small\item\em 南南人工神经网络管理器类 \end{DoxyCompactList}\item 
 class \hyperlink{classnanai_1_1nanai__error__logic__alg__not__found}{nanai\+\_\+error\+\_\+logic\+\_\+alg\+\_\+not\+\_\+found}
+\item 
+class \hyperlink{classnanai_1_1nanai__error__logic__ann__number__less__2}{nanai\+\_\+error\+\_\+logic\+\_\+ann\+\_\+number\+\_\+less\+\_\+2}
 \item 
 class \hyperlink{classnanai_1_1nanai__error__logic__home__dir__not__config}{nanai\+\_\+error\+\_\+logic\+\_\+home\+\_\+dir\+\_\+not\+\_\+config}
 \item 
@@ -77,19 +77,23 @@ typedef void($\ast$ \hyperlink{namespacenanai_a5c9964edbd4db8ae35df7cd024020e87}
 typedef void($\ast$ \hyperlink{namespacenanai_a04b231ce428a771ab1a9aace53be65c6}{fptr\+\_\+ann\+\_\+monitor\+\_\+alg\+\_\+uninstall}) (int cid)
 \item 
 typedef \hyperlink{namespacenanai_a892a8c80381d0005a076b68fbbf2d918}{nanai\+\_\+ann\+\_\+nanndesc} $\ast$($\ast$ \hyperlink{namespacenanai_af358544d3d83ecb56361b1eaa46a0e98}{fptr\+\_\+ann\+\_\+alg\+\_\+setup}) (const char $\ast$conf\+\_\+dir)
-\item 
-typedef struct \hyperlink{structnanai_1_1__nanai__ann__nnn}{nanai\+::\+\_\+nanai\+\_\+ann\+\_\+nnn} \hyperlink{namespacenanai_a2a6647c825fde0177764e042130b8b99}{nanai\+\_\+ann\+\_\+nnn}
 \end{DoxyCompactItemize}
 \subsection*{函数}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \hyperlink{namespacenanai_a2110c709a5eb7407e8f0c6f3b8d019fb}{nanai\+\_\+ann\+\_\+nnn\+\_\+read} (void $\ast$nnn)
+void \hyperlink{namespacenanai_a20e02521fe935d028e8b2d88a313c2a5}{nanai\+\_\+ann\+\_\+nnn\+\_\+read} (const std\+::string \&json\+\_\+context, std\+::string \&alg, \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&ann, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$target=nullptr)
 \item 
-int \hyperlink{namespacenanai_a0ed58a3fd976881313c718c85f77a168}{nanai\+\_\+ann\+\_\+nnn\+\_\+write} (const \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&ann, const std\+::string \&alg, const std\+::string \&task, void $\ast$nnn, int len)
+void \hyperlink{namespacenanai_ae4c32003caaa1ec76a3cb62ad31a1357}{nanai\+\_\+ann\+\_\+nnn\+\_\+write} (std\+::string \&json\+\_\+context, const std\+::string \&alg, const \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&ann, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$target=nullptr)
 \item 
 int \hyperlink{namespacenanai_a8955229cdf11e2d23ab55fc290c48149}{nanai\+\_\+support\+\_\+nid} (int adr)
 \item 
 int \hyperlink{namespacenanai_a8580e60e0a68dee6dcbc37c87bb96c64}{nanai\+\_\+support\+\_\+tid} ()
+\item 
+void \hyperlink{namespacenanai_a79e141583981fcfd056e2d0840b6f266}{nanai\+\_\+support\+\_\+input\+\_\+json} (const std\+::string \&json\+\_\+context, std\+::vector$<$ \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $>$ \&inputs, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$target)
+\item 
+std\+::string \hyperlink{namespacenanai_ac074f99f45eae555eead257e190c0bc8}{nanai\+\_\+support\+\_\+just\+\_\+filename} (const std\+::string \&path)
+\item 
+size\+\_\+t \hyperlink{namespacenanai_ab80cfceeef0eaa6bdc340551049b08b0}{nanai\+\_\+support\+\_\+get\+\_\+file\+\_\+size} (const std\+::string \&path)
 \item 
 void $\ast$ \hyperlink{namespacenanai_a6b14a6c7614acd05e543b753f956f014}{nai\+\_\+memory\+\_\+calloc} (size\+\_\+t count, size\+\_\+t size)
 \item 
@@ -223,9 +227,6 @@ void \hyperlink{namespacenanai_a89261d96bcefbd9b2e87c85a4370f878}{error} (int er
 
 在文件 nanai\+\_\+ann\+\_\+nanndesc.\+h 第 6 行定义.
 
-\hypertarget{namespacenanai_a2a6647c825fde0177764e042130b8b99}{}\index{nanai@{nanai}!nanai\+\_\+ann\+\_\+nnn@{nanai\+\_\+ann\+\_\+nnn}}
-\index{nanai\+\_\+ann\+\_\+nnn@{nanai\+\_\+ann\+\_\+nnn}!nanai@{nanai}}
-\subsubsection[{nanai\+\_\+ann\+\_\+nnn}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf nanai\+::\+\_\+nanai\+\_\+ann\+\_\+nnn}  {\bf nanai\+::nanai\+\_\+ann\+\_\+nnn}}\label{namespacenanai_a2a6647c825fde0177764e042130b8b99}
 
 
 \subsection{函数说明}
@@ -238,7 +239,7 @@ void \hyperlink{namespacenanai_a89261d96bcefbd9b2e87c85a4370f878}{error} (int er
 )}\label{namespacenanai_a89261d96bcefbd9b2e87c85a4370f878}
 
 
-在文件 nanai\+\_\+object.\+cc 第 134 行定义.
+在文件 nanai\+\_\+object.\+cc 第 138 行定义.
 
 \hypertarget{namespacenanai_a6b14a6c7614acd05e543b753f956f014}{}\index{nanai@{nanai}!nai\+\_\+memory\+\_\+calloc@{nai\+\_\+memory\+\_\+calloc}}
 \index{nai\+\_\+memory\+\_\+calloc@{nai\+\_\+memory\+\_\+calloc}!nanai@{nanai}}
@@ -286,31 +287,68 @@ void \hyperlink{namespacenanai_a89261d96bcefbd9b2e87c85a4370f878}{error} (int er
 
 在文件 nanai\+\_\+memory.\+cc 第 25 行定义.
 
-\hypertarget{namespacenanai_a2110c709a5eb7407e8f0c6f3b8d019fb}{}\index{nanai@{nanai}!nanai\+\_\+ann\+\_\+nnn\+\_\+read@{nanai\+\_\+ann\+\_\+nnn\+\_\+read}}
+\hypertarget{namespacenanai_a20e02521fe935d028e8b2d88a313c2a5}{}\index{nanai@{nanai}!nanai\+\_\+ann\+\_\+nnn\+\_\+read@{nanai\+\_\+ann\+\_\+nnn\+\_\+read}}
 \index{nanai\+\_\+ann\+\_\+nnn\+\_\+read@{nanai\+\_\+ann\+\_\+nnn\+\_\+read}!nanai@{nanai}}
-\subsubsection[{nanai\+\_\+ann\+\_\+nnn\+\_\+read(void $\ast$nnn)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} nanai\+::nanai\+\_\+ann\+\_\+nnn\+\_\+read (
+\subsubsection[{nanai\+\_\+ann\+\_\+nnn\+\_\+read(const std\+::string \&json\+\_\+context, std\+::string \&alg, nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \&ann, nanmath\+::nanmath\+\_\+vector $\ast$target=nullptr)}]{\setlength{\rightskip}{0pt plus 5cm}void nanai\+::nanai\+\_\+ann\+\_\+nnn\+\_\+read (
 \begin{DoxyParamCaption}
-\item[{void $\ast$}]{nnn}
+\item[{const std\+::string \&}]{json\+\_\+context, }
+\item[{std\+::string \&}]{alg, }
+\item[{{\bf nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&}]{ann, }
+\item[{{\bf nanmath\+::nanmath\+\_\+vector} $\ast$}]{target = {\ttfamily nullptr}}
 \end{DoxyParamCaption}
-)}\label{namespacenanai_a2110c709a5eb7407e8f0c6f3b8d019fb}
+)}\label{namespacenanai_a20e02521fe935d028e8b2d88a313c2a5}
 
 
-在文件 nanai\+\_\+ann\+\_\+nnn.\+cc 第 72 行定义.
+在文件 nanai\+\_\+ann\+\_\+nnn.\+cc 第 172 行定义.
 
-\hypertarget{namespacenanai_a0ed58a3fd976881313c718c85f77a168}{}\index{nanai@{nanai}!nanai\+\_\+ann\+\_\+nnn\+\_\+write@{nanai\+\_\+ann\+\_\+nnn\+\_\+write}}
+\hypertarget{namespacenanai_ae4c32003caaa1ec76a3cb62ad31a1357}{}\index{nanai@{nanai}!nanai\+\_\+ann\+\_\+nnn\+\_\+write@{nanai\+\_\+ann\+\_\+nnn\+\_\+write}}
 \index{nanai\+\_\+ann\+\_\+nnn\+\_\+write@{nanai\+\_\+ann\+\_\+nnn\+\_\+write}!nanai@{nanai}}
-\subsubsection[{nanai\+\_\+ann\+\_\+nnn\+\_\+write(const nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \&ann, const std\+::string \&alg, const std\+::string \&task, void $\ast$nnn, int len)}]{\setlength{\rightskip}{0pt plus 5cm}int nanai\+::nanai\+\_\+ann\+\_\+nnn\+\_\+write (
+\subsubsection[{nanai\+\_\+ann\+\_\+nnn\+\_\+write(std\+::string \&json\+\_\+context, const std\+::string \&alg, const nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \&ann, nanmath\+::nanmath\+\_\+vector $\ast$target=nullptr)}]{\setlength{\rightskip}{0pt plus 5cm}void nanai\+::nanai\+\_\+ann\+\_\+nnn\+\_\+write (
 \begin{DoxyParamCaption}
-\item[{const {\bf nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&}]{ann, }
+\item[{std\+::string \&}]{json\+\_\+context, }
 \item[{const std\+::string \&}]{alg, }
-\item[{const std\+::string \&}]{task, }
-\item[{void $\ast$}]{nnn, }
-\item[{int}]{len}
+\item[{const {\bf nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&}]{ann, }
+\item[{{\bf nanmath\+::nanmath\+\_\+vector} $\ast$}]{target = {\ttfamily nullptr}}
 \end{DoxyParamCaption}
-)}\label{namespacenanai_a0ed58a3fd976881313c718c85f77a168}
+)}\label{namespacenanai_ae4c32003caaa1ec76a3cb62ad31a1357}
 
 
-在文件 nanai\+\_\+ann\+\_\+nnn.\+cc 第 108 行定义.
+在文件 nanai\+\_\+ann\+\_\+nnn.\+cc 第 189 行定义.
+
+\hypertarget{namespacenanai_ab80cfceeef0eaa6bdc340551049b08b0}{}\index{nanai@{nanai}!nanai\+\_\+support\+\_\+get\+\_\+file\+\_\+size@{nanai\+\_\+support\+\_\+get\+\_\+file\+\_\+size}}
+\index{nanai\+\_\+support\+\_\+get\+\_\+file\+\_\+size@{nanai\+\_\+support\+\_\+get\+\_\+file\+\_\+size}!nanai@{nanai}}
+\subsubsection[{nanai\+\_\+support\+\_\+get\+\_\+file\+\_\+size(const std\+::string \&path)}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t nanai\+::nanai\+\_\+support\+\_\+get\+\_\+file\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{path}
+\end{DoxyParamCaption}
+)}\label{namespacenanai_ab80cfceeef0eaa6bdc340551049b08b0}
+
+
+在文件 nanai\+\_\+support.\+cc 第 101 行定义.
+
+\hypertarget{namespacenanai_a79e141583981fcfd056e2d0840b6f266}{}\index{nanai@{nanai}!nanai\+\_\+support\+\_\+input\+\_\+json@{nanai\+\_\+support\+\_\+input\+\_\+json}}
+\index{nanai\+\_\+support\+\_\+input\+\_\+json@{nanai\+\_\+support\+\_\+input\+\_\+json}!nanai@{nanai}}
+\subsubsection[{nanai\+\_\+support\+\_\+input\+\_\+json(const std\+::string \&json\+\_\+context, std\+::vector$<$ nanmath\+::nanmath\+\_\+vector $>$ \&inputs, nanmath\+::nanmath\+\_\+vector $\ast$target)}]{\setlength{\rightskip}{0pt plus 5cm}void nanai\+::nanai\+\_\+support\+\_\+input\+\_\+json (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{json\+\_\+context, }
+\item[{std\+::vector$<$ {\bf nanmath\+::nanmath\+\_\+vector} $>$ \&}]{inputs, }
+\item[{{\bf nanmath\+::nanmath\+\_\+vector} $\ast$}]{target}
+\end{DoxyParamCaption}
+)}\label{namespacenanai_a79e141583981fcfd056e2d0840b6f266}
+
+
+在文件 nanai\+\_\+support.\+cc 第 73 行定义.
+
+\hypertarget{namespacenanai_ac074f99f45eae555eead257e190c0bc8}{}\index{nanai@{nanai}!nanai\+\_\+support\+\_\+just\+\_\+filename@{nanai\+\_\+support\+\_\+just\+\_\+filename}}
+\index{nanai\+\_\+support\+\_\+just\+\_\+filename@{nanai\+\_\+support\+\_\+just\+\_\+filename}!nanai@{nanai}}
+\subsubsection[{nanai\+\_\+support\+\_\+just\+\_\+filename(const std\+::string \&path)}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+support\+\_\+just\+\_\+filename (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{path}
+\end{DoxyParamCaption}
+)}\label{namespacenanai_ac074f99f45eae555eead257e190c0bc8}
+
+
+在文件 nanai\+\_\+support.\+cc 第 91 行定义.
 
 \hypertarget{namespacenanai_a8955229cdf11e2d23ab55fc290c48149}{}\index{nanai@{nanai}!nanai\+\_\+support\+\_\+nid@{nanai\+\_\+support\+\_\+nid}}
 \index{nanai\+\_\+support\+\_\+nid@{nanai\+\_\+support\+\_\+nid}!nanai@{nanai}}
@@ -321,7 +359,7 @@ void \hyperlink{namespacenanai_a89261d96bcefbd9b2e87c85a4370f878}{error} (int er
 )}\label{namespacenanai_a8955229cdf11e2d23ab55fc290c48149}
 
 
-在文件 nanai\+\_\+support.\+cc 第 6 行定义.
+在文件 nanai\+\_\+support.\+cc 第 9 行定义.
 
 \hypertarget{namespacenanai_a8580e60e0a68dee6dcbc37c87bb96c64}{}\index{nanai@{nanai}!nanai\+\_\+support\+\_\+tid@{nanai\+\_\+support\+\_\+tid}}
 \index{nanai\+\_\+support\+\_\+tid@{nanai\+\_\+support\+\_\+tid}!nanai@{nanai}}
@@ -332,7 +370,7 @@ void \hyperlink{namespacenanai_a89261d96bcefbd9b2e87c85a4370f878}{error} (int er
 )}\label{namespacenanai_a8580e60e0a68dee6dcbc37c87bb96c64}
 
 
-在文件 nanai\+\_\+support.\+cc 第 11 行定义.
+在文件 nanai\+\_\+support.\+cc 第 14 行定义.
 
 
 
@@ -342,12 +380,12 @@ void \hyperlink{namespacenanai_a89261d96bcefbd9b2e87c85a4370f878}{error} (int er
 \subsubsection[{errcode}]{\setlength{\rightskip}{0pt plus 5cm}int nanai\+::errcode}\label{namespacenanai_a43ed38739d33505ddadbaf7a0aad04d7}
 
 
-在文件 nanai\+\_\+object.\+cc 第 80 行定义.
+在文件 nanai\+\_\+object.\+cc 第 84 行定义.
 
 \hypertarget{namespacenanai_a073a964f025b092f58d6c94a775af317}{}\index{nanai@{nanai}!except@{except}}
 \index{except@{except}!nanai@{nanai}}
 \subsubsection[{except}]{\setlength{\rightskip}{0pt plus 5cm}std\+::exception\& nanai\+::except}\label{namespacenanai_a073a964f025b092f58d6c94a775af317}
 
 
-在文件 nanai\+\_\+object.\+cc 第 81 行定义.
+在文件 nanai\+\_\+object.\+cc 第 85 行定义.
 

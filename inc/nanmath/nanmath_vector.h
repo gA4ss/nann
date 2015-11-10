@@ -16,6 +16,7 @@ namespace nanmath {
   public:
     virtual void create(size_t n);
     virtual void destroy();
+    virtual bool empty() const;
     virtual void clear();
     virtual double at(size_t i) const;
     virtual void set(size_t i, double v);

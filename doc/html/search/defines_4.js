@@ -4,6 +4,7 @@ var searchData=
   ['nanai_5fann_5fversion_5fstr',['NANAI_ANN_VERSION_STR',['../nanai__ann__version_8h.html#ad045812784bcf1fd0b5549d0abd96ff2',1,'nanai_ann_version.h']]],
   ['nanai_5ferror_5flogic',['NANAI_ERROR_LOGIC',['../nanai__object_8h.html#a5b02aefdcfe512c3e7e92fe4f2980b4a',1,'nanai_object.h']]],
   ['nanai_5ferror_5flogic_5falg_5fnot_5ffound',['NANAI_ERROR_LOGIC_ALG_NOT_FOUND',['../nanai__object_8h.html#a621d1127c7894b1c41493769a6f6171b',1,'nanai_object.h']]],
+  ['nanai_5ferror_5flogic_5fann_5fnumber_5fless_5f2',['NANAI_ERROR_LOGIC_ANN_NUMBER_LESS_2',['../nanai__object_8h.html#a0b66e00f75995493e8be2ca7f6ff1e00',1,'nanai_object.h']]],
   ['nanai_5ferror_5flogic_5fhome_5fdir_5fnot_5fconfig',['NANAI_ERROR_LOGIC_HOME_DIR_NOT_CONFIG',['../nanai__object_8h.html#a9055ffa2aa4cac170f0100fe5d4b5e5d',1,'nanai_object.h']]],
   ['nanai_5ferror_5flogic_5finvalid_5fargument',['NANAI_ERROR_LOGIC_INVALID_ARGUMENT',['../nanai__object_8h.html#a489753e64a9934f89667dd6636fdfb6a',1,'nanai_object.h']]],
   ['nanai_5ferror_5flogic_5finvalid_5fconfig',['NANAI_ERROR_LOGIC_INVALID_CONFIG',['../nanai__object_8h.html#ac10684c53f958b63a3b36c30b960a8fb',1,'nanai_object.h']]],
@@ -36,8 +37,5 @@ var searchData=
   ['nanncalc_5fst_5fstop',['NANNCALC_ST_STOP',['../nanai__ann__nanncalc_8h.html#abf1ad245b3da2bb8ed628a379ea2c939',1,'nanai_ann_nanncalc.h']]],
   ['nanncalc_5fst_5ftrained',['NANNCALC_ST_TRAINED',['../nanai__ann__nanncalc_8h.html#a538a7e9e5b2fa1b310a71905f7f132f8',1,'nanai_ann_nanncalc.h']]],
   ['nanncalc_5fst_5ftraining',['NANNCALC_ST_TRAINING',['../nanai__ann__nanncalc_8h.html#a747daf3f516fc4eeedc852cec55fbb55',1,'nanai_ann_nanncalc.h']]],
-  ['nanncalc_5fst_5fwaiting',['NANNCALC_ST_WAITING',['../nanai__ann__nanncalc_8h.html#aa9f870b50eb2eed0f6963582ef8d2a88',1,'nanai_ann_nanncalc.h']]],
-  ['nnn_5fcurr_5fversion',['NNN_CURR_VERSION',['../nanai__ann__nnn_8h.html#a56f06146d4a4a0b1e953fc01e2e53177',1,'nanai_ann_nnn.h']]],
-  ['nnn_5feof',['NNN_EOF',['../nanai__ann__nnn_8h.html#ad383f05f8ff81039b98322a1c0c18500',1,'nanai_ann_nnn.h']]],
-  ['nnn_5fmagic_5fcode',['NNN_MAGIC_CODE',['../nanai__ann__nnn_8h.html#a6fb97bf03113af51ea9407ca054c2f33',1,'nanai_ann_nnn.h']]]
+  ['nanncalc_5fst_5fwaiting',['NANNCALC_ST_WAITING',['../nanai__ann__nanncalc_8h.html#aa9f870b50eb2eed0f6963582ef8d2a88',1,'nanai_ann_nanncalc.h']]]
 ];

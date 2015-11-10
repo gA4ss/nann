@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['fill_5fnneural',['fill_nneural',['../classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html#a8484fa61fc90ea80626e16eb28a6b963',1,'nanai::nanai_ann_nanncalc::ann_t']]],
   ['find_5falg',['find_alg',['../classnanai_1_1nanai__ann__nannmgr.html#aa3fdb4c566c9f8b670631fb559cf1b02',1,'nanai::nanai_ann_nannmgr']]],
   ['fptr_5fann_5falg_5fsetup',['fptr_ann_alg_setup',['../namespacenanai.html#af358544d3d83ecb56361b1eaa46a0e98',1,'nanai']]],
   ['fptr_5fann_5fcalculate',['fptr_ann_calculate',['../namespacenanai.html#ac1a3ebd721fc3cfe1b9accfe7b65b7fe',1,'nanai']]],

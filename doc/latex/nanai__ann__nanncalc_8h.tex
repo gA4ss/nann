@@ -4,6 +4,7 @@
 {\ttfamily \#include $<$pthread.\+h$>$}\\*
 {\ttfamily \#include $<$time.\+h$>$}\\*
 {\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
 {\ttfamily \#include $<$vector$>$}\\*
 {\ttfamily \#include $<$queue$>$}\\*
 {\ttfamily \#include $<$nanmath\+\_\+matrix.\+h$>$}\\*
@@ -70,124 +71,124 @@ struct \hyperlink{structnanai_1_1nanai__ann__nanncalc_1_1ncommand}{nanai\+::nana
 \subsubsection[{ann\+\_\+calculating}]{\setlength{\rightskip}{0pt plus 5cm}\#define ann\+\_\+calculating~ann\+\_\+training\+\_\+notarget}\label{nanai__ann__nanncalc_8h_aff54a7331e3fc696b20a73a84b534734}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 93 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 105 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_a1d3c53a933bbec94804625a341206fdd}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+E@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+E}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+E@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+E}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+E~6}\label{nanai__ann__nanncalc_8h_a1d3c53a933bbec94804625a341206fdd}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 39 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 40 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_ac6fc6e859ae484853fb0851a3ba0ee86}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+C\+A\+L\+C\+U\+L\+A\+T\+E@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+C\+A\+L\+C\+U\+L\+A\+T\+E}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+C\+A\+L\+C\+U\+L\+A\+T\+E@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+C\+A\+L\+C\+U\+L\+A\+T\+E}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+C\+A\+L\+C\+U\+L\+A\+T\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+C\+A\+L\+C\+U\+L\+A\+T\+E~{\bf N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G\+\_\+\+N\+O\+T\+A\+R\+G\+E\+T}}\label{nanai__ann__nanncalc_8h_ac6fc6e859ae484853fb0851a3ba0ee86}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 36 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 37 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_ac153179a71e521e506cbb237e9c639d1}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+E@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+E}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+E@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+E}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+E~5}\label{nanai__ann__nanncalc_8h_ac153179a71e521e506cbb237e9c639d1}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 38 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 39 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_aa83e4c133d8b69741613bd474b972dc3}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+S\+T\+O\+P@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+S\+T\+O\+P}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+S\+T\+O\+P@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+S\+T\+O\+P}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+S\+T\+O\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+S\+T\+O\+P~0}\label{nanai__ann__nanncalc_8h_aa83e4c133d8b69741613bd474b972dc3}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 32 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 33 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_a77942b321c751c97c2880a307377aea7}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G~2}\label{nanai__ann__nanncalc_8h_a77942b321c751c97c2880a307377aea7}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 34 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 35 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_a40d968c21e384500efca55ab95419c5f}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G\+\_\+\+N\+O\+O\+U\+T\+P\+U\+T@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G\+\_\+\+N\+O\+O\+U\+T\+P\+U\+T}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G\+\_\+\+N\+O\+O\+U\+T\+P\+U\+T@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G\+\_\+\+N\+O\+O\+U\+T\+P\+U\+T}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G\+\_\+\+N\+O\+O\+U\+T\+P\+U\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G\+\_\+\+N\+O\+O\+U\+T\+P\+U\+T~4}\label{nanai__ann__nanncalc_8h_a40d968c21e384500efca55ab95419c5f}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 37 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 38 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_a364de3feb66956a570d81c293ebe90ea}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G\+\_\+\+N\+O\+T\+A\+R\+G\+E\+T@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G\+\_\+\+N\+O\+T\+A\+R\+G\+E\+T}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G\+\_\+\+N\+O\+T\+A\+R\+G\+E\+T@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G\+\_\+\+N\+O\+T\+A\+R\+G\+E\+T}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G\+\_\+\+N\+O\+T\+A\+R\+G\+E\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G\+\_\+\+N\+O\+T\+A\+R\+G\+E\+T~3}\label{nanai__ann__nanncalc_8h_a364de3feb66956a570d81c293ebe90ea}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 35 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 36 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_a163b59201237aa16ad4630fa0cee1a1f}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+W\+A\+I\+T\+I\+N\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+W\+A\+I\+T\+I\+N\+G}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+W\+A\+I\+T\+I\+N\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+W\+A\+I\+T\+I\+N\+G}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+W\+A\+I\+T\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+C\+M\+D\+\_\+\+W\+A\+I\+T\+I\+N\+G~1}\label{nanai__ann__nanncalc_8h_a163b59201237aa16ad4630fa0cee1a1f}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 33 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 34 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_a86a353a8a4d8d5753fd49a4888275e5b}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+P\+R\+O\+C\+E\+S\+S\+\_\+\+L\+O\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+P\+R\+O\+C\+E\+S\+S\+\_\+\+L\+O\+G}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+P\+R\+O\+C\+E\+S\+S\+\_\+\+L\+O\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+P\+R\+O\+C\+E\+S\+S\+\_\+\+L\+O\+G}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+P\+R\+O\+C\+E\+S\+S\+\_\+\+L\+O\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+P\+R\+O\+C\+E\+S\+S\+\_\+\+L\+O\+G~1}\label{nanai__ann__nanncalc_8h_a86a353a8a4d8d5753fd49a4888275e5b}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 44 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 45 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_acb43c5e628309e99152eae8feabf1b55}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+E\+D@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+E\+D}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+E\+D@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+E\+D}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+E\+D~7}\label{nanai__ann__nanncalc_8h_acb43c5e628309e99152eae8feabf1b55}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 27 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 28 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_a79e7dc3670242605cf07d0322d68badd}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+I\+N\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+I\+N\+G}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+I\+N\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+I\+N\+G}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+A\+N\+N\+\_\+\+E\+X\+C\+H\+A\+N\+G\+I\+N\+G~6}\label{nanai__ann__nanncalc_8h_a79e7dc3670242605cf07d0322d68badd}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 26 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 27 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_a884748d2694c520c825872e484609822}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+E\+D@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+E\+D}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+E\+D@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+E\+D}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+E\+D~4}\label{nanai__ann__nanncalc_8h_a884748d2694c520c825872e484609822}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 24 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 25 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_a6e08d51f6f0c88babb702e8fe1100adc}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+I\+N\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+I\+N\+G}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+I\+N\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+I\+N\+G}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+I\+N\+G~5}\label{nanai__ann__nanncalc_8h_a6e08d51f6f0c88babb702e8fe1100adc}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 25 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 26 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_abf1ad245b3da2bb8ed628a379ea2c939}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+S\+T\+O\+P@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+S\+T\+O\+P}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+S\+T\+O\+P@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+S\+T\+O\+P}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+S\+T\+O\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+S\+T\+O\+P~0}\label{nanai__ann__nanncalc_8h_abf1ad245b3da2bb8ed628a379ea2c939}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 20 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 21 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_a538a7e9e5b2fa1b310a71905f7f132f8}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+T\+R\+A\+I\+N\+E\+D@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+T\+R\+A\+I\+N\+E\+D}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+T\+R\+A\+I\+N\+E\+D@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+T\+R\+A\+I\+N\+E\+D}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+T\+R\+A\+I\+N\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+T\+R\+A\+I\+N\+E\+D~2}\label{nanai__ann__nanncalc_8h_a538a7e9e5b2fa1b310a71905f7f132f8}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 22 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 23 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_a747daf3f516fc4eeedc852cec55fbb55}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+T\+R\+A\+I\+N\+I\+N\+G~3}\label{nanai__ann__nanncalc_8h_a747daf3f516fc4eeedc852cec55fbb55}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 23 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 24 行定义.
 
 \hypertarget{nanai__ann__nanncalc_8h_aa9f870b50eb2eed0f6963582ef8d2a88}{}\index{nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}!N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+W\+A\+I\+T\+I\+N\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+W\+A\+I\+T\+I\+N\+G}}
 \index{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+W\+A\+I\+T\+I\+N\+G@{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+W\+A\+I\+T\+I\+N\+G}!nanai\+\_\+ann\+\_\+nanncalc.\+h@{nanai\+\_\+ann\+\_\+nanncalc.\+h}}
 \subsubsection[{N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+W\+A\+I\+T\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+N\+C\+A\+L\+C\+\_\+\+S\+T\+\_\+\+W\+A\+I\+T\+I\+N\+G~1}\label{nanai__ann__nanncalc_8h_aa9f870b50eb2eed0f6963582ef8d2a88}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 21 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 22 行定义.
 

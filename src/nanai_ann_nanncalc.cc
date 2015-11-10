@@ -46,7 +46,7 @@ namespace nanai {
         
         /* 进行训练，并且输出结果，进行权值调整 */
         calc->ann_calculate(task.c_str(), input, &target, &output);
-        calc->set_output(output);
+        calc->set_output(task, output);
         calc->set_state(NANNCALC_ST_TRAINED);
         calc->ann_on_trained();
       } else if (cmd == NANNCALC_CMD_CALCULATE) {
@@ -56,7 +56,7 @@ namespace nanai {
         
         /* 进行训练，输出结果，不进行权值调整 */
         calc->ann_calculate(task.c_str(), input, nullptr, &output);
-        calc->set_output(output);
+        calc->set_output(task, output);
         calc->set_state(NANNCALC_ST_TRAINED);
         calc->ann_on_calculated();
       } else if (cmd == NANNCALC_CMD_TRAINING_NOOUTPUT) {
@@ -491,7 +491,9 @@ namespace nanai {
     return ret;
   }
   
-  void nanai_ann_nanncalc::set_output(nanmath::nanmath_vector &output, bool lock) {
+  void nanai_ann_nanncalc::set_output(std::string &task,
+                                      nanmath::nanmath_vector &output,
+                                      bool lock) {
     if (&output == &nanmath::nv_null) {
       return;
     }
@@ -502,7 +504,14 @@ namespace nanai {
       }
     }
     
-    _outputs.push_back(output);
+    /* 没有找到则创建 */
+    if (_outputs.find(task) == _outputs.end()) {
+      std::vector<nanmath::nanmath_vector> v;
+      v.push_back(output);
+      _outputs[task] = v;
+    } else {
+      _outputs[task].push_back(output);
+    }
     
     if (lock) {
       if (pthread_mutex_unlock(&_outputs_lock) != 0) {
@@ -511,8 +520,9 @@ namespace nanai {
     }
   }
   
-  size_t nanai_ann_nanncalc::get_output(nanmath::nanmath_vector &output, bool lock) {
-    size_t ret = 0;
+  nanmath::nanmath_vector nanai_ann_nanncalc::get_output(std::string &task,
+                                                         bool lock) {
+    nanmath::nanmath_vector output;
     
     if (lock) {
       if (pthread_mutex_lock(&_outputs_lock) != 0) {
@@ -520,14 +530,13 @@ namespace nanai {
       }
     }
     
-    if (_outputs.empty()) {
-      output.destroy();
-      return 0;
+    if (_outputs.find(task) == _outputs.end()) {
+      /* 没有找到 */
+      return output;
     }
     
-    output = *(_outputs.end());
-    _outputs.pop_back();
-    ret = _outputs.size();
+    output = *(_outputs[task].end());
+    _outputs[task].pop_back();
     
     if (lock) {
       if (pthread_mutex_unlock(&_outputs_lock) != 0) {
@@ -535,7 +544,7 @@ namespace nanai {
       }
     }
     
-    return ret;
+    return output;
   }
   
   void nanai_ann_nanncalc::do_configure(nanai_ann_nanndesc &desc) {

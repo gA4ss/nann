@@ -20,7 +20,7 @@ struct \hyperlink{structnanai_1_1nanai__ann__nanncalc_1_1ncommand}{ncommand}
 \subsection*{Public 成员函数}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classnanai_1_1nanai__ann__nanncalc_a0d26e7efdef5368c0212b3dd02f63767}{nanai\+\_\+ann\+\_\+nanncalc} (\hyperlink{namespacenanai_a892a8c80381d0005a076b68fbbf2d918}{nanai\+\_\+ann\+\_\+nanndesc} \&desc, const char $\ast$lp=\char`\"{}./\char`\"{})
+\hyperlink{classnanai_1_1nanai__ann__nanncalc_ac920b08afc8fe7a698fa1e105dd7b5cb}{nanai\+\_\+ann\+\_\+nanncalc} (\hyperlink{namespacenanai_a892a8c80381d0005a076b68fbbf2d918}{nanai\+\_\+ann\+\_\+nanndesc} \&desc, const char $\ast$lp=\char`\"{}./\char`\"{}, const char $\ast$task=nullptr)
 \item 
 virtual \hyperlink{classnanai_1_1nanai__ann__nanncalc_a2f5530f782f2585958c79c94bc3232d7}{$\sim$nanai\+\_\+ann\+\_\+nanncalc} ()
 \item 
@@ -58,9 +58,9 @@ virtual void \hyperlink{classnanai_1_1nanai__ann__nanncalc_a2c8aa9f4f29bb093f0bc
 \item 
 virtual int \hyperlink{classnanai_1_1nanai__ann__nanncalc_abc792abf872514a95a9863cbb3e49cd4}{get\+\_\+state} (bool lock=false)
 \item 
-virtual void \hyperlink{classnanai_1_1nanai__ann__nanncalc_a5102b94199ba413bd8601e66be5d2293}{set\+\_\+output} (\hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} \&output, bool lock=false)
+virtual void \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad184946b500d44e38c77e920d7a23fa2}{set\+\_\+output} (std\+::string \&task, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} \&output, bool lock=false)
 \item 
-virtual size\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nanncalc_adc64a3c1efeef53374803673ee44c152}{get\+\_\+output} (\hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} \&output, bool lock=false)
+virtual \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} \hyperlink{classnanai_1_1nanai__ann__nanncalc_a04e58c02bf3756d916652e7d021822ad}{get\+\_\+output} (std\+::string \&task, bool lock=false)
 \item 
 virtual void \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad76affc9e9819af44025704d424ce3ec}{do\+\_\+configure} (\hyperlink{namespacenanai_a892a8c80381d0005a076b68fbbf2d918}{nanai\+\_\+ann\+\_\+nanndesc} \&desc)
 \item 
@@ -71,6 +71,11 @@ virtual \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\
 virtual void \hyperlink{classnanai_1_1nanai__ann__nanncalc_a1973ea663b28bcc31a7297d75bae139e}{do\+\_\+stop} ()
 \item 
 virtual void \hyperlink{classnanai_1_1nanai__ann__nanncalc_aeebc06b5241f6f9e1e5b78daa7e31911}{ann\+\_\+calculate} (const char $\ast$task, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} \&input, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$target, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$output)
+\end{DoxyCompactItemize}
+\subsection*{Protected 类型}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\+::map$<$ std\+::string, std\+::vector$<$ \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $>$ $>$ \hyperlink{classnanai_1_1nanai__ann__nanncalc_a44c56088d31cafacdb5324d36a88fd51}{nanncalc\+\_\+output\+\_\+t}
 \end{DoxyCompactItemize}
 \subsection*{Protected 成员函数}
 \begin{DoxyCompactItemize}
@@ -116,7 +121,7 @@ std\+::vector$<$ \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\
 \item 
 pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nanncalc_a1c9006356f22904fee12c3635cdc8a15}{\+\_\+outputs\+\_\+lock}
 \item 
-std\+::vector$<$ \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $>$ \hyperlink{classnanai_1_1nanai__ann__nanncalc_a6d00ff0323ee2fd5c1cfbd0f775da125}{\+\_\+outputs}
+\hyperlink{classnanai_1_1nanai__ann__nanncalc_a44c56088d31cafacdb5324d36a88fd51}{nanncalc\+\_\+output\+\_\+t} \hyperlink{classnanai_1_1nanai__ann__nanncalc_a5f1c5597b0e11d5e8bea297fcc48979d}{\+\_\+outputs}
 \item 
 \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} \hyperlink{classnanai_1_1nanai__ann__nanncalc_abee00d840fe641d5c69aa1c621333179}{\+\_\+output\+\_\+error}
 \item 
@@ -173,24 +178,37 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 
 
 \subsection{详细描述}
+nann计算结点类
+
+一个类就是一条工作线程，负责调用算法进行训练，此类实现了神经网络的前馈与反馈的逻辑。但不直接 进行运算，而是将运算部分交给实际配置的desc算法描述结果，来执行回调。 
+
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 51 行定义.
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 46 行定义.
+
+\subsection{成员类型定义说明}
+\hypertarget{classnanai_1_1nanai__ann__nanncalc_a44c56088d31cafacdb5324d36a88fd51}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!nanncalc\+\_\+output\+\_\+t@{nanncalc\+\_\+output\+\_\+t}}
+\index{nanncalc\+\_\+output\+\_\+t@{nanncalc\+\_\+output\+\_\+t}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
+\subsubsection[{nanncalc\+\_\+output\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::map$<$std\+::string, std\+::vector$<${\bf nanmath\+::nanmath\+\_\+vector}$>$ $>$ {\bf nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::nanncalc\+\_\+output\+\_\+t}\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a44c56088d31cafacdb5324d36a88fd51}
+
+
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 212 行定义.
 
 
 
 \subsection{构造及析构函数说明}
-\hypertarget{classnanai_1_1nanai__ann__nanncalc_a0d26e7efdef5368c0212b3dd02f63767}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!nanai\+\_\+ann\+\_\+nanncalc@{nanai\+\_\+ann\+\_\+nanncalc}}
+\hypertarget{classnanai_1_1nanai__ann__nanncalc_ac920b08afc8fe7a698fa1e105dd7b5cb}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!nanai\+\_\+ann\+\_\+nanncalc@{nanai\+\_\+ann\+\_\+nanncalc}}
 \index{nanai\+\_\+ann\+\_\+nanncalc@{nanai\+\_\+ann\+\_\+nanncalc}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
-\subsubsection[{nanai\+\_\+ann\+\_\+nanncalc(nanai\+\_\+ann\+\_\+nanndesc \&desc, const char $\ast$lp=""./"")}]{\setlength{\rightskip}{0pt plus 5cm}nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::nanai\+\_\+ann\+\_\+nanncalc (
+\subsubsection[{nanai\+\_\+ann\+\_\+nanncalc(nanai\+\_\+ann\+\_\+nanndesc \&desc, const char $\ast$lp=""./"", const char $\ast$task=nullptr)}]{\setlength{\rightskip}{0pt plus 5cm}nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::nanai\+\_\+ann\+\_\+nanncalc (
 \begin{DoxyParamCaption}
 \item[{{\bf nanai\+\_\+ann\+\_\+nanndesc} \&}]{desc, }
-\item[{const char $\ast$}]{lp = {\ttfamily \char`\"{}./\char`\"{}}}
+\item[{const char $\ast$}]{lp = {\ttfamily \char`\"{}./\char`\"{}}, }
+\item[{const char $\ast$}]{task = {\ttfamily nullptr}}
 \end{DoxyParamCaption}
-)}\label{classnanai_1_1nanai__ann__nanncalc_a0d26e7efdef5368c0212b3dd02f63767}
+)}\label{classnanai_1_1nanai__ann__nanncalc_ac920b08afc8fe7a698fa1e105dd7b5cb}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 153 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 166 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a2f5530f782f2585958c79c94bc3232d7}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!````~nanai\+\_\+ann\+\_\+nanncalc@{$\sim$nanai\+\_\+ann\+\_\+nanncalc}}
 \index{````~nanai\+\_\+ann\+\_\+nanncalc@{$\sim$nanai\+\_\+ann\+\_\+nanncalc}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -201,7 +219,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a2f5530f782f2585958c79c94bc3232d7}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 222 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 242 行定义.
 
 
 
@@ -217,7 +235,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a6066093c9c477445b6bc93261608c1b1}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 885 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 917 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_ac3254f506152da643ce0dd7b3077ff92}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+calc\+\_\+hidden\+\_\+delta@{ann\+\_\+calc\+\_\+hidden\+\_\+delta}}
 \index{ann\+\_\+calc\+\_\+hidden\+\_\+delta@{ann\+\_\+calc\+\_\+hidden\+\_\+delta}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -231,7 +249,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_ac3254f506152da643ce0dd7b3077ff92}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 832 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 864 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_aeebc06b5241f6f9e1e5b78daa7e31911}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+calculate@{ann\+\_\+calculate}}
 \index{ann\+\_\+calculate@{ann\+\_\+calculate}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -245,7 +263,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_aeebc06b5241f6f9e1e5b78daa7e31911}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 703 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 735 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a8563aaf57e70ab959dcdec8961af9447}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+configure@{ann\+\_\+configure}}
 \index{ann\+\_\+configure@{ann\+\_\+configure}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -256,7 +274,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a8563aaf57e70ab959dcdec8961af9447}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 303 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 326 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a05aa50ca275dade2e3ef735df4a5114d}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+create@{ann\+\_\+create}}
 \index{ann\+\_\+create@{ann\+\_\+create}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -267,7 +285,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a05aa50ca275dade2e3ef735df4a5114d}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 560 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 592 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a9a2bdcebe0c659e6f6e3466674cc9143}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+default\+\_\+create@{ann\+\_\+default\+\_\+create}}
 \index{ann\+\_\+default\+\_\+create@{ann\+\_\+default\+\_\+create}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -281,7 +299,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a9a2bdcebe0c659e6f6e3466674cc9143}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 252 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 272 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a4fb9643a590238c96e8e387022626bd6}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+destroy@{ann\+\_\+destroy}}
 \index{ann\+\_\+destroy@{ann\+\_\+destroy}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -292,7 +310,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a4fb9643a590238c96e8e387022626bd6}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 336 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 359 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a6ec3d7893411dcab2edf4e19ae3bb017}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+exchange@{ann\+\_\+exchange}}
 \index{ann\+\_\+exchange@{ann\+\_\+exchange}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -303,7 +321,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a6ec3d7893411dcab2edf4e19ae3bb017}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 310 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 333 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a59b33730cd75893be549ba6cbe1cd7aa}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+forward@{ann\+\_\+forward}}
 \index{ann\+\_\+forward@{ann\+\_\+forward}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -315,7 +333,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a59b33730cd75893be549ba6cbe1cd7aa}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 746 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 778 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a41ca7081ea2c4244c7013b8edc86e6ba}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+get@{ann\+\_\+get}}
 \index{ann\+\_\+get@{ann\+\_\+get}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -326,7 +344,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a41ca7081ea2c4244c7013b8edc86e6ba}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 374 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 397 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a655e79fd2845915c691081094b02e121}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+hiddens\+\_\+error@{ann\+\_\+hiddens\+\_\+error}}
 \index{ann\+\_\+hiddens\+\_\+error@{ann\+\_\+hiddens\+\_\+error}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -338,7 +356,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a655e79fd2845915c691081094b02e121}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 846 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 878 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_af70fe54abb55d464459e2ce4548b1ff2}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+layer\+\_\+forward@{ann\+\_\+layer\+\_\+forward}}
 \index{ann\+\_\+layer\+\_\+forward@{ann\+\_\+layer\+\_\+forward}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -353,7 +371,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_af70fe54abb55d464459e2ce4548b1ff2}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 782 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 814 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a54ed62943cc681da143bb6a2e1782430}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+log@{ann\+\_\+log}}
 \index{ann\+\_\+log@{ann\+\_\+log}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -365,7 +383,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a54ed62943cc681da143bb6a2e1782430}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 681 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 713 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_ae7fd1a715938713b89830f78bb946c97}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+on\+\_\+alg\+\_\+uninstall@{ann\+\_\+on\+\_\+alg\+\_\+uninstall}}
 \index{ann\+\_\+on\+\_\+alg\+\_\+uninstall@{ann\+\_\+on\+\_\+alg\+\_\+uninstall}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -376,7 +394,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_ae7fd1a715938713b89830f78bb946c97}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 667 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 699 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a1d59205c70a0aae1acd02ccd513c64ae}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+on\+\_\+calculated@{ann\+\_\+on\+\_\+calculated}}
 \index{ann\+\_\+on\+\_\+calculated@{ann\+\_\+on\+\_\+calculated}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -387,7 +405,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a1d59205c70a0aae1acd02ccd513c64ae}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 659 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 691 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_aa83cff70c2111905341f6b62c9ebd727}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+on\+\_\+except@{ann\+\_\+on\+\_\+except}}
 \index{ann\+\_\+on\+\_\+except@{ann\+\_\+on\+\_\+except}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -398,7 +416,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_aa83cff70c2111905341f6b62c9ebd727}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 634 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 666 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_aa06770b84f20aee6463d57d50c85eb0b}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+on\+\_\+trained@{ann\+\_\+on\+\_\+trained}}
 \index{ann\+\_\+on\+\_\+trained@{ann\+\_\+on\+\_\+trained}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -409,7 +427,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_aa06770b84f20aee6463d57d50c85eb0b}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 643 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 675 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a718b94361144b9d57eca8e9f665e713a}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+on\+\_\+trained\+\_\+nooutput@{ann\+\_\+on\+\_\+trained\+\_\+nooutput}}
 \index{ann\+\_\+on\+\_\+trained\+\_\+nooutput@{ann\+\_\+on\+\_\+trained\+\_\+nooutput}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -420,7 +438,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a718b94361144b9d57eca8e9f665e713a}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 651 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 683 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a95e7765ed618d5ab2e4f90593f053d89}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+output\+\_\+error@{ann\+\_\+output\+\_\+error}}
 \index{ann\+\_\+output\+\_\+error@{ann\+\_\+output\+\_\+error}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -432,7 +450,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a95e7765ed618d5ab2e4f90593f053d89}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 813 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 845 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a20f343f658f4babef5552133159f6c63}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+process@{ann\+\_\+process}}
 \index{ann\+\_\+process@{ann\+\_\+process}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -444,7 +462,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a20f343f658f4babef5552133159f6c63}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 675 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 707 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_ab7c70e33ab6d4ddcc46fcbdd69a14281}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+stop@{ann\+\_\+stop}}
 \index{ann\+\_\+stop@{ann\+\_\+stop}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -455,7 +473,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_ab7c70e33ab6d4ddcc46fcbdd69a14281}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 317 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 340 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a0f2a230581dd2c530f35d22d1cd11982}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+training@{ann\+\_\+training}}
 \index{ann\+\_\+training@{ann\+\_\+training}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -468,7 +486,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a0f2a230581dd2c530f35d22d1cd11982}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 272 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 292 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a2b1396b5691391e33859c17ab748a39d}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+training\+\_\+nooutput@{ann\+\_\+training\+\_\+nooutput}}
 \index{ann\+\_\+training\+\_\+nooutput@{ann\+\_\+training\+\_\+nooutput}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -481,7 +499,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a2b1396b5691391e33859c17ab748a39d}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 292 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 314 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a95e5d9672cf1a74e4180389fbf41b899}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+training\+\_\+notarget@{ann\+\_\+training\+\_\+notarget}}
 \index{ann\+\_\+training\+\_\+notarget@{ann\+\_\+training\+\_\+notarget}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -493,7 +511,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a95e5d9672cf1a74e4180389fbf41b899}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 283 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 304 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a7b69abc3ab21a6249f360f2c8f319501}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!ann\+\_\+wait@{ann\+\_\+wait}}
 \index{ann\+\_\+wait@{ann\+\_\+wait}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -505,7 +523,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a7b69abc3ab21a6249f360f2c8f319501}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 364 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 387 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a3501b12051f6bb169b408a3671196f16}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!do\+\_\+ann\+\_\+exchange@{do\+\_\+ann\+\_\+exchange}}
 \index{do\+\_\+ann\+\_\+exchange@{do\+\_\+ann\+\_\+exchange}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -516,7 +534,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a3501b12051f6bb169b408a3671196f16}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 523 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 555 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_ad76affc9e9819af44025704d424ce3ec}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!do\+\_\+configure@{do\+\_\+configure}}
 \index{do\+\_\+configure@{do\+\_\+configure}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -527,7 +545,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_ad76affc9e9819af44025704d424ce3ec}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 518 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 550 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a1973ea663b28bcc31a7297d75bae139e}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!do\+\_\+stop@{do\+\_\+stop}}
 \index{do\+\_\+stop@{do\+\_\+stop}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -538,7 +556,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a1973ea663b28bcc31a7297d75bae139e}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 551 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 583 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a19cc8a310068a44c568ada1c9e72d028}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!get\+\_\+alg\+\_\+name@{get\+\_\+alg\+\_\+name}}
 \index{get\+\_\+alg\+\_\+name@{get\+\_\+alg\+\_\+name}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -549,7 +567,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 ) const}\label{classnanai_1_1nanai__ann__nanncalc_a19cc8a310068a44c568ada1c9e72d028}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 382 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 405 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_aefda6586e9dd96625b2e2948baec8e18}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!get\+\_\+ann@{get\+\_\+ann}}
 \index{get\+\_\+ann@{get\+\_\+ann}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -560,7 +578,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_aefda6586e9dd96625b2e2948baec8e18}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 533 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 565 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a18869c97f279df6aa8d467c32fdc7944}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!get\+\_\+cmd@{get\+\_\+cmd}}
 \index{get\+\_\+cmd@{get\+\_\+cmd}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -572,7 +590,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a18869c97f279df6aa8d467c32fdc7944}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 410 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 433 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_aa3adf3454d9953ae48e3b0f98ea0cee0}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!get\+\_\+cmdlist\+\_\+count@{get\+\_\+cmdlist\+\_\+count}}
 \index{get\+\_\+cmdlist\+\_\+count@{get\+\_\+cmdlist\+\_\+count}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -583,19 +601,26 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 ) const}\label{classnanai_1_1nanai__ann__nanncalc_aa3adf3454d9953ae48e3b0f98ea0cee0}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 386 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 409 行定义.
 
-\hypertarget{classnanai_1_1nanai__ann__nanncalc_adc64a3c1efeef53374803673ee44c152}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!get\+\_\+output@{get\+\_\+output}}
+\hypertarget{classnanai_1_1nanai__ann__nanncalc_a04e58c02bf3756d916652e7d021822ad}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!get\+\_\+output@{get\+\_\+output}}
 \index{get\+\_\+output@{get\+\_\+output}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
-\subsubsection[{get\+\_\+output(nanmath\+::nanmath\+\_\+vector \&output, bool lock=false)}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::get\+\_\+output (
+\subsubsection[{get\+\_\+output(std\+::string \&task, bool lock=false)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanmath\+::nanmath\+\_\+vector} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::get\+\_\+output (
 \begin{DoxyParamCaption}
-\item[{{\bf nanmath\+::nanmath\+\_\+vector} \&}]{output, }
+\item[{std\+::string \&}]{task, }
 \item[{bool}]{lock = {\ttfamily false}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_adc64a3c1efeef53374803673ee44c152}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a04e58c02bf3756d916652e7d021822ad}
+获取指定任务的最后一个输出向量 
+\begin{DoxyParams}{参数}
+{\em task} & 任务名 \\
+\hline
+{\em lock} & 是否进行输出锁控制 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 491 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 523 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_abc792abf872514a95a9863cbb3e49cd4}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!get\+\_\+state@{get\+\_\+state}}
 \index{get\+\_\+state@{get\+\_\+state}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -606,7 +631,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_abc792abf872514a95a9863cbb3e49cd4}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 452 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 475 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_aa75fcea728a087178b4699a2e2e86a6f}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!get\+\_\+task\+\_\+name@{get\+\_\+task\+\_\+name}}
 \index{get\+\_\+task\+\_\+name@{get\+\_\+task\+\_\+name}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -617,7 +642,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 ) const}\label{classnanai_1_1nanai__ann__nanncalc_aa75fcea728a087178b4699a2e2e86a6f}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 378 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 401 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a675afb775a34013e6aff1f8d669e7de0}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!on\+\_\+error@{on\+\_\+error}}
 \index{on\+\_\+error@{on\+\_\+error}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -632,7 +657,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 556 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 588 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a0db0e8b62dbea77377e40a5d39f6265c}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!set\+\_\+cmd@{set\+\_\+cmd}}
 \index{set\+\_\+cmd@{set\+\_\+cmd}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -644,19 +669,29 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a0db0e8b62dbea77377e40a5d39f6265c}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 390 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 413 行定义.
 
-\hypertarget{classnanai_1_1nanai__ann__nanncalc_a5102b94199ba413bd8601e66be5d2293}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!set\+\_\+output@{set\+\_\+output}}
+\hypertarget{classnanai_1_1nanai__ann__nanncalc_ad184946b500d44e38c77e920d7a23fa2}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!set\+\_\+output@{set\+\_\+output}}
 \index{set\+\_\+output@{set\+\_\+output}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
-\subsubsection[{set\+\_\+output(nanmath\+::nanmath\+\_\+vector \&output, bool lock=false)}]{\setlength{\rightskip}{0pt plus 5cm}void nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::set\+\_\+output (
+\subsubsection[{set\+\_\+output(std\+::string \&task, nanmath\+::nanmath\+\_\+vector \&output, bool lock=false)}]{\setlength{\rightskip}{0pt plus 5cm}void nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::set\+\_\+output (
 \begin{DoxyParamCaption}
+\item[{std\+::string \&}]{task, }
 \item[{{\bf nanmath\+::nanmath\+\_\+vector} \&}]{output, }
 \item[{bool}]{lock = {\ttfamily false}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a5102b94199ba413bd8601e66be5d2293}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_ad184946b500d44e38c77e920d7a23fa2}
+设置指定任务的输出向量 
+\begin{DoxyParams}{参数}
+{\em task} & 任务名 \\
+\hline
+{\em output} & 要设置的输出向量 \\
+\hline
+{\em lock} & 是否进行输出锁控制 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 471 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 494 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a2c8aa9f4f29bb093f0bc26fa9ba6cc41}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!set\+\_\+state@{set\+\_\+state}}
 \index{set\+\_\+state@{set\+\_\+state}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
@@ -668,7 +703,7 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nanncalc_a2c8aa9f4f29bb093f0bc26fa9ba6cc41}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 435 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+cc 第 458 行定义.
 
 
 
@@ -676,219 +711,219 @@ std\+::string \hyperlink{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a66ab62c75be9da3951abd85e1eb296e0}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+alg@{\+\_\+alg}}
 \index{\+\_\+alg@{\+\_\+alg}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+alg}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+alg\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a66ab62c75be9da3951abd85e1eb296e0}
+算法名称 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 188 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 206 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a3b0bfac7c99ef9d83769efd2936e4638}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+ann@{\+\_\+ann}}
 \index{\+\_\+ann@{\+\_\+ann}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+ann}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ann\+\_\+t} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+ann\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a3b0bfac7c99ef9d83769efd2936e4638}
+神经网络 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 202 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 217 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_ab05880760848bb308d30833b362f60a8}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+ann\+\_\+lock@{\+\_\+ann\+\_\+lock}}
 \index{\+\_\+ann\+\_\+lock@{\+\_\+ann\+\_\+lock}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+ann\+\_\+lock}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+mutex\+\_\+t nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+ann\+\_\+lock\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_ab05880760848bb308d30833b362f60a8}
+神经网络的锁 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 201 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 216 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a524fbed26f582cdf403407173da1634b}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+callback\+\_\+monitor\+\_\+alg\+\_\+uninstall@{\+\_\+callback\+\_\+monitor\+\_\+alg\+\_\+uninstall}}
 \index{\+\_\+callback\+\_\+monitor\+\_\+alg\+\_\+uninstall@{\+\_\+callback\+\_\+monitor\+\_\+alg\+\_\+uninstall}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+callback\+\_\+monitor\+\_\+alg\+\_\+uninstall}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+monitor\+\_\+alg\+\_\+uninstall} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+callback\+\_\+monitor\+\_\+alg\+\_\+uninstall\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a524fbed26f582cdf403407173da1634b}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 240 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 246 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_af9ee346f2307a03b8570ec21839a3e88}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+callback\+\_\+monitor\+\_\+calculated@{\+\_\+callback\+\_\+monitor\+\_\+calculated}}
 \index{\+\_\+callback\+\_\+monitor\+\_\+calculated@{\+\_\+callback\+\_\+monitor\+\_\+calculated}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+callback\+\_\+monitor\+\_\+calculated}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+monitor\+\_\+calculated} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+callback\+\_\+monitor\+\_\+calculated\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_af9ee346f2307a03b8570ec21839a3e88}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 238 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 244 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a34ae5583c27674e94782b1491732139c}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+callback\+\_\+monitor\+\_\+except@{\+\_\+callback\+\_\+monitor\+\_\+except}}
 \index{\+\_\+callback\+\_\+monitor\+\_\+except@{\+\_\+callback\+\_\+monitor\+\_\+except}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+callback\+\_\+monitor\+\_\+except}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+monitor\+\_\+except} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+callback\+\_\+monitor\+\_\+except\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a34ae5583c27674e94782b1491732139c}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 235 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 241 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_af937dc713e3780b86b5ebf2311360dd7}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+callback\+\_\+monitor\+\_\+progress@{\+\_\+callback\+\_\+monitor\+\_\+progress}}
 \index{\+\_\+callback\+\_\+monitor\+\_\+progress@{\+\_\+callback\+\_\+monitor\+\_\+progress}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+callback\+\_\+monitor\+\_\+progress}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+monitor\+\_\+progress} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+callback\+\_\+monitor\+\_\+progress\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_af937dc713e3780b86b5ebf2311360dd7}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 239 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 245 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_abe6bd5a48bafb89a185a8e359ffdcff3}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+callback\+\_\+monitor\+\_\+trained@{\+\_\+callback\+\_\+monitor\+\_\+trained}}
 \index{\+\_\+callback\+\_\+monitor\+\_\+trained@{\+\_\+callback\+\_\+monitor\+\_\+trained}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+callback\+\_\+monitor\+\_\+trained}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+monitor\+\_\+trained} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+callback\+\_\+monitor\+\_\+trained\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_abe6bd5a48bafb89a185a8e359ffdcff3}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 236 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 242 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a0395dff2948785f646f22be1df04bad1}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+callback\+\_\+monitor\+\_\+trained\+\_\+nooutput@{\+\_\+callback\+\_\+monitor\+\_\+trained\+\_\+nooutput}}
 \index{\+\_\+callback\+\_\+monitor\+\_\+trained\+\_\+nooutput@{\+\_\+callback\+\_\+monitor\+\_\+trained\+\_\+nooutput}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+callback\+\_\+monitor\+\_\+trained\+\_\+nooutput}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+monitor\+\_\+trained2} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+callback\+\_\+monitor\+\_\+trained\+\_\+nooutput\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a0395dff2948785f646f22be1df04bad1}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 237 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 243 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a9af0b8bc21e0d398f3f9489acf1dfab7}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+cmdlist@{\+\_\+cmdlist}}
 \index{\+\_\+cmdlist@{\+\_\+cmdlist}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+cmdlist}]{\setlength{\rightskip}{0pt plus 5cm}std\+::queue$<$struct {\bf ncommand}$>$ nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+cmdlist\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a9af0b8bc21e0d398f3f9489acf1dfab7}
+命令队列 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 208 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 220 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a92213def4dd3f7f0693159a79446ea09}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+cmdlist\+\_\+lock@{\+\_\+cmdlist\+\_\+lock}}
 \index{\+\_\+cmdlist\+\_\+lock@{\+\_\+cmdlist\+\_\+lock}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+cmdlist\+\_\+lock}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+mutex\+\_\+t nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+cmdlist\+\_\+lock\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a92213def4dd3f7f0693159a79446ea09}
+命令互斥锁 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 209 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 221 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a9834cef878366ef0bab79c5538a9f3be}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+command@{\+\_\+command}}
 \index{\+\_\+command@{\+\_\+command}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+command}]{\setlength{\rightskip}{0pt plus 5cm}int nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+command\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a9834cef878366ef0bab79c5538a9f3be}
+命令 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 214 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 226 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_afc0f3e68d5bc6d690d77f7ec938b2586}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+fptr\+\_\+calculate@{\+\_\+fptr\+\_\+calculate}}
 \index{\+\_\+fptr\+\_\+calculate@{\+\_\+fptr\+\_\+calculate}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+fptr\+\_\+calculate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+calculate} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+fptr\+\_\+calculate\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_afc0f3e68d5bc6d690d77f7ec938b2586}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 224 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 233 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a90ca7f0507edefeb6c2b14641bbee7e9}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+fptr\+\_\+hidden\+\_\+adjust\+\_\+weights@{\+\_\+fptr\+\_\+hidden\+\_\+adjust\+\_\+weights}}
 \index{\+\_\+fptr\+\_\+hidden\+\_\+adjust\+\_\+weights@{\+\_\+fptr\+\_\+hidden\+\_\+adjust\+\_\+weights}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+fptr\+\_\+hidden\+\_\+adjust\+\_\+weights}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+hidden\+\_\+adjust\+\_\+weight} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+fptr\+\_\+hidden\+\_\+adjust\+\_\+weights\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a90ca7f0507edefeb6c2b14641bbee7e9}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 229 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 238 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a37c34eacc9c875653b79b4636596d4d3}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+fptr\+\_\+hidden\+\_\+calcs@{\+\_\+fptr\+\_\+hidden\+\_\+calcs}}
 \index{\+\_\+fptr\+\_\+hidden\+\_\+calcs@{\+\_\+fptr\+\_\+hidden\+\_\+calcs}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+fptr\+\_\+hidden\+\_\+calcs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+hidden\+\_\+calc} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+fptr\+\_\+hidden\+\_\+calcs\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a37c34eacc9c875653b79b4636596d4d3}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 227 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 236 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a6b4c7a5a93bd5d46f4ef78f5256963c7}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+fptr\+\_\+hidden\+\_\+errors@{\+\_\+fptr\+\_\+hidden\+\_\+errors}}
 \index{\+\_\+fptr\+\_\+hidden\+\_\+errors@{\+\_\+fptr\+\_\+hidden\+\_\+errors}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+fptr\+\_\+hidden\+\_\+errors}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+hidden\+\_\+error} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+fptr\+\_\+hidden\+\_\+errors\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a6b4c7a5a93bd5d46f4ef78f5256963c7}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 228 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 237 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a8c430665e02d65d174eac790bb163341}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+fptr\+\_\+hidden\+\_\+inits@{\+\_\+fptr\+\_\+hidden\+\_\+inits}}
 \index{\+\_\+fptr\+\_\+hidden\+\_\+inits@{\+\_\+fptr\+\_\+hidden\+\_\+inits}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+fptr\+\_\+hidden\+\_\+inits}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+hidden\+\_\+init} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+fptr\+\_\+hidden\+\_\+inits\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a8c430665e02d65d174eac790bb163341}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 226 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 235 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_abebe28725dd1424ef5cd915f0146f56c}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+fptr\+\_\+input\+\_\+filter@{\+\_\+fptr\+\_\+input\+\_\+filter}}
 \index{\+\_\+fptr\+\_\+input\+\_\+filter@{\+\_\+fptr\+\_\+input\+\_\+filter}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+fptr\+\_\+input\+\_\+filter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+input\+\_\+filter} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+fptr\+\_\+input\+\_\+filter\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_abebe28725dd1424ef5cd915f0146f56c}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 221 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 230 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_ac3d0e7fa0ac6210163391e0971f306cb}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+fptr\+\_\+output\+\_\+error@{\+\_\+fptr\+\_\+output\+\_\+error}}
 \index{\+\_\+fptr\+\_\+output\+\_\+error@{\+\_\+fptr\+\_\+output\+\_\+error}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+fptr\+\_\+output\+\_\+error}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+output\+\_\+error} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+fptr\+\_\+output\+\_\+error\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_ac3d0e7fa0ac6210163391e0971f306cb}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 223 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 232 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_afdaafe5d48d6590d9c38b020452eabce}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+fptr\+\_\+result@{\+\_\+fptr\+\_\+result}}
 \index{\+\_\+fptr\+\_\+result@{\+\_\+fptr\+\_\+result}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+fptr\+\_\+result}]{\setlength{\rightskip}{0pt plus 5cm}{\bf fptr\+\_\+ann\+\_\+result} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+fptr\+\_\+result\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_afdaafe5d48d6590d9c38b020452eabce}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 222 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 231 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a1e15116b2a2d7b5c8ddb9579de11f5ae}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+hiddens@{\+\_\+hiddens}}
 \index{\+\_\+hiddens@{\+\_\+hiddens}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+hiddens}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf nanmath\+::nanmath\+\_\+vector}$>$ nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+hiddens\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a1e15116b2a2d7b5c8ddb9579de11f5ae}
+隐藏层 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 195 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 210 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6b84f635f5947a}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+log\+\_\+dir@{\+\_\+log\+\_\+dir}}
 \index{\+\_\+log\+\_\+dir@{\+\_\+log\+\_\+dir}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+log\+\_\+dir}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+log\+\_\+dir\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_ad02491864e160b837d6b84f635f5947a}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 247 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 250 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_ad7f1e9a64ffdf10347e0f7175a73103c}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+log\+\_\+file@{\+\_\+log\+\_\+file}}
 \index{\+\_\+log\+\_\+file@{\+\_\+log\+\_\+file}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+log\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}F\+I\+L\+E$\ast$ nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+log\+\_\+file\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_ad7f1e9a64ffdf10347e0f7175a73103c}
 
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 246 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 249 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_abee00d840fe641d5c69aa1c621333179}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+output\+\_\+error@{\+\_\+output\+\_\+error}}
 \index{\+\_\+output\+\_\+error@{\+\_\+output\+\_\+error}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+output\+\_\+error}]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanmath\+::nanmath\+\_\+vector} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+output\+\_\+error\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_abee00d840fe641d5c69aa1c621333179}
+输出误差向量 
 
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 214 行定义.
 
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 198 行定义.
-
-\hypertarget{classnanai_1_1nanai__ann__nanncalc_a6d00ff0323ee2fd5c1cfbd0f775da125}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+outputs@{\+\_\+outputs}}
+\hypertarget{classnanai_1_1nanai__ann__nanncalc_a5f1c5597b0e11d5e8bea297fcc48979d}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+outputs@{\+\_\+outputs}}
 \index{\+\_\+outputs@{\+\_\+outputs}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
-\subsubsection[{\+\_\+outputs}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf nanmath\+::nanmath\+\_\+vector}$>$ nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+outputs\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a6d00ff0323ee2fd5c1cfbd0f775da125}
+\subsubsection[{\+\_\+outputs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanncalc\+\_\+output\+\_\+t} nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+outputs\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a5f1c5597b0e11d5e8bea297fcc48979d}
+输出向量队列 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 197 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 213 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a1c9006356f22904fee12c3635cdc8a15}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+outputs\+\_\+lock@{\+\_\+outputs\+\_\+lock}}
 \index{\+\_\+outputs\+\_\+lock@{\+\_\+outputs\+\_\+lock}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+outputs\+\_\+lock}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+mutex\+\_\+t nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+outputs\+\_\+lock\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a1c9006356f22904fee12c3635cdc8a15}
+输出向量锁 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 196 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 211 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_ad5c0182fd45d65dd7d91439d4eec6119}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+sleep\+\_\+time@{\+\_\+sleep\+\_\+time}}
 \index{\+\_\+sleep\+\_\+time@{\+\_\+sleep\+\_\+time}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+sleep\+\_\+time}]{\setlength{\rightskip}{0pt plus 5cm}int nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+sleep\+\_\+time\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_ad5c0182fd45d65dd7d91439d4eec6119}
+线程睡眠时间 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 215 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 227 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a1b2991833f76b5400e371f01ad7c6bbc}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+state@{\+\_\+state}}
 \index{\+\_\+state@{\+\_\+state}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+state}]{\setlength{\rightskip}{0pt plus 5cm}int nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+state\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a1b2991833f76b5400e371f01ad7c6bbc}
+当前状态 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 213 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 225 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_a25ab2c0cf73a5ff7201ad1cd339626dc}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+state\+\_\+lock@{\+\_\+state\+\_\+lock}}
 \index{\+\_\+state\+\_\+lock@{\+\_\+state\+\_\+lock}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+state\+\_\+lock}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+mutex\+\_\+t nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+state\+\_\+lock\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_a25ab2c0cf73a5ff7201ad1cd339626dc}
+状态锁 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 212 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 224 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_ab659b8655ab02f5922ecb19c6418f02c}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+task@{\+\_\+task}}
 \index{\+\_\+task@{\+\_\+task}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+task}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+task\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_ab659b8655ab02f5922ecb19c6418f02c}
+当前任务名称 -\/ 例如\+:Aid\+\_\+\+Uid\+\_\+\+A\+C\+Tid 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 194 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 209 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nanncalc_ad8115ff56ea159a5e1d43c9752ed5936}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}!\+\_\+thread\+\_\+worker@{\+\_\+thread\+\_\+worker}}
 \index{\+\_\+thread\+\_\+worker@{\+\_\+thread\+\_\+worker}!nanai\+::nanai\+\_\+ann\+\_\+nanncalc@{nanai\+::nanai\+\_\+ann\+\_\+nanncalc}}
 \subsubsection[{\+\_\+thread\+\_\+worker}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+t nanai\+::nanai\+\_\+ann\+\_\+nanncalc\+::\+\_\+thread\+\_\+worker\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nanncalc_ad8115ff56ea159a5e1d43c9752ed5936}
+线程函数 
 
-
-在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 211 行定义.
+在文件 nanai\+\_\+ann\+\_\+nanncalc.\+h 第 223 行定义.
 
 
 

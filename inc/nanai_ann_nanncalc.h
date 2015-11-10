@@ -5,6 +5,7 @@
 #include <pthread.h>
 #include <time.h>
 #include <string>
+#include <map>
 #include <vector>
 #include <queue>
 
@@ -42,12 +43,14 @@ namespace nanai {
    * 进度
    */
 #define NANNCALC_PROCESS_LOG                1
-  
+  /*! nann计算结点类
+   
+      一个类就是一条工作线程，负责调用算法进行训练，此类实现了神经网络的前馈与反馈的逻辑。但不直接
+      进行运算，而是将运算部分交给实际配置的desc算法描述结果，来执行回调。
+   */
   class nanai_ann_nanncalc : public nanai_object {
   public:
-    /* 
-     * 内部类
-     */
+    /*! 内部类，实现描述神经网络结构 */
     class ann_t {
     public:
       ann_t();
@@ -139,10 +142,16 @@ namespace nanai {
     virtual void set_state(int st,
                            bool lock=false);
     virtual int get_state(bool lock=false);
-    virtual void set_output(nanmath::nanmath_vector &output,
-                            bool lock=false);
-    virtual size_t get_output(nanmath::nanmath_vector &output,
-                              bool lock=false);
+    
+    /*! 设置指定任务的输出向量 */
+    virtual void set_output(std::string &task,                      /*!< 任务名 */
+                            nanmath::nanmath_vector &output,        /*!< 要设置的输出向量 */
+                            bool lock=false                         /*!< 是否进行输出锁控制 */
+                            );
+    /*! 获取指定任务的最后一个输出向量 */
+    virtual nanmath::nanmath_vector get_output(std::string &task,   /*!< 任务名 */
+                                               bool lock=false      /*!< 是否进行输出锁控制 */
+                                               );
     virtual void do_configure(nanai_ann_nanndesc &desc);
     virtual void do_ann_exchange(const nanai_ann_nanncalc::ann_t &ann);
     virtual nanai_ann_nanncalc::ann_t get_ann(bool lock=false);
@@ -194,39 +203,30 @@ namespace nanai {
     static void *thread_nanai_ann_worker(void *arg);
     
   protected:
-    std::string _alg;                                            /* 算法名称 */
+    std::string _alg;                                            /*!< 算法名称 */
   
   protected:
-    /*
-     * 临时数据
-     */
-    std::string _task;                                            /* 当前任务名称 - 例如:Aid_Uid_ACTid */
-    std::vector<nanmath::nanmath_vector> _hiddens;                /* 隐藏层 */
-    pthread_mutex_t _outputs_lock;                                /* 输出向量锁 */
-    std::vector<nanmath::nanmath_vector> _outputs;                /* 输出向量队列 */
-    nanmath::nanmath_vector _output_error;                        /* 输出误差向量 */
+    std::string _task;                                            /*!< 当前任务名称 - 例如:Aid_Uid_ACTid */
+    std::vector<nanmath::nanmath_vector> _hiddens;                /*!< 隐藏层 */
+    pthread_mutex_t _outputs_lock;                                /*!< 输出向量锁 */
+    typedef std::map<std::string, std::vector<nanmath::nanmath_vector> > nanncalc_output_t;
+    nanncalc_output_t _outputs;                                   /*!< 输出向量队列 */
+    nanmath::nanmath_vector _output_error;                        /*!< 输出误差向量 */
     
-    /* 人工神经网络结果 */
-    pthread_mutex_t _ann_lock;
-    ann_t _ann;                                                   /* 神经网络 */
+    pthread_mutex_t _ann_lock;                                    /*!< 神经网络的锁 */
+    ann_t _ann;                                                   /*!< 神经网络 */
     
   protected:
-    /*
-     * 状态与命令
-     */
-    std::queue<struct ncommand> _cmdlist;                         /* 命令队列 */
-    pthread_mutex_t _cmdlist_lock;                                /* 命令互斥锁 */
+    std::queue<struct ncommand> _cmdlist;                         /*!< 命令队列 */
+    pthread_mutex_t _cmdlist_lock;                                /*!< 命令互斥锁 */
     //pthread_attr_t _thread_attr_worker;
-    pthread_t _thread_worker;                                     /* 线程函数 */
-    pthread_mutex_t _state_lock;
-    int _state;                                                   /* 当前状态 */
-    int _command;                                                 /* 命令 */
-    int _sleep_time;                                              /* 线程睡眠时间 */
+    pthread_t _thread_worker;                                     /*!< 线程函数 */
+    pthread_mutex_t _state_lock;                                  /*!< 状态锁 */
+    int _state;                                                   /*!< 当前状态 */
+    int _command;                                                 /*!< 命令 */
+    int _sleep_time;                                              /*!< 线程睡眠时间 */
     
   protected:
-    /*
-     * 计算函数
-     */
     fptr_ann_input_filter _fptr_input_filter;
     fptr_ann_result _fptr_result;
     fptr_ann_output_error _fptr_output_error;
@@ -238,9 +238,6 @@ namespace nanai {
     fptr_ann_hidden_adjust_weight _fptr_hidden_adjust_weights;
     
   protected:
-    /*
-     * 回调函数
-     */
     fptr_ann_monitor_except _callback_monitor_except;
     fptr_ann_monitor_trained _callback_monitor_trained;
     fptr_ann_monitor_trained2 _callback_monitor_trained_nooutput;
@@ -249,16 +246,10 @@ namespace nanai {
     fptr_ann_monitor_alg_uninstall _callback_monitor_alg_uninstall;
     
   protected:
-    /*
-     * 日志纪录
-     */
     FILE *_log_file;
     std::string _log_dir;
     
   private:
-    /*
-     * 相关标示
-     */
     int _cid;
     time_t _birthday;
   };

@@ -2,13 +2,16 @@
 \label{pynann_8cc}\index{src/pynann.\+cc@{src/pynann.\+cc}}
 {\ttfamily \#include $<$cstdio$>$}\\*
 {\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
 {\ttfamily \#include $<$map$>$}\\*
 {\ttfamily \#include $<$pthread.\+h$>$}\\*
 {\ttfamily \#include $<$stdexcept$>$}\\*
 {\ttfamily \#include $<$iomanip$>$}\\*
 {\ttfamily \#include $<$Python/\+Python.\+h$>$}\\*
+{\ttfamily \#include $<$nanai\+\_\+common.\+h$>$}\\*
 {\ttfamily \#include $<$nanai\+\_\+ann\+\_\+nannmgr.\+h$>$}\\*
-{\ttfamily \#include \char`\"{}c\+J\+S\+O\+N.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$nanai\+\_\+object.\+h$>$}\\*
+{\ttfamily \#include $<$nanai\+\_\+ann\+\_\+nnn.\+h$>$}\\*
 \subsection*{类}
 \begin{DoxyCompactItemize}
 \item 
@@ -22,6 +25,8 @@ struct \hyperlink{struct__nannmgr__node}{\+\_\+nannmgr\+\_\+node}
 \#define \hyperlink{pynann_8cc_a3a9f77989575d3a7b93ff1eb5d570a5b}{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L}~0x88000000
 \item 
 \#define \hyperlink{pynann_8cc_a4c07950c0b01264934f8e3e511c9d8c6}{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+P\+A\+R\+S\+E\+\_\+\+J\+S\+O\+N}~0x88000001
+\item 
+\#define \hyperlink{pynann_8cc_a31f0a20534bd7e932241075bb3031602}{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E}~0x88000002
 \item 
 \#define \hyperlink{pynann_8cc_a0ae063d409525e8801c1e9c453029e38}{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T}~0x88000100
 \item 
@@ -62,32 +67,39 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{pynann_8cc_a93c93ded778696437f0d2ffd8b73d7d
 \subsubsection[{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+A\+L\+L\+O\+C\+\_\+\+M\+E\+M\+O\+R\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+A\+L\+L\+O\+C\+\_\+\+M\+E\+M\+O\+R\+Y~0x88000200}\label{pynann_8cc_a42151634719d100a489cb8cbc65ee14f}
 
 
-在文件 pynann.\+cc 第 22 行定义.
+在文件 pynann.\+cc 第 25 行定义.
 
 \hypertarget{pynann_8cc_a3a9f77989575d3a7b93ff1eb5d570a5b}{}\index{pynann.\+cc@{pynann.\+cc}!P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L@{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L}}
 \index{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L@{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L}!pynann.\+cc@{pynann.\+cc}}
 \subsubsection[{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L~0x88000000}\label{pynann_8cc_a3a9f77989575d3a7b93ff1eb5d570a5b}
 
 
-在文件 pynann.\+cc 第 17 行定义.
+在文件 pynann.\+cc 第 19 行定义.
 
 \hypertarget{pynann_8cc_a0ae063d409525e8801c1e9c453029e38}{}\index{pynann.\+cc@{pynann.\+cc}!P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T@{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T}}
 \index{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T@{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T}!pynann.\+cc@{pynann.\+cc}}
 \subsubsection[{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T~0x88000100}\label{pynann_8cc_a0ae063d409525e8801c1e9c453029e38}
 
 
-在文件 pynann.\+cc 第 19 行定义.
+在文件 pynann.\+cc 第 22 行定义.
 
 \hypertarget{pynann_8cc_ac42674bdae391b53ad20715cf3f8f5e8}{}\index{pynann.\+cc@{pynann.\+cc}!P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+E\+X\+I\+S\+T@{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+E\+X\+I\+S\+T}}
 \index{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+E\+X\+I\+S\+T@{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+E\+X\+I\+S\+T}!pynann.\+cc@{pynann.\+cc}}
 \subsubsection[{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+E\+X\+I\+S\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+E\+X\+I\+S\+T~0x88000101}\label{pynann_8cc_ac42674bdae391b53ad20715cf3f8f5e8}
 
 
-在文件 pynann.\+cc 第 20 行定义.
+在文件 pynann.\+cc 第 23 行定义.
 
 \hypertarget{pynann_8cc_ae2dc3447c5565d62eaa858b7add90cad}{}\index{pynann.\+cc@{pynann.\+cc}!P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+E\+X\+I\+S\+T@{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+E\+X\+I\+S\+T}}
 \index{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+E\+X\+I\+S\+T@{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+E\+X\+I\+S\+T}!pynann.\+cc@{pynann.\+cc}}
 \subsubsection[{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+E\+X\+I\+S\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+E\+X\+I\+S\+T~0x88000102}\label{pynann_8cc_ae2dc3447c5565d62eaa858b7add90cad}
+
+
+在文件 pynann.\+cc 第 24 行定义.
+
+\hypertarget{pynann_8cc_a31f0a20534bd7e932241075bb3031602}{}\index{pynann.\+cc@{pynann.\+cc}!P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E@{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E}}
+\index{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E@{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E}!pynann.\+cc@{pynann.\+cc}}
+\subsubsection[{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+O\+P\+E\+N\+\_\+\+F\+I\+L\+E~0x88000002}\label{pynann_8cc_a31f0a20534bd7e932241075bb3031602}
 
 
 在文件 pynann.\+cc 第 21 行定义.
@@ -97,42 +109,42 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{pynann_8cc_a93c93ded778696437f0d2ffd8b73d7d
 \subsubsection[{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+P\+A\+R\+S\+E\+\_\+\+J\+S\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+P\+A\+R\+S\+E\+\_\+\+J\+S\+O\+N~0x88000001}\label{pynann_8cc_a4c07950c0b01264934f8e3e511c9d8c6}
 
 
-在文件 pynann.\+cc 第 18 行定义.
+在文件 pynann.\+cc 第 20 行定义.
 
 \hypertarget{pynann_8cc_a2fccba016181edae38b3e23c5038da32}{}\index{pynann.\+cc@{pynann.\+cc}!P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+S\+S@{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+S\+S}}
 \index{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+S\+S@{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+S\+S}!pynann.\+cc@{pynann.\+cc}}
 \subsubsection[{P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+S\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+Y\+N\+A\+N\+N\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+S\+S~0}\label{pynann_8cc_a2fccba016181edae38b3e23c5038da32}
 
 
-在文件 pynann.\+cc 第 14 行定义.
+在文件 pynann.\+cc 第 16 行定义.
 
 \hypertarget{pynann_8cc_a4c6cba2fb4573a448016520940f13d82}{}\index{pynann.\+cc@{pynann.\+cc}!P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L@{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L}}
 \index{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L@{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L}!pynann.\+cc@{pynann.\+cc}}
 \subsubsection[{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+T\+E\+R\+N\+A\+L~0x87000000}\label{pynann_8cc_a4c6cba2fb4573a448016520940f13d82}
 
 
-在文件 pynann.\+cc 第 25 行定义.
+在文件 pynann.\+cc 第 28 行定义.
 
 \hypertarget{pynann_8cc_ab8454bb2147daf7fe5ac739294d66ce9}{}\index{pynann.\+cc@{pynann.\+cc}!P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T@{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T}}
 \index{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T@{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T}!pynann.\+cc@{pynann.\+cc}}
 \subsubsection[{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T~0x87000100}\label{pynann_8cc_ab8454bb2147daf7fe5ac739294d66ce9}
 
 
-在文件 pynann.\+cc 第 26 行定义.
+在文件 pynann.\+cc 第 29 行定义.
 
 \hypertarget{pynann_8cc_a1105798e98d9a76474c7e62b2d0f34d1}{}\index{pynann.\+cc@{pynann.\+cc}!P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+E\+X\+I\+S\+T@{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+E\+X\+I\+S\+T}}
 \index{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+E\+X\+I\+S\+T@{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+E\+X\+I\+S\+T}!pynann.\+cc@{pynann.\+cc}}
 \subsubsection[{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+E\+X\+I\+S\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+E\+X\+I\+S\+T~0x87000101}\label{pynann_8cc_a1105798e98d9a76474c7e62b2d0f34d1}
 
 
-在文件 pynann.\+cc 第 27 行定义.
+在文件 pynann.\+cc 第 30 行定义.
 
 \hypertarget{pynann_8cc_a6d148eca556f236a53222e29294850c1}{}\index{pynann.\+cc@{pynann.\+cc}!P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+E\+X\+I\+S\+T@{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+E\+X\+I\+S\+T}}
 \index{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+E\+X\+I\+S\+T@{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+E\+X\+I\+S\+T}!pynann.\+cc@{pynann.\+cc}}
 \subsubsection[{P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+E\+X\+I\+S\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+Y\+N\+A\+N\+N\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+A\+R\+G\+U\+M\+E\+N\+T\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+E\+X\+I\+S\+T~0x87000102}\label{pynann_8cc_a6d148eca556f236a53222e29294850c1}
 
 
-在文件 pynann.\+cc 第 28 行定义.
+在文件 pynann.\+cc 第 31 行定义.
 
 
 
@@ -152,7 +164,7 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{pynann_8cc_a93c93ded778696437f0d2ffd8b73d7d
 )}\label{pynann_8cc_a65df1c011e60583652fb98d0e79120d3}
 
 
-在文件 pynann.\+cc 第 764 行定义.
+在文件 pynann.\+cc 第 548 行定义.
 
 
 
@@ -162,5 +174,5 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{pynann_8cc_a93c93ded778696437f0d2ffd8b73d7d
 \subsubsection[{g\+\_\+lock}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+mutex\+\_\+t g\+\_\+lock}\label{pynann_8cc_a93c93ded778696437f0d2ffd8b73d7db}
 
 
-在文件 pynann.\+cc 第 37 行定义.
+在文件 pynann.\+cc 第 40 行定义.
 

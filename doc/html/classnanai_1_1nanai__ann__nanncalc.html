@@ -94,6 +94,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'搜索');
   <div class="summary">
 <a href="#nested-classes">类</a> &#124;
 <a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pro-types">Protected 类型</a> &#124;
 <a href="#pro-methods">Protected 成员函数</a> &#124;
 <a href="#pro-attribs">Protected 属性</a> &#124;
 <a href="classnanai_1_1nanai__ann__nanncalc-members.html">所有成员列表</a>  </div>
@@ -122,8 +123,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'搜索');
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public 成员函数</h2></td></tr>
-<tr class="memitem:a0d26e7efdef5368c0212b3dd02f63767"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a0d26e7efdef5368c0212b3dd02f63767">nanai_ann_nanncalc</a> (<a class="el" href="namespacenanai.html#a892a8c80381d0005a076b68fbbf2d918">nanai_ann_nanndesc</a> &amp;desc, const char *lp=&quot;./&quot;)</td></tr>
-<tr class="separator:a0d26e7efdef5368c0212b3dd02f63767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac920b08afc8fe7a698fa1e105dd7b5cb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#ac920b08afc8fe7a698fa1e105dd7b5cb">nanai_ann_nanncalc</a> (<a class="el" href="namespacenanai.html#a892a8c80381d0005a076b68fbbf2d918">nanai_ann_nanndesc</a> &amp;desc, const char *lp=&quot;./&quot;, const char *task=nullptr)</td></tr>
+<tr class="separator:ac920b08afc8fe7a698fa1e105dd7b5cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f5530f782f2585958c79c94bc3232d7"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a2f5530f782f2585958c79c94bc3232d7">~nanai_ann_nanncalc</a> ()</td></tr>
 <tr class="separator:a2f5530f782f2585958c79c94bc3232d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a2bdcebe0c659e6f6e3466674cc9143"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a9a2bdcebe0c659e6f6e3466674cc9143">ann_default_create</a> (int ninput, int nhidden, int output, std::vector&lt; int &gt; &amp;nneure)</td></tr>
@@ -160,10 +161,10 @@ Public 成员函数</h2></td></tr>
 <tr class="separator:a2c8aa9f4f29bb093f0bc26fa9ba6cc41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc792abf872514a95a9863cbb3e49cd4"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#abc792abf872514a95a9863cbb3e49cd4">get_state</a> (bool lock=false)</td></tr>
 <tr class="separator:abc792abf872514a95a9863cbb3e49cd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5102b94199ba413bd8601e66be5d2293"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a5102b94199ba413bd8601e66be5d2293">set_output</a> (<a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> &amp;output, bool lock=false)</td></tr>
-<tr class="separator:a5102b94199ba413bd8601e66be5d2293"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc64a3c1efeef53374803673ee44c152"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#adc64a3c1efeef53374803673ee44c152">get_output</a> (<a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> &amp;output, bool lock=false)</td></tr>
-<tr class="separator:adc64a3c1efeef53374803673ee44c152"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad184946b500d44e38c77e920d7a23fa2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#ad184946b500d44e38c77e920d7a23fa2">set_output</a> (std::string &amp;task, <a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> &amp;output, bool lock=false)</td></tr>
+<tr class="separator:ad184946b500d44e38c77e920d7a23fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04e58c02bf3756d916652e7d021822ad"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a04e58c02bf3756d916652e7d021822ad">get_output</a> (std::string &amp;task, bool lock=false)</td></tr>
+<tr class="separator:a04e58c02bf3756d916652e7d021822ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad76affc9e9819af44025704d424ce3ec"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#ad76affc9e9819af44025704d424ce3ec">do_configure</a> (<a class="el" href="namespacenanai.html#a892a8c80381d0005a076b68fbbf2d918">nanai_ann_nanndesc</a> &amp;desc)</td></tr>
 <tr class="separator:ad76affc9e9819af44025704d424ce3ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3501b12051f6bb169b408a3671196f16"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a3501b12051f6bb169b408a3671196f16">do_ann_exchange</a> (const <a class="el" href="classnanai_1_1nanai__ann__nanncalc_1_1ann__t.html">nanai_ann_nanncalc::ann_t</a> &amp;ann)</td></tr>
@@ -185,6 +186,11 @@ Public 成员函数</h2></td></tr>
 <tr class="separator:ab70ce957f8be26e1a4c61461de9c4aa7 inherit pub_methods_classnanai_1_1nanai__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b05c72f0058867e692dcbba020436c6 inherit pub_methods_classnanai_1_1nanai__object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__object.html#a9b05c72f0058867e692dcbba020436c6">error</a> (int err)</td></tr>
 <tr class="separator:a9b05c72f0058867e692dcbba020436c6 inherit pub_methods_classnanai_1_1nanai__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
+Protected 类型</h2></td></tr>
+<tr class="memitem:a44c56088d31cafacdb5324d36a88fd51"><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; std::string, std::vector&lt; <a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a44c56088d31cafacdb5324d36a88fd51">nanncalc_output_t</a></td></tr>
+<tr class="separator:a44c56088d31cafacdb5324d36a88fd51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected 成员函数</h2></td></tr>
@@ -229,8 +235,8 @@ Protected 属性</h2></td></tr>
 <tr class="separator:a1e15116b2a2d7b5c8ddb9579de11f5ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c9006356f22904fee12c3635cdc8a15"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a1c9006356f22904fee12c3635cdc8a15">_outputs_lock</a></td></tr>
 <tr class="separator:a1c9006356f22904fee12c3635cdc8a15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d00ff0323ee2fd5c1cfbd0f775da125"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a6d00ff0323ee2fd5c1cfbd0f775da125">_outputs</a></td></tr>
-<tr class="separator:a6d00ff0323ee2fd5c1cfbd0f775da125"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f1c5597b0e11d5e8bea297fcc48979d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a44c56088d31cafacdb5324d36a88fd51">nanncalc_output_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a5f1c5597b0e11d5e8bea297fcc48979d">_outputs</a></td></tr>
+<tr class="separator:a5f1c5597b0e11d5e8bea297fcc48979d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abee00d840fe641d5c69aa1c621333179"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#abee00d840fe641d5c69aa1c621333179">_output_error</a></td></tr>
 <tr class="separator:abee00d840fe641d5c69aa1c621333179"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab05880760848bb308d30833b362f60a8"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#ab05880760848bb308d30833b362f60a8">_ann_lock</a></td></tr>
@@ -288,10 +294,35 @@ Protected 属性</h2></td></tr>
 <tr class="separator:affc3fedffe027488da1cd445291504b3 inherit pro_attribs_classnanai_1_1nanai__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
-<div class="textblock">
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00046">46</a> 行定义.</p>
-</div><h2 class="groupheader">构造及析构函数说明</h2>
-<a class="anchor" id="a0d26e7efdef5368c0212b3dd02f63767"></a>
+<div class="textblock"><p>nann计算结点类</p>
+<p>一个类就是一条工作线程，负责调用算法进行训练，此类实现了神经网络的前馈与反馈的逻辑。但不直接 进行运算，而是将运算部分交给实际配置的desc算法描述结果，来执行回调。 </p>
+
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00051">51</a> 行定义.</p>
+</div><h2 class="groupheader">成员类型定义说明</h2>
+<a class="anchor" id="a44c56088d31cafacdb5324d36a88fd51"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::map&lt;std::string, std::vector&lt;<a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a>&gt; &gt; <a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a44c56088d31cafacdb5324d36a88fd51">nanai::nanai_ann_nanncalc::nanncalc_output_t</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00212">212</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">构造及析构函数说明</h2>
+<a class="anchor" id="ac920b08afc8fe7a698fa1e105dd7b5cb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -305,7 +336,13 @@ Protected 属性</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>lp</em> = <code>&quot;./&quot;</code>&#160;</td>
+          <td class="paramname"><em>lp</em> = <code>&quot;./&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>task</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -315,7 +352,7 @@ Protected 属性</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00153">153</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00166">166</a> 行定义.</p>
 
 </div>
 </div>
@@ -340,7 +377,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00222">222</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00242">242</a> 行定义.</p>
 
 </div>
 </div>
@@ -383,7 +420,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00885">885</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00917">917</a> 行定义.</p>
 
 </div>
 </div>
@@ -431,7 +468,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00832">832</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00864">864</a> 行定义.</p>
 
 </div>
 </div>
@@ -479,7 +516,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00703">703</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00735">735</a> 行定义.</p>
 
 </div>
 </div>
@@ -505,7 +542,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00303">303</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00326">326</a> 行定义.</p>
 
 </div>
 </div>
@@ -531,7 +568,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00560">560</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00592">592</a> 行定义.</p>
 
 </div>
 </div>
@@ -579,7 +616,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00252">252</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00272">272</a> 行定义.</p>
 
 </div>
 </div>
@@ -604,7 +641,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00336">336</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00359">359</a> 行定义.</p>
 
 </div>
 </div>
@@ -630,7 +667,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00310">310</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00333">333</a> 行定义.</p>
 
 </div>
 </div>
@@ -666,7 +703,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00746">746</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00778">778</a> 行定义.</p>
 
 </div>
 </div>
@@ -691,7 +728,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00374">374</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00397">397</a> 行定义.</p>
 
 </div>
 </div>
@@ -727,7 +764,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00846">846</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00878">878</a> 行定义.</p>
 
 </div>
 </div>
@@ -781,7 +818,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00782">782</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00814">814</a> 行定义.</p>
 
 </div>
 </div>
@@ -817,7 +854,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00681">681</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00713">713</a> 行定义.</p>
 
 </div>
 </div>
@@ -842,7 +879,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00667">667</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00699">699</a> 行定义.</p>
 
 </div>
 </div>
@@ -867,7 +904,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00659">659</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00691">691</a> 行定义.</p>
 
 </div>
 </div>
@@ -893,7 +930,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00634">634</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00666">666</a> 行定义.</p>
 
 </div>
 </div>
@@ -918,7 +955,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00643">643</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00675">675</a> 行定义.</p>
 
 </div>
 </div>
@@ -943,7 +980,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00651">651</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00683">683</a> 行定义.</p>
 
 </div>
 </div>
@@ -979,7 +1016,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00813">813</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00845">845</a> 行定义.</p>
 
 </div>
 </div>
@@ -1015,7 +1052,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00675">675</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00707">707</a> 行定义.</p>
 
 </div>
 </div>
@@ -1040,7 +1077,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00317">317</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00340">340</a> 行定义.</p>
 
 </div>
 </div>
@@ -1082,7 +1119,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00272">272</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00292">292</a> 行定义.</p>
 
 </div>
 </div>
@@ -1124,7 +1161,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00292">292</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00314">314</a> 行定义.</p>
 
 </div>
 </div>
@@ -1160,7 +1197,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00283">283</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00304">304</a> 行定义.</p>
 
 </div>
 </div>
@@ -1196,7 +1233,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00364">364</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00387">387</a> 行定义.</p>
 
 </div>
 </div>
@@ -1222,7 +1259,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00523">523</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00555">555</a> 行定义.</p>
 
 </div>
 </div>
@@ -1248,7 +1285,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00518">518</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00550">550</a> 行定义.</p>
 
 </div>
 </div>
@@ -1273,7 +1310,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00551">551</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00583">583</a> 行定义.</p>
 
 </div>
 </div>
@@ -1290,7 +1327,7 @@ Protected 属性</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00382">382</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00405">405</a> 行定义.</p>
 
 </div>
 </div>
@@ -1316,7 +1353,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00533">533</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00565">565</a> 行定义.</p>
 
 </div>
 </div>
@@ -1352,7 +1389,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00410">410</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00433">433</a> 行定义.</p>
 
 </div>
 </div>
@@ -1369,11 +1406,11 @@ Protected 属性</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00386">386</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00409">409</a> 行定义.</p>
 
 </div>
 </div>
-<a class="anchor" id="adc64a3c1efeef53374803673ee44c152"></a>
+<a class="anchor" id="a04e58c02bf3756d916652e7d021822ad"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1381,10 +1418,10 @@ Protected 属性</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">size_t nanai::nanai_ann_nanncalc::get_output </td>
+          <td class="memname"><a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> nanai::nanai_ann_nanncalc::get_output </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> &amp;&#160;</td>
-          <td class="paramname"><em>output</em>, </td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>task</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1404,8 +1441,16 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>获取指定任务的最后一个输出向量 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">task</td><td>任务名 </td></tr>
+    <tr><td class="paramname">lock</td><td>是否进行输出锁控制 </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00491">491</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00523">523</a> 行定义.</p>
 
 </div>
 </div>
@@ -1431,7 +1476,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00452">452</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00475">475</a> 行定义.</p>
 
 </div>
 </div>
@@ -1448,7 +1493,7 @@ Protected 属性</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00378">378</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00401">401</a> 行定义.</p>
 
 </div>
 </div>
@@ -1476,7 +1521,7 @@ Protected 属性</h2></td></tr>
 
 <p>重载 <a class="el" href="classnanai_1_1nanai__object.html#a87f162335cead23a1409f7c0570a3284">nanai::nanai_object</a> .</p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00556">556</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00588">588</a> 行定义.</p>
 
 </div>
 </div>
@@ -1512,11 +1557,11 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00390">390</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00413">413</a> 行定义.</p>
 
 </div>
 </div>
-<a class="anchor" id="a5102b94199ba413bd8601e66be5d2293"></a>
+<a class="anchor" id="ad184946b500d44e38c77e920d7a23fa2"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1526,6 +1571,12 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="memname">void nanai::nanai_ann_nanncalc::set_output </td>
           <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>task</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a> &amp;&#160;</td>
           <td class="paramname"><em>output</em>, </td>
         </tr>
@@ -1547,8 +1598,17 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>设置指定任务的输出向量 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">task</td><td>任务名 </td></tr>
+    <tr><td class="paramname">output</td><td>要设置的输出向量 </td></tr>
+    <tr><td class="paramname">lock</td><td>是否进行输出锁控制 </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00471">471</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00494">494</a> 行定义.</p>
 
 </div>
 </div>
@@ -1584,7 +1644,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00435">435</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8cc_source.html">nanai_ann_nanncalc.cc</a> 第 <a class="el" href="nanai__ann__nanncalc_8cc_source.html#l00458">458</a> 行定义.</p>
 
 </div>
 </div>
@@ -1606,8 +1666,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>算法名称 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00188">188</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00206">206</a> 行定义.</p>
 
 </div>
 </div>
@@ -1628,8 +1689,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>神经网络 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00202">202</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00217">217</a> 行定义.</p>
 
 </div>
 </div>
@@ -1650,8 +1712,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>神经网络的锁 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00201">201</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00216">216</a> 行定义.</p>
 
 </div>
 </div>
@@ -1673,7 +1736,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00240">240</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00246">246</a> 行定义.</p>
 
 </div>
 </div>
@@ -1695,7 +1758,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00238">238</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00244">244</a> 行定义.</p>
 
 </div>
 </div>
@@ -1717,7 +1780,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00235">235</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00241">241</a> 行定义.</p>
 
 </div>
 </div>
@@ -1739,7 +1802,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00239">239</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00245">245</a> 行定义.</p>
 
 </div>
 </div>
@@ -1761,7 +1824,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00236">236</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00242">242</a> 行定义.</p>
 
 </div>
 </div>
@@ -1783,7 +1846,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00237">237</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00243">243</a> 行定义.</p>
 
 </div>
 </div>
@@ -1804,8 +1867,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>命令队列 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00208">208</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00220">220</a> 行定义.</p>
 
 </div>
 </div>
@@ -1826,8 +1890,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>命令互斥锁 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00209">209</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00221">221</a> 行定义.</p>
 
 </div>
 </div>
@@ -1848,8 +1913,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>命令 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00214">214</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00226">226</a> 行定义.</p>
 
 </div>
 </div>
@@ -1871,7 +1937,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00224">224</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00233">233</a> 行定义.</p>
 
 </div>
 </div>
@@ -1893,7 +1959,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00229">229</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00238">238</a> 行定义.</p>
 
 </div>
 </div>
@@ -1915,7 +1981,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00227">227</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00236">236</a> 行定义.</p>
 
 </div>
 </div>
@@ -1937,7 +2003,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00228">228</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00237">237</a> 行定义.</p>
 
 </div>
 </div>
@@ -1959,7 +2025,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00226">226</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00235">235</a> 行定义.</p>
 
 </div>
 </div>
@@ -1981,7 +2047,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00221">221</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00230">230</a> 行定义.</p>
 
 </div>
 </div>
@@ -2003,7 +2069,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00223">223</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00232">232</a> 行定义.</p>
 
 </div>
 </div>
@@ -2025,7 +2091,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00222">222</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00231">231</a> 行定义.</p>
 
 </div>
 </div>
@@ -2046,8 +2112,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>隐藏层 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00195">195</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00210">210</a> 行定义.</p>
 
 </div>
 </div>
@@ -2069,7 +2136,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00247">247</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00250">250</a> 行定义.</p>
 
 </div>
 </div>
@@ -2091,7 +2158,7 @@ Protected 属性</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00246">246</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00249">249</a> 行定义.</p>
 
 </div>
 </div>
@@ -2112,12 +2179,13 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>输出误差向量 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00198">198</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00214">214</a> 行定义.</p>
 
 </div>
 </div>
-<a class="anchor" id="a6d00ff0323ee2fd5c1cfbd0f775da125"></a>
+<a class="anchor" id="a5f1c5597b0e11d5e8bea297fcc48979d"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -2125,7 +2193,7 @@ Protected 属性</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="classnanmath_1_1nanmath__vector.html">nanmath::nanmath_vector</a>&gt; nanai::nanai_ann_nanncalc::_outputs</td>
+          <td class="memname"><a class="el" href="classnanai_1_1nanai__ann__nanncalc.html#a44c56088d31cafacdb5324d36a88fd51">nanncalc_output_t</a> nanai::nanai_ann_nanncalc::_outputs</td>
         </tr>
       </table>
   </td>
@@ -2134,8 +2202,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>输出向量队列 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00197">197</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00213">213</a> 行定义.</p>
 
 </div>
 </div>
@@ -2156,8 +2225,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>输出向量锁 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00196">196</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00211">211</a> 行定义.</p>
 
 </div>
 </div>
@@ -2178,8 +2248,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>线程睡眠时间 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00215">215</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00227">227</a> 行定义.</p>
 
 </div>
 </div>
@@ -2200,8 +2271,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>当前状态 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00213">213</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00225">225</a> 行定义.</p>
 
 </div>
 </div>
@@ -2222,8 +2294,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>状态锁 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00212">212</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00224">224</a> 行定义.</p>
 
 </div>
 </div>
@@ -2244,8 +2317,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>当前任务名称 - 例如:Aid_Uid_ACTid </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00194">194</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00209">209</a> 行定义.</p>
 
 </div>
 </div>
@@ -2266,8 +2340,9 @@ Protected 属性</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>线程函数 </p>
 
-<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00211">211</a> 行定义.</p>
+<p>在文件 <a class="el" href="nanai__ann__nanncalc_8h_source.html">nanai_ann_nanncalc.h</a> 第 <a class="el" href="nanai__ann__nanncalc_8h_source.html#l00223">223</a> 行定义.</p>
 
 </div>
 </div>

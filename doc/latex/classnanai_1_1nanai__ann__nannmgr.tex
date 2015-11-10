@@ -20,13 +20,19 @@
 \item 
 \hyperlink{classnanai_1_1nanai__ann__nannmgr_ac0ab089eae09f4d317218fcad3cfe804}{nanai\+\_\+ann\+\_\+nannmgr} (int max=1024, int now\+\_\+start=0)
 \item 
-\hyperlink{classnanai_1_1nanai__ann__nannmgr_aa25b7ed3134765348dca37cf200cff3b}{nanai\+\_\+ann\+\_\+nannmgr} (std\+::string alg, \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&ann, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$target, int max, int now\+\_\+start)
+\hyperlink{classnanai_1_1nanai__ann__nannmgr_a6901546a2000f2ec793b2845d070d73a}{nanai\+\_\+ann\+\_\+nannmgr} (std\+::string alg, \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&ann, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$target, const char $\ast$task=nullptr, int max=1024, int now\+\_\+start=0)
 \item 
 virtual \hyperlink{classnanai_1_1nanai__ann__nannmgr_a2594f0a16aed65087e4aebca1b07894e}{$\sim$nanai\+\_\+ann\+\_\+nannmgr} ()
 \item 
+virtual int \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9ce2dbf3146a70c2a32209820489d1c2}{training} (const std\+::string \&json, \hyperlink{classnanai_1_1nanai__ann__nanncalc}{nanai\+\_\+ann\+\_\+nanncalc} $\ast$dcalc=nullptr, const char $\ast$task=nullptr, \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} $\ast$ann=nullptr, const char $\ast$alg=nullptr)
+\item 
 virtual \hyperlink{classnanai_1_1nanai__ann__nanncalc}{nanai\+\_\+ann\+\_\+nanncalc} $\ast$ \hyperlink{classnanai_1_1nanai__ann__nannmgr_a1b99f051a2a7b2b1ebb21bb45d567afa}{training} (\hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} \&input, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$target, \hyperlink{classnanai_1_1nanai__ann__nanncalc}{nanai\+\_\+ann\+\_\+nanncalc} $\ast$dcalc=nullptr, const char $\ast$task=nullptr, \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} $\ast$ann=nullptr, const char $\ast$alg=nullptr)
 \item 
+virtual int \hyperlink{classnanai_1_1nanai__ann__nannmgr_a3fac18a4d69722ed887e89d4aebb3361}{training\+\_\+notarget} (const std\+::string \&json, \hyperlink{classnanai_1_1nanai__ann__nanncalc}{nanai\+\_\+ann\+\_\+nanncalc} $\ast$dcalc=nullptr, const char $\ast$task=nullptr, \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} $\ast$ann=nullptr, const char $\ast$alg=nullptr)
+\item 
 virtual \hyperlink{classnanai_1_1nanai__ann__nanncalc}{nanai\+\_\+ann\+\_\+nanncalc} $\ast$ \hyperlink{classnanai_1_1nanai__ann__nannmgr_a7a28db94886caffa0824206c0e2b2fa9}{training\+\_\+notarget} (\hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} \&input, \hyperlink{classnanai_1_1nanai__ann__nanncalc}{nanai\+\_\+ann\+\_\+nanncalc} $\ast$dcalc=nullptr, const char $\ast$task=nullptr, \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} $\ast$ann=nullptr, const char $\ast$alg=nullptr)
+\item 
+virtual int \hyperlink{classnanai_1_1nanai__ann__nannmgr_aaf7a2da88570d980d6533dbf3417a76c}{training\+\_\+nooutput} (std\+::string \&json, \hyperlink{classnanai_1_1nanai__ann__nanncalc}{nanai\+\_\+ann\+\_\+nanncalc} $\ast$dcalc=nullptr, const char $\ast$task=nullptr, \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} $\ast$ann=nullptr, const char $\ast$alg=nullptr)
 \item 
 virtual \hyperlink{classnanai_1_1nanai__ann__nanncalc}{nanai\+\_\+ann\+\_\+nanncalc} $\ast$ \hyperlink{classnanai_1_1nanai__ann__nannmgr_a7461a5cad561f578869c850adf1e9639}{training\+\_\+nooutput} (\hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} \&input, \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} $\ast$target, \hyperlink{classnanai_1_1nanai__ann__nanncalc}{nanai\+\_\+ann\+\_\+nanncalc} $\ast$dcalc=nullptr, const char $\ast$task=nullptr, \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} $\ast$ann=nullptr, const char $\ast$alg=nullptr)
 \item 
@@ -38,7 +44,21 @@ virtual void \hyperlink{classnanai_1_1nanai__ann__nannmgr_a41e95105ae57bf782fb5a
 \item 
 virtual void \hyperlink{classnanai_1_1nanai__ann__nannmgr_ae0a3866bf95574f3d12543da7a326b08}{set\+\_\+max} (int max)
 \item 
-virtual void \hyperlink{classnanai_1_1nanai__ann__nannmgr_a892c55b5c4a4b22dfd738c1227476ab0}{merge\+\_\+ann\+\_\+by\+\_\+task} (std\+::string task)
+virtual void \hyperlink{classnanai_1_1nanai__ann__nannmgr_aa5d2066f238b5a0724a00c16ddcac6c8}{merge\+\_\+ann\+\_\+by\+\_\+task} (std\+::string task, \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&ann)
+\item 
+virtual std\+::string \hyperlink{classnanai_1_1nanai__ann__nannmgr_a66bb7dacbf2f6484b51e07a221a0d7a9}{get\+\_\+home\+\_\+dir} () const 
+\item 
+virtual std\+::string \hyperlink{classnanai_1_1nanai__ann__nannmgr_a2dbb53bd1059fe117b032246b7a4ce8c}{get\+\_\+lib\+\_\+dir} () const 
+\item 
+virtual std\+::string \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9214ed0338f7cf31da855d9ec7513888}{get\+\_\+etc\+\_\+dir} () const 
+\item 
+virtual std\+::string \hyperlink{classnanai_1_1nanai__ann__nannmgr_ae0a52eacd3eee9d348eb4a6d0751458e}{get\+\_\+log\+\_\+dir} () const 
+\item 
+virtual \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \hyperlink{classnanai_1_1nanai__ann__nannmgr_a53c69d19df98df2c6f1cc5f659aaede5}{get\+\_\+ann} () const 
+\item 
+virtual std\+::string \hyperlink{classnanai_1_1nanai__ann__nannmgr_a07025876ebcdda225dd5e40971a4447d}{get\+\_\+alg} () const 
+\item 
+virtual \hyperlink{classnanmath_1_1nanmath__vector}{nanmath\+::nanmath\+\_\+vector} \hyperlink{classnanai_1_1nanai__ann__nannmgr_af124a52ff58e98070576a31be93f1b81}{get\+\_\+target} () const 
 \item 
 virtual int \hyperlink{classnanai_1_1nanai__ann__nannmgr_a5e88711b173c6074539af3a1b32e761d}{dead\+\_\+task} ()
 \item 
@@ -52,7 +72,7 @@ static const char $\ast$ \hyperlink{classnanai_1_1nanai__ann__nannmgr_a940245067
 \subsection*{Protected 成员函数}
 \begin{DoxyCompactItemize}
 \item 
-virtual void \hyperlink{classnanai_1_1nanai__ann__nannmgr_ae4bd257f8c13617deb792e90f72574ea}{init} (int max, int now\+\_\+start)
+virtual void \hyperlink{classnanai_1_1nanai__ann__nannmgr_a4ef08a3f12abe6aca1f4cd1e04584512}{init} (int max, int now\+\_\+start, const char $\ast$task)
 \item 
 virtual \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \hyperlink{classnanai_1_1nanai__ann__nannmgr_a569b5527d3efd6615b1ed5fe311d3e55}{merge\+\_\+ann} (\hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&a, \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&b)
 \item 
@@ -78,7 +98,7 @@ virtual void \hyperlink{classnanai_1_1nanai__ann__nannmgr_a061504e906faa17ab8cfe
 \item 
 virtual \hyperlink{classnanai_1_1nanai__ann__nanncalc}{nanai\+\_\+ann\+\_\+nanncalc} $\ast$ \hyperlink{classnanai_1_1nanai__ann__nannmgr_a66d329677b38c6d967a737adabaae13e}{generate} (\hyperlink{namespacenanai_a892a8c80381d0005a076b68fbbf2d918}{nanai\+\_\+ann\+\_\+nanndesc} \&desc, \hyperlink{classnanai_1_1nanai__ann__nanncalc_1_1ann__t}{nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} $\ast$ann=N\+U\+L\+L, const char $\ast$task=N\+U\+L\+L)
 \item 
-virtual \hyperlink{classnanai_1_1nanai__ann__nanncalc}{nanai\+\_\+ann\+\_\+nanncalc} $\ast$ \hyperlink{classnanai_1_1nanai__ann__nannmgr_a5f3d6ac53777ccec4d85cde98267693f}{make} (\hyperlink{namespacenanai_a892a8c80381d0005a076b68fbbf2d918}{nanai\+\_\+ann\+\_\+nanndesc} \&desc)
+virtual \hyperlink{classnanai_1_1nanai__ann__nanncalc}{nanai\+\_\+ann\+\_\+nanncalc} $\ast$ \hyperlink{classnanai_1_1nanai__ann__nannmgr_ab67ff07d5336bc219b5579d540caef3b}{make} (\hyperlink{namespacenanai_a892a8c80381d0005a076b68fbbf2d918}{nanai\+\_\+ann\+\_\+nanndesc} \&desc, const char $\ast$task=nullptr)
 \item 
 void \hyperlink{classnanai_1_1nanai__ann__nannmgr_a28ea36058e9dfd5ce6b80d6011931acc}{on\+\_\+error} (int err)
 \end{DoxyCompactItemize}
@@ -140,19 +160,20 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 24 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 25 行定义.
 
-\hypertarget{classnanai_1_1nanai__ann__nannmgr_aa25b7ed3134765348dca37cf200cff3b}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!nanai\+\_\+ann\+\_\+nannmgr@{nanai\+\_\+ann\+\_\+nannmgr}}
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_a6901546a2000f2ec793b2845d070d73a}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!nanai\+\_\+ann\+\_\+nannmgr@{nanai\+\_\+ann\+\_\+nannmgr}}
 \index{nanai\+\_\+ann\+\_\+nannmgr@{nanai\+\_\+ann\+\_\+nannmgr}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
-\subsubsection[{nanai\+\_\+ann\+\_\+nannmgr(std\+::string alg, nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \&ann, nanmath\+::nanmath\+\_\+vector $\ast$target, int max, int now\+\_\+start)}]{\setlength{\rightskip}{0pt plus 5cm}nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::nanai\+\_\+ann\+\_\+nannmgr (
+\subsubsection[{nanai\+\_\+ann\+\_\+nannmgr(std\+::string alg, nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \&ann, nanmath\+::nanmath\+\_\+vector $\ast$target, const char $\ast$task=nullptr, int max=1024, int now\+\_\+start=0)}]{\setlength{\rightskip}{0pt plus 5cm}nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::nanai\+\_\+ann\+\_\+nannmgr (
 \begin{DoxyParamCaption}
 \item[{std\+::string}]{alg, }
 \item[{{\bf nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&}]{ann, }
 \item[{{\bf nanmath\+::nanmath\+\_\+vector} $\ast$}]{target, }
-\item[{int}]{max, }
-\item[{int}]{now\+\_\+start}
+\item[{const char $\ast$}]{task = {\ttfamily nullptr}, }
+\item[{int}]{max = {\ttfamily 1024}, }
+\item[{int}]{now\+\_\+start = {\ttfamily 0}}
 \end{DoxyParamCaption}
-)}\label{classnanai_1_1nanai__ann__nannmgr_aa25b7ed3134765348dca37cf200cff3b}
+)}\label{classnanai_1_1nanai__ann__nannmgr_a6901546a2000f2ec793b2845d070d73a}
 管理器构造函数. 
 \begin{DoxyParams}[1]{参数}
 \mbox{\tt in}  & {\em alg} & 要设定的神经网络算法 \\
@@ -161,6 +182,8 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \hline
 \mbox{\tt in}  & {\em target} & 要训练的目标向量，可选 \\
 \hline
+\mbox{\tt in}  & {\em task} & 直接赋予的任务名 \\
+\hline
 \mbox{\tt in}  & {\em max} & 最大计算结点(线程),默认为1024 \\
 \hline
 \mbox{\tt in}  & {\em now\+\_\+start} & 当前就要启动的计算结点数 \\
@@ -168,7 +191,7 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 28 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 29 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a2594f0a16aed65087e4aebca1b07894e}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!````~nanai\+\_\+ann\+\_\+nannmgr@{$\sim$nanai\+\_\+ann\+\_\+nannmgr}}
 \index{````~nanai\+\_\+ann\+\_\+nannmgr@{$\sim$nanai\+\_\+ann\+\_\+nannmgr}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -181,7 +204,7 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 
 会向所有正在工作的线程发出停止的命令，并等待完成，最后销毁 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 40 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 42 行定义.
 
 
 
@@ -193,9 +216,14 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{{\bf nanai\+\_\+ann\+\_\+nanndesc} \&}]{desc}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_aaf4b292087f8f3f48f6a77140dd512ca}
+增加一个算法 
+\begin{DoxyParams}{参数}
+{\em desc} & 算法描述结构 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 530 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 623 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a4097cd6c0d8c9fbd38df08d4474162d7}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!configure@{configure}}
 \index{configure@{configure}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -204,9 +232,9 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a4097cd6c0d8c9fbd38df08d4474162d7}
+内部配置调用get\+\_\+env与get\+\_\+algs 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 428 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 521 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a5e88711b173c6074539af3a1b32e761d}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!dead\+\_\+task@{dead\+\_\+task}}
 \index{dead\+\_\+task@{dead\+\_\+task}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -215,9 +243,9 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a5e88711b173c6074539af3a1b32e761d}
+已经死亡的计算结点数量 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 295 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 359 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a1cc1df92755308a610a78c1f16e602c0}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!exist\+\_\+task@{exist\+\_\+task}}
 \index{exist\+\_\+task@{exist\+\_\+task}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -226,9 +254,14 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{std\+::string}]{task}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a1cc1df92755308a610a78c1f16e602c0}
+当前任务有多少正在计算的结点 
+\begin{DoxyParams}{参数}
+{\em task} & 任务名 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 277 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 341 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_aa3fdb4c566c9f8b670631fb559cf1b02}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!find\+\_\+alg@{find\+\_\+alg}}
 \index{find\+\_\+alg@{find\+\_\+alg}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -237,9 +270,14 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{std\+::string}]{alg}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_aa3fdb4c566c9f8b670631fb559cf1b02}
+寻找已经安装的算法，找到返回描述指针，没找到返回nullptr 
+\begin{DoxyParams}{参数}
+{\em alg} & 算法名称 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 546 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 639 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a66d329677b38c6d967a737adabaae13e}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!generate@{generate}}
 \index{generate@{generate}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -250,9 +288,31 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{const char $\ast$}]{task = {\ttfamily NULL}}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a66d329677b38c6d967a737adabaae13e}
+产生一个计算结点
+
+这里有一套策略来控制计算结点的生成， 
+\begin{DoxyParams}{参数}
+{\em desc} & 算法描述 \\
+\hline
+{\em ann} & 神经网络指针 \\
+\hline
+{\em task} & 任务名 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 568 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 661 行定义.
+
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_a07025876ebcdda225dd5e40971a4447d}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!get\+\_\+alg@{get\+\_\+alg}}
+\index{get\+\_\+alg@{get\+\_\+alg}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
+\subsubsection[{get\+\_\+alg() const }]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::get\+\_\+alg (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a07025876ebcdda225dd5e40971a4447d}
+获取当前默认算法 
+
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 508 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_af20462056d6628462b18b865197083a5}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!get\+\_\+algs@{get\+\_\+algs}}
 \index{get\+\_\+algs@{get\+\_\+algs}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -261,9 +321,25 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{std\+::string \&}]{path}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_af20462056d6628462b18b865197083a5}
+获取算法 
+\begin{DoxyParams}{参数}
+{\em path} & 要加载的算法插件配置文件路径 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 479 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 572 行定义.
+
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_a53c69d19df98df2c6f1cc5f659aaede5}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!get\+\_\+ann@{get\+\_\+ann}}
+\index{get\+\_\+ann@{get\+\_\+ann}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
+\subsubsection[{get\+\_\+ann() const }]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::get\+\_\+ann (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a53c69d19df98df2c6f1cc5f659aaede5}
+获取当前默认神经网络 
+
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 504 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a2041f91a11e801557c4e2a310fae4355}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!get\+\_\+def\+\_\+algs@{get\+\_\+def\+\_\+algs}}
 \index{get\+\_\+def\+\_\+algs@{get\+\_\+def\+\_\+algs}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -272,9 +348,9 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a2041f91a11e801557c4e2a310fae4355}
+获取内置默认算法描述 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 525 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 618 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a910e51066acc0cefa5a13d441080020a}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!get\+\_\+env@{get\+\_\+env}}
 \index{get\+\_\+env@{get\+\_\+env}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -283,28 +359,86 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a910e51066acc0cefa5a13d441080020a}
+获取当前运行环境，获取一些主目录路径等... 
 
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 536 行定义.
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 443 行定义.
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_a9214ed0338f7cf31da855d9ec7513888}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!get\+\_\+etc\+\_\+dir@{get\+\_\+etc\+\_\+dir}}
+\index{get\+\_\+etc\+\_\+dir@{get\+\_\+etc\+\_\+dir}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
+\subsubsection[{get\+\_\+etc\+\_\+dir() const }]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::get\+\_\+etc\+\_\+dir (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a9214ed0338f7cf31da855d9ec7513888}
+获取配置目录 
 
-\hypertarget{classnanai_1_1nanai__ann__nannmgr_ae4bd257f8c13617deb792e90f72574ea}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!init@{init}}
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 496 行定义.
+
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_a66bb7dacbf2f6484b51e07a221a0d7a9}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!get\+\_\+home\+\_\+dir@{get\+\_\+home\+\_\+dir}}
+\index{get\+\_\+home\+\_\+dir@{get\+\_\+home\+\_\+dir}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
+\subsubsection[{get\+\_\+home\+\_\+dir() const }]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::get\+\_\+home\+\_\+dir (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a66bb7dacbf2f6484b51e07a221a0d7a9}
+获取主目录 
+
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 488 行定义.
+
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_a2dbb53bd1059fe117b032246b7a4ce8c}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!get\+\_\+lib\+\_\+dir@{get\+\_\+lib\+\_\+dir}}
+\index{get\+\_\+lib\+\_\+dir@{get\+\_\+lib\+\_\+dir}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
+\subsubsection[{get\+\_\+lib\+\_\+dir() const }]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::get\+\_\+lib\+\_\+dir (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a2dbb53bd1059fe117b032246b7a4ce8c}
+获取库目录 
+
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 492 行定义.
+
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_ae0a52eacd3eee9d348eb4a6d0751458e}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!get\+\_\+log\+\_\+dir@{get\+\_\+log\+\_\+dir}}
+\index{get\+\_\+log\+\_\+dir@{get\+\_\+log\+\_\+dir}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
+\subsubsection[{get\+\_\+log\+\_\+dir() const }]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::get\+\_\+log\+\_\+dir (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_ae0a52eacd3eee9d348eb4a6d0751458e}
+获取日志目录 
+
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 500 行定义.
+
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_af124a52ff58e98070576a31be93f1b81}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!get\+\_\+target@{get\+\_\+target}}
+\index{get\+\_\+target@{get\+\_\+target}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
+\subsubsection[{get\+\_\+target() const }]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanmath\+::nanmath\+\_\+vector} nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::get\+\_\+target (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_af124a52ff58e98070576a31be93f1b81}
+获取目标向量 
+
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 512 行定义.
+
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_a4ef08a3f12abe6aca1f4cd1e04584512}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!init@{init}}
 \index{init@{init}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
-\subsubsection[{init(int max, int now\+\_\+start)}]{\setlength{\rightskip}{0pt plus 5cm}void nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::init (
+\subsubsection[{init(int max, int now\+\_\+start, const char $\ast$task)}]{\setlength{\rightskip}{0pt plus 5cm}void nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::init (
 \begin{DoxyParamCaption}
 \item[{int}]{max, }
-\item[{int}]{now\+\_\+start}
+\item[{int}]{now\+\_\+start, }
+\item[{const char $\ast$}]{task}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_ae4bd257f8c13617deb792e90f72574ea}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a4ef08a3f12abe6aca1f4cd1e04584512}
 初始化所有的数据. 
 \begin{DoxyParams}[1]{参数}
 \mbox{\tt in}  & {\em max} & 最大计算结点(线程),默认为1024 \\
 \hline
 \mbox{\tt in}  & {\em now\+\_\+start} & 当前就要启动的计算结点数 \\
 \hline
+\mbox{\tt in}  & {\em task} & 任务名 \\
+\hline
 \end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 58 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 60 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_ad67bf88a3df568c5ed07c2adca863be8}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!lock@{lock}}
 \index{lock@{lock}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -313,20 +447,28 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_ad67bf88a3df568c5ed07c2adca863be8}
+内部运行锁 
 
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 649 行定义.
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 556 行定义.
-
-\hypertarget{classnanai_1_1nanai__ann__nannmgr_a5f3d6ac53777ccec4d85cde98267693f}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!make@{make}}
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_ab67ff07d5336bc219b5579d540caef3b}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!make@{make}}
 \index{make@{make}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
-\subsubsection[{make(nanai\+\_\+ann\+\_\+nanndesc \&desc)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanai\+\_\+ann\+\_\+nanncalc} $\ast$ nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::make (
+\subsubsection[{make(nanai\+\_\+ann\+\_\+nanndesc \&desc, const char $\ast$task=nullptr)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanai\+\_\+ann\+\_\+nanncalc} $\ast$ nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::make (
 \begin{DoxyParamCaption}
-\item[{{\bf nanai\+\_\+ann\+\_\+nanndesc} \&}]{desc}
+\item[{{\bf nanai\+\_\+ann\+\_\+nanndesc} \&}]{desc, }
+\item[{const char $\ast$}]{task = {\ttfamily nullptr}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a5f3d6ac53777ccec4d85cde98267693f}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_ab67ff07d5336bc219b5579d540caef3b}
+产生计算结点 
+\begin{DoxyParams}{参数}
+{\em desc} & 算法描述结点 \\
+\hline
+{\em task} & 任务名 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 637 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 730 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a569b5527d3efd6615b1ed5fe311d3e55}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!merge\+\_\+ann@{merge\+\_\+ann}}
 \index{merge\+\_\+ann@{merge\+\_\+ann}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -336,20 +478,35 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{{\bf nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&}]{b}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a569b5527d3efd6615b1ed5fe311d3e55}
+合并神经网络 
+\begin{DoxyParams}{参数}
+{\em a} & 要合并的神经网络1 \\
+\hline
+{\em b} & 要合并的神经网络2 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 371 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 435 行定义.
 
-\hypertarget{classnanai_1_1nanai__ann__nannmgr_a892c55b5c4a4b22dfd738c1227476ab0}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!merge\+\_\+ann\+\_\+by\+\_\+task@{merge\+\_\+ann\+\_\+by\+\_\+task}}
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_aa5d2066f238b5a0724a00c16ddcac6c8}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!merge\+\_\+ann\+\_\+by\+\_\+task@{merge\+\_\+ann\+\_\+by\+\_\+task}}
 \index{merge\+\_\+ann\+\_\+by\+\_\+task@{merge\+\_\+ann\+\_\+by\+\_\+task}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
-\subsubsection[{merge\+\_\+ann\+\_\+by\+\_\+task(std\+::string task)}]{\setlength{\rightskip}{0pt plus 5cm}void nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::merge\+\_\+ann\+\_\+by\+\_\+task (
+\subsubsection[{merge\+\_\+ann\+\_\+by\+\_\+task(std\+::string task, nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t \&ann)}]{\setlength{\rightskip}{0pt plus 5cm}void nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::merge\+\_\+ann\+\_\+by\+\_\+task (
 \begin{DoxyParamCaption}
-\item[{std\+::string}]{task}
+\item[{std\+::string}]{task, }
+\item[{{\bf nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} \&}]{ann}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a892c55b5c4a4b22dfd738c1227476ab0}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_aa5d2066f238b5a0724a00c16ddcac6c8}
+合并任务神经网络 
+\begin{DoxyParams}[1]{参数}
+\mbox{\tt in}  & {\em task} & 任务名称 \\
+\hline
+\mbox{\tt in}  & {\em ann} & 神经网络 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 398 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 462 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a1d9acf82974a0c785349370f40d583af}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!merge\+\_\+delta\+\_\+matrix@{merge\+\_\+delta\+\_\+matrix}}
 \index{merge\+\_\+delta\+\_\+matrix@{merge\+\_\+delta\+\_\+matrix}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -359,9 +516,16 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{{\bf nanmath\+::nanmath\+\_\+matrix} \&}]{dmat2}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a1d9acf82974a0c785349370f40d583af}
+合并偏差矩阵 
+\begin{DoxyParams}{参数}
+{\em dmat1} & 要合并的偏差矩阵1 \\
+\hline
+{\em dmat2} & 要合并的偏差矩阵2 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 313 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 377 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a7a9f384ebe727ed9722cbc04e82d30c8}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!merge\+\_\+matrix@{merge\+\_\+matrix}}
 \index{merge\+\_\+matrix@{merge\+\_\+matrix}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -373,9 +537,20 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{{\bf nanmath\+::nanmath\+\_\+matrix} \&}]{dmat2}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a7a9f384ebe727ed9722cbc04e82d30c8}
+合并矩阵 
+\begin{DoxyParams}{参数}
+{\em mat1} & 要合并的权值矩阵1 \\
+\hline
+{\em mat2} & 要合并的权值矩阵2 \\
+\hline
+{\em dmat1} & 要合并的偏差矩阵1 \\
+\hline
+{\em dmat2} & 要合并的偏差矩阵2 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 339 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 403 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_aa4bf6ea43af41a463213c1620757685a}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!nnn\+\_\+read@{nnn\+\_\+read}}
 \index{nnn\+\_\+read@{nnn\+\_\+read}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -384,9 +559,16 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{const std\+::string \&}]{nnn}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_aa4bf6ea43af41a463213c1620757685a}
+读入参数nnn指定的神经网络json文件。
+
+读入后立刻创建一个计算结点，并等待训练命令。其中以文件名作为任务名进行设置。 
+\begin{DoxyParams}{参数}
+{\em nnn} & 要读入的神经网络文件路径 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 196 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 258 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a04ac84eff31dab37e338807a4d44d0b9}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!nnn\+\_\+write@{nnn\+\_\+write}}
 \index{nnn\+\_\+write@{nnn\+\_\+write}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -396,9 +578,18 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{{\bf nanai\+\_\+ann\+\_\+nanncalc} $\ast$}]{calc}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a04ac84eff31dab37e338807a4d44d0b9}
+写入calc当前的神经网络到nnn指定的路径。
+
+以计算结点的任务名作为文件名 + json进行输出。 
+\begin{DoxyParams}[1]{参数}
+\mbox{\tt in}  & {\em nnn} & 要输出的路径 \\
+\hline
+\mbox{\tt in}  & {\em calc} & 要输出的计算结点指针 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 235 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 302 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a28ea36058e9dfd5ce6b80d6011931acc}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!on\+\_\+error@{on\+\_\+error}}
 \index{on\+\_\+error@{on\+\_\+error}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -407,13 +598,18 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{int}]{err}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a28ea36058e9dfd5ce6b80d6011931acc}
+当出错时触发，重载基函数 
+\begin{DoxyParams}{参数}
+{\em err} & 发生错误时的代码 \\
+\hline
+\end{DoxyParams}
 
 
 重载 \hyperlink{classnanai_1_1nanai__object_a87f162335cead23a1409f7c0570a3284}{nanai\+::nanai\+\_\+object} .
 
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 646 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 740 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_ae0a3866bf95574f3d12543da7a326b08}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!set\+\_\+max@{set\+\_\+max}}
 \index{set\+\_\+max@{set\+\_\+max}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -422,9 +618,44 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{int}]{max}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_ae0a3866bf95574f3d12543da7a326b08}
+设置最大计算结点数量 
+\begin{DoxyParams}[1]{参数}
+\mbox{\tt in}  & {\em max} & 计算结点最大数量 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 309 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 373 行定义.
+
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_a9ce2dbf3146a70c2a32209820489d1c2}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!training@{training}}
+\index{training@{training}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
+\subsubsection[{training(const std\+::string \&json, nanai\+\_\+ann\+\_\+nanncalc $\ast$dcalc=nullptr, const char $\ast$task=nullptr, nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t $\ast$ann=nullptr, const char $\ast$alg=nullptr)}]{\setlength{\rightskip}{0pt plus 5cm}int nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::training (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{json, }
+\item[{{\bf nanai\+\_\+ann\+\_\+nanncalc} $\ast$}]{dcalc = {\ttfamily nullptr}, }
+\item[{const char $\ast$}]{task = {\ttfamily nullptr}, }
+\item[{{\bf nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} $\ast$}]{ann = {\ttfamily nullptr}, }
+\item[{const char $\ast$}]{alg = {\ttfamily nullptr}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a9ce2dbf3146a70c2a32209820489d1c2}
+输出结果，并调整误差
+
+使用json参数中的“input.\+json”格式进行训练样本与目标的输入。 如果指定的计算结点dcalc不为空，则直接使用，随后判断是否指定了算法alg。如果指定了则通过alg 寻找算法描述结点，如果没有找打则抛出异常“\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”。找到了则 修改当前dcalc计算结点的配置为算法alg的描述结点。如果指定了ann，则应用。 如果没有指定计算结点，首先会通过alg参数寻找当前管理器是否加载对应的算法描述插件，没有则抛出 “\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”，如果找到，则调用generate产生一个新的计算结点来进行 训练。 
+\begin{DoxyParams}[1]{参数}
+\mbox{\tt in}  & {\em json} & input.\+json格式文件 \\
+\hline
+\mbox{\tt in}  & {\em dcalc} & 要直接使用的计算结点，可选 \\
+\hline
+\mbox{\tt in}  & {\em task} & 任务的名称，可选 \\
+\hline
+\mbox{\tt in}  & {\em ann} & 人工神经网络，可选 \\
+\hline
+\mbox{\tt in}  & {\em alg} & 可选用的算法，可选 \\
+\hline
+\end{DoxyParams}
+
+
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 82 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a1b99f051a2a7b2b1ebb21bb45d567afa}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!training@{training}}
 \index{training@{training}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -440,9 +671,7 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a1b99f051a2a7b2b1ebb21bb45d567afa}
 输出结果，并调整误差
 
-如果指定的计算结点dcalc不为空，则直接使用，随后判断是否指定了算法alg。如果指定了则通过alg 寻找算法描述结点，如果没有找打则抛出异常“\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”。找到了则 修改当前dcalc计算结点的配置为算法alg的描述结点。如果指定了ann，则应用。如果指定了target 则应用当前指定的目标向量，如果没有指定则使用默认的目标向量。
-
-如果没有指定计算结点，首先会通过alg参数寻找当前管理器是否加载对应的算法描述插件，没有则抛出 “\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”，如果找到，则调用generate产生一个新的计算结点来进行 训练。如果指定了target则应用当前指定的目标向量，如果没有指定则使用默认的目标向量。 
+如果指定的计算结点dcalc不为空，则直接使用，随后判断是否指定了算法alg。如果指定了则通过alg 寻找算法描述结点，如果没有找打则抛出异常“\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”。找到了则 修改当前dcalc计算结点的配置为算法alg的描述结点。如果指定了ann，则应用。如果指定了target 则应用当前指定的目标向量，如果没有指定则使用默认的目标向量。 如果没有指定计算结点，首先会通过alg参数寻找当前管理器是否加载对应的算法描述插件，没有则抛出 “\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”，如果找到，则调用generate产生一个新的计算结点来进行 训练。如果指定了target则应用当前指定的目标向量，如果没有指定则使用默认的目标向量。 
 \begin{DoxyParams}[1]{参数}
 \mbox{\tt in}  & {\em input} & 输入样本向量 \\
 \hline
@@ -459,7 +688,37 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 78 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 103 行定义.
+
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_aaf7a2da88570d980d6533dbf3417a76c}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!training\+\_\+nooutput@{training\+\_\+nooutput}}
+\index{training\+\_\+nooutput@{training\+\_\+nooutput}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
+\subsubsection[{training\+\_\+nooutput(std\+::string \&json, nanai\+\_\+ann\+\_\+nanncalc $\ast$dcalc=nullptr, const char $\ast$task=nullptr, nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t $\ast$ann=nullptr, const char $\ast$alg=nullptr)}]{\setlength{\rightskip}{0pt plus 5cm}int nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::training\+\_\+nooutput (
+\begin{DoxyParamCaption}
+\item[{std\+::string \&}]{json, }
+\item[{{\bf nanai\+\_\+ann\+\_\+nanncalc} $\ast$}]{dcalc = {\ttfamily nullptr}, }
+\item[{const char $\ast$}]{task = {\ttfamily nullptr}, }
+\item[{{\bf nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} $\ast$}]{ann = {\ttfamily nullptr}, }
+\item[{const char $\ast$}]{alg = {\ttfamily nullptr}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_aaf7a2da88570d980d6533dbf3417a76c}
+不输出结果，调整误差
+
+使用json参数中的“input.\+json”格式进行训练样本与目标的输入。 如果指定的计算结点dcalc不为空，则直接使用，随后判断是否指定了算法alg。如果指定了则通过alg 寻找算法描述结点，如果没有找打则抛出异常“\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”。找到了则 修改当前dcalc计算结点的配置为算法alg的描述结点。如果指定了ann，则应用。 如果没有指定计算结点，首先会通过alg参数寻找当前管理器是否加载对应的算法描述插件，没有则抛出 “\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”，如果找到，则调用generate产生一个新的计算结点来进行 训练。 
+\begin{DoxyParams}[1]{参数}
+\mbox{\tt in}  & {\em json} & input.\+json格式文件 \\
+\hline
+\mbox{\tt in}  & {\em dcalc} & 要直接使用的计算结点，可选 \\
+\hline
+\mbox{\tt in}  & {\em task} & 任务的名称，可选 \\
+\hline
+\mbox{\tt in}  & {\em ann} & 人工神经网络，可选 \\
+\hline
+\mbox{\tt in}  & {\em alg} & 可选用的算法，可选 \\
+\hline
+\end{DoxyParams}
+
+
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 200 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a7461a5cad561f578869c850adf1e9639}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!training\+\_\+nooutput@{training\+\_\+nooutput}}
 \index{training\+\_\+nooutput@{training\+\_\+nooutput}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -473,9 +732,56 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{const char $\ast$}]{alg = {\ttfamily nullptr}}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a7461a5cad561f578869c850adf1e9639}
+不输出结果，调整误差
+
+如果指定的计算结点dcalc不为空，则直接使用，随后判断是否指定了算法alg。如果指定了则通过alg 寻找算法描述结点，如果没有找打则抛出异常“\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”。找到了则 修改当前dcalc计算结点的配置为算法alg的描述结点。如果指定了ann，则应用。如果指定了target 则应用当前指定的目标向量，如果没有指定则使用默认的目标向量。 如果没有指定计算结点，首先会通过alg参数寻找当前管理器是否加载对应的算法描述插件，没有则抛出 “\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”，如果找到，则调用generate产生一个新的计算结点来进行 训练。如果指定了target则应用当前指定的目标向量，如果没有指定则使用默认的目标向量。 
+\begin{DoxyParams}[1]{参数}
+\mbox{\tt in}  & {\em input} & 输入样本向量 \\
+\hline
+\mbox{\tt in}  & {\em target} & 训练目标向量，可选 \\
+\hline
+\mbox{\tt in}  & {\em dcalc} & 要直接使用的计算结点，可选 \\
+\hline
+\mbox{\tt in}  & {\em task} & 任务的名称，可选 \\
+\hline
+\mbox{\tt in}  & {\em ann} & 人工神经网络，可选 \\
+\hline
+\mbox{\tt in}  & {\em alg} & 可选用的算法，可选 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 157 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 220 行定义.
+
+\hypertarget{classnanai_1_1nanai__ann__nannmgr_a3fac18a4d69722ed887e89d4aebb3361}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!training\+\_\+notarget@{training\+\_\+notarget}}
+\index{training\+\_\+notarget@{training\+\_\+notarget}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
+\subsubsection[{training\+\_\+notarget(const std\+::string \&json, nanai\+\_\+ann\+\_\+nanncalc $\ast$dcalc=nullptr, const char $\ast$task=nullptr, nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t $\ast$ann=nullptr, const char $\ast$alg=nullptr)}]{\setlength{\rightskip}{0pt plus 5cm}int nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::training\+\_\+notarget (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{json, }
+\item[{{\bf nanai\+\_\+ann\+\_\+nanncalc} $\ast$}]{dcalc = {\ttfamily nullptr}, }
+\item[{const char $\ast$}]{task = {\ttfamily nullptr}, }
+\item[{{\bf nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} $\ast$}]{ann = {\ttfamily nullptr}, }
+\item[{const char $\ast$}]{alg = {\ttfamily nullptr}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a3fac18a4d69722ed887e89d4aebb3361}
+输出结果，不调整误差
+
+使用json参数中的“input.\+json”格式进行训练样本与目标的输入。 如果指定的计算结点dcalc不为空，则直接使用，随后判断是否指定了算法alg。如果指定了则通过alg 寻找算法描述结点，如果没有找打则抛出异常“\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”。找到了则 修改当前dcalc计算结点的配置为算法alg的描述结点。如果指定了ann，则应用。 如果没有指定计算结点，首先会通过alg参数寻找当前管理器是否加载对应的算法描述插件，没有则抛出 “\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”，如果找到，则调用generate产生一个新的计算结点来进行 训练。 
+\begin{DoxyParams}[1]{参数}
+\mbox{\tt in}  & {\em json} & input.\+json格式文件 \\
+\hline
+\mbox{\tt in}  & {\em dcalc} & 要直接使用的计算结点，可选 \\
+\hline
+\mbox{\tt in}  & {\em task} & 任务的名称，可选 \\
+\hline
+\mbox{\tt in}  & {\em ann} & 人工神经网络，可选 \\
+\hline
+\mbox{\tt in}  & {\em alg} & 可选用的算法，可选 \\
+\hline
+\end{DoxyParams}
+
+
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 149 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a7a28db94886caffa0824206c0e2b2fa9}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!training\+\_\+notarget@{training\+\_\+notarget}}
 \index{training\+\_\+notarget@{training\+\_\+notarget}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -488,9 +794,24 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \item[{const char $\ast$}]{alg = {\ttfamily nullptr}}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a7a28db94886caffa0824206c0e2b2fa9}
+输出结果，不调整误差
+
+如果指定的计算结点dcalc不为空，则直接使用，随后判断是否指定了算法alg。如果指定了则通过alg 寻找算法描述结点，如果没有找打则抛出异常“\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”。找到了则 修改当前dcalc计算结点的配置为算法alg的描述结点。如果指定了ann，则应用。 如果没有指定计算结点，首先会通过alg参数寻找当前管理器是否加载对应的算法描述插件，没有则抛出 “\+N\+A\+N\+A\+I\+\_\+\+E\+R\+R\+O\+R\+\_\+\+L\+O\+G\+I\+C\+\_\+\+A\+L\+G\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+N\+D”，如果找到，则调用generate产生一个新的计算结点来进行 训练。 
+\begin{DoxyParams}[1]{参数}
+\mbox{\tt in}  & {\em input} & 输入样本向量 \\
+\hline
+\mbox{\tt in}  & {\em dcalc} & 要直接使用的计算结点，可选 \\
+\hline
+\mbox{\tt in}  & {\em task} & 任务的名称，可选 \\
+\hline
+\mbox{\tt in}  & {\em ann} & 人工神经网络，可选 \\
+\hline
+\mbox{\tt in}  & {\em alg} & 可选用的算法，可选 \\
+\hline
+\end{DoxyParams}
 
 
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 124 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 167 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a061504e906faa17ab8cfeccb0f6c17bf}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!unlock@{unlock}}
 \index{unlock@{unlock}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -499,9 +820,9 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a061504e906faa17ab8cfeccb0f6c17bf}
+内部运行解锁 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 562 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 655 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a94024506784918f4808bbe28c4721335}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!version@{version}}
 \index{version@{version}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -510,9 +831,9 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{classnanai_1_1nanai__ann__nannmgr_a94024506784918f4808bbe28c4721335}
+获取版本号 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 424 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 517 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a41e95105ae57bf782fb5ad3b517c4a6a}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!waits@{waits}}
 \index{waits@{waits}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
@@ -521,9 +842,9 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [virtual]}}\label{classnanai_1_1nanai__ann__nannmgr_a41e95105ae57bf782fb5ad3b517c4a6a}
+等待所有计算结点线程结束 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 271 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+cc 第 335 行定义.
 
 
 
@@ -531,93 +852,93 @@ pthread\+\_\+mutex\+\_\+t \hyperlink{classnanai_1_1nanai__ann__nannmgr_a9c4963ab
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a3a14b96819511b38e30bd9857dd86b14}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!\+\_\+alg@{\+\_\+alg}}
 \index{\+\_\+alg@{\+\_\+alg}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
 \subsubsection[{\+\_\+alg}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::\+\_\+alg\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nannmgr_a3a14b96819511b38e30bd9857dd86b14}
+默认算法名称 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 139 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 266 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a3402ccfa83590793eb0755110e4a023e}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!\+\_\+algs@{\+\_\+algs}}
 \index{\+\_\+algs@{\+\_\+algs}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
 \subsubsection[{\+\_\+algs}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$std\+::pair$<$void$\ast$, {\bf fptr\+\_\+ann\+\_\+alg\+\_\+setup}$>$ $>$ nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::\+\_\+algs\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nannmgr_a3402ccfa83590793eb0755110e4a023e}
+从外部加载的算法都要保存在这里 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 148 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 275 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_aa808696e65d0f030afe6e2de2b7d3e6d}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!\+\_\+ann@{\+\_\+ann}}
 \index{\+\_\+ann@{\+\_\+ann}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
 \subsubsection[{\+\_\+ann}]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanai\+\_\+ann\+\_\+nanncalc\+::ann\+\_\+t} nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::\+\_\+ann\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nannmgr_aa808696e65d0f030afe6e2de2b7d3e6d}
+默认神经网络 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 140 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 267 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a25dc5374ad7545e1c6255afb647264a9}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!\+\_\+calcs@{\+\_\+calcs}}
 \index{\+\_\+calcs@{\+\_\+calcs}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
 \subsubsection[{\+\_\+calcs}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf nanai\+\_\+ann\+\_\+nanncalc}$\ast$$>$ nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::\+\_\+calcs\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nannmgr_a25dc5374ad7545e1c6255afb647264a9}
+计算结点队列指针 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 146 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 273 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a8531ad0d6391af0c318f286b44fd0604}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!\+\_\+curr\+\_\+calc@{\+\_\+curr\+\_\+calc}}
 \index{\+\_\+curr\+\_\+calc@{\+\_\+curr\+\_\+calc}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
 \subsubsection[{\+\_\+curr\+\_\+calc}]{\setlength{\rightskip}{0pt plus 5cm}int nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::\+\_\+curr\+\_\+calc\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nannmgr_a8531ad0d6391af0c318f286b44fd0604}
+当前计算结点数量 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 145 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 272 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a4ffd16017f8b8a0aa6dbd0c3210c13d2}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!\+\_\+descs@{\+\_\+descs}}
 \index{\+\_\+descs@{\+\_\+descs}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
 \subsubsection[{\+\_\+descs}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf nanai\+\_\+ann\+\_\+nanndesc}$>$ nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::\+\_\+descs\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nannmgr_a4ffd16017f8b8a0aa6dbd0c3210c13d2}
+算法描述结果队列 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 147 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 274 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a0da1bf8be2e30b97f5414dbba84a9e4c}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!\+\_\+etc\+\_\+dir@{\+\_\+etc\+\_\+dir}}
 \index{\+\_\+etc\+\_\+dir@{\+\_\+etc\+\_\+dir}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
 \subsubsection[{\+\_\+etc\+\_\+dir}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::\+\_\+etc\+\_\+dir\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nannmgr_a0da1bf8be2e30b97f5414dbba84a9e4c}
+算法配置文件目录 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 132 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 262 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a8305b13f05cfd2ec029dc325f0921609}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!\+\_\+home\+\_\+dir@{\+\_\+home\+\_\+dir}}
 \index{\+\_\+home\+\_\+dir@{\+\_\+home\+\_\+dir}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
 \subsubsection[{\+\_\+home\+\_\+dir}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::\+\_\+home\+\_\+dir\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nannmgr_a8305b13f05cfd2ec029dc325f0921609}
+工作主目录 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 130 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 260 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_ac074b69306e1ff1a381fbcde3d66d75c}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!\+\_\+lib\+\_\+dir@{\+\_\+lib\+\_\+dir}}
 \index{\+\_\+lib\+\_\+dir@{\+\_\+lib\+\_\+dir}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
 \subsubsection[{\+\_\+lib\+\_\+dir}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::\+\_\+lib\+\_\+dir\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nannmgr_ac074b69306e1ff1a381fbcde3d66d75c}
+库目录 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 131 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 261 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a9c4963abd61f8aa52b372c01062b5b4d}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!\+\_\+lock@{\+\_\+lock}}
 \index{\+\_\+lock@{\+\_\+lock}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
 \subsubsection[{\+\_\+lock}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+mutex\+\_\+t nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::\+\_\+lock\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nannmgr_a9c4963abd61f8aa52b372c01062b5b4d}
+全局锁，保护\+\_\+calcs队列 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 150 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 277 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a7d3908d8d93cc40191ec8f20f4808ba0}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!\+\_\+log\+\_\+dir@{\+\_\+log\+\_\+dir}}
 \index{\+\_\+log\+\_\+dir@{\+\_\+log\+\_\+dir}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
 \subsubsection[{\+\_\+log\+\_\+dir}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::\+\_\+log\+\_\+dir\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nannmgr_a7d3908d8d93cc40191ec8f20f4808ba0}
+日志目录 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 133 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 263 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a7133133957796b1b5b75e8d761b54866}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!\+\_\+max\+\_\+calc@{\+\_\+max\+\_\+calc}}
 \index{\+\_\+max\+\_\+calc@{\+\_\+max\+\_\+calc}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
 \subsubsection[{\+\_\+max\+\_\+calc}]{\setlength{\rightskip}{0pt plus 5cm}int nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::\+\_\+max\+\_\+calc\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nannmgr_a7133133957796b1b5b75e8d761b54866}
+最大计算结点数量 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 144 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 271 行定义.
 
 \hypertarget{classnanai_1_1nanai__ann__nannmgr_a384127c4c4058bc4b28bdf928d59588a}{}\index{nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}!\+\_\+target@{\+\_\+target}}
 \index{\+\_\+target@{\+\_\+target}!nanai\+::nanai\+\_\+ann\+\_\+nannmgr@{nanai\+::nanai\+\_\+ann\+\_\+nannmgr}}
 \subsubsection[{\+\_\+target}]{\setlength{\rightskip}{0pt plus 5cm}{\bf nanmath\+::nanmath\+\_\+vector} nanai\+::nanai\+\_\+ann\+\_\+nannmgr\+::\+\_\+target\hspace{0.3cm}{\ttfamily [protected]}}\label{classnanai_1_1nanai__ann__nannmgr_a384127c4c4058bc4b28bdf928d59588a}
+目标向量 
 
-
-在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 141 行定义.
+在文件 nanai\+\_\+ann\+\_\+nannmgr.\+h 第 268 行定义.
 
 
 

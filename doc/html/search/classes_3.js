@@ -3,6 +3,7 @@ var searchData=
   ['nanai_5fann_5fnanncalc',['nanai_ann_nanncalc',['../classnanai_1_1nanai__ann__nanncalc.html',1,'nanai']]],
   ['nanai_5fann_5fnannmgr',['nanai_ann_nannmgr',['../classnanai_1_1nanai__ann__nannmgr.html',1,'nanai']]],
   ['nanai_5ferror_5flogic_5falg_5fnot_5ffound',['nanai_error_logic_alg_not_found',['../classnanai_1_1nanai__error__logic__alg__not__found.html',1,'nanai']]],
+  ['nanai_5ferror_5flogic_5fann_5fnumber_5fless_5f2',['nanai_error_logic_ann_number_less_2',['../classnanai_1_1nanai__error__logic__ann__number__less__2.html',1,'nanai']]],
   ['nanai_5ferror_5flogic_5fhome_5fdir_5fnot_5fconfig',['nanai_error_logic_home_dir_not_config',['../classnanai_1_1nanai__error__logic__home__dir__not__config.html',1,'nanai']]],
   ['nanai_5ferror_5flogic_5finvalid_5fargument',['nanai_error_logic_invalid_argument',['../classnanai_1_1nanai__error__logic__invalid__argument.html',1,'nanai']]],
   ['nanai_5ferror_5flogic_5finvalid_5fconfig',['nanai_error_logic_invalid_config',['../classnanai_1_1nanai__error__logic__invalid__config.html',1,'nanai']]],

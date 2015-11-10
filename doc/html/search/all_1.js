@@ -4,7 +4,6 @@ var searchData=
   ['add_5falg',['add_alg',['../classnanai_1_1nanai__ann__nannmgr.html#aaf4b292087f8f3f48f6a77140dd512ca',1,'nanai::nanai_ann_nannmgr']]],
   ['alg',['alg',['../struct__nannmgr__node.html#a0c18527e5a7545153dec9cde85032b1f',1,'_nannmgr_node']]],
   ['alg_5fname',['alg_name',['../nanai__ann__alg__logistic_8cc.html#a21480ab0c40aac8e0926656f33a3c155',1,'nanai_ann_alg_logistic.cc']]],
-  ['algname',['algname',['../structnanai_1_1__nanai__ann__nnn.html#a2d2b2bebff29680023fb37c6ba5ff657',1,'nanai::_nanai_ann_nnn']]],
   ['ann',['ann',['../structnanai_1_1nanai__ann__nanncalc_1_1ncommand.html#a64d0d3494fb258a2d7dc7770b7a1da96',1,'nanai::nanai_ann_nanncalc::ncommand::ann()'],['../struct__nannmgr__node.html#a610ea5ea6fe3cff8a7554ccff7a10f5d',1,'_nannmgr_node::ann()']]],
   ['ann_5fadjust_5fweight',['ann_adjust_weight',['../classnanai_1_1nanai__ann__nanncalc.html#a6066093c9c477445b6bc93261608c1b1',1,'nanai::nanai_ann_nanncalc']]],
   ['ann_5falg_5flogistic_5fmain',['ann_alg_logistic_main',['../nanai__ann__alg__logistic_8cc.html#a4f489f346a33b59185f5e8160854487a',1,'nanai_ann_alg_logistic.cc']]],
