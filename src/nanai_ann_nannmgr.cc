@@ -25,14 +25,22 @@
 #include <nanai_ann_alg_logistic.h>
 
 namespace nanai {  
-  nanai_ann_nannmgr::nanai_ann_nannmgr(int max, int now_start) {
-    init(max, now_start, nullptr);
-  }
-  
-  nanai_ann_nannmgr::nanai_ann_nannmgr(std::string alg,
+  nanai_ann_nannmgr::nanai_ann_nannmgr(const std::string &alg,
                                        nanai_ann_nanncalc::ann_t &ann,
                                        nanmath::nanmath_vector *target,
-                                       const char *task,
+                                       int max,
+                                       int now_start) {
+    _alg = alg;
+    _ann = ann;
+    if (target) _target = *target;
+    
+    init(max, now_start, "nanan");
+  }
+  
+  nanai_ann_nannmgr::nanai_ann_nannmgr(const std::string &alg,
+                                       const std::string &task,
+                                       nanai_ann_nanncalc::ann_t &ann,
+                                       nanmath::nanmath_vector *target,
                                        int max,
                                        int now_start) {
     _alg = alg;
@@ -55,6 +63,10 @@ namespace nanai {
       }
     }/* end for */
     
+    if (pthread_mutex_destroy(&_lock_jids) != 0) {
+      error(NANAI_ERROR_RUNTIME_DESTROY_MUTEX);
+    }
+    
     if (pthread_mutex_destroy(&_lock) != 0) {
       error(NANAI_ERROR_RUNTIME_DESTROY_MUTEX);
     }
@@ -62,12 +74,16 @@ namespace nanai {
   
   void nanai_ann_nannmgr::init(int max,
                                int now_start,
-                               const char *task) {
+                               const std::string &task) {
     _max_calc = max;
     _curr_calc = 0;
     configure();
     
     if (pthread_mutex_init(&_lock, NULL) != 0) {
+      error(NANAI_ERROR_RUNTIME_INIT_MUTEX);
+    }
+    
+    if (pthread_mutex_init(&_lock_jids, NULL) != 0) {
       error(NANAI_ERROR_RUNTIME_INIT_MUTEX);
     }
     
@@ -83,8 +99,8 @@ namespace nanai {
   }
   
   int nanai_ann_nannmgr::training(const std::string &json,
+                                  const std::string &task,
                                   nanai_ann_nanncalc *dcalc,
-                                  const char *task,
                                   nanai_ann_nanncalc::ann_t *ann,
                                   const char *alg) {
     std::vector<nanmath::nanmath_vector> inputs;
@@ -95,8 +111,8 @@ namespace nanai {
     nanai_support_input_json(json, inputs, &target);
     
     for (auto x : inputs) {
-      if (target.size()) training(x, &target, dcalc, task, ann, alg);
-      else training(x, nullptr, dcalc, task, ann, alg);
+      if (target.size()) training(x, &target, task, dcalc, ann, alg);
+      else training(x, nullptr, task, dcalc, ann, alg);
       i++;
     }
     
@@ -105,10 +121,16 @@ namespace nanai {
   
   nanai_ann_nanncalc *nanai_ann_nannmgr::training(nanmath::nanmath_vector &input,
                                                   nanmath::nanmath_vector *target,
+                                                  const std::string &task,
                                                   nanai_ann_nanncalc *dcalc,
-                                                  const char *task,
                                                   nanai_ann_nanncalc::ann_t *ann,
                                                   const char *alg) {
+    if (task.empty()) {
+      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    }
+    
+    std::string task_ = get_task_jid(task);
+    
     /* 如果计算结点存在则使用 */
     if (dcalc) {
       /* 如果指定了算法名称 */
@@ -127,8 +149,8 @@ namespace nanai {
         dcalc->do_ann_exchange(*ann);
       }
       
-      if (target) dcalc->ann_training(input, *target, task);
-      else dcalc->ann_training(input, _target, task);
+      if (target) dcalc->ann_training(input, *target, task_);
+      else dcalc->ann_training(input, _target, task_);
       
       return dcalc;
     }
@@ -140,17 +162,17 @@ namespace nanai {
     }
     
     /* 产生新结点进行运算 */
-    nanai_ann_nanncalc *calc = generate(*desc, ann, task);
+    nanai_ann_nanncalc *calc = generate(*desc, task_, ann);
     
-    if (target) calc->ann_training(input, *target, task);
-    else calc->ann_training(input, _target, task);
+    if (target) calc->ann_training(input, *target, task_);
+    else calc->ann_training(input, _target, task_);
     
     return calc;
   }
   
   int nanai_ann_nannmgr::training_notarget(const std::string &json,
+                                           const std::string &task,
                                            nanai_ann_nanncalc *dcalc,
-                                           const char *task,
                                            nanai_ann_nanncalc::ann_t *ann,
                                            const char *alg) {
     std::vector<nanmath::nanmath_vector> inputs;
@@ -159,7 +181,7 @@ namespace nanai {
     /* 解析json */
     nanai_support_input_json(json, inputs, nullptr);
     for (auto x : inputs) {
-      training_notarget(x, dcalc, task, ann, alg);
+      training_notarget(x, task, dcalc, ann, alg);
       i++;
     }
     
@@ -167,10 +189,17 @@ namespace nanai {
   }
   
   nanai_ann_nanncalc *nanai_ann_nannmgr::training_notarget(nanmath::nanmath_vector &input,
+                                                           const std::string &task,
                                                            nanai_ann_nanncalc *dcalc,
-                                                           const char *task,
                                                            nanai_ann_nanncalc::ann_t *ann,
                                                            const char *alg) {
+    
+    if (task.empty()) {
+      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    }
+    
+    std::string task_ = get_task_jid(task);
+    
     if (dcalc) {
       if (alg) {
         nanai_ann_nanndesc *desc = find_alg(alg);
@@ -184,7 +213,7 @@ namespace nanai {
       if (ann) {
         dcalc->do_ann_exchange(*ann);
       }
-      dcalc->ann_training_notarget(input, task);
+      dcalc->ann_training_notarget(input, task_);
       return dcalc;
     }
     
@@ -194,14 +223,14 @@ namespace nanai {
       error(NANAI_ERROR_LOGIC_ALG_NOT_FOUND);
     }
     
-    nanai_ann_nanncalc *calc = generate(*desc, ann, task);
-    calc->ann_training_notarget(input, task);
+    nanai_ann_nanncalc *calc = generate(*desc, task_, ann);
+    calc->ann_training_notarget(input, task_);
     return calc;
   }
 
-  int nanai_ann_nannmgr::training_nooutput(std::string &json,
+  int nanai_ann_nannmgr::training_nooutput(const std::string &json,
+                                           const std::string &task,
                                            nanai_ann_nanncalc *dcalc,
-                                           const char *task,
                                            nanai_ann_nanncalc::ann_t *ann,
                                            const char *alg) {
     std::vector<nanmath::nanmath_vector> inputs;
@@ -211,8 +240,8 @@ namespace nanai {
     /* 解析json */
     nanai_support_input_json(json, inputs, &target);
     for (auto x : inputs) {
-      if (target.size()) training_nooutput(x, &target, dcalc, task, ann, alg);
-      else training_nooutput(x, nullptr, dcalc, task, ann, alg);
+      if (target.size()) training_nooutput(x, &target, task, dcalc, ann, alg);
+      else training_nooutput(x, nullptr, task, dcalc, ann, alg);
       i++;
     }
     
@@ -220,11 +249,18 @@ namespace nanai {
   }
   
   nanai_ann_nanncalc *nanai_ann_nannmgr::training_nooutput(nanmath::nanmath_vector &input,
-                                                nanmath::nanmath_vector *target,
-                                                nanai_ann_nanncalc *dcalc,
-                                                const char *task,
-                                                nanai_ann_nanncalc::ann_t *ann,
-                                                const char *alg) {
+                                                           nanmath::nanmath_vector *target,
+                                                           const std::string &task,
+                                                           nanai_ann_nanncalc *dcalc,
+                                                           nanai_ann_nanncalc::ann_t *ann,
+                                                           const char *alg) {
+    if (task.empty()) {
+      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    }
+    
+    std::string task_ = get_task_jid(task);
+    
+    
     if (dcalc) {
       if (alg) {
         nanai_ann_nanndesc *desc = find_alg(alg);
@@ -250,9 +286,9 @@ namespace nanai {
       error(NANAI_ERROR_LOGIC_ALG_NOT_FOUND);
     }
     
-    nanai_ann_nanncalc *calc = generate(*desc, ann, task);
-    if (target) calc->ann_training_nooutput(input, *target, task);
-    else calc->ann_training_nooutput(input, _target, task);
+    nanai_ann_nanncalc *calc = generate(*desc, task_, ann);
+    if (target) calc->ann_training_nooutput(input, *target, task_);
+    else calc->ann_training_nooutput(input, _target, task_);
     
     return calc;
   }
@@ -297,8 +333,8 @@ namespace nanai {
     file.close();
     
     /* 取出文件名作为任务名，启动一个计算结点，并且应用当前的神经网络 */
-    std::string task = nanai_support_just_filename(nnn);
-    return generate(*desc, &ann, task.c_str());
+    std::string task = get_task_jid(nanai_support_just_filename(nnn));
+    return generate(*desc, task, &ann);
   }
   
   void nanai_ann_nannmgr::nnn_write(const std::string &nnn,
@@ -387,7 +423,7 @@ namespace nanai {
     
     std::string reg = "^" + task;
     for (auto calc : _calcs) {
-      tmps = calc->get_matched_outputs(task, lock_c, not_pop);
+      tmps = calc->get_matched_outputs(reg, lock_c, not_pop);
       if (tmps.empty()) continue;
       for (auto i : tmps) outputs.push_back(i);
     }
@@ -514,16 +550,43 @@ namespace nanai {
     return c;
   }
   
-  int nanai_ann_nannmgr::get_jid(std::string &task) {
+  int nanai_ann_nannmgr::get_jid(const std::string &task) {
     if (task.empty()) {
       return -1;
     }
+    
+    lock_jids();
+    
+    if (_jobs.find(task) == _jobs.end()) {
+      _jobs[task] = 0;
+      
+    }
+    _jobs[task]++;
+    int r = _jobs[task];
+    
+    unlock_jids();
+    
+    return r;
+  }
+  
+  std::string nanai_ann_nannmgr::get_task_jid(const std::string &task) {
+    if (task.empty()) {
+      return "";
+    }
+    
+    lock_jids();
     
     if (_jobs.find(task) == _jobs.end()) {
       _jobs[task] = 0;
     }
     
-    return _jobs[task]++;
+    _jobs[task]++;
+    std::ostringstream oss;
+    oss << task << "." << _jobs[task];
+    
+    unlock_jids();
+    
+    return oss.str();
   }
   
   void nanai_ann_nannmgr::merge_ann_by_task(std::string task,
@@ -735,12 +798,24 @@ namespace nanai {
     }
   }
   
+  void nanai_ann_nannmgr::lock_jids() {
+    if (pthread_mutex_lock(&_lock_jids) != 0) {
+      error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
+    }
+  }
+  
+  void nanai_ann_nannmgr::unlock_jids() {
+    if (pthread_mutex_unlock(&_lock_jids) != 0) {
+      error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
+    }
+  }
+  
   nanai_ann_nanncalc *nanai_ann_nannmgr::generate_by_task(std::vector<nanai_ann_nanncalc*> &calcs,
                                                           nanai_ann_nanndesc &desc,
-                                                          const char *task,
+                                                          const std::string &task,
                                                           nanai_ann_nanncalc::ann_t *ann) {
     
-    if (task == nullptr) {
+    if (task.empty()) {
       return nullptr;
     }
     
@@ -748,9 +823,8 @@ namespace nanai {
     std::vector<nanai_ann_nanncalc*> found_node;
     
     /* 从所有线程中找到相同任务名的所有结点 */
-    std::string task_ = task;
     for (auto i : calcs) {
-      if (match_task_name(task_, i->get_task_name())) {
+      if (match_task_name(task, i->get_task_name())) {
         found_node.push_back(i);
       }
     }
@@ -777,7 +851,7 @@ namespace nanai {
 
   nanai_ann_nanncalc *nanai_ann_nannmgr::generate_by_desc(std::vector<nanai_ann_nanncalc*> &calcs,
                                                           nanai_ann_nanndesc &desc,
-                                                          const char *task,
+                                                          const std::string &task,
                                                           nanai_ann_nanncalc::ann_t *ann) {
     std::vector<nanai_ann_nanncalc*> found_node;
     
@@ -806,8 +880,8 @@ namespace nanai {
   }
   
   nanai_ann_nanncalc *nanai_ann_nannmgr::generate(nanai_ann_nanndesc &desc,
-                                                  nanai_ann_nanncalc::ann_t *ann,
-                                                  const char *task) {
+                                                  const std::string &task,
+                                                  nanai_ann_nanncalc::ann_t *ann) {
     lock();
     nanai_ann_nanncalc *calc = nullptr;
     
@@ -848,9 +922,11 @@ namespace nanai {
   }
   
   nanai_ann_nanncalc *nanai_ann_nannmgr::make(nanai_ann_nanndesc &desc,
-                                              const char *task,
+                                              const std::string &task,
                                               nanai_ann_nanncalc::ann_t *ann) {
-    nanai_ann_nanncalc *calc = new nanai_ann_nanncalc(desc, _log_dir.c_str(), task);
+    if (task.empty()) return nullptr;
+    
+    nanai_ann_nanncalc *calc = new nanai_ann_nanncalc(desc, task, _log_dir.c_str());
     if (calc == NULL) {
       error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
     }

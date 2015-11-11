@@ -1,11 +1,16 @@
 #include <cstdio>
 #include <iostream>
 #include <fstream>
+#include <ostream>
+#include <sstream>
+#include <string>
 #include <map>
-#include <pthread.h>
 #include <stdexcept>
 #include <iomanip>
+
+#include <pthread.h>
 #include <Python/Python.h>
+
 #include <nanai_common.h>
 #include <nanai_ann_nannmgr.h>
 #include <nanai_object.h>
@@ -93,8 +98,8 @@ static PyObject *wrap_test(PyObject *self, PyObject *args) {
   Py_RETURN_NONE;
 }
 
-static PyObject *create_nannmgr(const char *task,
-                                const char *json,
+static PyObject *create_nannmgr(const std::string &task,
+                                const std::string &json,
                                 int max_calc,
                                 int now_calc) {
   std::string alg;
@@ -127,8 +132,7 @@ static PyObject *create_nannmgr(const char *task,
   
   nanai_ann_nannmgr *nannmgr = nullptr;
   try {
-    if (max_calc == 0) nannmgr = new nanai_ann_nannmgr(alg, ann, &target, task);
-    else nannmgr = new nanai_ann_nannmgr(alg, ann, &target, task, max_calc, now_calc);
+    nannmgr = new nanai_ann_nannmgr(alg, ann, &target);
   } catch (...) {
     return do_except(PYNANN_ERROR_INTERNAL);
   }
@@ -244,14 +248,14 @@ static PyObject *wrap_training(PyObject *self, PyObject *args) {
     for (auto i : samples) {
       if (target.size() == 0) g_mgrlist[task].mgr->training(i,
                                                             nullptr,
+                                                            task,
                                                             nullptr,
-                                                            task_arg,
                                                             nullptr,
                                                             g_mgrlist[task].alg.c_str());
       else g_mgrlist[task].mgr->training(i,
                                          &target,
+                                         task,
                                          nullptr,
-                                         task_arg,
                                          nullptr,
                                          g_mgrlist[task].alg.c_str());;
     }
@@ -291,8 +295,8 @@ static PyObject *wrap_training_notarget(PyObject *self, PyObject *args) {
   try {
     for (auto i : samples) {
       g_mgrlist[task].mgr->training_notarget(i,
+                                             task,
                                              nullptr,
-                                             task_arg,
                                              nullptr,
                                              g_mgrlist[task].alg.c_str());
     }
@@ -333,15 +337,15 @@ static PyObject *wrap_training_nooutput(PyObject *self, PyObject *args) {
   try {
     for (auto i : samples) {
       if (target.size() == 0) g_mgrlist[task].mgr->training_nooutput(i,
-                                                                     &target,
                                                                      nullptr,
-                                                                     task_arg,
+                                                                     task,
+                                                                     nullptr,
                                                                      nullptr,
                                                                      g_mgrlist[task].alg.c_str());
       else g_mgrlist[task].mgr->training_nooutput(i,
+                                                  &target,
+                                                  task,
                                                   nullptr,
-                                                  nullptr,
-                                                  task_arg,
                                                   nullptr,
                                                   g_mgrlist[task].alg.c_str());
     }
@@ -549,6 +553,84 @@ static PyObject *wrap_merge(PyObject *self, PyObject *args) {
   return Py_BuildValue("s", json_context.c_str());
 }
 
+static PyObject *wrap_get_outputs(PyObject *self, PyObject *args) {
+  char *task = nullptr;
+  if (!PyArg_ParseTuple(args, "s", &task)) {
+    return do_except(PYNANN_WARNING_INVALID_ARGUMENT);
+  }
+  
+  if (g_mgrlist.find(task) == g_mgrlist.end()) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST);
+  }
+  
+  std::vector<nanai_ann_nanncalc::task_output_t> outputs;
+  std::ostringstream oss;
+  try {
+    
+    outputs = g_mgrlist[task].mgr->get_all_outputs(task);
+    
+    oss << "{\n";
+    
+    for (auto i : outputs) {
+      oss << "\t" << "\"" << i.first << "\": [";
+      for (size_t j = 0; j < i.second.size(); j++) {
+        oss << i.second[j];
+        if (j < i.second.size() - 1) oss << ", ";
+      }
+      oss << "]\n";
+    }
+    
+    oss << "}";
+    
+  } catch (nanai_error_logic_invalid_argument e) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT, e.what());
+  } catch (nanai_error_logic_ann_number_less_2 e) {
+    return do_except(PYNANN_ERROR_INTERNAL, e.what());
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL);
+  }
+  
+  return Py_BuildValue("s", oss.str().c_str());
+}
+
+static PyObject *wrap_get_output_by_jid(PyObject *self, PyObject *args) {
+  char *task = nullptr;
+  int jid = 0;
+  if (!PyArg_ParseTuple(args, "si", &task, &jid)) {
+    return do_except(PYNANN_WARNING_INVALID_ARGUMENT);
+  }
+  
+  if (g_mgrlist.find(task) == g_mgrlist.end()) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST);
+  }
+  
+  nanmath::nanmath_vector output;
+  std::ostringstream oss;
+  try {
+    output = g_mgrlist[task].mgr->get_job_output(task, jid);
+    
+    oss << "{\n";
+    oss << "\t" << "\"" << task << "." << jid << "\": [";
+      for (size_t j = 0; j < output.size(); j++) {
+        oss << output[j];
+        if (j < output.size() - 1) oss << ", ";
+      }
+      oss << "]\n";
+    
+    oss << "}";
+    
+  } catch (nanai_error_logic_invalid_argument e) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT, e.what());
+  } catch (nanai_error_logic_ann_number_less_2 e) {
+    return do_except(PYNANN_ERROR_INTERNAL, e.what());
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL);
+  }
+  
+  return Py_BuildValue("s", oss.str().c_str());
+}
+
+
 /**************************************************************************************************************/
 
 static PyMethodDef nannMethods[] = {
@@ -567,6 +649,8 @@ static PyMethodDef nannMethods[] = {
   { "print_info", wrap_print_info, METH_VARARGS, "print ann from task." },
   { "iscalcing", wrap_iscalcing, METH_VARARGS, "some task is running." },
   { "merge", wrap_merge, METH_VARARGS, "merge task's all ann to one." },
+  { "get_outputs", wrap_get_outputs, METH_VARARGS, "get task all outputs." },
+  { "get_output_by_jid", wrap_get_output_by_jid, METH_VARARGS, "get task output by jid." },
   { NULL, NULL, 0, NULL }
 };
 

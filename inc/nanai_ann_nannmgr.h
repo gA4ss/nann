@@ -12,22 +12,25 @@ namespace nanai {
   /*! 管理器类用于管理所有计算结点线程，为了能做到高并发，并且可以在外部获取到计算的结果，
       这里将一组task分解成n个job，例如一个任务名为:"task"，则当有多个训练样本时，管理器会
       维护一个计数器用来计数job，然后再以task.jid的形式下发给计算结点。计算结点以task.jid
-      为任务名进行计算
+      为任务名进行计算。所有任务必须有任务名
    */
   class nanai_ann_nannmgr : public nanai_object {
   public:
     /*! 管理器构造函数. */
-    nanai_ann_nannmgr(int max=1024,     /*!< [in] 最大计算结点(线程),默认为1024 */
-                      int now_start=0   /*!< [in] 当前就要启动的计算结点数 */
-                      );
-    
-    /*! 管理器构造函数. */
-    nanai_ann_nannmgr(std::string alg,                  /*!< [in] 要设定的神经网络算法 */
+    nanai_ann_nannmgr(const std::string &alg,           /*!< [in] 要设定的神经网络算法 */
                       nanai_ann_nanncalc::ann_t &ann,   /*!< [in] 要设定的人工神经网络 */
                       nanmath::nanmath_vector *target,  /*!< [in] 要训练的目标向量，可选*/
-                      const char *task=nullptr,         /*!< [in] 直接赋予的任务名 */
                       int max=1024,                     /*!< [in] 最大计算结点(线程),默认为1024 */
                       int now_start=0                   /*!< [in] 当前就要启动的计算结点数 */
+    );
+    
+    /*! 管理器构造函数. */
+    nanai_ann_nannmgr(const std::string &alg,           /*!< [in] 要设定的神经网络算法 */
+                      const std::string &task,          /*!< [in] 直接赋予的任务名 */
+                      nanai_ann_nanncalc::ann_t &ann,   /*!< [in] 要设定的人工神经网络 */
+                      nanmath::nanmath_vector *target,  /*!< [in] 要训练的目标向量，可选 */
+                      int max,                          /*!< [in] 最大计算结点(线程) */
+                      int now_start                     /*!< [in] 当前就要启动的计算结点数 */
                       );
     /*! 析构函数.
      
@@ -36,9 +39,9 @@ namespace nanai {
     virtual ~nanai_ann_nannmgr();
   protected:
     /*! 初始化所有的数据. */
-    virtual void init(int max,          /*!< [in] 最大计算结点(线程),默认为1024 */
-                      int now_start,    /*!< [in] 当前就要启动的计算结点数 */
-                      const char *task  /*!< [in] 任务名 */
+    virtual void init(int max,                  /*!< [in] 最大计算结点(线程),默认为1024 */
+                      int now_start,            /*!< [in] 当前就要启动的计算结点数 */
+                      const std::string &task   /*!< [in] 任务名 */
                       );
     
   public:
@@ -54,8 +57,8 @@ namespace nanai {
         训练。
      */
     virtual int training(const std::string &json,                 /*!< [in] input.json格式文件 */
+                         const std::string &task,                 /*!< [in] 任务的名称 */
                          nanai_ann_nanncalc *dcalc=nullptr,       /*!< [in] 要直接使用的计算结点，可选 */
-                         const char *task=nullptr,                /*!< [in] 任务的名称，可选 */
                          nanai_ann_nanncalc::ann_t *ann=nullptr,  /*!< [in] 人工神经网络，可选 */
                          const char *alg=nullptr                  /*!< [in] 可选用的算法，可选 */
                          );
@@ -73,8 +76,8 @@ namespace nanai {
      */
     virtual nanai_ann_nanncalc *training(nanmath::nanmath_vector &input,          /*!< [in] 输入样本向量 */
                                          nanmath::nanmath_vector *target,         /*!< [in] 训练目标向量，可选 */
+                                         const std::string &task,                 /*!< [in] 任务的名称，可选 */
                                          nanai_ann_nanncalc *dcalc=nullptr,       /*!< [in] 要直接使用的计算结点，可选 */
-                                         const char *task=nullptr,                /*!< [in] 任务的名称，可选 */
                                          nanai_ann_nanncalc::ann_t *ann=nullptr,  /*!< [in] 人工神经网络，可选 */
                                          const char *alg=nullptr                  /*!< [in] 可选用的算法，可选 */
                                          );
@@ -90,8 +93,8 @@ namespace nanai {
         训练。
      */
     virtual int training_notarget(const std::string &json,                  /*!< [in] input.json格式文件 */
+                                  const std::string &task,                  /*!< [in] 任务的名称 */
                                   nanai_ann_nanncalc *dcalc=nullptr,        /*!< [in] 要直接使用的计算结点，可选 */
-                                  const char *task=nullptr,                 /*!< [in] 任务的名称，可选 */
                                   nanai_ann_nanncalc::ann_t *ann=nullptr,   /*!< [in] 人工神经网络，可选 */
                                   const char *alg=nullptr                   /*!< [in] 可选用的算法，可选 */
                                   );
@@ -106,8 +109,8 @@ namespace nanai {
      训练。
      */
     virtual nanai_ann_nanncalc *training_notarget(nanmath::nanmath_vector &input,           /*!< [in] 输入样本向量 */
+                                                  const std::string &task,                  /*!< [in] 任务的名称 */
                                                   nanai_ann_nanncalc *dcalc=nullptr,        /*!< [in] 要直接使用的计算结点，可选 */
-                                                  const char *task=nullptr,                 /*!< [in] 任务的名称，可选 */
                                                   nanai_ann_nanncalc::ann_t *ann=nullptr,   /*!< [in] 人工神经网络，可选 */
                                                   const char *alg=nullptr                   /*!< [in] 可选用的算法，可选 */
                                                   );
@@ -122,9 +125,9 @@ namespace nanai {
         “NANAI_ERROR_LOGIC_ALG_NOT_FOUND”，如果找到，则调用generate产生一个新的计算结点来进行
         训练。
      */
-    virtual int training_nooutput(std::string &json,                              /*!< [in] input.json格式文件 */
+    virtual int training_nooutput(const std::string &json,                        /*!< [in] input.json格式文件 */
+                                  const std::string &task,                        /*!< [in] 任务的名称 */
                                   nanai_ann_nanncalc *dcalc=nullptr,              /*!< [in] 要直接使用的计算结点，可选 */
-                                  const char *task=nullptr,                       /*!< [in] 任务的名称，可选 */
                                   nanai_ann_nanncalc::ann_t *ann=nullptr,         /*!< [in] 人工神经网络，可选 */
                                   const char *alg=nullptr                         /*!< [in] 可选用的算法，可选 */
                                   );
@@ -141,8 +144,8 @@ namespace nanai {
      */
     virtual nanai_ann_nanncalc *training_nooutput(nanmath::nanmath_vector &input,           /*!< [in] 输入样本向量 */
                                                   nanmath::nanmath_vector *target,          /*!< [in] 训练目标向量，可选 */
+                                                  const std::string &task,                  /*!< [in] 任务的名称 */
                                                   nanai_ann_nanncalc *dcalc=nullptr,        /*!< [in] 要直接使用的计算结点，可选 */
-                                                  const char *task=nullptr,                 /*!< [in] 任务的名称，可选 */
                                                   nanai_ann_nanncalc::ann_t *ann=nullptr,   /*!< [in] 人工神经网络，可选 */
                                                   const char *alg=nullptr                   /*!< [in] 可选用的算法，可选 */
                                                   );
@@ -218,8 +221,13 @@ namespace nanai {
                                                        nanmath::nanmath_matrix &dmat2         /*!< 要合并的偏差矩阵2 */
                                                        );
     /*! 获取jobid */
-    virtual int get_jid(std::string &task     /*!< [in] 任务名 */
+    virtual int get_jid(const std::string &task         /*!< [in] 任务名 */
                         );
+    
+    /*! 获取任务.jid字符串 */
+    std::string get_task_jid(const std::string &task    /*!< [in] 任务名 */
+                             );
+    
   public:
     /*! 已经死亡的计算结点数量 */
     virtual int dead_task();
@@ -250,22 +258,26 @@ namespace nanai {
     /*! 寻找已经安装的算法，找到返回描述指针，没找到返回nullptr */
     virtual nanai_ann_nanndesc *find_alg(std::string alg  /*!< 算法名称 */
                                          );
-    
     /*! 内部运行锁 */
     virtual void lock();
     /*! 内部运行解锁 */
     virtual void unlock();
     
+    /*! 内部运行锁，保护_jids，防治多个外部线程调用训练算法，引发错误 */
+    virtual void lock_jids();
+    /*! 内部运行解锁，保护_jids，防治多个外部线程调用训练算法，引发错误 */
+    virtual void unlock_jids();
+    
     /*! 按照任务名产生策略 */
     static nanai_ann_nanncalc *generate_by_task(std::vector<nanai_ann_nanncalc*> &calcs,        /*!< [in] 计算结点队列 */
                                                 nanai_ann_nanndesc &desc,                       /*!< [in] 算法描述指针 */
-                                                const char *task,                               /*!< [in] 指定的任务名 */
+                                                const std::string &task,                        /*!< [in] 指定的任务名 */
                                                 nanai_ann_nanncalc::ann_t *ann                  /*!< [in] 要更换的神经网络指针  */
                                                 );
     /*! 按照描述产生策略 */
     static nanai_ann_nanncalc *generate_by_desc(std::vector<nanai_ann_nanncalc*> &calcs,        /*!< [in] 计算结点队列 */
                                                 nanai_ann_nanndesc &desc,                       /*!< [in] 算法描述指针 */
-                                                const char *task,                               /*!< [in] 指定的任务名 */
+                                                const std::string &task,                        /*!< [in] 指定的任务名 */
                                                 nanai_ann_nanncalc::ann_t *ann                  /*!< [in] 要更换的神经网络指针  */
                                                 );
     
@@ -275,13 +287,13 @@ namespace nanai {
      
      */
     virtual nanai_ann_nanncalc *generate(nanai_ann_nanndesc &desc,                /*!< [in] 算法描述 */
-                                         nanai_ann_nanncalc::ann_t *ann=NULL,     /*!< [in] 神经网络指针 */
-                                         const char *task=NULL                    /*!< [in] 任务名 */
+                                         const std::string &task,                 /*!< [in] 任务名 */
+                                         nanai_ann_nanncalc::ann_t *ann=nullptr   /*!< [in] 神经网络指针 */
                                          );
     
     /*! 产生计算结点 */
     virtual nanai_ann_nanncalc *make(nanai_ann_nanndesc &desc,                    /*!< [in] 算法描述结点 */
-                                     const char *task=nullptr,                    /*!< [in] 任务名 */
+                                     const std::string &task,                     /*!< [in] 任务名 */
                                      nanai_ann_nanncalc::ann_t *ann=nullptr       /*!< [in] 神经网络 */
                                      );
     
@@ -298,7 +310,11 @@ namespace nanai {
   protected:
     /*!< 策略产生函数指针 */
     typedef nanai_ann_nanncalc *(*fptr_policy_generate)
-    (std::vector<nanai_ann_nanncalc*> &calcs, nanai_ann_nanndesc &desc, const char *task, nanai_ann_nanncalc::ann_t *ann);
+    (std::vector<nanai_ann_nanncalc*> &calcs,
+     nanai_ann_nanndesc &desc,
+     const std::string &task,
+     nanai_ann_nanncalc::ann_t *ann
+     );
     std::vector<fptr_policy_generate> _fptr_policy_generates;                      /*!< 产生计算结点策略函数指针 */
     
   protected:
@@ -321,6 +337,7 @@ namespace nanai {
     std::map<std::string, int> _jobs;
     
     pthread_mutex_t _lock;                                      /*!< 全局锁，保护_calcs队列 */
+    pthread_mutex_t _lock_jids;                                 /*!< 线程锁，保护_jobs队列 */
   };
 }
 

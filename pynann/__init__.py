@@ -110,6 +110,17 @@ def training_nooutput(task, json, is_file=False):
         json_text = json    
     return nann.training_nooutput(task, json_text)
 
+#----------------------------------------------------------------------
+def get_outputs(task):
+    """get task outputs"""
+    return nann.get_outputs(task)
+    
+#----------------------------------------------------------------------
+def get_output_by_jid(task, jid):
+    """get task output by jid"""
+    return nann.get_output_by_jid(task, jid)
+        
+
 '''
 read an ann from nnn file.
 '''

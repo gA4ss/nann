@@ -47,7 +47,7 @@ namespace nanai {
         task = ncmd.task;
         
         /* 进行训练，并且输出结果，进行权值调整 */
-        calc->ann_calculate(task.c_str(), input, &target, &output);
+        calc->ann_calculate(task, input, &target, &output);
         calc->set_output(task, output);
         calc->set_state(NANNCALC_ST_TRAINED);
         calc->ann_on_trained();
@@ -57,7 +57,7 @@ namespace nanai {
         task = ncmd.task;
         
         /* 进行训练，输出结果，不进行权值调整 */
-        calc->ann_calculate(task.c_str(), input, nullptr, &output);
+        calc->ann_calculate(task, input, nullptr, &output);
         calc->set_output(task, output);
         calc->set_state(NANNCALC_ST_TRAINED);
         calc->ann_on_calculated();
@@ -68,7 +68,7 @@ namespace nanai {
         task = ncmd.task;
 
         /* 单训练，不输出结果，进行权值调整 */
-        calc->ann_calculate(task.c_str(), input, &target, nullptr);
+        calc->ann_calculate(task, input, &target, nullptr);
         calc->set_state(NANNCALC_ST_TRAINED);
         calc->ann_on_trained_nooutput();
       } else if (cmd == NANNCALC_CMD_CONFIGURE) {
@@ -166,8 +166,8 @@ namespace nanai {
   }
   
   nanai_ann_nanncalc::nanai_ann_nanncalc(nanai_ann_nanndesc &desc,
-                                         const char *lp,
-                                         const char *task) : _state(NANNCALC_CMD_STOP) {
+                                         const std::string &task,
+                                         const char *lp) : _state(NANNCALC_CMD_STOP) {
     
     ann_destroy();
     
@@ -199,6 +199,8 @@ namespace nanai {
     
     /* 以上插件捕获不到任何信息 */
     ann_create(desc);
+    _task = task;
+    ann_log_create();
     
     err = pthread_mutex_init(&_outputs_lock, NULL);
     if (err != 0) {
@@ -225,11 +227,6 @@ namespace nanai {
                          thread_nanai_ann_worker, (void *)this);
     if (err != 0) {
       error(NANAI_ERROR_RUNTIME_CREATE_THREAD);
-    }
-    
-    if (task) {
-      _task = task;
-      ann_log("set task = %s", _task.c_str());
     }
   }
   
@@ -293,39 +290,36 @@ namespace nanai {
   
   void nanai_ann_nanncalc::ann_training(nanmath::nanmath_vector &input,
                                         nanmath::nanmath_vector &target,
-                                        const char *task) {
+                                        const std::string &task) {
     struct ncommand ncmd;
     ncmd.cmd = NANNCALC_CMD_TRAINING;
     ncmd.input = input;
     ncmd.target = target;
-    if (task) ncmd.task = task;
-    else ncmd.task = _task;
+    ncmd.task = task;
     set_cmd(ncmd);
   }
   
   void nanai_ann_nanncalc::ann_training_notarget(nanmath::nanmath_vector &input,
-                                                 const char *task) {
+                                                 const std::string &task) {
     struct ncommand ncmd;
     ncmd.cmd = NANNCALC_CMD_TRAINING_NOTARGET;
     ncmd.input = input;
-    if (task) ncmd.task = task;
-    else ncmd.task = _task;
+    ncmd.task = task;
     set_cmd(ncmd);
   }
   
   void nanai_ann_nanncalc::ann_training_nooutput(nanmath::nanmath_vector &input,
                                                  nanmath::nanmath_vector &target,
-                                                 const char *task) {
+                                                 const std::string &task) {
     struct ncommand ncmd;
     ncmd.cmd = NANNCALC_CMD_TRAINING_NOOUTPUT;
     ncmd.input = input;
     ncmd.target = target;
-    if (task) ncmd.task = task;
-    else ncmd.task = _task;
+    ncmd.task = task;
     set_cmd(ncmd);
   }
   
-  void nanai_ann_nanncalc::ann_configure(nanai_ann_nanndesc &desc) {
+  void nanai_ann_nanncalc::ann_configure(const nanai_ann_nanndesc &desc) {
     struct ncommand ncmd;
     ncmd.cmd = NANNCALC_CMD_CONFIGURE;
     ncmd.desc = desc;
@@ -569,10 +563,12 @@ namespace nanai {
         
         output = std::make_pair(i.first, i.second);
         outputs.push_back(output);
-        if (not_pop == false) {
-          _outputs.erase(i.first);
-        }
       }
+    }
+    
+    if (not_pop == false) {
+      for (auto i : outputs)
+        _outputs.erase(i.first);
     }
     
     if (lock) {
@@ -651,15 +647,6 @@ namespace nanai {
     _callback_monitor_calculated = desc.callback_monitor_calculated;
     _callback_monitor_progress = desc.callback_monitor_progress;
     
-    /* 创建神经网络 */
-    ann_log("--------------------------------------------------");
-    ann_log("ann start creating");
-    ann_log("algorithm = %s", _alg.c_str());
-    ann_log("ninput = %d", _ann.ninput);
-    ann_log("nhidden = %d", _ann.nhidden);
-    ann_log("noutput = %d", _ann.noutput);
-    ann_log("total of weight matrix = %d", _ann.nhidden+1);
-    
     _hiddens.resize(_ann.nhidden);
     _ann.weight_matrixes.resize(_ann.nhidden + 1);
     _ann.delta_weight_matrixes.resize(_ann.nhidden + 1);
@@ -668,7 +655,6 @@ namespace nanai {
       if (i < _ann.nhidden) {
         _ann.nneural.push_back(desc.nneure[i]);/* 是否不需要nneural */
         _hiddens[i].create(_ann.nneural[i]);
-        ann_log("%dth hidden has %d neurals", i+1, _ann.nneural[i]);
       }
       
       /*
@@ -699,8 +685,6 @@ namespace nanai {
         _ann.weight_matrixes[i].random();
       }
     }
-    
-    ann_log("ann create successful");
   }
   
   void nanai_ann_nanncalc::ann_on_except(int err) {
@@ -772,15 +756,34 @@ namespace nanai {
     }
   }
   
-  void nanai_ann_nanncalc::ann_calculate(const char *task,
+  void nanai_ann_nanncalc::ann_log_create() {
+    /* 创建神经网络 */
+    ann_log("--------------------------------------------------");
+    ann_log("ann start creating");
+    ann_log("algorithm = %s", _alg.c_str());
+    ann_log("ninput = %d", _ann.ninput);
+    ann_log("nhidden = %d", _ann.nhidden);
+    ann_log("noutput = %d", _ann.noutput);
+    ann_log("total of weight matrix = %d", _ann.nhidden+1);
+    
+    size_t idx = 0;
+    for (auto i : _ann.nneural) {
+      idx++;
+      ann_log("%dth hidden has %d neurals", idx, i);
+    }
+    
+    ann_log("ann create successful");
+  }
+  
+  void nanai_ann_nanncalc::ann_calculate(const std::string &task,
                                          nanmath::nanmath_vector &input,
                                          nanmath::nanmath_vector *target,
                                          nanmath::nanmath_vector *output) {
-    if ((task) && (_task.empty())) {
-      _task = task;
-    } else if ((task == nullptr) && (_task.empty())) {
+    if (task.empty()) {
       error(NANAI_ERROR_LOGIC_TASK_NOT_MATCHED);
     }
+    
+    _task = task;
     
     if (_fptr_calculate) {
       _fptr_calculate((void*)_task.c_str(), &input, target, output, this);
@@ -942,7 +945,6 @@ namespace nanai {
       } else {
         i = _hiddens[h-1];
       }
-      
       
       if (_fptr_hidden_errors) {
         nanmath::nanmath_vector res;        /*!< 临时变量缓存结果 */
