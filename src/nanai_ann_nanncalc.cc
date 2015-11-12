@@ -49,6 +49,7 @@ namespace nanai {
         /* 进行训练，并且输出结果，进行权值调整 */
         calc->ann_calculate(task, input, &target, &output);
         calc->set_output(task, output);
+        calc->set_ann(task);
         calc->set_state(NANNCALC_ST_TRAINED);
         calc->ann_on_trained();
       } else if (cmd == NANNCALC_CMD_CALCULATE) {
@@ -59,6 +60,7 @@ namespace nanai {
         /* 进行训练，输出结果，不进行权值调整 */
         calc->ann_calculate(task, input, nullptr, &output);
         calc->set_output(task, output);
+        calc->set_ann(task);
         calc->set_state(NANNCALC_ST_TRAINED);
         calc->ann_on_calculated();
       } else if (cmd == NANNCALC_CMD_TRAINING_NOOUTPUT) {
@@ -69,6 +71,7 @@ namespace nanai {
 
         /* 单训练，不输出结果，进行权值调整 */
         calc->ann_calculate(task, input, &target, nullptr);
+        calc->set_ann(task);
         calc->set_state(NANNCALC_ST_TRAINED);
         calc->ann_on_trained_nooutput();
       } else if (cmd == NANNCALC_CMD_CONFIGURE) {
@@ -354,7 +357,6 @@ namespace nanai {
   
   void nanai_ann_nanncalc::ann_destroy() {
     _task.clear();
-    _output_error.destroy();
     _alg.clear();
     
     _ann.clear();
@@ -595,14 +597,21 @@ namespace nanai {
     ann_log("ann exchanged");
   }
   
-  nanai_ann_nanncalc::ann_t nanai_ann_nanncalc::get_ann(bool lock) {
+  nanai_ann_nanncalc::ann_t nanai_ann_nanncalc::get_ann(const std::string &task,
+                                                        bool lock) {
+    
+    nanai_ann_nanncalc::ann_t ret;
+    
     if (lock) {
       if (pthread_mutex_lock(&_ann_lock) != 0) {
         error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
       }
     }
     
-    nanai_ann_nanncalc::ann_t ret = _ann;
+    if (_anns.find(task) != _anns.end()) {
+      ret = _anns[task];
+      _anns.erase(task);
+    }
     
     if (lock) {
       if (pthread_mutex_unlock(&_ann_lock) != 0) {
@@ -611,6 +620,60 @@ namespace nanai {
     }
     
     return ret;
+  }
+  
+  void nanai_ann_nanncalc::set_ann(std::string &task,
+                                   bool lock) {
+    if (lock) {
+      if (pthread_mutex_lock(&_ann_lock) != 0) {
+        error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
+      }
+    }
+    
+    _anns[task] = _ann;
+    
+    if (lock) {
+      if (pthread_mutex_unlock(&_ann_lock) != 0) {
+        error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
+      }
+    }
+  }
+  
+  std::vector<nanai_ann_nanncalc::task_ann_t> nanai_ann_nanncalc::get_matched_anns(std::string &rstr,
+                                                                                   bool lock,
+                                                                                   bool not_pop) {
+    std::vector<nanai_ann_nanncalc::task_ann_t> anns;
+    
+    if (lock) {
+      if (pthread_mutex_lock(&_ann_lock) != 0) {
+        error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
+      }
+    }
+    
+    std::cmatch match;
+    std::regex rgx(rstr);
+    nanai_ann_nanncalc::task_ann_t ann;
+    
+    for (auto i : _anns) {
+      if (std::regex_search(i.first.c_str(), match, rgx)) {
+        /* 如果匹配正则表达式 */
+        ann = std::make_pair(i.first, i.second);
+        anns.push_back(ann);
+      }
+    }
+    
+    if (not_pop == false) {
+      for (auto i : anns)
+        _anns.erase(i.first);
+    }
+    
+    if (lock) {
+      if (pthread_mutex_unlock(&_ann_lock) != 0) {
+        error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
+      }
+    }
+    
+    return anns;
   }
   
   void nanai_ann_nanncalc::do_stop() {
@@ -629,7 +692,6 @@ namespace nanai {
     _ann.ninput = desc.ninput;
     _ann.nhidden = (desc.nhidden > MAX_HIDDEN_NUMBER) ? MAX_HIDDEN_NUMBER : desc.nhidden;
     _ann.noutput = desc.noutput;
-    _output_error.create(_ann.noutput);
     
     _fptr_input_filter = desc.fptr_input_filter;
     _fptr_result = desc.fptr_result;
@@ -821,7 +883,8 @@ namespace nanai {
     }
   }
   
-  void nanai_ann_nanncalc::ann_forward(nanmath::nanmath_vector &input, nanmath::nanmath_vector &output) {
+  void nanai_ann_nanncalc::ann_forward(nanmath::nanmath_vector &input,
+                                       nanmath::nanmath_vector &output) {
     nanmath::nanmath_vector l1;
     nanmath::nanmath_vector l2;
     nanmath::nanmath_matrix wm;

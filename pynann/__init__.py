@@ -40,10 +40,11 @@ create nann manager.
 task : 任务名
 json : json缓存 或者 json文件路径
 if_file : json参数是否是文件路径
+work_type<可选> : 工作类型，0:并行运算，1:串行运算
 max_calc<可选> : 最大计算结点数，默认1024个
 now_calc<可选> : 直接启动线程，默认启动100个
 '''
-def create(task, json, is_file=False, max_calc=1024, now_calc=100):
+def create(task, json, is_file=False, work_type=0, max_calc=1024, now_calc=100):
     if (is_file == True):
         file_object = open(json,'r')
         try:
@@ -53,8 +54,10 @@ def create(task, json, is_file=False, max_calc=1024, now_calc=100):
     else:
         json_text = json
     
-    return nann.create(task, json_text, max_calc, now_calc)
-
+    if (work_type == 1):
+        ret = nann.create(task, json_text, 1, 0)
+    else:
+        ret = nann.create(task, json_text, max_calc, now_calc)
 '''
 destroy nann manager.
 '''

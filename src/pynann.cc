@@ -630,6 +630,68 @@ static PyObject *wrap_get_output_by_jid(PyObject *self, PyObject *args) {
   return Py_BuildValue("s", oss.str().c_str());
 }
 
+static PyObject *wrap_get_last_ann(PyObject *self, PyObject *args) {
+  char *task = nullptr;
+  if (!PyArg_ParseTuple(args, "s", &task)) {
+    return do_except(PYNANN_WARNING_INVALID_ARGUMENT);
+  }
+  
+  if (g_mgrlist.find(task) == g_mgrlist.end()) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST);
+  }
+  
+  std::string json_context;
+  try {
+    nanai_ann_nanncalc::ann_t ann = g_mgrlist[task].mgr->get_last_ann();
+    nanmath::nanmath_vector target = g_mgrlist[task].mgr->get_target();
+    nanai_ann_nnn_write(json_context, g_mgrlist[task].alg, ann, &target);
+    
+  } catch (nanai_error_logic_invalid_argument e) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT, e.what());
+  } catch (nanai_error_logic_ann_number_less_2 e) {
+    return do_except(PYNANN_ERROR_INTERNAL, e.what());
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL);
+  }
+  
+  return Py_BuildValue("s", json_context.c_str());
+  
+}
+
+#if 0
+static PyObject *wrap_get_ann_by_jid(PyObject *self, PyObject *args) {
+  char *task_arg = nullptr;
+  int jid = 0;
+  
+  if (!PyArg_ParseTuple(args, "si", &task_arg, &jid)) {
+    return do_except(PYNANN_WARNING_INVALID_ARGUMENT);
+  }
+  
+  std::string task = task_arg;
+  
+  if (g_mgrlist.find(task) == g_mgrlist.end()) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST);
+  }
+  
+  std::string json_context;
+  try {
+    nanai_ann_nanncalc::ann_t ann = g_mgrlist[task].mgr->get_ann();
+    nanmath::nanmath_vector target = g_mgrlist[task].mgr->get_target();
+    nanai_ann_nnn_write(json_context, g_mgrlist[task].alg, ann, &target);
+    
+  } catch (nanai_error_logic_invalid_argument e) {
+    return do_except(PYNANN_ERROR_INVALID_ARGUMENT, e.what());
+  } catch (nanai_error_logic_ann_number_less_2 e) {
+    return do_except(PYNANN_ERROR_INTERNAL, e.what());
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL);
+  }
+  
+  return Py_BuildValue("s", json_context.c_str());
+  
+}
+#endif
+
 
 /**************************************************************************************************************/
 
@@ -651,6 +713,9 @@ static PyMethodDef nannMethods[] = {
   { "merge", wrap_merge, METH_VARARGS, "merge task's all ann to one." },
   { "get_outputs", wrap_get_outputs, METH_VARARGS, "get task all outputs." },
   { "get_output_by_jid", wrap_get_output_by_jid, METH_VARARGS, "get task output by jid." },
+  //{ "get_anns", wrap_get_anns, METH_VARARGS, "get task all anns." },
+  //{ "get_ann_by_jid", wrap_get_ann_by_jid, METH_VARARGS, "get task ann by jid." },
+  { "get_last_ann", wrap_get_last_ann, METH_VARARGS, "get task last ann, just for series." },
   { NULL, NULL, 0, NULL }
 };
 

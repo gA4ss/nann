@@ -338,6 +338,7 @@ namespace nanai {
   }
   
   void nanai_ann_nannmgr::nnn_write(const std::string &nnn,
+                                    const std::string &task,
                                     nanai_ann_nanncalc *calc) {
     if (calc == nullptr) {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
@@ -347,9 +348,11 @@ namespace nanai {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
+    std::string task_;
     std::string alg = calc->get_alg_name();
-    std::string task = calc->get_task_name();     /* 作为最后的文件名 */
-    nanai_ann_nanncalc::ann_t ann = calc->get_ann();
+    if (task.empty()) task_ = calc->get_task_name();     /* 作为最后文件名 */
+    else task_ = task;
+    nanai_ann_nanncalc::ann_t ann = calc->get_ann(task_);
     std::string json_context;
     
     nanai_ann_nnn_write(json_context, alg, ann, &_target);
@@ -468,11 +471,8 @@ namespace nanai {
   nanmath::nanmath_matrix nanai_ann_nannmgr::merge_delta_matrix(nanmath::nanmath_matrix &dmat1,
                                                                 nanmath::nanmath_matrix &dmat2) {
     
-    if (dmat1.row_size() == dmat2.row_size()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
-    }
-    
-    if (dmat1.col_size() == dmat2.col_size()) {
+    if ((dmat1.row_size() != dmat2.row_size()) ||
+        (dmat1.col_size() != dmat2.col_size())) {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
@@ -495,17 +495,10 @@ namespace nanai {
                                                           nanmath::nanmath_matrix &mat2,
                                                           nanmath::nanmath_matrix &dmat1,
                                                           nanmath::nanmath_matrix &dmat2) {
-    if ((mat1.row_size() == mat2.row_size()) &&
-        (mat1.row_size() == mat2.row_size()) &&
-        (mat1.row_size() == dmat1.row_size()) &&
-        (mat1.row_size() == dmat2.row_size())) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
-    }
-    
-    if ((mat1.col_size() == mat2.col_size()) &&
-        (mat1.col_size() == mat2.col_size()) &&
-        (mat1.col_size() == dmat1.col_size()) &&
-        (mat1.col_size() == dmat2.col_size())) {
+    if ((mat1.row_size() != mat2.row_size()) ||
+        (mat1.col_size() != mat2.col_size()) ||
+        (mat1.row_size() != dmat1.row_size()) ||
+        (mat1.col_size() != dmat2.col_size())) {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
@@ -530,7 +523,8 @@ namespace nanai {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
-    if ((a.delta_weight_matrixes.size() == 0) || (b.delta_weight_matrixes.size() == 0)) {
+    if ((a.delta_weight_matrixes.size() == 0) ||
+        (b.delta_weight_matrixes.size() == 0)) {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
@@ -593,11 +587,18 @@ namespace nanai {
                                             nanai_ann_nanncalc::ann_t &ann) {
     lock();
     std::vector<nanai_ann_nanncalc::ann_t> anns;
+    std::vector<nanai_ann_nanncalc::task_ann_t> tmp_anns;
+    
     for (auto i : _calcs) {
       if (match_task_name(task, i->get_task_name())) {
         /* 状态等于等待 */
-        if (i->get_state() != NANNCALC_ST_WAITING) {
-          anns.push_back(i->ann_get());
+        if (i->get_state() == NANNCALC_ST_WAITING) {
+          /* 获取此计算结点下的所有指定任务的job输出的ann */
+          tmp_anns = i->get_matched_anns(task);
+          
+          for (auto j : tmp_anns) {
+            anns.push_back(j.second);
+          }
         }
       }
     }
@@ -629,6 +630,10 @@ namespace nanai {
   
   std::string nanai_ann_nannmgr::get_log_dir() const {
     return _log_dir;
+  }
+  
+  nanai_ann_nanncalc::ann_t nanai_ann_nannmgr::get_last_ann() const {
+    return _calcs[0]->ann_get();
   }
   
   nanai_ann_nanncalc::ann_t nanai_ann_nannmgr::get_ann() const {
@@ -830,12 +835,12 @@ namespace nanai {
     }
     
     if (found_node.empty() == false) {
-      /* 找到了，则找一个命令数量最多的
+      /* 找到了，则找一个命令数量最少的
        * 这里的目的是延迟计算，让同等任务名的计算优先计算完毕
        */
       std::sort(found_node.begin(), found_node.end(),
                 [](nanai_ann_nanncalc *a, nanai_ann_nanncalc *b) {
-                  return a->get_cmdlist_count() > b->get_cmdlist_count();
+                  return a->get_cmdlist_count() < b->get_cmdlist_count();
                 });
       /* 这里可能也会造成算法更替，所以这里替换算法保障计算正确 */
       found_node[0]->ann_configure(desc);

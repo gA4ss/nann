@@ -162,6 +162,7 @@ namespace nanai {
         以计算结点的任务名作为文件名 + json进行输出。
      */
     virtual void nnn_write(const std::string &nnn,            /*!< [in] 要输出的路径 */
+                           const std::string &task,           /*!< [in] 任务名 */
                            nanai_ann_nanncalc *calc           /*!< [in] 要输出的计算结点指针 */
                            );
     /*! 等待所有计算结点线程结束 */
@@ -199,6 +200,12 @@ namespace nanai {
     virtual std::string get_log_dir() const;
     /*! 获取当前默认神经网络 */
     virtual nanai_ann_nanncalc::ann_t get_ann() const;
+    /*! 获取最后一个计算结点的神经网络
+     
+        这种状况，只发生在单线程，串行运算时有用
+     
+     */
+    virtual nanai_ann_nanncalc::ann_t get_last_ann() const;
     /*! 获取当前默认算法 */
     virtual std::string get_alg() const;
     /*! 获取目标向量 */
@@ -322,6 +329,7 @@ namespace nanai {
     std::string _lib_dir;             /*!< 库目录 */
     std::string _etc_dir;             /*!< 算法配置文件目录 */
     std::string _log_dir;             /*!< 日志目录 */
+    int _type;                        /*!< 工作模式 */
     
   protected:
     std::string _alg;                 /*!< 默认算法名称 */

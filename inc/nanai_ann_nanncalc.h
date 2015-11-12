@@ -208,24 +208,18 @@ namespace nanai {
                             bool lock=false                         /*!< [in] 是否进行输出锁控制 */
                             );
     
-    /*! 获取指定任务的最后一个输出向量 
-     
-        \warning 不要由外部调用，这是支持多线程函数的
-     */
+    /*! 获取指定任务的最后一个输出向量 */
     virtual nanmath::nanmath_vector get_output(std::string &task,   /*!< [in] 任务名 */
                                                bool lock=false,     /*!< [in] 是否进行输出锁控制 */
                                                bool not_pop=false   /*!< [in] 是否取走 */
                                                );
-    /*! 按照匹配进行搜索输出
-     
-        \warning 不要由外部调用，这是支持多线程函数的
-     */
+    
+    /*! 按照匹配进行搜索输出 */
     typedef std::pair<std::string, nanmath::nanmath_vector> task_output_t;
     virtual std::vector<task_output_t> get_matched_outputs(std::string &rstr,     /*!< [in] 正则表达式 */
                                                            bool lock=false,       /*!< [in] 是否进行输出锁控制 */
                                                            bool not_pop=false     /*!< [in] 是否取走 */
                                                            );
-    
     /*! 内部替换配置
      
         \warning 不要由外部调用，这是支持多线程函数的
@@ -240,14 +234,31 @@ namespace nanai {
     virtual void do_ann_exchange(const nanai_ann_nanncalc::ann_t &ann       /*!< [in] 要替换的神经网络 */
                                  );
     
-    /*! 内部替换神经网络
+    /*! 获取指定任务神经网络 */
+    virtual nanai_ann_nanncalc::ann_t get_ann(const std::string &task,      /*!< [in] 任务名 */
+                                              bool lock=false               /*!< [in] 获取神经网络锁 */
+                                              );
+    
+    
+    /*! 设置训练好的神经网络
      
         \warning 不要由外部调用，这是支持多线程函数的
      */
-    virtual nanai_ann_nanncalc::ann_t get_ann(bool lock=false               /*!< [in] 获取神经网络锁 */
-                                              );
+    virtual void set_ann(std::string &task,                       /*!< [in] 任务名 */
+                         bool lock=false                          /*!< [in] 是否进行输出锁控制 */
+                        );
     
-    /*! 内部停止线程 
+    /*! 按照匹配进行搜索神经网络
+     
+        \warning 不要由外部调用，这是支持多线程函数的
+     */
+    typedef std::pair<std::string, nanai_ann_nanncalc::ann_t> task_ann_t;
+    virtual std::vector<task_ann_t> get_matched_anns(std::string &rstr,     /*!< [in] 正则表达式 */
+                                                     bool lock=false,       /*!< [in] 是否进行输出锁控制 */
+                                                     bool not_pop=false     /*!< [in] 是否取走 */
+                                                    );
+    
+    /*! 内部停止线程
      
         \warning 不要由外部调用，这是支持多线程函数的
      */
@@ -325,9 +336,10 @@ namespace nanai {
     std::string _task;                                            /*!< 当前任务名称 - 例如:Aid_Uid_ACTid */
     std::vector<nanmath::nanmath_vector> _hiddens;                /*!< 隐藏层 */
     pthread_mutex_t _outputs_lock;                                /*!< 输出向量锁 */
-    typedef std::map<std::string, nanmath::nanmath_vector > nanncalc_output_t;
+    typedef std::map<std::string, nanmath::nanmath_vector> nanncalc_output_t;
     nanncalc_output_t _outputs;                                   /*!< 输出向量队列 */
-    nanmath::nanmath_vector _output_error;                        /*!< 输出误差向量 */
+    typedef std::map<std::string, nanai_ann_nanncalc::ann_t> nanncalc_ann_t;
+    nanncalc_ann_t _anns;
     
     pthread_mutex_t _ann_lock;                                    /*!< 神经网络的锁 */
     ann_t _ann;                                                   /*!< 神经网络 */
