@@ -330,7 +330,7 @@ namespace nanai {
     static void *thread_nanai_ann_worker(void *arg);
     
   protected:
-    std::string _alg;                                            /*!< 算法名称 */
+    std::string _alg;                                             /*!< 算法名称 */
   
   protected:
     std::string _task;                                            /*!< 当前任务名称 - 例如:Aid_Uid_ACTid */
