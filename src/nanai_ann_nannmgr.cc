@@ -91,8 +91,6 @@ namespace nanai {
                                    int wt) {
     std::vector<nanmath::nanmath_vector> inputs;
     std::vector<nanmath::nanmath_vector> targets;
-    
-    nanmath::nanmath_vector global_target;
     nanai_ann_nanncalc::ann_t ann;
     
     if (task.empty()) {
@@ -113,7 +111,7 @@ namespace nanai {
      */
     
     /* 解析神经网络json */
-    nanai_ann_nnn_read(ann_json, ann, &global_target);
+    nanai_ann_nnn_read(ann_json, ann);
     
     nanai_ann_nanndesc *desc = find_alg(ann.alg);
     /* 没找到 */
@@ -123,18 +121,6 @@ namespace nanai {
     
     /* 解析样本json */
     nanai_support_input_json(input_json, inputs, targets);
-    
-    if (global_target.empty() && targets.empty()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
-    }
-    
-    if (global_target.empty() == false) {
-      for (size_t i = 0; i < inputs.size(); i++) {
-        if (targets[i].empty())
-          targets.push_back(global_target);
-      }
-    }
-
     training(inputs, targets, task, ann, wt);
   }
   

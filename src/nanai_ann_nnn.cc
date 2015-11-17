@@ -89,8 +89,7 @@ namespace nanai {
   }
   
   static void parse_create_json(cJSON *json,
-                                nanai_ann_nanncalc::ann_t &ann,
-                                nanmath::nanmath_vector *target) {
+                                nanai_ann_nanncalc::ann_t &ann) {
     if (json == nullptr) error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     cJSON *json_child = json->child;
     if (json_child == nullptr) error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
@@ -98,10 +97,7 @@ namespace nanai {
     /* 遍历根结点 */
     bool handle_alg = false, handle_ann = false;
     while (json_child) {
-      if (strcmp(json_child->string, "alg") == 0) {
-        ann.alg = json_child->valuestring;
-        handle_alg = true;
-      } else if (strcmp(json_child->string, "ann") == 0) {
+      if (strcmp(json_child->string, "ann") == 0) {
         cJSON *json_next = json_child->child;
         size_t wm_ninput = 0, dwm_ninput = 0,
         wm_nhidden = 0, dwm_nhidden = 0,
@@ -121,7 +117,11 @@ namespace nanai {
                                        dwm_nhidden,
                                        dwm_noutput,
                                        ann.delta_weight_matrixes);
+          } else if (strcmp(json_next->string, "alg") == 0) {
+            ann.alg = json_next->valuestring;
+            handle_alg = true;
           }
+          
           json_next = json_next->next;
         }/* end while */
         handle_ann = true;
@@ -142,21 +142,6 @@ namespace nanai {
         ann.nhidden = wm_nhidden;
         ann.noutput = wm_noutput;
         
-      } else if (strcmp(json_child->string, "target") == 0) {
-        
-        /* target是可选参数 */
-        if (target == nullptr) {
-          continue;
-        }
-        
-        cJSON *json_next = json_child->child;
-        if (json_next == nullptr) { error(NANAI_ERROR_LOGIC_INVALID_CONFIG); }
-        target->clear();
-        while (json_next) {
-          if (json_next->valuedouble) target->push(json_next->valuedouble);
-          else target->push(static_cast<double>(json_next->valueint));
-          json_next = json_next->next;
-        }
       }
       
       json_child = json_child->next;
@@ -169,14 +154,13 @@ namespace nanai {
   }
     
   void nanai_ann_nnn_read(const std::string &json_context,
-                          nanai_ann_nanncalc::ann_t &ann,
-                          nanmath::nanmath_vector *target) {
+                          nanai_ann_nanncalc::ann_t &ann) {
     cJSON *json = cJSON_Parse(json_context.c_str());
     if (json == nullptr) {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
-    parse_create_json(json, ann, target);
+    parse_create_json(json, ann);
     
     /* 主动填充神经网络的nnearul */
     ann.fill_nneural();
@@ -185,8 +169,7 @@ namespace nanai {
   }
   
   void nanai_ann_nnn_write(std::string &json_context,
-                           const nanai_ann_nanncalc::ann_t &ann,
-                           nanmath::nanmath_vector *target) {
+                           const nanai_ann_nanncalc::ann_t &ann) {
     
     if (ann.empty()) {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
@@ -200,9 +183,8 @@ namespace nanai {
     json_context.clear();
     std::ostringstream oss;
     oss << "{" << std::endl;
-    oss << "\t" << "\"alg\": " << "\"" << alg << "\"" << std::endl;
     oss << "\t" << "\"ann\": {" << std::endl;
-    
+    oss << "\t\t" << "\"alg\": " << "\"" << alg << "\"" << std::endl;
     oss << "\t\t" << "\"weight matrixes\": {" << std::endl;
     for (size_t i = 0; i < ann.weight_matrixes.size(); i++) {
       oss << "\t\t\t" << "\"" << i << "\": {" << std::endl;
@@ -245,17 +227,7 @@ namespace nanai {
       else oss << "\t\t\t}" << std::endl;
     }
     
-    if (target) {
-      oss << "\t}," << std::endl;
-      oss << "\t" << "\"target\": [" << std::endl;
-      for (size_t i = 0; i < target->size(); i++) {
-        oss << std::setiosflags(std::ios::fixed) << std::setiosflags(std::ios::left)
-        << std::setprecision(2) << std::setw(4) << (*target)[i];
-      }
-      oss << "]" << std::endl;
-    } else {
-      oss << "\t}" << std::endl;
-    }
+    oss << "\t}" << std::endl;
     
     oss << "}" << std::endl;
     json_context = oss.str();

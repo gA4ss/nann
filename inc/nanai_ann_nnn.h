@@ -7,12 +7,10 @@
 namespace nanai {
   
   void nanai_ann_nnn_read(const std::string &json_context,
-                          nanai_ann_nanncalc::ann_t &ann,
-                          nanmath::nanmath_vector *target=nullptr);
+                          nanai_ann_nanncalc::ann_t &ann);
   
   void nanai_ann_nnn_write(std::string &json_context,
-                           const nanai_ann_nanncalc::ann_t &ann,
-                           nanmath::nanmath_vector *target=nullptr);
+                           const nanai_ann_nanncalc::ann_t &ann);
 }
 
 #endif /* nanai_ann_nnn_h */
