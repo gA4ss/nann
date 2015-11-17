@@ -36,6 +36,7 @@ namespace nanmath {
     virtual nanmath_vector add(const nanmath_vector &v);
     virtual nanmath_vector sub(const nanmath_vector &v);
     virtual std::vector<std::vector<double> > mul(const nanmath_vector &v);
+    virtual nanmath_vector mul(const double v);
     virtual double dot(const nanmath_vector &v);
     
   public:

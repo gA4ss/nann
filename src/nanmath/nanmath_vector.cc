@@ -187,6 +187,14 @@ namespace nanmath {
     return res.get();
   }
   
+  nanmath_vector nanmath_vector::mul(const double v) {
+    nanmath_vector res;
+    for (auto i : _vector) {
+      res.push(i * v);
+    }
+    return res;
+  }
+  
   double nanmath_vector::dot(const nanmath_vector &v) {
     if (_vector.size() != v.size()) {
       throw std::invalid_argument("not match argument size");

@@ -28,6 +28,7 @@ namespace nanai {
     nanai_ann_nanndesc desc;
     std::string task;
     nanai_ann_nanncalc::ann_t ann;
+    result_t *result = nullptr;
     
     while (1) {
       
@@ -44,49 +45,20 @@ namespace nanai {
         calc->set_state(NANNCALC_ST_TRAINING);
         input = ncmd.input;
         target = ncmd.target;
+        result = ncmd.result;
+        ann = ncmd.ann;
         task = ncmd.task;
-        
         /* 进行训练，并且输出结果，进行权值调整 */
-        calc->ann_calculate(task, input, &target, &output);
-        calc->set_output(task, output);
-        calc->set_ann(task);
+        calc->ann_calculate(task, input, target, output, ann);
+        calc->set_result(result, output, ann);
         calc->set_state(NANNCALC_ST_TRAINED);
         calc->ann_on_trained();
-      } else if (cmd == NANNCALC_CMD_CALCULATE) {
-        calc->set_state(NANNCALC_ST_TRAINING);
-        input = ncmd.input;
-        task = ncmd.task;
-        
-        /* 进行训练，输出结果，不进行权值调整 */
-        calc->ann_calculate(task, input, nullptr, &output);
-        calc->set_output(task, output);
-        calc->set_ann(task);
-        calc->set_state(NANNCALC_ST_TRAINED);
-        calc->ann_on_calculated();
-      } else if (cmd == NANNCALC_CMD_TRAINING_NOOUTPUT) {
-        calc->set_state(NANNCALC_ST_TRAINING);
-        input = ncmd.input;
-        target = ncmd.target;
-        task = ncmd.task;
-
-        /* 单训练，不输出结果，进行权值调整 */
-        calc->ann_calculate(task, input, &target, nullptr);
-        calc->set_ann(task);
-        calc->set_state(NANNCALC_ST_TRAINED);
-        calc->ann_on_trained_nooutput();
       } else if (cmd == NANNCALC_CMD_CONFIGURE) {
         calc->set_state(NANNCALC_ST_CONFIGURING);
         desc = ncmd.desc;
         calc->ann_on_alg_uninstall();     /* 算法正在被卸载，通知算法插件 */
         calc->do_configure(desc);
         calc->set_state(NANNCALC_ST_CONFIGURED);
-      } else if (cmd == NANNCALC_CMD_ANN_EXCHANGE) {
-        calc->set_state(NANNCALC_ST_ANN_EXCHANGING);
-        ann = ncmd.ann;
-        if (ann.weight_matrixes.empty() == false) {
-          calc->do_ann_exchange(ann);
-        }
-        calc->set_state(NANNCALC_ST_ANN_EXCHANGED);
       } else if (cmd == NANNCALC_CMD_STOP) {
         calc->do_stop();
         break;
@@ -104,16 +76,18 @@ namespace nanai {
     clear();
   }
   
-  nanai_ann_nanncalc::ann_t::ann_t(std::vector<nanmath::nanmath_matrix> &wm,
+  nanai_ann_nanncalc::ann_t::ann_t(const std::string &alg,
+                                   std::vector<nanmath::nanmath_matrix> &wm,
                                    std::vector<nanmath::nanmath_matrix> *dwm) {
-    make(wm, dwm);
+    make(alg, wm, dwm);
   }
   
   nanai_ann_nanncalc::ann_t::~ann_t() {
     clear();
   }
 
-  int nanai_ann_nanncalc::ann_t::make(std::vector<nanmath::nanmath_matrix> &wm,
+  int nanai_ann_nanncalc::ann_t::make(const std::string &alg,
+                                      std::vector<nanmath::nanmath_matrix> &wm,
                                       std::vector<nanmath::nanmath_matrix> *dwm) {
     weight_matrixes = wm;
     
@@ -141,6 +115,8 @@ namespace nanai {
     ninput = wm[0].row_size();
     noutput = wm[nhidden].col_size();
     
+    fill_nneural();
+    
     return 0;
   _error:
     clear();
@@ -150,6 +126,7 @@ namespace nanai {
   void nanai_ann_nanncalc::ann_t::fill_nneural() {
     if (weight_matrixes.empty()) {
       nneural.clear();
+      return;
     }
     
     for (size_t i = 0; i < weight_matrixes.size(); i++) {
@@ -168,8 +145,27 @@ namespace nanai {
     nneural.clear();
   }
   
-  nanai_ann_nanncalc::nanai_ann_nanncalc(nanai_ann_nanndesc &desc,
-                                         const std::string &task,
+  bool nanai_ann_nanncalc::ann_t::empty() const {
+    return (ninput == 0);
+  }
+  
+  std::vector<nanmath::nanmath_vector> nanai_ann_nanncalc::ann_t::create_hidden_layers() {
+    std::vector<nanmath::nanmath_vector> hs;
+    
+    if (nhidden == 0) {
+      return hs;
+    }
+    
+    nanmath::nanmath_vector v;
+    for (auto h : nneural) {
+      v.create(h);
+      hs.push_back(v);
+    }
+    
+    return hs;
+  }
+  
+  nanai_ann_nanncalc::nanai_ann_nanncalc(const nanai_ann_nanndesc &desc,
                                          const char *lp) : _state(NANNCALC_CMD_STOP) {
     
     ann_destroy();
@@ -202,23 +198,7 @@ namespace nanai {
     
     /* 以上插件捕获不到任何信息 */
     ann_create(desc);
-    _task = task;
     ann_log_create();
-    
-    err = pthread_mutex_init(&_outputs_lock, NULL);
-    if (err != 0) {
-      error(NANAI_ERROR_RUNTIME_INIT_MUTEX);
-    }
-    
-    err = pthread_mutex_init(&_state_lock, NULL);
-    if (err != 0) {
-      error(NANAI_ERROR_RUNTIME_INIT_MUTEX);
-    }
-    
-    err = pthread_mutex_init(&_ann_lock, NULL);
-    if (err != 0) {
-      error(NANAI_ERROR_RUNTIME_INIT_MUTEX);
-    }
     
     /* 创建工作线程 */
     err = pthread_mutex_init(&_cmdlist_lock, NULL);
@@ -247,21 +227,6 @@ namespace nanai {
     ann_stop();
     ann_destroy();
     
-    err = pthread_mutex_destroy(&_outputs_lock);
-    if (err != 0) {
-      error(NANAI_ERROR_RUNTIME_DESTROY_MUTEX);
-    }
-    
-    err = pthread_mutex_destroy(&_state_lock);
-    if (err != 0) {
-      error(NANAI_ERROR_RUNTIME_DESTROY_MUTEX);
-    }
-    
-    err = pthread_mutex_destroy(&_ann_lock);
-    if (err != 0) {
-      error(NANAI_ERROR_RUNTIME_DESTROY_MUTEX);
-    }
-    
     err = pthread_mutex_destroy(&_cmdlist_lock);
     if (err != 0) {
       error(NANAI_ERROR_RUNTIME_DESTROY_MUTEX);
@@ -271,54 +236,17 @@ namespace nanai {
     fclose(_log_file);
   }
   
-  void nanai_ann_nanncalc::ann_default_create(int ninput,
-                                              int nhidden,
-                                              int output,
-                                              std::vector<int> &nneure) {
-    nanai_ann_nanndesc desc;
-    memset(&desc, 0, sizeof(nanai_ann_nanndesc));
-    
-    strcpy(desc.name, "NDBpA");
-    strcpy(desc.description, "default");
-    desc.nhidden = nhidden;
-    desc.ninput = ninput;
-    desc.noutput = output;
-    
-    for (int i = 0; i < nhidden; i++) {
-      desc.nneure[i] = nneure[i];
-    }
-    
-    ann_create(desc);
-  }
-  
-  void nanai_ann_nanncalc::ann_training(nanmath::nanmath_vector &input,
-                                        nanmath::nanmath_vector &target,
-                                        const std::string &task) {
+  void nanai_ann_nanncalc::ann_training(const std::string &task,
+                                        const nanmath::nanmath_vector &input,
+                                        const nanmath::nanmath_vector &target,
+                                        const nanai_ann_nanncalc::ann_t &ann,
+                                        result_t *result) {
     struct ncommand ncmd;
-    ncmd.cmd = NANNCALC_CMD_TRAINING;
+    ncmd.task = task;
     ncmd.input = input;
     ncmd.target = target;
-    ncmd.task = task;
-    set_cmd(ncmd);
-  }
-  
-  void nanai_ann_nanncalc::ann_training_notarget(nanmath::nanmath_vector &input,
-                                                 const std::string &task) {
-    struct ncommand ncmd;
-    ncmd.cmd = NANNCALC_CMD_TRAINING_NOTARGET;
-    ncmd.input = input;
-    ncmd.task = task;
-    set_cmd(ncmd);
-  }
-  
-  void nanai_ann_nanncalc::ann_training_nooutput(nanmath::nanmath_vector &input,
-                                                 nanmath::nanmath_vector &target,
-                                                 const std::string &task) {
-    struct ncommand ncmd;
-    ncmd.cmd = NANNCALC_CMD_TRAINING_NOOUTPUT;
-    ncmd.input = input;
-    ncmd.target = target;
-    ncmd.task = task;
+    ncmd.result = result;
+    ncmd.ann = ann;
     set_cmd(ncmd);
   }
   
@@ -326,13 +254,6 @@ namespace nanai {
     struct ncommand ncmd;
     ncmd.cmd = NANNCALC_CMD_CONFIGURE;
     ncmd.desc = desc;
-    set_cmd(ncmd);
-  }
-  
-  void nanai_ann_nanncalc::ann_exchange(const nanai_ann_nanncalc::ann_t &ann) {
-    struct ncommand ncmd;
-    ncmd.cmd = NANNCALC_CMD_ANN_EXCHANGE;
-    ncmd.ann = ann;
     set_cmd(ncmd);
   }
   
@@ -359,25 +280,17 @@ namespace nanai {
     _task.clear();
     _alg.clear();
     
-    _ann.clear();
-    
-    _hiddens.clear();
-    _outputs.clear();
-    
     _fptr_input_filter = nullptr;
     _fptr_result = nullptr;
     _fptr_output_error = nullptr;
     _fptr_calculate = nullptr;
     
-    _fptr_hidden_inits = nullptr;
     _fptr_hidden_calcs = nullptr;
     _fptr_hidden_errors = nullptr;
     _fptr_hidden_adjust_weights = nullptr;
     
     _callback_monitor_except = nullptr;
     _callback_monitor_trained = nullptr;
-    _callback_monitor_trained_nooutput = nullptr;
-    _callback_monitor_calculated = nullptr;
     _callback_monitor_progress = nullptr;
     _callback_monitor_alg_uninstall = nullptr;
   }
@@ -392,20 +305,16 @@ namespace nanai {
     }
   }
   
-  nanai_ann_nanncalc::ann_t nanai_ann_nanncalc::ann_get() {
-    return _ann;
-  }
-  
-  std::string nanai_ann_nanncalc::get_task_name() const {
-    return _task;
-  }
-  
-  std::string nanai_ann_nanncalc::get_alg_name()  const {
+  std::string nanai_ann_nanncalc::get_alg_name() const {
     return _alg;
   }
   
   size_t nanai_ann_nanncalc::get_cmdlist_count()  const {
     return _cmdlist.size();
+  }
+  
+  int nanai_ann_nanncalc::get_state() const {    
+    return _state;
   }
   
   void nanai_ann_nanncalc::set_cmd(struct ncommand &ncmd, bool lock) {
@@ -453,133 +362,8 @@ namespace nanai {
     return cmd;
   }
   
-  void nanai_ann_nanncalc::set_state(int st, bool lock) {
-    
-    if (lock) {
-      if (pthread_mutex_lock(&_state_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
-      }
-    }
-    
+  void nanai_ann_nanncalc::set_state(int st) {
     _state = st;
-    
-    if (lock) {
-      if (pthread_mutex_unlock(&_state_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
-      }
-    }
-  }
-  
-  int nanai_ann_nanncalc::get_state(bool lock) {
-    
-    if (lock) {
-      if (pthread_mutex_lock(&_state_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
-      }
-    }
-    
-    int ret = _state;
-    
-    if (lock) {
-      if (pthread_mutex_unlock(&_state_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
-      }
-    }
-    
-    return ret;
-  }
-  
-  void nanai_ann_nanncalc::set_output(std::string &task,
-                                      nanmath::nanmath_vector &output,
-                                      bool lock) {
-    if (&output == &nanmath::nv_null) {
-      return;
-    }
-    
-    if (lock) {
-      if (pthread_mutex_lock(&_outputs_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
-      }
-    }
-    
-    /* 无论是否找到都设置 */
-    _outputs[task] = output;
-    
-    if (lock) {
-      if (pthread_mutex_unlock(&_outputs_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
-      }
-    }
-  }
-  
-  nanmath::nanmath_vector nanai_ann_nanncalc::get_output(std::string &task,
-                                                         bool lock,
-                                                         bool not_pop) {
-    nanmath::nanmath_vector output;
-    
-    if (lock) {
-      if (pthread_mutex_lock(&_outputs_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
-      }
-    }
-    
-    if (_outputs.find(task) == _outputs.end()) {
-      /* 没有找到 */
-      return output;
-    }
-    
-    output = _outputs[task];
-    
-    if (not_pop == false) {
-      _outputs.erase(task);
-    }
-    
-    if (lock) {
-      if (pthread_mutex_unlock(&_outputs_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
-      }
-    }
-    
-    return output;
-  }
-  
-  std::vector<nanai_ann_nanncalc::task_output_t> nanai_ann_nanncalc::get_matched_outputs(std::string &rstr,
-                                                                                         bool lock,
-                                                                                         bool not_pop) {
-    
-    std::vector<task_output_t> outputs;
-    
-    if (lock) {
-      if (pthread_mutex_lock(&_outputs_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
-      }
-    }
-    
-    std::cmatch match;
-    std::regex rgx(rstr);
-    
-    for (auto i : _outputs) {
-      if (std::regex_search(i.first.c_str(), match, rgx)) {
-        /* 如果匹配正则表达式 */
-        task_output_t output;
-        
-        output = std::make_pair(i.first, i.second);
-        outputs.push_back(output);
-      }
-    }
-    
-    if (not_pop == false) {
-      for (auto i : outputs)
-        _outputs.erase(i.first);
-    }
-    
-    if (lock) {
-      if (pthread_mutex_unlock(&_outputs_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
-      }
-    }
-    
-    return outputs;
   }
   
   void nanai_ann_nanncalc::do_configure(nanai_ann_nanndesc &desc) {
@@ -587,93 +371,10 @@ namespace nanai {
     ann_log("configure successful");
   }
   
-  void nanai_ann_nanncalc::do_ann_exchange(const nanai_ann_nanncalc::ann_t &ann) {
-    _ann.ninput = ann.ninput;
-    _ann.nhidden = ann.nhidden;
-    _ann.noutput = ann.noutput;
-    _ann.nneural = ann.nneural;
-    _ann.weight_matrixes = ann.weight_matrixes;
-    _ann.delta_weight_matrixes = ann.delta_weight_matrixes;
-    ann_log("ann exchanged");
-  }
-  
-  nanai_ann_nanncalc::ann_t nanai_ann_nanncalc::get_ann(const std::string &task,
-                                                        bool lock) {
-    
-    nanai_ann_nanncalc::ann_t ret;
-    
-    if (lock) {
-      if (pthread_mutex_lock(&_ann_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
-      }
-    }
-    
-    if (_anns.find(task) != _anns.end()) {
-      ret = _anns[task];
-      _anns.erase(task);
-    }
-    
-    if (lock) {
-      if (pthread_mutex_unlock(&_ann_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
-      }
-    }
-    
-    return ret;
-  }
-  
-  void nanai_ann_nanncalc::set_ann(std::string &task,
-                                   bool lock) {
-    if (lock) {
-      if (pthread_mutex_lock(&_ann_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
-      }
-    }
-    
-    _anns[task] = _ann;
-    
-    if (lock) {
-      if (pthread_mutex_unlock(&_ann_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
-      }
-    }
-  }
-  
-  std::vector<nanai_ann_nanncalc::task_ann_t> nanai_ann_nanncalc::get_matched_anns(std::string &rstr,
-                                                                                   bool lock,
-                                                                                   bool not_pop) {
-    std::vector<nanai_ann_nanncalc::task_ann_t> anns;
-    
-    if (lock) {
-      if (pthread_mutex_lock(&_ann_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
-      }
-    }
-    
-    std::cmatch match;
-    std::regex rgx(rstr);
-    nanai_ann_nanncalc::task_ann_t ann;
-    
-    for (auto i : _anns) {
-      if (std::regex_search(i.first.c_str(), match, rgx)) {
-        /* 如果匹配正则表达式 */
-        ann = std::make_pair(i.first, i.second);
-        anns.push_back(ann);
-      }
-    }
-    
-    if (not_pop == false) {
-      for (auto i : anns)
-        _anns.erase(i.first);
-    }
-    
-    if (lock) {
-      if (pthread_mutex_unlock(&_ann_lock) != 0) {
-        error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
-      }
-    }
-    
-    return anns;
+  void nanai_ann_nanncalc::set_result(nanai_ann_nanncalc::result_t *result,
+                                      const nanmath::nanmath_vector &output,
+                                      const nanai_ann_nanncalc::ann_t &ann) {
+    *result = std::make_pair(output, ann);
   }
   
   void nanai_ann_nanncalc::do_stop() {
@@ -685,68 +386,23 @@ namespace nanai {
     ann_on_except(err);
   }
   
-  void nanai_ann_nanncalc::ann_create(nanai_ann_nanndesc &desc) {
+  void nanai_ann_nanncalc::ann_create(const nanai_ann_nanndesc &desc) {
     ann_destroy();
     
     _alg = desc.name;
-    _ann.ninput = desc.ninput;
-    _ann.nhidden = (desc.nhidden > MAX_HIDDEN_NUMBER) ? MAX_HIDDEN_NUMBER : desc.nhidden;
-    _ann.noutput = desc.noutput;
     
     _fptr_input_filter = desc.fptr_input_filter;
     _fptr_result = desc.fptr_result;
     _fptr_output_error = desc.fptr_output_error;
     _fptr_calculate = desc.fptr_calculate;
-    
-    _fptr_hidden_inits = desc.fptr_hidden_inits;
+
     _fptr_hidden_calcs = desc.fptr_hidden_calcs;
     _fptr_hidden_errors = desc.fptr_hidden_errors;
     _fptr_hidden_adjust_weights = desc.fptr_hidden_adjust_weights;
 
     _callback_monitor_except = desc.callback_monitor_except;
     _callback_monitor_trained = desc.callback_monitor_trained;
-    _callback_monitor_trained_nooutput = desc.callback_monitor_trained_nooutput;
-    _callback_monitor_calculated = desc.callback_monitor_calculated;
     _callback_monitor_progress = desc.callback_monitor_progress;
-    
-    _hiddens.resize(_ann.nhidden);
-    _ann.weight_matrixes.resize(_ann.nhidden + 1);
-    _ann.delta_weight_matrixes.resize(_ann.nhidden + 1);
-    for (int i = 0; i < _ann.nhidden + 1; i++) {
-      /* 隐藏层的个数要比需要的权重矩阵个数少1 */
-      if (i < _ann.nhidden) {
-        _ann.nneural.push_back(desc.nneure[i]);/* 是否不需要nneural */
-        _hiddens[i].create(_ann.nneural[i]);
-      }
-      
-      /*
-       * 根据隐藏层所处的位置不同，进行不同的权值矩阵的构造
-       */
-      if (i == 0) {
-        /* 处理第一层，第一层是由输入向量 与 第一个隐藏层之间的权值矩阵 */
-        _ann.weight_matrixes[i].create(_ann.ninput, _ann.nneural[i]);
-        _ann.delta_weight_matrixes[i].create(_ann.ninput, _ann.nneural[i]);
-      } else if (i == _ann.nhidden) {
-        /* 处理最后一层，最后一层是最后一个隐藏层 与 输出向量之间的权值矩阵 
-         * 因为权值矩阵的个数要比隐藏层的个数多一个，所以到达这个时候要获取
-         * 最后一个隐藏层必须退回一个索引
-         */
-        _ann.weight_matrixes[i].create(_ann.nneural[i-1], _ann.noutput);
-        _ann.delta_weight_matrixes[i].create(_ann.nneural[i-1], _ann.noutput);
-      } else {
-        /* 其余是隐藏层 与 隐藏层之间的权值矩阵 */
-        _ann.weight_matrixes[i].create(_ann.nneural[i-1], _ann.nneural[i]);
-        _ann.delta_weight_matrixes[i].create(_ann.nneural[i-1], _ann.nneural[i]);
-      }
-      
-      /* 初始化当前层的权值矩阵 */
-      _ann.delta_weight_matrixes[i].zero();
-      if (_fptr_hidden_inits) {
-        _fptr_hidden_inits(i, &_ann.weight_matrixes[i]);
-      } else {
-        _ann.weight_matrixes[i].random();
-      }
-    }
   }
   
   void nanai_ann_nanncalc::ann_on_except(int err) {
@@ -764,22 +420,6 @@ namespace nanai {
     }
     
     ann_log("training completed");
-  }
-  
-  void nanai_ann_nanncalc::ann_on_trained_nooutput() {
-    if (_callback_monitor_trained_nooutput) {
-      _callback_monitor_trained_nooutput(_cid, _task.c_str(), this);
-    }
-    
-    ann_log("training without output completed");
-  }
-  
-  void nanai_ann_nanncalc::ann_on_calculated() {
-    if (_callback_monitor_calculated) {
-      _callback_monitor_calculated(_cid, _task.c_str(), this);
-    }
-    
-    ann_log("calculate completed");
   }
   
   void nanai_ann_nanncalc::ann_on_alg_uninstall() {
@@ -823,33 +463,27 @@ namespace nanai {
     ann_log("--------------------------------------------------");
     ann_log("ann start creating");
     ann_log("algorithm = %s", _alg.c_str());
-    ann_log("ninput = %d", _ann.ninput);
-    ann_log("nhidden = %d", _ann.nhidden);
-    ann_log("noutput = %d", _ann.noutput);
-    ann_log("total of weight matrix = %d", _ann.nhidden+1);
-    
-    size_t idx = 0;
-    for (auto i : _ann.nneural) {
-      idx++;
-      ann_log("%dth hidden has %d neurals", idx, i);
-    }
     
     ann_log("ann create successful");
   }
   
   void nanai_ann_nanncalc::ann_calculate(const std::string &task,
                                          nanmath::nanmath_vector &input,
-                                         nanmath::nanmath_vector *target,
-                                         nanmath::nanmath_vector *output) {
-    if (task.empty()) {
-      error(NANAI_ERROR_LOGIC_TASK_NOT_MATCHED);
-    }
-    
+                                         nanmath::nanmath_vector &target,
+                                         nanmath::nanmath_vector &output,
+                                         nanai_ann_nanncalc::ann_t &ann) {
     _task = task;
+    std::vector<nanmath::nanmath_vector> hs = ann.create_hidden_layers();
+    output.clear();
     
     if (_fptr_calculate) {
-      _fptr_calculate((void*)_task.c_str(), &input, target, output, this);
-      return;
+      if (_fptr_calculate(reinterpret_cast<void*>(&_task),
+                          reinterpret_cast<void*>(&input),
+                          reinterpret_cast<void*>(&target),
+                          reinterpret_cast<void*>(&output),
+                          reinterpret_cast<void*>(&ann)) == NANAI_ANN_DESC_RETURN) {
+        return;
+      }
     }
     
     nanmath::nanmath_vector i, o, d_o;
@@ -862,47 +496,47 @@ namespace nanai {
     }
     
     /* 设定输出的向量数目 */
-    o.create(_ann.noutput);
+    o.create(ann.noutput);
     
     /* 前馈计算 */
-    ann_forward(i, o);
+    ann_forward(i, ann, hs, o);
     
     /* 进行权值调整 */
-    if (target) {
-      d_o = ann_output_error(*target, o);     /* 计算误差 */
-      ann_hiddens_error(i, d_o);              /* 调整每个权值矩阵 */
+    if (target.empty() == false) {
+      d_o = ann_output_error(target, o);                  /* 计算误差 */
+      ann_hiddens_error(ann, hs, i, d_o);                 /* 调整每个权值矩阵 */
     }
     
     /* 输出结果 */
-    if (output) {
-      if (_fptr_result) {
-        _fptr_result(&o, output);
-      } else {
-        *output = o;
-      }
+    if (_fptr_result) {
+      _fptr_result(&o, &output);
+    } else {
+      output = o;
     }
   }
   
   void nanai_ann_nanncalc::ann_forward(nanmath::nanmath_vector &input,
+                                       nanai_ann_nanncalc::ann_t &ann,
+                                       std::vector<nanmath::nanmath_vector> &hiddens,
                                        nanmath::nanmath_vector &output) {
     nanmath::nanmath_vector l1;
     nanmath::nanmath_vector l2;
     nanmath::nanmath_matrix wm;
     
     /* 运算的次数(权值矩阵的个数)要比隐藏层数多1 */
-    for (int i = 0; i < _ann.nhidden+1; i++) {
+    for (int i = 0; i < ann.nhidden+1; i++) {
       if (i == 0) {
         l1 = input;
-        l2 = _hiddens[i];
-        wm = _ann.weight_matrixes[i];
-      } else if (i == _ann.nhidden) {
-        l1 = _hiddens[i-1];
+        l2 = hiddens[i];
+        wm = ann.weight_matrixes[i];
+      } else if (i == ann.nhidden) {
+        l1 = hiddens[i-1];
         l2 = output;
-        wm = _ann.weight_matrixes[i];
+        wm = ann.weight_matrixes[i];
       } else {
-        l1 = _hiddens[i-1];
-        l2 = _hiddens[i];
-        wm = _ann.weight_matrixes[i];
+        l1 = hiddens[i-1];
+        l2 = hiddens[i];
+        wm = ann.weight_matrixes[i];
       }
       
       if (_fptr_hidden_calcs) {
@@ -924,14 +558,13 @@ namespace nanai {
                                              nanmath::nanmath_vector &l1,
                                              nanmath::nanmath_vector &l2,
                                              nanmath::nanmath_matrix &wm,
-                                             fptr_ann_hidden_calc calc) {
+                                             fptr_ann_alg_hidden_calc calc) {
     nanmath::nanmath_vector result;
     result = wm.left_mul(l1);
     
     if (result.size() != l2.size()) {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     }
-    
     
     double c = 0.0;
     l2.clear();
@@ -970,28 +603,29 @@ namespace nanai {
     return res;
   }
   
-  nanmath::nanmath_vector nanai_ann_nanncalc::ann_calc_hidden_delta(size_t h,
-                                                                    nanmath::nanmath_vector &delta_k,
-                                                                    nanmath::nanmath_matrix &w_kh,
-                                                                    nanmath::nanmath_vector &o_h) {
+  static nanmath::nanmath_vector s_ann_calc_hidden_delta(nanmath::nanmath_vector &delta_k,
+                                                         nanmath::nanmath_matrix &w_kh,
+                                                         nanmath::nanmath_vector &o_h) {
     nanmath::nanmath_vector delta_h(o_h.size());
     nanmath::nanmath_vector delta_sum = w_kh.right_mul(delta_k);
     
-    for (int i = 0; i < o_h.size(); i++) {
+    for (size_t i = 0; i < o_h.size(); i++) {
       delta_h.set(i, o_h[i] * (1 - o_h[i]) * delta_sum[i]);
     }
     
     return delta_h;
   }
   
-  void nanai_ann_nanncalc::ann_hiddens_error(nanmath::nanmath_vector &input,
+  void nanai_ann_nanncalc::ann_hiddens_error(nanai_ann_nanncalc::ann_t &ann,
+                                             std::vector<nanmath::nanmath_vector> &hiddens,
+                                             nanmath::nanmath_vector &input,
                                              nanmath::nanmath_vector &output_delta) {
     /* 遍历所有隐藏权值矩阵 */
     nanmath::nanmath_vector delta_k, delta_k_next = output_delta;
     nanmath::nanmath_vector i;
     
     /* 隐藏层比权值矩阵少一个 */
-    for (long h = static_cast<long>(_ann.nhidden); h >= 0; h--) {
+    for (long h = static_cast<long>(ann.nhidden); h >= 0; h--) {
       delta_k = delta_k_next;
       /* 所需重要的变量
        * h 处于第几个权值矩阵运算
@@ -1006,34 +640,33 @@ namespace nanai {
         /* 上一层就是输入层 */
         i = input;
       } else {
-        i = _hiddens[h-1];
+        i = hiddens[h-1];
       }
       
       if (_fptr_hidden_errors) {
         nanmath::nanmath_vector res;        /*!< 临时变量缓存结果 */
-        _fptr_hidden_errors((int)h, &delta_k, &_ann.weight_matrixes[h], &i, &res);
+        _fptr_hidden_errors(static_cast<int>(h), &delta_k, &ann.weight_matrixes[h], &i, &res);
         delta_k_next = res;
       } else {
-        delta_k_next = ann_calc_hidden_delta(h, delta_k, _ann.weight_matrixes[h], i);
+        delta_k_next = s_ann_calc_hidden_delta(delta_k, ann.weight_matrixes[h], i);
       }
       
       /* 调整当前的权值矩阵 */
       if (_fptr_hidden_adjust_weights) {
-        _fptr_hidden_adjust_weights((int)h, &i, &delta_k,
-                                       &_ann.weight_matrixes[h], &_ann.delta_weight_matrixes[h]);
+        _fptr_hidden_adjust_weights(static_cast<int>(h), &i, &delta_k,
+                                    &ann.weight_matrixes[h], &ann.delta_weight_matrixes[h]);
       } else {
-        ann_adjust_weight(h, i, delta_k);
+        ann_adjust_weight(ann.weight_matrixes[h], ann.delta_weight_matrixes[h], i, delta_k);
       }
     }
   }
   
-  void nanai_ann_nanncalc::ann_adjust_weight(size_t h,
+  void nanai_ann_nanncalc::ann_adjust_weight(nanmath::nanmath_matrix &wm,
+                                             nanmath::nanmath_matrix &prev_dwm,
                                              nanmath::nanmath_vector &layer,
                                              nanmath::nanmath_vector &delta) {
     static const double s_eta = 0.05;/* 学习速率 */
     static const double momentum = 0.03;/* 冲量项 */
-    nanmath::nanmath_matrix &wm = _ann.weight_matrixes[h];
-    nanmath::nanmath_matrix &prev_dwm = _ann.delta_weight_matrixes[h];
     
     /* 这里是遍历列向量 */
     for (size_t i = 0; i < delta.size(); i++) {          /* 矩阵的列 */

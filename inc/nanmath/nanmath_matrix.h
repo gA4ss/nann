@@ -29,7 +29,7 @@ namespace nanmath {
     virtual void push_row(const std::vector<double> &row);
     virtual std::vector<std::vector<double> > get();
     virtual void resize(size_t r, size_t c);
-    virtual void print();
+    virtual void print() const;
     
   public:
     virtual void zero();

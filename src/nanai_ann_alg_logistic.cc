@@ -4,9 +4,12 @@
 #include <cmath>
 #include <string>
 #include <fstream>
+#include <vector>
 
 #include <nanai_ann_nanndesc.h>
 #include <nanai_ann_alg_logistic.h>
+#include <nanai_mapreduce.h>
+#include <nanai_mapreduce_ann.h>
 #include <nanai_ann_nanncalc.h>
 
 #include "cJSON.h"
@@ -23,9 +26,6 @@ void ann_input_filter(nanmath::nanmath_vector *input,
 
 void ann_result(nanmath::nanmath_vector *output, nanmath::nanmath_vector *result) {
   *result = *output;
-}
-
-void ann_hidden_init(int h, nanmath::nanmath_matrix *wmat) {
 }
 
 /* sigmoid */
@@ -99,22 +99,7 @@ void ann_monitor_trained(int cid,
   
   /* 按照任务进行计数，直到一个数字，进行合并结果，并发送到服务器 */
   std::string task_name = task;
-  nanmath::nanmath_vector o = arg->get_output(task_name, false, true);
   printf("ann_alg_logistic - <%d>[%s]: output = [", cid, task);
-  o.print();
-  printf("]\n");
-}
-
-void ann_monitor_trained_nooutput(int cid,
-                                  const char *task,
-                                  nanai::nanai_ann_nanncalc *arg) {
-  printf("ann_alg_logistic - <%d>[%s]:trained\n", cid, task);
-}
-
-void ann_monitor_calculated(int cid,
-                            const char *task,
-                            nanai::nanai_ann_nanncalc *arg) {
-  printf("ann_alg_logistic - <%d>[%s]:calculated\n", cid, task);
 }
 
 void ann_monitor_progress(int cid,
@@ -131,19 +116,205 @@ void ann_monitor_alg_uninstall(int cid) {
   printf("ann_alg_logistic - <%d>:uninstalled\n", cid);
 }
 
-void ann_calculate(std::string *task,
-                   nanmath::nanmath_vector *input,
-                   nanmath::nanmath_vector *target,
-                   nanmath::nanmath_vector *output,
-                   nanai::nanai_ann_nanncalc *arg) {
-  if (input == nullptr) {
+int ann_calculate(const std::string *task,
+                  const nanmath::nanmath_vector *input,
+                  const nanmath::nanmath_vector *target,
+                  nanmath::nanmath_vector *output,
+                  nanai::nanai_ann_nanncalc *ann) {
+  if ((task == nullptr) || (input == nullptr) || (target == nullptr)) {
     nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
   }
+  
+  return NANAI_ANN_DESC_RETURN;
 }
 
 /* 算法主函数，在调用时调用 */
-void ann_alg_logistic_main() {
-  printf("ann_alg_logistic installed\n");
+void ann_alg_logistic_added() {
+  printf("ann_alg_logistic added success\n");
+}
+
+void ann_alg_logistic_close() {
+  printf("ann_alg_logistic close success\n");
+}
+
+static nanai::nanai_ann_nanncalc *s_make(const nanai::nanai_ann_nanndesc &desc,
+                                         const std::string &log_dir) {
+  nanai::nanai_ann_nanncalc *calc = new nanai::nanai_ann_nanncalc(desc, log_dir.c_str());
+  if (calc == NULL) {
+    nanai::error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
+  }
+  
+  return calc;
+}
+
+int ann_alg_logistic_map(const std::string *task,
+                         const nanai::nanai_mapreduce_ann::nanai_mapreduce_ann_config_t *config,
+                         const std::vector<nanmath::nanmath_vector> *inputs,
+                         const std::vector<nanmath::nanmath_vector> *targets,
+                         const nanai::nanai_ann_nanncalc::ann_t *ann,
+                         std::vector<nanai::nanai_ann_nanncalc::result_t> *map_results) {
+  
+  size_t count = inputs->size();
+  nanai::nanai_ann_nanncalc::ann_t ann_ = *ann;
+  nanai::nanai_ann_nanncalc::result_t result;
+  
+  if (config->wt == 0) {
+    
+    std::vector<std::shared_ptr<nanai::nanai_ann_nanncalc> > calcs;
+    for (size_t i = 0; i < count; i++) {
+      std::shared_ptr<nanai::nanai_ann_nanncalc>calc(s_make(config->desc, config->log_dir));
+      calc->ann_training(*task, (*inputs)[i], (*targets)[i], ann_, &result);
+      map_results->push_back(result);
+      calcs.push_back(calc);
+    }
+    
+    for (auto i : calcs) {
+      i->ann_wait(NANNCALC_ST_WAITING);
+    }
+  } else {
+    nanmath::nanmath_vector input;
+    nanmath::nanmath_vector target;
+    
+    std::shared_ptr<nanai::nanai_ann_nanncalc>calc(s_make(config->desc, config->log_dir));
+    for (size_t i = 0; i < count; i++) {
+      input = (*inputs)[i];
+      target = (*targets)[i];
+      
+      calc->ann_training(*task, input, target, ann_, &result);
+      calc->ann_wait(NANNCALC_ST_WAITING);    /* 直到训练完毕 */
+      ann_ = result.second;                   /* 更新神经网络 */
+      map_results->push_back(result);
+    }
+  }
+  
+  return NANAI_ANN_DESC_RETURN;
+}
+
+static nanmath::nanmath_matrix s_merge_delta_matrix(nanmath::nanmath_matrix &dmat1,
+                                                    nanmath::nanmath_matrix &dmat2) {
+  
+  if ((dmat1.row_size() != dmat2.row_size()) ||
+      (dmat1.col_size() != dmat2.col_size())) {
+    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+  }
+  
+  nanmath::nanmath_matrix c(dmat1.row_size(), dmat1.col_size());
+  for (size_t i = 0; i < dmat1.row_size(); i++) {
+    for (size_t j = 0; j < dmat1.col_size(); j++) {
+      /* 偏差越小在融合后的矩阵中所占值越大 */
+      double delta_a = 1 - (dmat1[i][j] / dmat1[i][j] + dmat2[i][j]);
+      double delta_b = 1 - (dmat2[i][j] / dmat1[i][j] + dmat2[i][j]);
+      
+      double c_n = delta_a * dmat1[i][j] + delta_b * dmat2[i][j];
+      c.set(i, j, c_n);
+    }
+  }
+  
+  return c;
+}
+
+static nanmath::nanmath_matrix s_merge_matrix(nanmath::nanmath_matrix &mat1,
+                                              nanmath::nanmath_matrix &mat2,
+                                              nanmath::nanmath_matrix &dmat1,
+                                              nanmath::nanmath_matrix &dmat2) {
+  if ((mat1.row_size() != mat2.row_size()) ||
+      (mat1.col_size() != mat2.col_size()) ||
+      (mat1.row_size() != dmat1.row_size()) ||
+      (mat1.col_size() != dmat2.col_size())) {
+    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+  }
+  
+  nanmath::nanmath_matrix c(mat1.row_size(), mat1.col_size());
+  for (size_t i = 0; i < mat1.row_size(); i++) {
+    for (size_t j = 0; j < mat1.col_size(); j++) {
+      double delta_a = 1 - (dmat1[i][j] / dmat1[i][j] + dmat2[i][j]);
+      double delta_b = 1 - (dmat2[i][j] / dmat1[i][j] + dmat2[i][j]);
+      
+      double c_n = delta_a * mat1[i][j] + delta_b * mat2[i][j];
+      c.set(i, j, c_n);
+    }
+  }
+  
+  return c;
+}
+
+static nanai::nanai_ann_nanncalc::ann_t s_merge_ann(nanai::nanai_ann_nanncalc::ann_t &a,
+                                                    nanai::nanai_ann_nanncalc::ann_t &b) {
+  nanai::nanai_ann_nanncalc::ann_t c;
+  if (a.weight_matrixes.size() != b.weight_matrixes.size()) {
+    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+  }
+  
+  if ((a.delta_weight_matrixes.size() == 0) ||
+      (b.delta_weight_matrixes.size() == 0)) {
+    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+  }
+  
+  c = a;
+  std::vector<nanmath::nanmath_matrix> wm;
+  std::vector<nanmath::nanmath_matrix> dwm;
+  
+  /* 遍历每层的权值矩阵 */
+  for (size_t i = 0; i < a.weight_matrixes.size(); i++) {
+    wm.push_back(s_merge_matrix(a.weight_matrixes[i], b.weight_matrixes[i],
+                                a.delta_weight_matrixes[i], b.delta_weight_matrixes[i]));
+    dwm.push_back(s_merge_delta_matrix(a.delta_weight_matrixes[i], b.delta_weight_matrixes[i]));
+  }
+  c.weight_matrixes = wm;
+  c.delta_weight_matrixes = dwm;
+  
+  return c;
+}
+
+void s_merge_anns(std::vector<nanai::nanai_ann_nanncalc::ann_t> &anns,
+                  nanai::nanai_ann_nanncalc::ann_t &ann) {
+  
+  if (anns.size() <= 1) {
+    nanai::error(NANAI_ERROR_LOGIC_ANN_NUMBER_LESS_2);
+  }
+  
+  /* 进行合并 */
+  ann = anns[0];
+  for (size_t i = 1; i < anns.size(); i++) {
+    ann = s_merge_ann(ann, anns[i]);
+  }
+}
+
+nanmath::nanmath_vector s_merge_outputs(std::vector<nanmath::nanmath_vector> &outputs,
+                                        nanmath::nanmath_vector &output) {
+  output = outputs[0];
+  for (size_t i = 1; i < outputs.size(); i++) {
+    output = output.add(outputs[i]);
+  }
+  /* 取平均值 */
+  output = output.mul(1 / outputs.size());
+  return output;
+}
+
+int ann_alg_logistic_reduce(int wt,
+                            const std::string *task,
+                            std::vector<nanai::nanai_ann_nanncalc::result_t> *map_results,
+                            nanai::nanai_ann_nanncalc::result_t *reduce_result) {
+  
+  if (wt == 1) {
+    *reduce_result = (*map_results)[0];
+  } else {
+    std::vector<nanai::nanai_ann_nanncalc::ann_t> anns;
+    nanai::nanai_ann_nanncalc::ann_t ann;
+    std::vector<nanmath::nanmath_vector> outputs;
+    nanmath::nanmath_vector output;
+    
+    for (auto r : *map_results) {
+      outputs.push_back(r.first);
+      anns.push_back(r.second);
+    }
+    
+    s_merge_outputs(outputs, output);
+    s_merge_anns(anns, ann);
+    *reduce_result = std::make_pair(output, ann);
+  }
+  
+  return NANAI_ANN_DESC_RETURN;
 }
 
 nanai::nanai_ann_nanndesc *ann_alg_setup(const char *conf_dir) {
@@ -199,36 +370,35 @@ nanai::nanai_ann_nanndesc *ann_alg_logistic_setup(const char *conf_dir) {
   strcpy(nanai_ann_alg_logistic_desc.name, alg_name);
   strcpy(nanai_ann_alg_logistic_desc.description, "use logistic function");
   
-  nanai_ann_alg_logistic_desc.fptr_input_filter = reinterpret_cast<nanai::fptr_ann_input_filter>(ann_input_filter);
-  nanai_ann_alg_logistic_desc.fptr_result = reinterpret_cast<nanai::fptr_ann_result>(ann_result);
+  nanai_ann_alg_logistic_desc.fptr_input_filter = reinterpret_cast<nanai::fptr_ann_alg_input_filter>(ann_input_filter);
+  nanai_ann_alg_logistic_desc.fptr_result = reinterpret_cast<nanai::fptr_ann_alg_result>(ann_result);
   nanai_ann_alg_logistic_desc.fptr_output_error = ann_output_error;
   nanai_ann_alg_logistic_desc.fptr_calculate = nullptr;
   
-  nanai_ann_alg_logistic_desc.fptr_hidden_inits = reinterpret_cast<nanai::fptr_ann_hidden_init>(ann_hidden_init);
   nanai_ann_alg_logistic_desc.fptr_hidden_calcs = ann_hidden_calc;
-  nanai_ann_alg_logistic_desc.fptr_hidden_errors = reinterpret_cast<nanai::fptr_ann_hidden_error>(ann_hidden_error);
+  nanai_ann_alg_logistic_desc.fptr_hidden_errors = reinterpret_cast<nanai::fptr_ann_alg_hidden_error>(ann_hidden_error);
   nanai_ann_alg_logistic_desc.fptr_hidden_adjust_weights =
-    reinterpret_cast<nanai::fptr_ann_hidden_adjust_weight>(ann_hidden_adjust_weight);
+    reinterpret_cast<nanai::fptr_ann_alg_hidden_adjust_weight>(ann_hidden_adjust_weight);
   
   nanai_ann_alg_logistic_desc.callback_monitor_except = reinterpret_cast<nanai::fptr_ann_monitor_except>(ann_monitor_except);
   nanai_ann_alg_logistic_desc.callback_monitor_trained = reinterpret_cast<nanai::fptr_ann_monitor_trained>(ann_monitor_trained);
-  nanai_ann_alg_logistic_desc.callback_monitor_trained_nooutput =
-    reinterpret_cast<nanai::fptr_ann_monitor_trained2>(ann_monitor_trained_nooutput);
-  nanai_ann_alg_logistic_desc.callback_monitor_calculated =
-    reinterpret_cast<nanai::fptr_ann_monitor_calculated>(ann_monitor_calculated);
   nanai_ann_alg_logistic_desc.callback_monitor_progress = ann_monitor_progress;
   nanai_ann_alg_logistic_desc.callback_monitor_alg_uninstall = ann_monitor_alg_uninstall;
-  nanai_ann_alg_logistic_desc.fptr_main = ann_alg_logistic_main;
+  
+  nanai_ann_alg_logistic_desc.fptr_event_added = ann_alg_logistic_added;
+  nanai_ann_alg_logistic_desc.fptr_event_close = ann_alg_logistic_close;
+  
+  nanai_ann_alg_logistic_desc.fptr_map = reinterpret_cast<nanai::fptr_ann_mapreduce_map>(ann_alg_logistic_map);
+  nanai_ann_alg_logistic_desc.fptr_reduce = reinterpret_cast<nanai::fptr_ann_mapreduce_reduce>(ann_alg_logistic_reduce);
   
   if (conf_dir == nullptr) {
-    /* 使用默认配置 */
-    nanai_ann_alg_logistic_desc.ninput = 5;
-    nanai_ann_alg_logistic_desc.nhidden = 2;
-    nanai_ann_alg_logistic_desc.noutput = 3;
-    
-    nanai_ann_alg_logistic_desc.nneure[0] = 6;
-    nanai_ann_alg_logistic_desc.nneure[1] = 4;
   } else {
+    if (conf_file.back() != '/') {
+      conf_file += '/';
+    }
+    conf_file += alg_name;
+    conf_file += ".json";
+    
     if (conf_file.back() != '/') {
       conf_file += '/';
     }
@@ -252,19 +422,7 @@ nanai::nanai_ann_nanndesc *ann_alg_logistic_setup(const char *conf_dir) {
     if (json->child) {
       cJSON *json_next = json->child->child; /* ann第一个子结点 */
       while (json_next) {
-        if (strcmp(json_next->string, "ninput") == 0 ) {
-          nanai_ann_alg_logistic_desc.ninput = json_next->valueint;
-        } else if (strcmp(json_next->string, "noutput") == 0 ) {
-          nanai_ann_alg_logistic_desc.noutput = json_next->valueint;
-        } else if (strcmp(json_next->string, "nhidden") == 0 ) {
-          nanai_ann_alg_logistic_desc.nhidden = json_next->valueint;
-        } else if (strcmp(json_next->string, "nneure") == 0 ) {
-          cJSON *tmp = json_next->child;
-          for (int i = 0; i < nanai_ann_alg_logistic_desc.nhidden; i++) {
-            nanai_ann_alg_logistic_desc.nneure[i] = tmp->valueint;
-            tmp = tmp->next;
-          }
-        } else if (strcmp(json_next->string, "eta") == 0 ) {
+        if (strcmp(json_next->string, "eta") == 0 ) {
           g_eta = json_next->valuedouble;
         } else if (strcmp(json_next->string, "momentum") == 0 ) {
           g_momentum = json_next->valuedouble;
@@ -281,6 +439,7 @@ nanai::nanai_ann_nanndesc *ann_alg_logistic_setup(const char *conf_dir) {
     if (json) {
       cJSON_Delete(json);
     }
+    
   }
   
   return &nanai_ann_alg_logistic_desc;

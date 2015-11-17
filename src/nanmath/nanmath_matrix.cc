@@ -257,7 +257,7 @@ namespace nanmath {
     return res;
   }
   
-  void nanmath_matrix::print() {
+  void nanmath_matrix::print() const {
     for (size_t i = 0; i < row_size(); i++) {
       for (size_t j = 0; j < col_size(); j++) {
         std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(2)

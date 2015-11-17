@@ -15,11 +15,22 @@ namespace nanai {
     return 0;
   }
   
+  static nanmath::nanmath_vector s_read_vector(cJSON *json) {
+    nanmath::nanmath_vector res;
+    while (json) {
+      if (json->valuedouble) res.push(json->valuedouble);
+      else res.push(static_cast<double>(json->valueint));
+      json = json->next;
+    }
+    return res;
+  }
+  
   static void parse_samples(cJSON *json,
                             std::vector<nanmath::nanmath_vector> &samples,
-                            nanmath::nanmath_vector *target) {
-    nanmath::nanmath_vector input;
-    int ncol = 0, nprev = 0;
+                            std::vector<nanmath::nanmath_vector> &targets) {
+    nanmath::nanmath_vector input, target;
+    bool inputed = false, targeted = false;
+    int count = 0;
     cJSON *curr = json->child;
     if (curr == nullptr) error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     
@@ -29,50 +40,59 @@ namespace nanai {
         if (vec == nullptr) error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
         while (vec) {
           cJSON *val = vec->child;
+          inputed = false;
+          targeted = false;
+          count = 0;
           
-          ncol = 0;
-          input.clear();
           while (val) {
-            if (val->valuedouble) input.push(val->valuedouble);
-            else input.push(val->valueint);
-            ncol++;
+            input.clear();
+            target.clear();
+            
+            /* 如果,没有成对出现，则默认填充一个空的 */
+            if (strcmp(val->string, "input") == 0) {
+              input = s_read_vector(val->child);
+              samples.push_back(input);
+              inputed = true;
+              count++;
+            } else if (strcmp(val->string, "target") == 0) {
+              target = s_read_vector(val->child);
+              targets.push_back(input);
+              targeted = true;
+              count++;
+            }
             val = val->next;
           }
           
-          /* 每个输入的向量个数必须一样 */
-          if (nprev) {
-            if (nprev != ncol) error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
+          /* 一个sample项目中最多只能有两项 */
+          if (count > 2) {
+            error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
           }
-          nprev = ncol;
-          samples.push_back(input);
+          
+          /* 输入向量必须存在 */
+          if (inputed == false) {
+            error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
+          }
+          
+          if (targeted == false) {
+            target.clear();
+            targets.push_back(target);
+          }
+          
           vec = vec->next;
-        }
-        
-      } else if (strcmp(curr->string, "target") == 0) {
-        
-        if (target == nullptr) {
-          continue;
-        }
-        
-        cJSON *vec = curr->child;
-        if (vec == nullptr) error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
-        
-        /* 读入一条向量 */
-        while (vec) {
-          if (vec->valuedouble) target->push(vec->valuedouble);
-          else target->push(vec->valueint);
-          vec = vec->next;
-        }
-        
+        }/* end while */
       }
-      
       curr = curr->next;
+    }/* end while */
+    
+    if (samples.size() != targets.size()) {
+      error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     }
+    
   }
   
   void nanai_support_input_json(const std::string &json_context,
                                 std::vector<nanmath::nanmath_vector> &inputs,
-                                nanmath::nanmath_vector *target) {
+                                std::vector<nanmath::nanmath_vector> &targets) {
     if (json_context.empty()) {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     }
@@ -81,7 +101,7 @@ namespace nanai {
     if (json == nullptr) {
       error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     }
-    parse_samples(json, inputs, target);
+    parse_samples(json, inputs, targets);
     
     if (json) {
       cJSON_Delete(json);

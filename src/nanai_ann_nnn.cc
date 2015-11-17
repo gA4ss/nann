@@ -89,7 +89,6 @@ namespace nanai {
   }
   
   static void parse_create_json(cJSON *json,
-                                std::string &alg,
                                 nanai_ann_nanncalc::ann_t &ann,
                                 nanmath::nanmath_vector *target) {
     if (json == nullptr) error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
@@ -100,7 +99,7 @@ namespace nanai {
     bool handle_alg = false, handle_ann = false;
     while (json_child) {
       if (strcmp(json_child->string, "alg") == 0) {
-        alg = json_child->valuestring;
+        ann.alg = json_child->valuestring;
         handle_alg = true;
       } else if (strcmp(json_child->string, "ann") == 0) {
         cJSON *json_next = json_child->child;
@@ -170,7 +169,6 @@ namespace nanai {
   }
     
   void nanai_ann_nnn_read(const std::string &json_context,
-                          std::string &alg,
                           nanai_ann_nanncalc::ann_t &ann,
                           nanmath::nanmath_vector *target) {
     cJSON *json = cJSON_Parse(json_context.c_str());
@@ -178,7 +176,7 @@ namespace nanai {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
-    parse_create_json(json, alg, ann, target);
+    parse_create_json(json, ann, target);
     
     /* 主动填充神经网络的nnearul */
     ann.fill_nneural();
@@ -187,9 +185,14 @@ namespace nanai {
   }
   
   void nanai_ann_nnn_write(std::string &json_context,
-                           const std::string &alg,
                            const nanai_ann_nanncalc::ann_t &ann,
                            nanmath::nanmath_vector *target) {
+    
+    if (ann.empty()) {
+      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    }
+    
+    std::string alg = ann.alg;
     if (alg.empty()) {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
     }
