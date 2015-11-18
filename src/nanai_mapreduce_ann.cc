@@ -10,6 +10,19 @@
 
 namespace nanai {
   
+  nanai_mapreduce_ann::nanai_mapreduce_ann() {
+    
+  }
+  
+  nanai_mapreduce_ann::nanai_mapreduce_ann(const std::string &task,
+                                           nanai_mapreduce_ann_input_t &input)
+    : nanai_mapreduce(task, input) {
+      _map_results.resize(input.first.first.size());
+  }
+  
+  nanai_mapreduce_ann::~nanai_mapreduce_ann() {
+  }
+  
   void nanai_mapreduce_ann::read_config(const nanai_mapreduce_ann_config_t &config) {
     _desc = config.desc;
     _log_dir = config.log_dir;
@@ -42,32 +55,40 @@ namespace nanai {
     }
     
     size_t count = inputs.size();
-    nanai_ann_nanncalc::result_t result;
     if (_wt == 0) {
     
       std::vector<std::shared_ptr<nanai_ann_nanncalc> > calcs;
       
       for (size_t i = 0; i < count; i++) {
         std::shared_ptr<nanai_ann_nanncalc>calc(make(_desc));
-        
-        
-        
-        calc->ann_training(_task, inputs[i], targets[i], ann, &result);
-        _map_results.push_back(result);
+        calc->ann_training(_task, inputs[i], targets[i], ann, &(_map_results[i]));
         calcs.push_back(calc);
       }
     
+      for (auto i : _map_results) {
+        while (i.first.size() == 0) {
+          usleep(100);
+        }
+      }
+      
+      /* 停止所有计算结点 */
       for (auto i : calcs) {
-        i->ann_wait(NANNCALC_ST_WAITING);
+        i->ann_stop();
       }
     } else {
       std::shared_ptr<nanai_ann_nanncalc>calc(make(_desc));
+      nanai_ann_nanncalc::result_t result;
       for (size_t i = 0; i < count; i++) {
         calc->ann_training(_task, inputs[i], targets[i], ann, &result);
-        calc->ann_wait(NANNCALC_ST_WAITING);    /* 直到训练完毕 */
-        ann = result.second;                    /* 更新神经网络 */
-        _map_results.push_back(result);
+        /* 直到训练完毕 */
+        while (result.first.size() == 0) {
+          usleep(100);
+        }
+        /* 更新神经网络 */
+        ann = result.second;
+        _map_results[i] = result;
       }
+      calc->ann_stop();
     }
     
     return;
@@ -201,7 +222,8 @@ namespace nanai {
       s_merge_outputs(outputs, output);
       s_merge_anns(anns, ann);
       
-      _reduce_result = std::make_pair(output, ann);
+      _reduce_result.first = output;
+      _reduce_result.second = ann;
     }
   }
 

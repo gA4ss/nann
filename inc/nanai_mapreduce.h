@@ -8,47 +8,101 @@
 
 #include <nanai_common.h>
 #include <nanai_object.h>
-
+#include <iostream>
 namespace nanai {
   
   /*! nanai的mapreduce模型 */
-  template<class input_t, class map_result_t, class reduce_result_t>
+  template<typename input_t, typename map_result_t, typename reduce_result_t>
   class nanai_mapreduce : public nanai_object {
   public:
+    nanai_mapreduce(){}
+    
     /*! 构造函数必须指定任务名 */
     nanai_mapreduce(const std::string &task,        /*!< 任务名 */
                     input_t &input                  /*!< 输入 */
-                    );
+    ) {
+      _input = input;
+      _task = task;
+      _run = false;
+      _done = false;
+    }
     
     /*! 只能通过释放此类内存，才可以停止管理线程 */
-    virtual ~nanai_mapreduce();
+    virtual ~nanai_mapreduce() {
+      if (_run) {
+        
+        /* 等待线程完毕 */
+        void *tret = nullptr;
+        int err = pthread_join(_mapreduce_thread, &tret);
+        if (err != 0) {
+          error(NANAI_ERROR_RUNTIME_JOIN_THREAD);
+        }
+        
+        err = pthread_mutex_destroy(&_lock);
+        if (err != 0) {
+          error(NANAI_ERROR_RUNTIME_DESTROY_MUTEX);
+        }
+      }
+    }
     
   public:
     
     /*! 运行 */
-    virtual void run();
+    virtual void run() {
+      /* 创建工作线程 */
+      int err = pthread_mutex_init(&_lock, nullptr);
+      if (err != 0) {
+        error(NANAI_ERROR_RUNTIME_INIT_MUTEX);
+      }
+      
+      err = pthread_create(&_mapreduce_thread, nullptr,
+                           thread_nanai_mapreduce_worker, (void *)this);
+      if (err != 0) {
+        error(NANAI_ERROR_RUNTIME_CREATE_THREAD);
+      }
+      
+      _run = true;
+    }
+    
     /*! 运行完毕 */
-    virtual bool is_done();
+    virtual bool is_done() { return _done; }
     /*! 设置运行完毕 */
-    virtual void set_done();
+    virtual void set_done() { _done = true; }
     /*! 获取任务名 */
-    virtual std::string get_task_name() const;
+    virtual std::string get_task_name() const { return _task; }
     /*! 获取map结果 */
-    virtual std::vector<map_result_t> get_map_result() const;
+    virtual std::vector<map_result_t> get_map_result() const { return _map_results; }
     /*! 获取reduce结果 */
-    virtual reduce_result_t get_reduce_result() const;
+    virtual reduce_result_t get_reduce_result() const { return _reduce_result; }
     /*! 等待 */
-    virtual void wait();
+    virtual void wait() {
+      if (_run == false) {
+        return;
+      }
+      
+      while (_done == false) {
+        usleep(100);
+      }
+    }
     
   public:
     /*! map操作 */
-    virtual void map();
+    virtual void map() {};
     
     /*! reduce操作，当_count减为0时调用 */
-    virtual void reduce();
+    virtual void reduce() {};
     
   protected:
-    static void *thread_nanai_mapreduce_worker(void *arg);
+    static void *thread_nanai_mapreduce_worker(void *arg) {
+      nanai_mapreduce<input_t, map_result_t, reduce_result_t> *mp =
+      reinterpret_cast<nanai_mapreduce<input_t, map_result_t, reduce_result_t>*>(arg);
+      
+      mp->map();
+      mp->reduce();
+      mp->set_done();
+      
+      pthread_exit(0);
+    }
     
   protected:
     pthread_t _mapreduce_thread;                      /*!< mapreduce线程 */

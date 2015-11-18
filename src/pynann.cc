@@ -234,7 +234,7 @@ static PyObject *wrap_get_map_results(PyObject *self, PyObject *args) {
       oss << "\t\t" << "\"ann\": ";
       ann = i.second;
       std::string ann_json;
-      nanai_ann_nnn_write(ann_json, ann, nullptr);
+      nanai_ann_nnn_write(ann_json, ann);
       oss << ann_json;
       
       oss << "\t" << "}";
@@ -287,7 +287,7 @@ static PyObject *wrap_get_reduce_result(PyObject *self, PyObject *args) {
     /* 打印神经网络 */
     oss << "\t" << "\"ann\": ";
     std::string ann_json;
-    nanai_ann_nnn_write(ann_json, ann, nullptr);
+    nanai_ann_nnn_write(ann_json, ann);
     oss << ann_json;
     oss << "}";
   } catch (...) {

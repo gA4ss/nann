@@ -162,7 +162,9 @@ namespace nanai {
     std::pair<std::vector<nanmath::nanmath_vector>, std::vector<nanmath::nanmath_vector> >
     sample = std::make_pair(inputs, targets);
     nanai_mapreduce_ann_input_t input = std::make_pair(sample, ann);
-    nanai_mapreduce_ann *node = reinterpret_cast<nanai_mapreduce_ann*>(new nanai_mapreduce<nanai_mapreduce_ann_input_t, nanai_ann_nanncalc::result_t,nanai_ann_nanncalc::result_t>(task, input));
+    //nanai_mapreduce_ann *node = reinterpret_cast<nanai_mapreduce_ann*>(new nanai_mapreduce<nanai_mapreduce_ann_input_t, nanai_ann_nanncalc::result_t,nanai_ann_nanncalc::result_t>(task, input));
+    
+    nanai_mapreduce_ann *node = new nanai_mapreduce_ann(task, input);
     if (node == nullptr) {
       error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
     }

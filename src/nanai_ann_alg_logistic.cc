@@ -156,25 +156,25 @@ int ann_alg_logistic_map(const std::string *task,
   
   size_t count = inputs->size();
   nanai::nanai_ann_nanncalc::ann_t ann_ = *ann;
-  nanai::nanai_ann_nanncalc::result_t result;
   
   if (config->wt == 0) {
     
     std::vector<std::shared_ptr<nanai::nanai_ann_nanncalc> > calcs;
     for (size_t i = 0; i < count; i++) {
       std::shared_ptr<nanai::nanai_ann_nanncalc>calc(s_make(config->desc, config->log_dir));
-      calc->ann_training(*task, (*inputs)[i], (*targets)[i], ann_, &result);
-      map_results->push_back(result);
+      calc->ann_training(*task, (*inputs)[i], (*targets)[i], ann_, &((*map_results)[i]));
       calcs.push_back(calc);
     }
     
-    for (auto i : calcs) {
-      i->ann_wait(NANNCALC_ST_WAITING);
+    for (auto i : *map_results) {
+      while (i.first.size() == 0) {
+        usleep(100);
+      }
     }
   } else {
     nanmath::nanmath_vector input;
     nanmath::nanmath_vector target;
-    
+    nanai::nanai_ann_nanncalc::result_t result;
     std::shared_ptr<nanai::nanai_ann_nanncalc>calc(s_make(config->desc, config->log_dir));
     for (size_t i = 0; i < count; i++) {
       input = (*inputs)[i];
@@ -183,7 +183,7 @@ int ann_alg_logistic_map(const std::string *task,
       calc->ann_training(*task, input, target, ann_, &result);
       calc->ann_wait(NANNCALC_ST_WAITING);    /* 直到训练完毕 */
       ann_ = result.second;                   /* 更新神经网络 */
-      map_results->push_back(result);
+      (*map_results)[i] = result;
     }
   }
   
@@ -297,7 +297,7 @@ int ann_alg_logistic_reduce(int wt,
                             nanai::nanai_ann_nanncalc::result_t *reduce_result) {
   
   if (wt == 1) {
-    *reduce_result = (*map_results)[0];
+    *reduce_result = map_results->back();
   } else {
     std::vector<nanai::nanai_ann_nanncalc::ann_t> anns;
     nanai::nanai_ann_nanncalc::ann_t ann;
@@ -311,7 +311,8 @@ int ann_alg_logistic_reduce(int wt,
     
     s_merge_outputs(outputs, output);
     s_merge_anns(anns, ann);
-    *reduce_result = std::make_pair(output, ann);
+    reduce_result->first = output;
+    reduce_result->second = ann;
   }
   
   return NANAI_ANN_DESC_RETURN;
@@ -388,17 +389,13 @@ nanai::nanai_ann_nanndesc *ann_alg_logistic_setup(const char *conf_dir) {
   nanai_ann_alg_logistic_desc.fptr_event_added = ann_alg_logistic_added;
   nanai_ann_alg_logistic_desc.fptr_event_close = ann_alg_logistic_close;
   
-  nanai_ann_alg_logistic_desc.fptr_map = reinterpret_cast<nanai::fptr_ann_mapreduce_map>(ann_alg_logistic_map);
-  nanai_ann_alg_logistic_desc.fptr_reduce = reinterpret_cast<nanai::fptr_ann_mapreduce_reduce>(ann_alg_logistic_reduce);
+  nanai_ann_alg_logistic_desc.fptr_map =
+    reinterpret_cast<nanai::fptr_ann_mapreduce_map>(ann_alg_logistic_map);
+  nanai_ann_alg_logistic_desc.fptr_reduce =
+    reinterpret_cast<nanai::fptr_ann_mapreduce_reduce>(ann_alg_logistic_reduce);
   
   if (conf_dir == nullptr) {
   } else {
-    if (conf_file.back() != '/') {
-      conf_file += '/';
-    }
-    conf_file += alg_name;
-    conf_file += ".json";
-    
     if (conf_file.back() != '/') {
       conf_file += '/';
     }

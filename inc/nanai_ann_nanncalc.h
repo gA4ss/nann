@@ -16,7 +16,7 @@
 namespace nanai {
   
   /*
-   * 计算结点状态消息 
+   * 计算结点状态消息
    */
 #define NANNCALC_ST_STOP                   0
 #define NANNCALC_ST_WAITING                1
@@ -57,9 +57,14 @@ namespace nanai {
             std::vector<nanmath::nanmath_matrix> &wm,                   /*!< 权值矩阵，会根据这个矩阵产生神经网络其它配置 */
             std::vector<nanmath::nanmath_matrix> *dwm=nullptr           /*!< 可选的偏差矩阵 */
             );
+      
+      ann_t(const ann_t &t);
+      
       /*! 神经网络析构函数 */
       virtual ~ann_t();
     public:
+      /*! 设置神经网络 */
+      void set(const ann_t &t);
       /*! 根据权值矩阵产生神经网络 */
       int make(const std::string &alg,                                  /*!< 算法名称 */
                std::vector<nanmath::nanmath_matrix> &wm,                /*!< 权值矩阵，会根据这个矩阵产生神经网络其它配置 */
@@ -125,7 +130,7 @@ namespace nanai {
     virtual void ann_destroy();
     
     /*! 等待计算结点到某个状态 */
-    virtual void ann_wait(int st=NANNCALC_ST_STOP,        /*!< 要等待的状态 */
+    virtual void ann_wait(int st=NANNCALC_ST_WAITING,     /*!< 要等待的状态 */
                           int slt=100                     /*!< 要等待的时间 */
                           );
     
@@ -223,13 +228,6 @@ namespace nanai {
                                    nanmath::nanmath_vector &input,                  /*!< [in] 输入向量 */
                                    nanmath::nanmath_vector &output_delta            /*!< [out] 误差输出向量 */
                                    );
-    /*! 两个层之间的权值矩阵调解 */
-    virtual void ann_adjust_weight(nanmath::nanmath_matrix &wm,               /*!< [in] 权值矩阵 */
-                                   nanmath::nanmath_matrix &prev_dwm,         /*!< [in] 上一个的误差矩阵 */
-                                   nanmath::nanmath_vector &layer,            /*!< [in] 输入向量 */
-                                   nanmath::nanmath_vector &delta             /*!< [in] 误差向量 */
-                                   );
-    
   protected:
     /*! 基类的虚函数，当错误发生是调用 */
     virtual void on_error(int err     /*!< 错误发生时的代码 */

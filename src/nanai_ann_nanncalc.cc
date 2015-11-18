@@ -34,7 +34,7 @@ namespace nanai {
       
       calc->set_state(NANNCALC_ST_WAITING);
       
-      if (calc->get_cmd(ncmd) == NANNCALC_ST_WAITING) {
+      if (calc->get_cmd(ncmd) == NANNCALC_CMD_WAITING) {
         usleep(s_cmd_sleep_time);
         continue;
       }
@@ -82,8 +82,22 @@ namespace nanai {
     make(alg, wm, dwm);
   }
   
+  nanai_ann_nanncalc::ann_t::ann_t(const nanai_ann_nanncalc::ann_t &t) {
+    set(t);
+  }
+  
   nanai_ann_nanncalc::ann_t::~ann_t() {
     clear();
+  }
+  
+  void nanai_ann_nanncalc::ann_t::set(const ann_t &t) {
+    alg = t.alg;
+    ninput = t.ninput;
+    nhidden = t.nhidden;
+    noutput = t.noutput;
+    nneural = t.nneural;
+    weight_matrixes = t.weight_matrixes;
+    delta_weight_matrixes = t.delta_weight_matrixes;
   }
 
   int nanai_ann_nanncalc::ann_t::make(const std::string &alg,
@@ -242,6 +256,7 @@ namespace nanai {
                                         const nanai_ann_nanncalc::ann_t &ann,
                                         result_t *result) {
     struct ncommand ncmd;
+    ncmd.cmd = NANNCALC_CMD_TRAINING;
     ncmd.task = task;
     ncmd.input = input;
     ncmd.target = target;
@@ -295,11 +310,8 @@ namespace nanai {
     _callback_monitor_alg_uninstall = nullptr;
   }
   
-  void nanai_ann_nanncalc::ann_wait(int st, int slt) {
-    if ((st < NANNCALC_ST_STOP) || (st > NANNCALC_ST_CONFIGURED)) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
-    }
-    
+  void nanai_ann_nanncalc::ann_wait(int st,
+                                    int slt) {
     while (_state != st) {
       usleep(slt);
     }
@@ -345,7 +357,7 @@ namespace nanai {
     }
     
     if (_cmdlist.empty()) {
-      cmd = NANNCALC_ST_WAITING;
+      cmd = NANNCALC_CMD_WAITING;
       goto _end;
     }
     
@@ -374,7 +386,8 @@ namespace nanai {
   void nanai_ann_nanncalc::set_result(nanai_ann_nanncalc::result_t *result,
                                       const nanmath::nanmath_vector &output,
                                       const nanai_ann_nanncalc::ann_t &ann) {
-    *result = std::make_pair(output, ann);
+    result->first = output;
+    result->second = ann;
   }
   
   void nanai_ann_nanncalc::do_stop() {
@@ -616,6 +629,26 @@ namespace nanai {
     return delta_h;
   }
   
+  static void s_ann_adjust_weight(nanmath::nanmath_matrix &wm,
+                                  nanmath::nanmath_matrix &prev_dwm,
+                                  nanmath::nanmath_vector &layer,
+                                  nanmath::nanmath_vector &delta) {
+    static const double s_eta = 0.05;/* 学习速率 */
+    static const double momentum = 0.03;/* 冲量项 */
+    
+    /* 这里是遍历列向量 */
+    for (size_t i = 0; i < delta.size(); i++) {          /* 矩阵的列 */
+      for (size_t j = 0; j < layer.size(); j++) {        /* 矩阵的行 */
+        /* 让上一层的每个输入向量都乘以当前的偏差值
+         * 然后在修订这个偏差值的权向量
+         */
+        double new_dw = (s_eta * delta[i] * layer[j]) + (momentum * prev_dwm[j][i]);
+        wm[j][i] += new_dw;
+        prev_dwm[j][i] = new_dw;
+      }
+    }/* end for */
+  }
+  
   void nanai_ann_nanncalc::ann_hiddens_error(nanai_ann_nanncalc::ann_t &ann,
                                              std::vector<nanmath::nanmath_vector> &hiddens,
                                              nanmath::nanmath_vector &input,
@@ -656,29 +689,8 @@ namespace nanai {
         _fptr_hidden_adjust_weights(static_cast<int>(h), &i, &delta_k,
                                     &ann.weight_matrixes[h], &ann.delta_weight_matrixes[h]);
       } else {
-        ann_adjust_weight(ann.weight_matrixes[h], ann.delta_weight_matrixes[h], i, delta_k);
+        s_ann_adjust_weight(ann.weight_matrixes[h], ann.delta_weight_matrixes[h], i, delta_k);
       }
     }
   }
-  
-  void nanai_ann_nanncalc::ann_adjust_weight(nanmath::nanmath_matrix &wm,
-                                             nanmath::nanmath_matrix &prev_dwm,
-                                             nanmath::nanmath_vector &layer,
-                                             nanmath::nanmath_vector &delta) {
-    static const double s_eta = 0.05;/* 学习速率 */
-    static const double momentum = 0.03;/* 冲量项 */
-    
-    /* 这里是遍历列向量 */
-    for (size_t i = 0; i < delta.size(); i++) {          /* 矩阵的列 */
-      for (size_t j = 0; j < layer.size(); j++) {        /* 矩阵的行 */
-        /* 让上一层的每个输入向量都乘以当前的偏差值
-         * 然后在修订这个偏差值的权向量
-         */
-        double new_dw = (s_eta * delta[i] * layer[j]) + (momentum * prev_dwm[j][i]);
-        wm[j][i] += new_dw;
-        prev_dwm[j][i] = new_dw;
-      }
-    }/* end for */
-  }
-  
 }

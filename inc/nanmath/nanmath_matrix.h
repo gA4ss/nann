@@ -12,6 +12,7 @@ namespace nanmath {
     nanmath_matrix(size_t r, size_t c);
     nanmath_matrix(const std::vector<std::vector<double> > &mat);
     nanmath_matrix(const nanmath_matrix &t);
+    
     virtual ~nanmath_matrix();
     
   public:

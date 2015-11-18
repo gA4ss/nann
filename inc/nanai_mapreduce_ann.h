@@ -20,30 +20,38 @@ namespace nanai {
   typedef nanai_mapreduce<nanai_mapreduce_ann_input_t, nanai_ann_nanncalc::result_t, nanai_ann_nanncalc::result_t> mapreduce_ann_t;
   
   class nanai_mapreduce_ann : public mapreduce_ann_t {
-    public:
+  public:
+    nanai_mapreduce_ann();
+    nanai_mapreduce_ann(const std::string &task,                  /*!< 任务名 */
+                        nanai_mapreduce_ann_input_t &input        /*!< 输入 */
+                        );
+    
+    virtual ~nanai_mapreduce_ann();
+    
+  public:
     typedef struct _nanai_mapreduce_ann_config_t {
       nanai_ann_nanndesc desc;
       std::string log_dir;
       int wt;
     } nanai_mapreduce_ann_config_t;
-      /*! 读取配置 */
+    /*! 读取配置 */
     virtual void read_config(const nanai_mapreduce_ann_config_t &config);
       
-      /*! map操作 */
-      virtual void map() override;
+    /*! map操作 */
+    virtual void map() override;
       
-      /*! reduce操作 */
-      virtual void reduce() override;
+    /*! reduce操作 */
+    virtual void reduce() override;
       
-    protected:
-      /*! 产生计算结点 */
-      virtual nanai_ann_nanncalc *make(const nanai_ann_nanndesc &desc               /*!< [in] 算法描述结点 */
+  protected:
+    /*! 产生计算结点 */
+    virtual nanai_ann_nanncalc *make(const nanai_ann_nanndesc &desc               /*!< [in] 算法描述结点 */
                                       );
       
-    protected:
-      nanai_ann_nanndesc _desc;                                                     /*!< 算法描述结果 */
-      std::string _log_dir;                                                         /*!< 日志记录目录 */
-      int _wt;                                                                      /*!< 工作模式 */
+  protected:
+    nanai_ann_nanndesc _desc;                                                     /*!< 算法描述结果 */
+    std::string _log_dir;                                                         /*!< 日志记录目录 */
+    int _wt;                                                                      /*!< 工作模式 */
   };
   
 }

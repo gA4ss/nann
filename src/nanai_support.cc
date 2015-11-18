@@ -56,7 +56,7 @@ namespace nanai {
               count++;
             } else if (strcmp(val->string, "target") == 0) {
               target = s_read_vector(val->child);
-              targets.push_back(input);
+              targets.push_back(target);
               targeted = true;
               count++;
             }
