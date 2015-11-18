@@ -166,10 +166,16 @@ int ann_alg_logistic_map(const std::string *task,
       calcs.push_back(calc);
     }
     
-    for (auto i : *map_results) {
-      while (i.first.size() == 0) {
+    /* 等待所有计算结果执行完毕 */
+    for (size_t i = 0; i < count; i++) {
+      while ((*map_results)[i].first.size() == 0) {
         usleep(100);
       }
+    }
+    
+    /* 停止所有计算结点 */
+    for (auto i : calcs) {
+      i->ann_stop();
     }
   } else {
     nanmath::nanmath_vector input;
@@ -181,10 +187,19 @@ int ann_alg_logistic_map(const std::string *task,
       target = (*targets)[i];
       
       calc->ann_training(*task, input, target, ann_, &result);
-      calc->ann_wait(NANNCALC_ST_WAITING);    /* 直到训练完毕 */
-      ann_ = result.second;                   /* 更新神经网络 */
+      /* 直到训练完毕 */
+      while (result.first.size() == 0) {
+        usleep(100);
+      }
+      /* 更新神经网络 */
+      ann_ = result.second;
       (*map_results)[i] = result;
+      
+      /* 清空临时变量 */
+      result.first.clear();
+      result.second.clear();
     }
+    calc->ann_stop();
   }
   
   return NANAI_ANN_DESC_RETURN;
