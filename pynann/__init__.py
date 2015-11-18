@@ -10,146 +10,65 @@ Nanan rtificial neural network algorithm library.
 import os, re
 import nann
 
-'''
-print nann version.
-'''
+#----------------------------------------------------------------------
 def version():
+    """print nann version."""
     return nann.version()
 
-
-'''
-test nann.
-'''
+#----------------------------------------------------------------------
 def test():
+    """test nann."""
     nann.test()
-
-'''
-load nann.
-'''
-def load():
-    return nann.load()
     
-'''
-unload nann.
-'''
-def unload():
-    return nann.unload()
-
-'''
-create nann manager.
-task : 任务名
-json : json缓存 或者 json文件路径
-if_file : json参数是否是文件路径
-work_type<可选> : 工作类型，0:并行运算，1:串行运算
-max_calc<可选> : 最大计算结点数，默认1024个
-now_calc<可选> : 直接启动线程，默认启动100个
-'''
-def create(task, json, is_file=False, work_type=0, max_calc=1024, now_calc=100):
-    if (is_file == True):
-        file_object = open(json,'r')
-        try:
-            json_text = file_object.read()
-        finally:
-            file_object.close()
-    else:
-        json_text = json
-    
-    if (work_type == 1):
-        ret = nann.create(task, json_text, 1, 0)
-    else:
-        ret = nann.create(task, json_text, max_calc, now_calc)
-'''
-destroy nann manager.
-'''
-def destroy(task):
-    return nann.destroy(task)
-    
-    
-'''
-change except type.
-'''
+#----------------------------------------------------------------------
 def change_except_type(t):
+    """t != 0 throw except, t == 0 return errcode"""
     return nann.exptype(t)
 
-'''
-train sample, adjust weight & output result.
-'''
-def training(task, json, is_file=False):
+#----------------------------------------------------------------------
+def training(task, ann_json, input_json, wt=0, auto_clear=0, is_file=False):
+    """train sample, adjust weight & output result."""
     if (is_file == True):
-        file_object = open(json,'r')
+        ann_file_object = open(ann_json,'r')
+        input_file_object = open(input_json, 'r')
         try:
-            json_text = file_object.read()
+            ann_json_text = ann_file_object.read()
+            input_json_text = input_file_object.read()
         finally:
-            file_object.close()
+            ann_file_object.close
+            input_file_object.close
     else:
-        json_text = json    
-    return nann.training(task, json_text)
-
-'''
-train sample, not adjust weight & output result.
-'''
-def training_notarget(task, json, is_file=False):
-    if (is_file == True):
-        file_object = open(json,'r')
-        try:
-            json_text = file_object.read()
-        finally:
-            file_object.close()
-    else:
-        json_text = json    
-    return nann.training_notarget(task, json_text)
-
-'''
-train sample, adjust weight & not output result.
-'''
-def training_nooutput(task, json, is_file=False):
-    if (is_file == True):
-        file_object = open(json,'r')
-        try:
-            json_text = file_object.read()
-        finally:
-            file_object.close()
-    else:
-        json_text = json    
-    return nann.training_nooutput(task, json_text)
+        ann_json_text = ann_json
+        input_json_text = input_json
+    return nann.training(task, ann_json_text, input_json_text, wt, auto_clear)
 
 #----------------------------------------------------------------------
-def get_outputs(task):
-    """get task outputs"""
-    return nann.get_outputs(task)
+def done(task):
+    """check task is done"""
+    return nann.done(task)
     
 #----------------------------------------------------------------------
-def get_output_by_jid(task, jid):
-    """get task output by jid"""
-    return nann.get_output_by_jid(task, jid)
+def clear(task):
+    """clear task which is done."""
+    nann.clear(task)
+    
+#----------------------------------------------------------------------
+def clears():
+    """clear all tasks which is done."""
+    nann.clears()
+    
+#----------------------------------------------------------------------
+def get_map_results(task):
+    """get task map results."""
+    return nann.get_map_results(task)
+    
+#----------------------------------------------------------------------
+def get_reduce_result(task):
+    """get task reduce result."""
+    return nann.get_reduce_result(task)
+    
+
+    
+    
         
 
-'''
-read an ann from nnn file.
-'''
-def read(filepath):
-    return nann.nnn_read(filepath)
-
-'''
-write an ann to nnn file.
-'''
-def write(filepath):
-    return nann.nnn_write(filepath)
-
-'''
-print ann from task.
-'''
-def print_info(task):
-    nann.print_info(task)
-
-'''
-some task is running.
-'''
-def iscalcing():
-    return nann.iscalcing()
-
-'''
-merge task's all ann to one.
-'''
-def merge(task):
-    return nann.merge(task)

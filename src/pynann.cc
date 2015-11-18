@@ -156,8 +156,9 @@ static PyObject *wrap_done(PyObject *self, PyObject *args) {
     return do_except(PYNANN_ERROR_PY_INVALID_ARGUMENT);
   }
 
+  bool b = false;
   try {
-    g_mgrlist->mapreduce_is_done(task);
+    b = g_mgrlist->mapreduce_is_done(task);
   } catch (nanai_error_logic_task_not_matched) {
     return do_except(PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST);
   } catch (...) {
@@ -165,7 +166,7 @@ static PyObject *wrap_done(PyObject *self, PyObject *args) {
   }
   
   /* 检查正在计算的数量 */
-  return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
+  return Py_BuildValue("i", static_cast<int>(b));
 }
 
 static PyObject *wrap_clear(PyObject *self, PyObject *args) {
