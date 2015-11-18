@@ -45,7 +45,6 @@ namespace nanai {
   }
   
   nanai_ann_nannmgr::~nanai_ann_nannmgr() {
-    
     /* 释放所有计算结点 */
     waits();
     frees();

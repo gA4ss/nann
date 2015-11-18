@@ -184,7 +184,7 @@ namespace nanai {
     std::ostringstream oss;
     oss << "{" << std::endl;
     oss << "\t" << "\"ann\": {" << std::endl;
-    oss << "\t\t" << "\"alg\": " << "\"" << alg << "\"" << std::endl;
+    oss << "\t\t" << "\"alg\": " << "\"" << alg << "\"," << std::endl;
     oss << "\t\t" << "\"weight matrixes\": {" << std::endl;
     for (size_t i = 0; i < ann.weight_matrixes.size(); i++) {
       oss << "\t\t\t" << "\"" << i << "\": {" << std::endl;
@@ -205,6 +205,7 @@ namespace nanai {
       if (i < (ann.weight_matrixes.size()-1)) oss << "\t\t\t}," << std::endl;
       else oss << "\t\t\t}" << std::endl;
     }
+    oss << "\t\t}," << std::endl;
     
     oss << "\t\t" << "\"delta weight matrixes\": {" << std::endl;
     for (size_t i = 0; i < ann.delta_weight_matrixes.size(); i++) {
@@ -227,8 +228,8 @@ namespace nanai {
       else oss << "\t\t\t}" << std::endl;
     }
     
+    oss << "\t\t}" << std::endl;
     oss << "\t}" << std::endl;
-    
     oss << "}" << std::endl;
     json_context = oss.str();
   }

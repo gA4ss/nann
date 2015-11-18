@@ -60,8 +60,7 @@ void ann_hidden_adjust_weight(int h,                                    /*!< 第
                               nanmath::nanmath_vector *delta,           /*!< 误差向量 */
                               nanmath::nanmath_matrix *wm,              /*!< 要调节的权值矩阵 */
                               nanmath::nanmath_matrix *prev_dwm         /*!< 保存偏差矩阵 */
-                              )
-{
+                              ) {
   if (wm->col_size() != delta->size() ||
       (wm->row_size() != layer->size())) {
     nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
@@ -324,6 +323,16 @@ int ann_alg_logistic_reduce(int wt,
       anns.push_back(r.second);
     }
     
+    /* 等于1个不合并 */
+    if (anns.size() < 2) {
+      reduce_result->first = outputs.back();
+      reduce_result->second = anns.back();
+      return NANAI_ANN_DESC_RETURN;
+    }
+    
+    /*
+     * 结果合并
+     */
     s_merge_outputs(outputs, output);
     s_merge_anns(anns, ann);
     reduce_result->first = output;

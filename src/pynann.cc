@@ -39,7 +39,7 @@ using namespace nanai;
 #define PYNANN_WARNING_INVALID_ARGUMENT_TASK_NOT_EXIST  0x87000102
 
 static std::shared_ptr<nanai::nanai_ann_nannmgr> g_mgrlist = nullptr;
-static const char *g_str_this_version_not_implemented = "this version  ot implemented!!!";
+//static const char *g_str_this_version_not_implemented = "this version  ot implemented!!!";
 static bool g_throw_exp = true;
 
 static PyObject *do_except(int code, const char *str=nullptr);
@@ -222,17 +222,17 @@ static PyObject *wrap_get_map_results(PyObject *self, PyObject *args) {
     size_t job = 0;
     for (auto i : results) {
       /* 打印输出向量 */
-      oss << "\t" << "\"job" << job + 1 << "\": {\n";
+      oss << "\t" << "\"Job" << job + 1 << "\": {\n";
       
-      oss << "\t\t" << "\"output\":" << "[";
+      oss << "\t\t" << "\"Result\":" << "[";
       for (size_t j = 0; j < i.first.size(); j++) {
         oss << i.first[j];
         if (j < i.first.size() - 1) oss << ", ";
       }
-      oss << "]\n";
+      oss << "],\n";
       
       /* 打印神经网络 */
-      oss << "\t\t" << "\"ann\": ";
+      oss << "\t\t" << "\"Artificial Neural Network\": ";
       ann = i.second;
       std::string ann_json;
       nanai_ann_nnn_write(ann_json, ann);
@@ -278,15 +278,14 @@ static PyObject *wrap_get_reduce_result(PyObject *self, PyObject *args) {
   nanai_ann_nanncalc::ann_t ann = result.second;
   try {
     oss << "{\n";
-    oss << "\t" << "\"output\":" << "[";
+    oss << "\t" << "\"Result\": " << "[";
     for (size_t j = 0; j < output.size(); j++) {
       oss << output[j];
       if (j < output.size() - 1) oss << ", ";
     }
-    oss << "]\n";
-      
-    /* 打印神经网络 */
-    oss << "\t" << "\"ann\": ";
+    oss << "],\n";
+
+    oss << "\t" << "\"Artificial Neural Network\": ";
     std::string ann_json;
     nanai_ann_nnn_write(ann_json, ann);
     oss << ann_json;
