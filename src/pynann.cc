@@ -41,6 +41,7 @@ using namespace nanai;
 static std::shared_ptr<nanai::nanai_ann_nannmgr> g_mgrlist = nullptr;
 //static const char *g_str_this_version_not_implemented = "this version  ot implemented!!!";
 static bool g_throw_exp = true;
+static int g_precision = 4;
 
 static PyObject *do_except(int code, const char *str=nullptr);
 PyObject *do_except(int code, const char *str) {
@@ -297,6 +298,26 @@ static PyObject *wrap_get_reduce_result(PyObject *self, PyObject *args) {
   return Py_BuildValue("s", oss.str().c_str());
 }
 
+static PyObject *wrap_set_precision(PyObject *self, PyObject *args) {
+  int p = 0;
+  if (!PyArg_ParseTuple(args, "i", &p)) {
+    return do_except(PYNANN_ERROR_PY_INVALID_ARGUMENT);
+  }
+  
+  if ((p < 0) || (p > 8)) {
+    g_precision = 8;
+  } else {
+    g_precision = p;
+  }
+  
+  Py_RETURN_NONE;
+}
+
+static PyObject *wrap_wait(PyObject *self, PyObject *args) {
+  g_mgrlist->waits();
+  Py_RETURN_NONE;
+}
+
 /**************************************************************************************************************/
 
 static PyMethodDef nannMethods[] = {
@@ -309,6 +330,8 @@ static PyMethodDef nannMethods[] = {
   { "clears", wrap_clears, METH_NOARGS, "clear all tasks which is done." },
   { "get_map_results", wrap_get_map_results, METH_VARARGS, "get task map results." },
   { "get_reduce_result", wrap_get_reduce_result, METH_VARARGS, "get task reduce result." },
+  { "set_precision", wrap_set_precision, METH_VARARGS, "set ann output precision." },
+  { "wait", wrap_wait, METH_NOARGS, "wait all task done." },
   { NULL, NULL, 0, NULL }
 };
 

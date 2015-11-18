@@ -10,7 +10,8 @@ namespace nanai {
                           nanai_ann_nanncalc::ann_t &ann);
   
   void nanai_ann_nnn_write(std::string &json_context,
-                           const nanai_ann_nanncalc::ann_t &ann);
+                           const nanai_ann_nanncalc::ann_t &ann,
+                           int precision=4);
 }
 
 #endif /* nanai_ann_nnn_h */

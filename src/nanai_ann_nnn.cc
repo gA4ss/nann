@@ -152,7 +152,7 @@ namespace nanai {
       error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     }
   }
-    
+  
   void nanai_ann_nnn_read(const std::string &json_context,
                           nanai_ann_nanncalc::ann_t &ann) {
     cJSON *json = cJSON_Parse(json_context.c_str());
@@ -169,7 +169,8 @@ namespace nanai {
   }
   
   void nanai_ann_nnn_write(std::string &json_context,
-                           const nanai_ann_nanncalc::ann_t &ann) {
+                           const nanai_ann_nanncalc::ann_t &ann,
+                           int precision) {
     
     if (ann.empty()) {
       error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
@@ -194,7 +195,7 @@ namespace nanai {
         /* 输出一行 */
         for (size_t m = 0; m < ann.weight_matrixes[i].col_size(); m++) {
           oss << std::setiosflags(std::ios::fixed) << std::setiosflags(std::ios::left)
-              << std::setprecision(2) << std::setw(4) << ann.weight_matrixes[i][n][m];
+              << std::setprecision(precision) << std::setw(4) << ann.weight_matrixes[i][n][m];
           if (m < (ann.weight_matrixes[i].col_size()-1)) oss << ", ";
         }
         
@@ -216,7 +217,7 @@ namespace nanai {
         /* 输出一行 */
         for (size_t m = 0; m < ann.delta_weight_matrixes[i].col_size(); m++) {
           oss << std::setiosflags(std::ios::fixed) << std::setiosflags(std::ios::left)
-          << std::setprecision(2) << std::setw(4) << ann.delta_weight_matrixes[i][n][m];
+          << std::setprecision(precision) << std::setw(4) << ann.delta_weight_matrixes[i][n][m];
           if (m < (ann.delta_weight_matrixes[i].col_size()-1)) oss << ", ";
         }
         
