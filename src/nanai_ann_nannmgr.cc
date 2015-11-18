@@ -57,6 +57,15 @@ namespace nanai {
       }
     }/* end if */
     
+    
+    /* 外部库析构 */
+    for (auto i : _descs) {
+      if (i.fptr_event_close) {
+        i.fptr_event_close();
+      }
+    }
+    
+    /* 卸载外部算法库 */
     for (auto i : _algs) {
       if (i.first) {
         dlclose(i.first);
@@ -200,6 +209,16 @@ namespace nanai {
     return result;
   }
 
+  void nanai_ann_nannmgr::wait(const std::string &task) {
+    lock();
+    if (_mapreduce.find(task) == _mapreduce.end()) {
+      error(NANAI_ERROR_LOGIC_TASK_NOT_MATCHED);
+    }
+    unlock();
+    
+    _mapreduce[task]->wait();
+  }
+  
   void nanai_ann_nannmgr::waits() {
     lock();
     for (auto i : _mapreduce) {

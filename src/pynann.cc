@@ -117,37 +117,11 @@ static PyObject *wrap_training(PyObject *self, PyObject *args) {
     }
     
     g_mgrlist->training(task, ann_json, input_json, wt);
-  } catch (nanai_error_logic_task_already_exist) {
-    return do_except(PYNANN_WARNING_INVALID_ARGUMENT_TASK_EXIST);
   } catch (...) {
     return do_except(PYNANN_ERROR_INTERNAL, "training error");
   }
   
   return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
-}
-
-static void s_print_ann(const nanai::nanai_ann_nanncalc::ann_t &ann) {
-  std::cout << "number of input = " << ann.ninput << std::endl;
-  std::cout << "number of output = " << ann.noutput << std::endl;
-  std::cout << "number of hidden = " << ann.nhidden << std::endl;
-
-  std::cout << "numbers of neural on each hidden = [";
-  for (auto i : ann.nneural) {
-    std::cout << std::setiosflags(std::ios::left) << std::setw(4) << i;
-  }
-  std::cout << "]" << std::endl;
-  
-  for (size_t n = 0; n < ann.weight_matrixes.size(); n++) {
-    std::cout << "weight matrix[" << n << "] = " << std::endl;
-    ann.weight_matrixes[n].print();
-    std::cout << std::endl;
-  }
-  
-  for (size_t n = 0; n < ann.delta_weight_matrixes.size(); n++) {
-    std::cout << "delta weight matrix[" << n << "] = " << std::endl;
-    ann.delta_weight_matrixes[n].print();
-    std::cout << std::endl;
-  }
 }
 
 /*! 指定任务名的正在计算结点有多少个 */
@@ -160,10 +134,8 @@ static PyObject *wrap_done(PyObject *self, PyObject *args) {
   bool b = false;
   try {
     b = g_mgrlist->mapreduce_is_done(task);
-  } catch (nanai_error_logic_task_not_matched) {
-    return do_except(PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST);
   } catch (...) {
-    return do_except(PYNANN_ERROR_INTERNAL);
+    return do_except(PYNANN_ERROR_INTERNAL, "done error");
   }
   
   /* 检查正在计算的数量 */
@@ -178,10 +150,8 @@ static PyObject *wrap_clear(PyObject *self, PyObject *args) {
   
   try {
     g_mgrlist->clear_mapreduce(task);
-  } catch (nanai_error_logic_task_not_matched) {
-    return do_except(PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST);
   } catch (...) {
-    return do_except(PYNANN_ERROR_INTERNAL);
+    return do_except(PYNANN_ERROR_INTERNAL, "clear error");
   }
   
   /* 检查正在计算的数量 */
@@ -192,7 +162,7 @@ static PyObject *wrap_clears(PyObject *self, PyObject *args) {
   try {
     g_mgrlist->clears();
   } catch (...) {
-    return do_except(PYNANN_ERROR_INTERNAL);
+    return do_except(PYNANN_ERROR_INTERNAL, "clears error");
   }
   
   /* 检查正在计算的数量 */
@@ -209,10 +179,8 @@ static PyObject *wrap_get_map_results(PyObject *self, PyObject *args) {
   
   try {
     results = g_mgrlist->get_map_result(task);
-  } catch (nanai_error_logic_task_not_matched) {
-    return do_except(PYNANN_WARNING_INVALID_ARGUMENT_TASK_NOT_EXIST);
   } catch (...) {
-    return do_except(PYNANN_ERROR_INTERNAL);
+    return do_except(PYNANN_ERROR_INTERNAL, "get_map_results error");
   }
   
   std::ostringstream oss;
@@ -236,7 +204,7 @@ static PyObject *wrap_get_map_results(PyObject *self, PyObject *args) {
       oss << "\t\t" << "\"Artificial Neural Network\": ";
       ann = i.second;
       std::string ann_json;
-      nanai_ann_nnn_write(ann_json, ann);
+      nanai_ann_nnn_write(ann_json, ann, g_precision);
       oss << ann_json;
       
       oss << "\t" << "}";
@@ -252,7 +220,7 @@ static PyObject *wrap_get_map_results(PyObject *self, PyObject *args) {
     
     oss << "}";
   } catch (...) {
-    return do_except(PYNANN_ERROR_INTERNAL);
+    return do_except(PYNANN_ERROR_INTERNAL, "output map results error");
   }
   
   return Py_BuildValue("s", oss.str().c_str());
@@ -268,10 +236,8 @@ static PyObject *wrap_get_reduce_result(PyObject *self, PyObject *args) {
   
   try {
     result = g_mgrlist->get_reduce_result(task);
-  } catch (nanai_error_logic_task_not_matched) {
-    return do_except(PYNANN_WARNING_INVALID_ARGUMENT_TASK_NOT_EXIST);
   } catch (...) {
-    return do_except(PYNANN_ERROR_INTERNAL);
+    return do_except(PYNANN_ERROR_INTERNAL, "get_reduce_result error");
   }
   
   std::ostringstream oss;
@@ -288,11 +254,11 @@ static PyObject *wrap_get_reduce_result(PyObject *self, PyObject *args) {
 
     oss << "\t" << "\"Artificial Neural Network\": ";
     std::string ann_json;
-    nanai_ann_nnn_write(ann_json, ann);
+    nanai_ann_nnn_write(ann_json, ann, g_precision);
     oss << ann_json;
     oss << "}";
   } catch (...) {
-    return do_except(PYNANN_ERROR_INTERNAL);
+    return do_except(PYNANN_ERROR_INTERNAL, "output reduce result error");
   }
   
   return Py_BuildValue("s", oss.str().c_str());
@@ -304,7 +270,7 @@ static PyObject *wrap_set_precision(PyObject *self, PyObject *args) {
     return do_except(PYNANN_ERROR_PY_INVALID_ARGUMENT);
   }
   
-  if ((p < 0) || (p > 8)) {
+  if ((p < 0) || (p > 12)) {
     g_precision = 8;
   } else {
     g_precision = p;
@@ -314,6 +280,21 @@ static PyObject *wrap_set_precision(PyObject *self, PyObject *args) {
 }
 
 static PyObject *wrap_wait(PyObject *self, PyObject *args) {
+  char *task = nullptr;
+  if (!PyArg_ParseTuple(args, "s", &task)) {
+    return do_except(PYNANN_ERROR_PY_INVALID_ARGUMENT);
+  }
+  
+  try {
+    g_mgrlist->wait(task);
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL, "wait task done error");
+  }
+  
+  Py_RETURN_NONE;
+}
+
+static PyObject *wrap_waits(PyObject *self, PyObject *args) {
   g_mgrlist->waits();
   Py_RETURN_NONE;
 }
@@ -331,7 +312,8 @@ static PyMethodDef nannMethods[] = {
   { "get_map_results", wrap_get_map_results, METH_VARARGS, "get task map results." },
   { "get_reduce_result", wrap_get_reduce_result, METH_VARARGS, "get task reduce result." },
   { "set_precision", wrap_set_precision, METH_VARARGS, "set ann output precision." },
-  { "wait", wrap_wait, METH_NOARGS, "wait all task done." },
+  { "wait", wrap_wait, METH_VARARGS, "wait task done." },
+  { "waits", wrap_waits, METH_NOARGS, "wait all task done." },
   { NULL, NULL, 0, NULL }
 };
 

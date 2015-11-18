@@ -67,8 +67,19 @@ def get_reduce_result(task):
     """get task reduce result."""
     return nann.get_reduce_result(task)
     
-
+#----------------------------------------------------------------------
+def waits():
+    """wait all task done."""
+    nann.waits()
     
+#----------------------------------------------------------------------
+def wait(task):
+    """wait task done."""
+    nann.wait(task)    
     
-        
+#----------------------------------------------------------------------
+def set_precision(precison=4):
+    """set ann output precision."""
+    nann.set_precision(precison)
+    
 

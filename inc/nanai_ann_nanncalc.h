@@ -236,7 +236,10 @@ namespace nanai {
   protected:
     virtual void ann_create(const nanai_ann_nanndesc &desc);
     virtual void ann_on_except(int err);
-    virtual void ann_on_trained();
+    virtual void ann_on_trained(nanmath::nanmath_vector &input,
+                                nanmath::nanmath_vector &target,
+                                nanmath::nanmath_vector &output,
+                                nanai::nanai_ann_nanncalc::ann_t &ann);
     virtual void ann_on_alg_uninstall();
     virtual void ann_process(int process, void *arg);
     

@@ -21,9 +21,12 @@ namespace nanai {
 #define NANAI_ERROR_LOGIC_TASK_NOT_MATCHED              0x80110002
 #define NANAI_ERROR_LOGIC_TASK_ALREADY_EXIST            0x80110003
 #define NANAI_ERROR_LOGIC_HOME_DIR_NOT_CONFIG           0x80110004
-#define NANAI_ERROR_LOGIC_ANN_NUMBER_LESS_2             0x80110005
-#define NANAI_ERROR_LOGIC_DESC_FUNCTION_NOT_FOUND       0x80110006
-
+#define NANAI_ERROR_LOGIC_DESC_FUNCTION_NOT_FOUND       0x80110005
+  
+#define NANAI_ERROR_LOGIC_ANN_MERGE_NUMBER_LESS_2       0x80120001
+#define NANAI_ERROR_LOGIC_ANN_INVALID_VECTOR_DEGREE     0x80120002
+#define NANAI_ERROR_LOGIC_ANN_INVALID_MATRIX_DEGREE     0x80120003
+  
 #define NANAI_ERROR_RUNTIME                             0x80200000
 #define NANAI_ERROR_RUNTIME_CREATE_THREAD               0x80200001
 #define NANAI_ERROR_RUNTIME_INIT_MUTEX                  0x80200002
@@ -85,16 +88,30 @@ namespace nanai {
     int _errcode;
   };
   
-  class nanai_error_logic_ann_number_less_2 : public std::logic_error {
+  class nanai_error_logic_desc_function_not_found : public std::logic_error {
   public:
-    explicit nanai_error_logic_ann_number_less_2();
+    explicit nanai_error_logic_desc_function_not_found();
   public:
     int _errcode;
   };
   
-  class nanai_error_logic_desc_function_not_found : public std::logic_error {
+  class nanai_error_logic_ann_merge_number_less_2 : public std::logic_error {
   public:
-    explicit nanai_error_logic_desc_function_not_found();
+    explicit nanai_error_logic_ann_merge_number_less_2();
+  public:
+    int _errcode;
+  };
+  
+  class nanai_error_logic_ann_invalid_vector_degree : public std::logic_error {
+  public:
+    explicit nanai_error_logic_ann_invalid_vector_degree();
+  public:
+    int _errcode;
+  };
+  
+  class nanai_error_logic_ann_invalid_matrix_degree : public std::logic_error {
+  public:
+    explicit nanai_error_logic_ann_invalid_matrix_degree();
   public:
     int _errcode;
   };

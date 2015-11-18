@@ -1,90 +1,69 @@
 #nann
 
-## nann Python接口
+## nann编译与安装
+
+## pynann编译与安装
 
 在**nann**目录中使用以下命令进行安装
 ```
 python setup.py build
 sudo python setup.py install
 ```
-安装完成后，在_python_代码中使用`import nann`，即可使用。
+安装完成后，在_python_代码中使用`import pynann`，即可使用。
 
-### 接口列表
+## C++接口
 
-|接口名|参数|参数说明|返回值|说明|
-|---|---|---|---|---|
-|load|无|错误代码|加载nann库，在最之前调用|
-|unload|无|无|错误代码|卸载nann库，在进程结束时调用，与load成对使用|
-|create|task|任务名(ID)，用来标示任务|当前创建管理器的总数|创建一个nann管理器，此管理器只训练任务task|
-||**create.json**|一段json代码，用于描述神经网络，详细参见后面的章节|||
-||max_calc|容纳计算结点(线程)最大数量|||
-||now_calc|当前要启动的计算结点(可选参数)|||
-|destroy|task|任务名|错误代码|销毁与task关联的nann管理器|
-|exptype|exp|1:抛出异常,0:返回错误代码|无|修改异常处理类型|
-|training|task|任务名|错误代码|有目标训练，进入回调函数，调整权值矩阵，输出结果|
-||**input.json**|一段json代码，用于描述输入，详细参加后面的章节|||
-|training_notarget|task|任务名|错误代码|无目标训练，进入回调函数，不调整权值矩阵，输出结果，仅用来做分类计算|
-||**input.json**|一段json代码，用于描述输入，详细参加后面的章节|||
-|training_nooutput|task|任务名|错误代码|有目标训练，进入回调函数，调整权值矩阵，不输出结果，仅用来做训练|
-|nnn_read|filename|文件路径|失败:0成功:1|读取一个nnn文件到内存中，可直接使用任务名进行计算，**当前版本不支持**|
-|nnn_write|task|任务名|错误代码|写入一个任务的神经网络到nnn文件中，**当前版本不支持**|
-||filename|文件名|||
-|test|无|无|无|测试是否工作正常，无实际意义|
-|version|无|无|版本字符串|返回当前nann版本(按圆周率计算)|
-|print|task|任务名|错误代码|打印当前任务的ann内容到控制台|
-|iscalcing|task|任务名|任务点数量|还有多少正在进行运算的任务结点|
-|merge|task|任务名|错误代码|合并当前计算完毕的任务结点的ann为一个|
+## Python接口
 
-### 使用说明
+## C++使用说明
+
+## Python使用说明
 ```python
-import nann
+#!/usr/bin/env python
+import os
+import pynann
 
-print nann.version()  # 不加载也可以使用
+task = "HELLO"
+ann_json = "/Users/devilogic/Naga/nann/nann_dev/doc/create.json"
+input_json = "/Users/devilogic/Naga/nann/nann_dev/doc/input.json"
 
-nann.load()
+"""开始训练"""
+pynann.training(task, ann_json, input_json, is_file=True)
 
-# 修改异常类型为不抛出异常，由自己控制错误代码
-nann.exptype(0)
-# 接收任务
-if (nann.create(task, nann_json) != 0):
-    print "创建错误"
+"""等待训练完成"""
+pynann.wait(task)
 
-if (nann.training(task, samples_json) != 0):
-    print "训练错误"
-    
-# ... 其余的代码
+"""测试是否工作完成"""
+print pynann.done(task)
 
-# 销毁
-nann.destroy(task)
+"""设置输出精度"""
+pynann.set_precision(2)
 
-# 可创建其他的任务结点
+"""获取map结果"""
+map_results = pynann.get_map_results(task)
+print map_results
 
-nann.unload()
+"""获取reduce结果"""
+reduce_result = pynann.get_reduce_result(task)
+print reduce_result
+
+"""等待所有任务结束"""
+pynann.waits()
+
+"""清除内存"""
+pynann.clears()
+
 ```
-### 错误代码
-|错误代码|说明|级别|
-|---|---|---|
-|0x88000000|内部错误|错误|
-|0x88000001|分析JSON文件错误|错误|
-|0x88000100|参数错误|错误|
-|0x88000101|任务已经存在|错误|
-|0x88000102|任务不存在|错误|
-|0x88000200|分配内存失败|错误|
-|0x87000000|内部警告|警告|
-|0x87000100|参数错误|警告|
-|0x87000101|任务已经存在|警告|
-|0x87000102|任务不存在|警告|
 
-其中**警告**的意思是，不影响当前运行，但是可能会发生意外。**错误**级别直接退出运行。
+## 错误代码
 
-### json输入详解
-在以下两份json中，都存在**target**一项，其中input.json中的**target**会覆盖掉create.json中的**target**。后者为全局配置目标。在每次实际训练中调节。
+## json输入详解
 
-#### create.json
+### create.json
 ```json
 {
-	"alg": "rcalc",
 	"ann": {
+		"alg": "ann_alg_logistic",
 		"weight matrixes": {
 			"0": {
 				"r1": [0.75, 0.83, 0.39],
@@ -125,19 +104,29 @@ nann.unload()
 				"r4": [0.01, 0.02, 0.03]
 			}
 		}
-	},
-	"target": [0.11, 0.23, 0.78]
+	}
 }
 ```
-#### input.json
+### input.json
 ```json
 {
 	"samples": {
-		"t1": [0.1, 0.2, 0.34, 0.45, 0.55],
-		"t2": [0.21, 0.6, 0.4, 0.23, 0.51],
-		"t3": [0.31, 0.7, 0.31, 0.1, 0.46],
-		"t4": [0.41, 0.9, 0.21, 0.61, 0.78]
-	},
-	"target": [0.11, 0.23, 0.78]
+		"t1": {
+			"input": [0.1, 0.2, 0.34, 0.45, 0.55],
+			"target": [0.11, 0.23, 0.78]
+		},
+		"t2": {
+			"input": [0.21, 0.6, 0.4, 0.23, 0.51],
+			"target": [0.11, 0.23, 0.78]
+		},
+		"t3": {
+			"input": [0.31, 0.7, 0.31, 0.1, 0.46],
+			"target": [0.11, 0.23, 0.78]
+		},
+		"t4": {
+			"input": [0.41, 0.9, 0.21, 0.61, 0.78],
+			"target": [0.11, 0.23, 0.78]
+		}	
+	}
 }
 ```

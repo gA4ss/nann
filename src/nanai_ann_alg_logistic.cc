@@ -63,7 +63,7 @@ void ann_hidden_adjust_weight(int h,                                    /*!< 第
                               ) {
   if (wm->col_size() != delta->size() ||
       (wm->row_size() != layer->size())) {
-    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    nanai::error(NANAI_ERROR_LOGIC_ANN_INVALID_MATRIX_DEGREE);
   }
                                 
   /* 这里是遍历列向量 */
@@ -84,21 +84,14 @@ void ann_monitor_except(int cid,
                         const char *task,
                         int errcode,
                         nanai::nanai_ann_nanncalc *arg) {
-  printf("ann_alg_logistic - <%d>[%s]:except with errcode - %d\n", cid, task, errcode);
 }
 
 void ann_monitor_trained(int cid,
                          const char *task,
-                         nanai::nanai_ann_nanncalc *arg) {
-  printf("ann_alg_logistic - <%d>[%s]:trained\n", cid, task);
-  
-  if (task == nullptr) {
-    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
-  }
-  
-  /* 按照任务进行计数，直到一个数字，进行合并结果，并发送到服务器 */
-  std::string task_name = task;
-  printf("ann_alg_logistic - <%d>[%s]: output = [", cid, task);
+                         nanmath::nanmath_vector *input,
+                         nanmath::nanmath_vector *target,
+                         nanmath::nanmath_vector *output,
+                         nanai::nanai_ann_nanncalc::ann_t *ann) {
 }
 
 void ann_monitor_progress(int cid,
@@ -107,12 +100,14 @@ void ann_monitor_progress(int cid,
                           void *arg) {
   /* 日志进度 */
   if (progress == NANNCALC_PROCESS_LOG) {
-    printf("ann_alg_logistic - <%d>[%s]:%s\n", cid, task, (char*)arg);
+    if (task)
+      printf("ann_alg_logistic - <%d>[%s]:%s\n", cid, task, (char*)arg);
+    else
+      printf("ann_alg_logistic - <%d>:%s\n", cid, (char*)arg);
   }
 }
 
 void ann_monitor_alg_uninstall(int cid) {
-  printf("ann_alg_logistic - <%d>:uninstalled\n", cid);
 }
 
 int ann_calculate(const std::string *task,
@@ -129,11 +124,9 @@ int ann_calculate(const std::string *task,
 
 /* 算法主函数，在调用时调用 */
 void ann_alg_logistic_added() {
-  printf("ann_alg_logistic added success\n");
 }
 
 void ann_alg_logistic_close() {
-  printf("ann_alg_logistic close success\n");
 }
 
 static nanai::nanai_ann_nanncalc *s_make(const nanai::nanai_ann_nanndesc &desc,
@@ -209,7 +202,7 @@ static nanmath::nanmath_matrix s_merge_delta_matrix(nanmath::nanmath_matrix &dma
   
   if ((dmat1.row_size() != dmat2.row_size()) ||
       (dmat1.col_size() != dmat2.col_size())) {
-    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    nanai::error(NANAI_ERROR_LOGIC_ANN_INVALID_MATRIX_DEGREE);
   }
   
   nanmath::nanmath_matrix c(dmat1.row_size(), dmat1.col_size());
@@ -235,7 +228,7 @@ static nanmath::nanmath_matrix s_merge_matrix(nanmath::nanmath_matrix &mat1,
       (mat1.col_size() != mat2.col_size()) ||
       (mat1.row_size() != dmat1.row_size()) ||
       (mat1.col_size() != dmat2.col_size())) {
-    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    nanai::error(NANAI_ERROR_LOGIC_ANN_INVALID_MATRIX_DEGREE);
   }
   
   nanmath::nanmath_matrix c(mat1.row_size(), mat1.col_size());
@@ -256,12 +249,12 @@ static nanai::nanai_ann_nanncalc::ann_t s_merge_ann(nanai::nanai_ann_nanncalc::a
                                                     nanai::nanai_ann_nanncalc::ann_t &b) {
   nanai::nanai_ann_nanncalc::ann_t c;
   if (a.weight_matrixes.size() != b.weight_matrixes.size()) {
-    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    nanai::error(NANAI_ERROR_LOGIC_ANN_INVALID_MATRIX_DEGREE);
   }
   
   if ((a.delta_weight_matrixes.size() == 0) ||
       (b.delta_weight_matrixes.size() == 0)) {
-    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    nanai::error(NANAI_ERROR_LOGIC_ANN_INVALID_MATRIX_DEGREE);
   }
   
   c = a;
@@ -284,7 +277,7 @@ void s_merge_anns(std::vector<nanai::nanai_ann_nanncalc::ann_t> &anns,
                   nanai::nanai_ann_nanncalc::ann_t &ann) {
   
   if (anns.size() <= 1) {
-    nanai::error(NANAI_ERROR_LOGIC_ANN_NUMBER_LESS_2);
+    nanai::error(NANAI_ERROR_LOGIC_ANN_MERGE_NUMBER_LESS_2);
   }
   
   /* 进行合并 */
@@ -349,16 +342,8 @@ nanai::nanai_ann_nanndesc *ann_alg_setup(const char *conf_dir) {
 static cJSON *parse_conf(char *text) {
   cJSON *json=cJSON_Parse(text);
   if (!json) {
-    printf("Error before: [%s]\n",cJSON_GetErrorPtr());
     return nullptr;
   }
-  
-  //if (json) {
-  //  char *out=cJSON_Print(json);
-  //  printf("%s\n",out);
-  //  free(out);
-  //}
-  
   return json;
 }
 

@@ -52,7 +52,7 @@ namespace nanai {
         calc->ann_calculate(task, input, target, output, ann);
         calc->set_result(result, output, ann);
         calc->set_state(NANNCALC_ST_TRAINED);
-        calc->ann_on_trained();
+        calc->ann_on_trained(input, target, output, ann);
       } else if (cmd == NANNCALC_CMD_CONFIGURE) {
         calc->set_state(NANNCALC_ST_CONFIGURING);
         desc = ncmd.desc;
@@ -427,9 +427,17 @@ namespace nanai {
     printf("!!! what fuck~~~, except happened, with errcode:%d", err);
   }
   
-  void nanai_ann_nanncalc::ann_on_trained() {
+  void nanai_ann_nanncalc::ann_on_trained(nanmath::nanmath_vector &input,
+                                          nanmath::nanmath_vector &target,
+                                          nanmath::nanmath_vector &output,
+                                          nanai::nanai_ann_nanncalc::ann_t &ann) {
     if (_callback_monitor_trained) {
-      _callback_monitor_trained(_cid, _task.c_str(), this);
+      _callback_monitor_trained(_cid,
+                                _task.c_str(),
+                                reinterpret_cast<void*>(&input),
+                                reinterpret_cast<void*>(&target),
+                                reinterpret_cast<void*>(&output),
+                                reinterpret_cast<void*>(&ann));
     }
     
     ann_log("training completed");
@@ -457,16 +465,20 @@ namespace nanai {
     vsnprintf(log, 256, fmt, ap);
     va_end(ap);
     
+    const char *tn = nullptr;
+    if (_task.empty() == false)
+      tn = _task.c_str();
+    
     /* 写入到系统日志 */
-    fprintf(_log_file, "<%d>[%s]:%s\n", _cid, _task.c_str(), log);
+    if (tn) {
+      fprintf(_log_file, "<%d>[%s]:%s\n", _cid, tn, log);
+    } else {
+      fprintf(_log_file, "<%d>:%s\n", _cid, log);
+    }
     fflush(_log_file);
     
     /* 写入到用户自定义日志 */
     if (_callback_monitor_progress) {
-      const char *tn = nullptr;
-      if (_task.empty() == false)
-        tn = _task.c_str();
-      
       _callback_monitor_progress(_cid, tn, NANNCALC_PROCESS_LOG, log);
     }
   }
@@ -576,7 +588,7 @@ namespace nanai {
     result = wm.left_mul(l1);
     
     if (result.size() != l2.size()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NANAI_ERROR_LOGIC_ANN_INVALID_VECTOR_DEGREE);
     }
     
     double c = 0.0;
@@ -602,7 +614,7 @@ namespace nanai {
     nanmath::nanmath_vector res;
     
     if (target.size() != output.size()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NANAI_ERROR_LOGIC_ANN_INVALID_VECTOR_DEGREE);
     }
     
     for (int i = 0; i < target.size(); i++) {

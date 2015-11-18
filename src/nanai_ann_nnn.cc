@@ -141,7 +141,6 @@ namespace nanai {
         ann.ninput = wm_ninput;
         ann.nhidden = wm_nhidden;
         ann.noutput = wm_noutput;
-        
       }
       
       json_child = json_child->next;
@@ -157,7 +156,7 @@ namespace nanai {
                           nanai_ann_nanncalc::ann_t &ann) {
     cJSON *json = cJSON_Parse(json_context.c_str());
     if (json == nullptr) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     }
     
     parse_create_json(json, ann);

@@ -56,6 +56,9 @@ namespace nanai {
                                                           );
     
     /*! 等待所有mapreduce结束 */
+    virtual void wait(const std::string &task            /*!< [in] 任务名 */
+                      );
+    /*! 等待所有mapreduce结束 */
     virtual void waits();
     /*! 释放所有mapreduce结点 */
     virtual void frees();

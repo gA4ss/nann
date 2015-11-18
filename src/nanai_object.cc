@@ -32,13 +32,24 @@ namespace nanai {
     _errcode = NANAI_ERROR_LOGIC_HOME_DIR_NOT_CONFIG;
   }
   
-  nanai_error_logic_ann_number_less_2::nanai_error_logic_ann_number_less_2() : std::logic_error("number of ann less 2") {
-    _errcode = NANAI_ERROR_LOGIC_ANN_NUMBER_LESS_2;
-  }
-  
   nanai_error_logic_desc_function_not_found::nanai_error_logic_desc_function_not_found()
   : std::logic_error("desc function not found") {
     _errcode = NANAI_ERROR_LOGIC_DESC_FUNCTION_NOT_FOUND;
+  }
+  
+  nanai_error_logic_ann_merge_number_less_2::nanai_error_logic_ann_merge_number_less_2()
+  : std::logic_error("number of ann less 2") {
+    _errcode = NANAI_ERROR_LOGIC_ANN_MERGE_NUMBER_LESS_2;
+  }
+  
+  nanai_error_logic_ann_invalid_vector_degree::nanai_error_logic_ann_invalid_vector_degree()
+  : std::logic_error("invalid vector degree") {
+    _errcode = NANAI_ERROR_LOGIC_ANN_INVALID_VECTOR_DEGREE;
+  }
+  
+  nanai_error_logic_ann_invalid_matrix_degree::nanai_error_logic_ann_invalid_matrix_degree()
+  : std::logic_error("invalid matrix degree") {
+    _errcode = NANAI_ERROR_LOGIC_ANN_INVALID_MATRIX_DEGREE;
   }
   
   nanai_error_runtime_create_thread::nanai_error_runtime_create_thread() : std::runtime_error("create thread failed") {
@@ -82,8 +93,10 @@ namespace nanai {
   static nanai_error_logic_task_not_matched logic_task_not_matched;
   static nanai_error_logic_task_already_exist logic_task_already_exist;
   static nanai_error_logic_home_dir_not_config logic_home_dir_not_config;
-  static nanai_error_logic_ann_number_less_2 logic_ann_number_less_2;
   static nanai_error_logic_desc_function_not_found logic_desc_function_not_found;
+  static nanai_error_logic_ann_merge_number_less_2 logic_ann_merge_number_less_2;
+  static nanai_error_logic_ann_invalid_vector_degree logic_ann_invalid_vector_degree;
+  static nanai_error_logic_ann_invalid_matrix_degree logic_ann_invalid_matrix_degree;
   static nanai_error_runtime_create_thread runtime_create_thread;
   static nanai_error_runtime_init_mutex runtime_init_mutex;
   static nanai_error_runtime_destroy_mutex runtime_destroy_mutex;
@@ -102,8 +115,10 @@ namespace nanai {
     {static_cast<int>(NANAI_ERROR_LOGIC_TASK_NOT_MATCHED), logic_task_not_matched},
     {static_cast<int>(NANAI_ERROR_LOGIC_TASK_ALREADY_EXIST), logic_task_already_exist},
     {static_cast<int>(NANAI_ERROR_LOGIC_HOME_DIR_NOT_CONFIG), logic_home_dir_not_config},
-    {static_cast<int>(NANAI_ERROR_LOGIC_ANN_NUMBER_LESS_2), logic_ann_number_less_2},
     {static_cast<int>(NANAI_ERROR_LOGIC_DESC_FUNCTION_NOT_FOUND), logic_desc_function_not_found},
+    {static_cast<int>(NANAI_ERROR_LOGIC_ANN_MERGE_NUMBER_LESS_2), logic_ann_merge_number_less_2},
+    {static_cast<int>(NANAI_ERROR_LOGIC_ANN_INVALID_VECTOR_DEGREE), logic_ann_invalid_vector_degree},
+    {static_cast<int>(NANAI_ERROR_LOGIC_ANN_INVALID_MATRIX_DEGREE), logic_ann_invalid_matrix_degree},
     {static_cast<int>(NANAI_ERROR_RUNTIME_CREATE_THREAD), runtime_create_thread},
     {static_cast<int>(NANAI_ERROR_RUNTIME_INIT_MUTEX), runtime_init_mutex},
     {static_cast<int>(NANAI_ERROR_RUNTIME_DESTROY_MUTEX), runtime_destroy_mutex},
