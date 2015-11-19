@@ -23,6 +23,7 @@ namespace nanai {
   
   /*! 发生reduce操作时调用 必须实现 */
   typedef int (*fptr_ann_mapreduce_reduce)(int wt, void *task, void *map_results, void *reduce_result);
+  
   /*! 输入过滤函数 */
   typedef void (*fptr_ann_alg_input_filter)(void *input, void *input_filted);
   /*! 输出过滤函数 */
@@ -31,14 +32,12 @@ namespace nanai {
   typedef double (*fptr_ann_alg_output_error)(double target, double output);
   /*! 计算函数 总入口 */
   typedef int (*fptr_ann_alg_calculate)(void *task, void *input, void *target, void *output, void *ann);
-  
   /*! 激励函数 */
   typedef double (*fptr_ann_alg_hidden_calc)(int h, double input);
   /*! 隐藏层计算 */
   typedef void (*fptr_ann_alg_hidden_error)(int h, void *delta_k, void *w_kh, void *o_h, void *delta_h);
   /*! 调整隐藏层 */
   typedef void (*fptr_ann_alg_hidden_adjust_weight)(int h, void *layer, void *delta, void *wm, void *prev_dwm);
-  
 
   /*! 当异常触发时回调 */
   typedef void (*fptr_ann_monitor_except)(int cid, const char *task, int errcode, void *arg);

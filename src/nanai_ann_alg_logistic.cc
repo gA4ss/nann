@@ -285,6 +285,12 @@ void s_merge_anns(std::vector<nanai::nanai_ann_nanncalc::ann_t> &anns,
   for (size_t i = 1; i < anns.size(); i++) {
     ann = s_merge_ann(ann, anns[i]);
   }
+  
+  /* 结果乘以2 */
+  for (size_t i = 0; i < ann.weight_matrixes.size(); i++) {
+    ann.weight_matrixes[i] = ann.weight_matrixes[i].mul(2);
+    ann.delta_weight_matrixes[i] = ann.delta_weight_matrixes[i].mul(2);
+  }
 }
 
 nanmath::nanmath_vector s_merge_outputs(std::vector<nanmath::nanmath_vector> &outputs,
@@ -331,6 +337,8 @@ int ann_alg_logistic_reduce(int wt,
     reduce_result->first = output;
     reduce_result->second = ann;
   }
+  
+  /* 链接数据库 */
   
   return NANAI_ANN_DESC_RETURN;
 }

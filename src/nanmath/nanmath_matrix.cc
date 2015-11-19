@@ -219,6 +219,20 @@ namespace nanmath {
 
   }
   
+  nanmath_matrix nanmath_matrix::mul(const double v) {
+    nanmath_matrix res;
+    size_t r = row_size(), c = col_size();
+    res.create(r, c);
+    
+    for (size_t i = 0; i < r; i++) {
+      for (size_t j = 0; j < c; j++) {
+        res.set(i, j, _matrix[i][j] * v);
+      }
+    }
+    
+    return res;
+  }
+  
   nanmath_vector nanmath_matrix::mul(const nanmath_vector &v) {
     nanmath_vector res;
     size_t c = 0, r = 0;

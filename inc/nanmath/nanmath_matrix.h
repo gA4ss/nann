@@ -38,6 +38,7 @@ namespace nanmath {
     virtual nanmath_matrix T() const;
     virtual nanmath_vector left_mul(const nanmath_vector &v);
     virtual nanmath_vector right_mul(const nanmath_vector &v);
+    virtual nanmath_matrix mul(const double v);
     virtual nanmath_vector mul(const nanmath_vector &v);
     virtual nanmath_matrix mul(const nanmath_matrix &mat);
     
