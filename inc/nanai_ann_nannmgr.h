@@ -108,8 +108,8 @@ namespace nanai {
                                         );
     
     /*! 寻找mapreduce */
-    virtual nanai_mapreduce_ann *find_mapreduce(const std::string &task /*!< 任务名称 */
-                                                );
+    virtual bool find_mapreduce(const std::string &task /*!< 任务名称 */
+                                );
     
     /*! 内部运行锁 */
     virtual void lock();
@@ -128,7 +128,7 @@ namespace nanai {
     std::string _log_dir;             /*!< 日志目录 */
     
   protected:
-    std::map<std::string, nanai_mapreduce_ann*> _mapreduce;               /*!< task - mapreduce */
+    std::map<std::string, std::shared_ptr<nanai_mapreduce_ann> > _mapreduce;               /*!< task - mapreduce */
     pthread_mutex_t _lock;
     pthread_t _thread_manager;
     bool _run_manager;

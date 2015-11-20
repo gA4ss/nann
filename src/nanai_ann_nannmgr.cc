@@ -172,7 +172,7 @@ namespace nanai {
     nanai_mapreduce_ann_input_t input = std::make_pair(sample, ann);
     //nanai_mapreduce_ann *node = reinterpret_cast<nanai_mapreduce_ann*>(new nanai_mapreduce<nanai_mapreduce_ann_input_t, nanai_ann_nanncalc::result_t,nanai_ann_nanncalc::result_t>(task, input));
     
-    nanai_mapreduce_ann *node = new nanai_mapreduce_ann(task, input);
+    std::shared_ptr<nanai_mapreduce_ann> node = std::shared_ptr<nanai_mapreduce_ann>(new nanai_mapreduce_ann(task, input));
     if (node == nullptr) {
       error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
     }
@@ -229,9 +229,6 @@ namespace nanai {
   
   void nanai_ann_nannmgr::frees() {
     lock();
-    for (auto i : _mapreduce) {
-      if (i.second != nullptr) delete i.second;
-    }
     _mapreduce.clear();
     unlock();
   }
@@ -248,7 +245,6 @@ namespace nanai {
     }
     
     for (auto i : tasks) {
-      if (_mapreduce[i] != nullptr) delete _mapreduce[i];
       _mapreduce.erase(i);
     }
     
@@ -429,22 +425,22 @@ namespace nanai {
     return nullptr;
   }
   
-  nanai_mapreduce_ann* nanai_ann_nannmgr::find_mapreduce(const std::string &task) {
-    nanai_mapreduce_ann *res = nullptr;
+  bool nanai_ann_nannmgr::find_mapreduce(const std::string &task) {
     
     if (task.empty()) {
-      return nullptr;
+      return false;
     }
     
     lock();
     
     if (_mapreduce.find(task) != _mapreduce.end()) {
-      res = _mapreduce[task];
+      unlock();
+      return true;
     }
     
     unlock();
     
-    return res;
+    return false;
   }
   
   void nanai_ann_nannmgr::lock() {
