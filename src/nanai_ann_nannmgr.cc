@@ -456,6 +456,6 @@ namespace nanai {
   }
   
   void nanai_ann_nannmgr::on_error(int err) {
-    // TODO
+    printf("[-]<error>: nanai_ann_nannmgr on 0x%x\n", err);
   }
 }
