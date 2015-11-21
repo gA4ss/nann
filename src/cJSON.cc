@@ -192,15 +192,19 @@ static const unsigned char firstByteMark[7] = { 0x00, 0x00, 0xC0, 0xE0, 0xF0, 0x
 static const char *parse_string(cJSON *item,const char *str)
 {
 	const char *ptr=str+1;char *ptr2;char *out;int len=0;unsigned uc,uc2;
-	if (*str!='\"') {ep=str;return 0;}	/* not a string! */
+  char head = '\"';
+  /* devilogic fixed */
+	if ((*str!='\"') && (*str!='\'')) {ep=str;return 0;}	/* not a string! */
+  if (*str=='\'') head = '\'';
 	
-	while (*ptr!='\"' && *ptr && ++len) if (*ptr++ == '\\') ptr++;	/* Skip escaped quotes. */
+	while (*ptr!=head && *ptr && ++len) if (*ptr++ == '\\') ptr++;	/* Skip escaped quotes. */
 	
 	out=(char*)cJSON_malloc(len+1);	/* This is how long we need for the string, roughly. */
 	if (!out) return 0;
 	
 	ptr=str+1;ptr2=out;
-	while (*ptr!='\"' && *ptr)
+  /* devilogic fixed */
+	while (*ptr!=head && *ptr)
 	{
 		if (*ptr!='\\') *ptr2++=*ptr++;
 		else
@@ -242,7 +246,7 @@ static const char *parse_string(cJSON *item,const char *str)
 		}
 	}
 	*ptr2=0;
-	if (*ptr=='\"') ptr++;
+	if (*ptr==head) ptr++;
 	item->valuestring=out;
 	item->type=cJSON_String;
 	return ptr;
@@ -252,21 +256,31 @@ static const char *parse_string(cJSON *item,const char *str)
 static char *print_string_ptr(const char *str,printbuffer *p)
 {
 	const char *ptr;char *ptr2,*out;int len=0,flag=0;unsigned char token;
-	
-	for (ptr=str;*ptr;ptr++) flag|=((*ptr>0 && *ptr<32)||(*ptr=='\"')||(*ptr=='\\'))?1:0;
+	char head = '\"';
+  
+  /* devilogic fixed */
+  for (ptr=str;*ptr;ptr++) {
+    if (*ptr=='\'') head = '\'';
+    flag|=((*ptr>0 && *ptr<32)||(*ptr=='\"')||(*ptr=='\'')||(*ptr=='\\'))?1:0;
+  }
+  
 	if (!flag)
 	{
-		len=ptr-str;
+    /* devilogic fixed */
+		len=(int)(ptr-str);
 		if (p) out=ensure(p,len+3);
-		else		out=(char*)cJSON_malloc(len+3);
+		else out=(char*)cJSON_malloc(len+3);
 		if (!out) return 0;
-		ptr2=out;*ptr2++='\"';
+    /* devilogic fixed */
+		ptr2=out;*ptr2++=head;
 		strcpy(ptr2,str);
-		ptr2[len]='\"';
+    /* devilogic fixed */
+		ptr2[len]=head;
 		ptr2[len+1]=0;
 		return out;
 	}
 	
+  /* 空值，默认使用双引号 */
 	if (!str)
 	{
 		if (p)	out=ensure(p,3);
@@ -281,11 +295,13 @@ static char *print_string_ptr(const char *str,printbuffer *p)
 	else	out=(char*)cJSON_malloc(len+3);
 	if (!out) return 0;
 
-	ptr2=out;ptr=str;
-	*ptr2++='\"';
+  ptr2=out;ptr=str;
+  /* devilogic fixed */
+	*ptr2++=head;
 	while (*ptr)
 	{
-		if ((unsigned char)*ptr>31 && *ptr!='\"' && *ptr!='\\') *ptr2++=*ptr++;
+    /* devilgic fixed */
+		if ((unsigned char)*ptr>31 && *ptr!='\"' && *ptr!='\'' && *ptr!='\\') *ptr2++=*ptr++;
 		else
 		{
 			*ptr2++='\\';
@@ -293,6 +309,7 @@ static char *print_string_ptr(const char *str,printbuffer *p)
 			{
 				case '\\':	*ptr2++='\\';	break;
 				case '\"':	*ptr2++='\"';	break;
+        case '\'':	*ptr2++='\'';	break;      /* devilogic fixed */
 				case '\b':	*ptr2++='b';	break;
 				case '\f':	*ptr2++='f';	break;
 				case '\n':	*ptr2++='n';	break;
@@ -302,7 +319,8 @@ static char *print_string_ptr(const char *str,printbuffer *p)
 			}
 		}
 	}
-	*ptr2++='\"';*ptr2++=0;
+  /* devilogic fixed */
+	*ptr2++=head;*ptr2++=0;
 	return out;
 }
 /* Invote print_string_ptr (which is useful) on an item. */
@@ -360,7 +378,8 @@ static const char *parse_value(cJSON *item,const char *value)
 	if (!strncmp(value,"null",4))	{ item->type=cJSON_NULL;  return value+4; }
 	if (!strncmp(value,"false",5))	{ item->type=cJSON_False; return value+5; }
 	if (!strncmp(value,"true",4))	{ item->type=cJSON_True; item->valueint=1;	return value+4; }
-	if (*value=='\"')				{ return parse_string(item,value); }
+  /* devilogic fixed */
+	if (*value=='\"' || *value=='\'')	{ return parse_string(item,value); }
 	if (*value=='-' || (*value>='0' && *value<='9'))	{ return parse_number(item,value); }
 	if (*value=='[')				{ return parse_array(item,value); }
 	if (*value=='{')				{ return parse_object(item,value); }
@@ -743,7 +762,8 @@ void cJSON_Minify(char *json)
 		else if (*json=='\n') json++;
 		else if (*json=='/' && json[1]=='/')  while (*json && *json!='\n') json++;	/* double-slash comments, to end of line. */
 		else if (*json=='/' && json[1]=='*') {while (*json && !(*json=='*' && json[1]=='/')) json++;json+=2;}	/* multiline comments. */
-		else if (*json=='\"'){*into++=*json++;while (*json && *json!='\"'){if (*json=='\\') *into++=*json++;*into++=*json++;}*into++=*json++;} /* string literals, which are \" sensitive. */
+    /* devilogic fixed */
+		else if (*json=='\"' || *json=='\'') {*into++=*json++;while (*json && *json!='\"' && *json!='\'') {if (*json=='\\') *into++=*json++;*into++=*json++;}*into++=*json++;} /* string literals, which are \" and \' sensitive. */
 		else *into++=*json++;			/* All other characters. */
 	}
 	*into=0;	/* and null-terminate. */

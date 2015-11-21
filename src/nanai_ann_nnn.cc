@@ -9,19 +9,23 @@
 
 namespace nanai {
   
-  static void parse_create_json_read_matrix(cJSON *json,
+  static void parse_create_json_read_matrix(const cJSON *json,
                                             nanmath::nanmath_matrix &matrix) {
     int nrow = 0, ncol = 0, nprev = 0;
-    cJSON *row = json, *col = nullptr;
+    cJSON *row = const_cast<cJSON*>(json), *col = nullptr;
     std::vector<double> row_v;
     matrix.clear();
+    
+    int idx = 0;
+    std::pair<int, std::vector<double> > idx_row;
+    std::vector<std::pair<int, std::vector<double> > > rows;
     
     while (row) {
       col = row->child;
       if (col == nullptr) {
         error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
       }
-      
+      idx = atoi(row->string);
       ncol = 0;
       row_v.clear();
       while (col) {
@@ -34,17 +38,29 @@ namespace nanai {
       if (nprev) {
         /* 每列必须一样的数量 */
         if (nprev != ncol) {
-          matrix.clear();
           error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
         }
       }
       nprev = ncol;
       
       /* 压入一行 */
-      matrix.push_row(row_v);
+      idx_row.first = idx;
+      idx_row.second = row_v;
+      rows.push_back(idx_row);
       
       nrow++;
       row = row->next;
+    }
+    
+    /* 排序 */
+    std::sort(rows.begin(), rows.end(), [](std::pair<int, std::vector<double> > &a,
+                                           std::pair<int, std::vector<double> > &b) {
+      return a.first < b.first;
+    });
+    
+    matrix.clear();
+    for (auto r : rows) {
+      matrix.push_row(r.second);
     }
   }
   
@@ -58,34 +74,34 @@ namespace nanai {
     noutput = 0;
     
     cJSON *curr = json, *jmat = nullptr;
-    int i = 0;
+    int idx = 0;
     nanmath::nanmath_matrix mat;
+    std::pair<int, nanmath::nanmath_matrix> idx_mat;
+    std::vector<std::pair<int, nanmath::nanmath_matrix> >mats;
     
     while (curr) {
       jmat = curr->child;
       if (jmat == nullptr) { error(NANAI_ERROR_LOGIC_INVALID_CONFIG); }
-      
-      if (i == 0) {
-        /* 输入层到隐藏层 */
-        parse_create_json_read_matrix(jmat, mat);
-        ninput = mat.row_size();
-        
-      } else if (curr->next == nullptr) {
-        /* 隐藏层到输出层 */
-        
-        parse_create_json_read_matrix(jmat, mat);
-        noutput = mat.col_size();
-        
-      } else {
-        /* 隐藏层之间 */
-        parse_create_json_read_matrix(jmat, mat);
-      }
-      
-      matrixes.push_back(mat);
-      i++;
+
+      idx = atoi(curr->string);
+      parse_create_json_read_matrix(jmat, mat);
+      idx_mat.first = idx;
+      idx_mat.second = mat;
+      mats.push_back(idx_mat);
       curr = curr->next;
     }
-    nhidden = i - 1;
+    
+    /* 排序 */
+    std::sort(mats.begin(), mats.end(), [](std::pair<int, nanmath::nanmath_matrix> &a,
+                                           std::pair<int, nanmath::nanmath_matrix> &b) {
+      return a.first < b.first;
+    });
+    for (auto m : mats) {
+      matrixes.push_back(m.second);
+    }
+    ninput = matrixes[0].row_size();
+    nhidden = matrixes.size() - 1;
+    noutput = matrixes.back().col_size();
   }
   
   static void parse_create_json(cJSON *json,
@@ -189,7 +205,7 @@ namespace nanai {
     for (size_t i = 0; i < ann.weight_matrixes.size(); i++) {
       oss << "\t\t\t" << "\"" << i << "\": {" << std::endl;
       for (size_t n = 0; n < ann.weight_matrixes[i].row_size(); n++) {
-        oss << "\t\t\t\t" << "\"r" << n << "\": [";
+        oss << "\t\t\t\t" << n << "\": [";
         
         /* 输出一行 */
         for (size_t m = 0; m < ann.weight_matrixes[i].col_size(); m++) {
@@ -211,7 +227,7 @@ namespace nanai {
     for (size_t i = 0; i < ann.delta_weight_matrixes.size(); i++) {
       oss << "\t\t\t" << "\"" << i << "\": {" << std::endl;
       for (size_t n = 0; n < ann.delta_weight_matrixes[i].row_size(); n++) {
-        oss << "\t\t\t\t" << "\"r" << n << "\": [";
+        oss << "\t\t\t\t" << n << "\": [";
         
         /* 输出一行 */
         for (size_t m = 0; m < ann.delta_weight_matrixes[i].col_size(); m++) {

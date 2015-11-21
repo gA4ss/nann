@@ -33,30 +33,30 @@ namespace nanai {
     int count = 0;
     cJSON *curr = json->child;
     if (curr == nullptr) error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
+    int idx = 0;
+    std::pair<int, std::pair<nanmath::nanmath_vector, nanmath::nanmath_vector> > idx_sample_target;
+    std::vector<std::pair<int, std::pair<nanmath::nanmath_vector, nanmath::nanmath_vector> > > idx_samples_targets;
     
     while (curr) {
       if (strcmp(curr->string, "samples") == 0) {
         cJSON *vec = curr->child;
         if (vec == nullptr) error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
+        
         while (vec) {
           cJSON *val = vec->child;
+          idx = atoi(vec->string);
           inputed = false;
           targeted = false;
           count = 0;
           
           while (val) {
-            input.clear();
-            target.clear();
-            
             /* 如果,没有成对出现，则默认填充一个空的 */
             if (strcmp(val->string, "input") == 0) {
               input = s_read_vector(val->child);
-              samples.push_back(input);
               inputed = true;
               count++;
             } else if (strcmp(val->string, "target") == 0) {
               target = s_read_vector(val->child);
-              targets.push_back(target);
               targeted = true;
               count++;
             }
@@ -75,8 +75,13 @@ namespace nanai {
           
           if (targeted == false) {
             target.clear();
-            targets.push_back(target);
           }
+          
+          /* 保存临时值 */
+          idx_sample_target.first = idx;
+          idx_sample_target.second.first = input;
+          idx_sample_target.second.second = target;
+          idx_samples_targets.push_back(idx_sample_target);
           
           vec = vec->next;
         }/* end while */
@@ -84,10 +89,21 @@ namespace nanai {
       curr = curr->next;
     }/* end while */
     
+    /* 排序 */
+    std::sort(idx_samples_targets.begin(),
+              idx_samples_targets.end(),
+              [](std::pair<int, std::pair<nanmath::nanmath_vector, nanmath::nanmath_vector> > &a,
+                 std::pair<int, std::pair<nanmath::nanmath_vector, nanmath::nanmath_vector> > &b) {
+      return a.first < b.first;
+    });
+    for (auto s : idx_samples_targets) {
+      samples.push_back(s.second.first);
+      targets.push_back(s.second.second);
+    }
+    
     if (samples.size() != targets.size()) {
       error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     }
-    
   }
   
   void nanai_support_input_json(const std::string &json_context,

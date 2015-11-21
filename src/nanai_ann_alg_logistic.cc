@@ -17,6 +17,7 @@
 nanai::nanai_ann_nanndesc nanai_ann_alg_logistic_desc;
 static double g_eta = 0.05;
 static double g_momentum = 0.03;
+static double g_threshold = -0.5;
 //std::ofstream g_logfile;
 
 void ann_input_filter(nanmath::nanmath_vector *input,
@@ -440,6 +441,12 @@ nanai::nanai_ann_nanndesc *ann_alg_logistic_setup(const char *conf_dir) {
           g_eta = json_next->valuedouble;
         } else if (strcmp(json_next->string, "momentum") == 0 ) {
           g_momentum = json_next->valuedouble;
+        } else if (strcmp(json_next->string, "threshold") == 0) {
+          if (json_next->valuedouble > 0) {
+            g_threshold = -1 * json_next->valuedouble;
+          } else {
+            g_threshold = json_next->valuedouble;
+          }
         } else {
           // continue
         }
