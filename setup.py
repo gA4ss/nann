@@ -11,10 +11,11 @@ nann_sources = ['src/nanai_ann_nannmgr.cc',
                 'src/nanai_ann_nnn.cc',
                 'src/nanai_memory.cc',
                 'src/nanai_support.cc',
-                'src/nanai_ann_alg_logistic.cc',
+                'src/nanai_ann_alg_buildin.cc',
                 'src/nanai_mapreduce_ann.cc',
                 'src/cJSON.cc',
                 'src/pynann.cc',
+                'src/nanmath/nanmath_object.cc',
                 'src/nanmath/nanmath_vector.cc',
                 'src/nanmath/nanmath_matrix.cc']
 

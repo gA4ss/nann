@@ -225,6 +225,11 @@ namespace nanai {
     if (err != 0) {
       error(NANAI_ERROR_RUNTIME_CREATE_THREAD);
     }
+    
+    
+    if (_callback_monitor_progress)
+      _callback_monitor_progress(_cid, nullptr, NANNCALC_PROCESS_CREATE, reinterpret_cast<void*>(this));
+    
   }
   
   nanai_ann_nanncalc::nanai_ann_nanncalc(const nanai_ann_nanncalc &t) {
@@ -248,6 +253,9 @@ namespace nanai {
     
     fflush(_log_file);
     fclose(_log_file);
+    
+    if (_callback_monitor_progress)
+      _callback_monitor_progress(_cid, nullptr, NANNCALC_PROCESS_DESTROY, reinterpret_cast<void*>(this));
   }
   
   void nanai_ann_nanncalc::ann_training(const std::string &task,
@@ -423,8 +431,7 @@ namespace nanai {
       _callback_monitor_except(_cid, _task.c_str(), err, this);
     }
     
-    /* FIXME */
-    printf("!!! what fuck~~~, except happened, with errcode:%d", err);
+    printf("[-]<error>: nanai_ann_nanncalc on 0x%x\n", err);
   }
   
   void nanai_ann_nanncalc::ann_on_trained(nanmath::nanmath_vector &input,

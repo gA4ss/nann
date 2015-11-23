@@ -2,30 +2,221 @@
 #include <cstdlib>
 #include <cstring>
 #include <cmath>
+
 #include <string>
 #include <fstream>
 #include <vector>
+#include <map>
 
 #include <nanai_ann_nanndesc.h>
-#include <nanai_ann_alg_logistic.h>
+#include <nanai_ann_alg_buildin.h>
 #include <nanai_mapreduce.h>
 #include <nanai_mapreduce_ann.h>
 #include <nanai_ann_nanncalc.h>
 
 #include "cJSON.h"
 
-nanai::nanai_ann_nanndesc nanai_ann_alg_logistic_desc;
-static double g_eta = 0.05;
-static double g_momentum = 0.03;
-static double g_threshold = -0.5;
-//std::ofstream g_logfile;
+nanai::nanai_ann_nanndesc nanai_ann_alg_buildin_desc;
+
+#define NLANG_TYPE_NULL             0
+#define NLANG_TYPE_BOOL             1
+#define NLANG_TYPE_NUMBER           2
+#define NLANG_TYPE_STRING           3
+#define NLANG_TYPE_ARRAY            4
+#define NLANG_TYPE_OBJECT           5
+
+class nlang_var {
+public:
+  nlang_var() {
+    type = NLANG_TYPE_NULL;
+    bool_v = false;
+    int_v = 0;
+    double_v = 0.0;
+  }
+  
+  virtual ~nlang_var() { clear(); }
+  
+  void clear() {
+    type = NLANG_TYPE_NULL;
+    bool_v = false;
+    int_v = 0;
+    double_v = 0.0;
+    string_v.clear();
+  }
+  
+public:
+  int type;
+  bool bool_v;
+  int int_v;
+  double double_v;
+  std::string string_v;
+  
+  typedef struct {
+    std::shared_ptr<nlang_var> child;
+    std::shared_ptr<nlang_var> next;
+  } nlang_var_object;
+  
+  std::vector<nlang_var> array;
+};
+
+class nlang {
+public:
+  nlang() {}
+  virtual ~nlang() {}
+  
+public:
+  
+  void read(cJSON *json) {
+    cJSON *json_child = json->child;
+    if (json_child == nullptr) {
+      nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
+    }
+    
+    cJSON *json_next = json_child;
+    while (json_next) {
+      std::string name = json_next->string;
+      if (name.empty()) {
+        json_next = json_next->next;
+        continue;
+      }
+      
+      if (json_next->type == cJSON_String) {
+        set(name, json_next->string);
+      } else if (json_next->type == cJSON_Number) {
+        set(name, json_next->valuedouble);
+      } else if (json_next->type == cJSON_False) {
+        set(name, false);
+      } else if (json_next->type == cJSON_True) {
+        set(name, true);
+      } else if (json_next->type == cJSON_NULL) {
+        set_null(name);
+      } else if (json_next->type == cJSON_Array) {
+      } else if (json_next->type == cJSON_Object) {
+      }
+      
+      json_next = json_next->next;
+    }
+  }
+  
+  void set_null(const std::string &name) {
+    nlang_var tmp;
+    if (_symbols.find(name) == _symbols.end()) {
+      _symbols[name] = tmp;
+    } else {
+      _symbols[name].clear();
+    }
+  }
+  
+  void set(const std::string &name,
+           const bool v) {
+    nlang_var tmp;
+    
+    tmp.type = NLANG_TYPE_BOOL;
+    tmp.bool_v = v;
+    
+    _symbols[name] = tmp;
+  }
+  
+  void set(const std::string &name,
+           const double v) {
+    nlang_var tmp;
+    
+    tmp.type = NLANG_TYPE_NUMBER;
+    tmp.double_v = v;
+    tmp.int_v = static_cast<int>(v);
+    
+    _symbols[name] = tmp;
+  }
+  
+  void set(const std::string &name,
+           const std::string &v) {
+    nlang_var tmp;
+    
+    tmp.type = NLANG_TYPE_STRING;
+    tmp.string_v = v;
+    
+    _symbols[name] = tmp;
+  }
+  
+  int get(const std::string &name,
+          bool &v) {
+    if (_symbols.find(name) == _symbols.end()) {
+      return -1;
+    }
+    
+    if (_symbols[name].type != NLANG_TYPE_NUMBER) {
+      return -2;
+    }
+    
+    v = _symbols[name].bool_v;
+    
+    return 0;
+  }
+  
+  int get(const std::string &name,
+          int &v) {
+    if (_symbols.find(name) == _symbols.end()) {
+      return -1;
+    }
+    
+    if (_symbols[name].type != NLANG_TYPE_NUMBER) {
+      return -2;
+    }
+    
+    v = _symbols[name].int_v;
+    
+    return 0;
+  }
+  
+  int get(const std::string &name,
+          double &v) {
+    if (_symbols.find(name) == _symbols.end()) {
+      return -1;
+    }
+    
+    if (_symbols[name].type != NLANG_TYPE_NUMBER) {
+      return -2;
+    }
+    
+    v = _symbols[name].double_v;
+    
+    return 0;
+  }
+  
+  int get(const std::string &name,
+          std::string &v) {
+    if (_symbols.find(name) == _symbols.end()) {
+      return -1;
+    }
+    
+    if (_symbols[name].type != NLANG_TYPE_STRING) {
+      return -2;
+    }
+    
+    v = _symbols[name].string_v;
+    
+    return 0;
+  }
+  
+private:
+  std::map<std::string, nlang_var> _symbols;
+};
+
+nlang g_nlang;
+
+void ann_alg_buildin_added() {
+}
+
+void ann_alg_buildin_close() {
+}
 
 void ann_input_filter(nanmath::nanmath_vector *input,
                       nanmath::nanmath_vector *input_filted) {
   *input_filted = *input;
 }
 
-void ann_result(nanmath::nanmath_vector *output, nanmath::nanmath_vector *result) {
+void ann_result(nanmath::nanmath_vector *output,
+                nanmath::nanmath_vector *result) {
   *result = *output;
 }
 
@@ -56,15 +247,23 @@ double ann_output_error(double target, double output) {
   return delta;
 }
 
-void ann_hidden_adjust_weight(int h,                                    /*!< 第几个隐藏层 */
-                              nanmath::nanmath_vector *layer,           /*!< 输入层向量 */
-                              nanmath::nanmath_vector *delta,           /*!< 误差向量 */
-                              nanmath::nanmath_matrix *wm,              /*!< 要调节的权值矩阵 */
-                              nanmath::nanmath_matrix *prev_dwm         /*!< 保存偏差矩阵 */
-                              ) {
+void ann_hidden_adjust_weight(int h,
+                              nanmath::nanmath_vector *layer,
+                              nanmath::nanmath_vector *delta,
+                              nanmath::nanmath_matrix *wm,
+                              nanmath::nanmath_matrix *prev_dwm) {
   if (wm->col_size() != delta->size() ||
       (wm->row_size() != layer->size())) {
     nanai::error(NANAI_ERROR_LOGIC_ANN_INVALID_MATRIX_DEGREE);
+  }
+  
+  double eta = 0.0, momentum = 0.0;
+  if (g_nlang.get("eta", eta)) {
+    nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
+  }
+  
+  if (g_nlang.get("momentum", momentum)) {
+    nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
   }
                                 
   /* 这里是遍历列向量 */
@@ -73,7 +272,7 @@ void ann_hidden_adjust_weight(int h,                                    /*!< 第
       /* 让上一层的每个输入向量都乘以当前的偏差值
        * 然后在修订这个偏差值的权向量
        */
-      double new_dw = (g_eta * delta->at(i) * layer->at(j)) + (g_momentum * prev_dwm->at(j, i));
+      double new_dw = (eta * delta->at(i) * layer->at(j)) + (momentum * prev_dwm->at(j, i));
       double t = wm->at(j, i) + new_dw;
       wm->set(j, i, t);
       prev_dwm->set(j, i, new_dw);
@@ -121,13 +320,6 @@ int ann_calculate(const std::string *task,
   }
   
   return NANAI_ANN_DESC_RETURN;
-}
-
-/* 算法主函数，在调用时调用 */
-void ann_alg_logistic_added() {
-}
-
-void ann_alg_logistic_close() {
 }
 
 static nanai::nanai_ann_nanncalc *s_make(const nanai::nanai_ann_nanndesc &desc,
@@ -381,36 +573,41 @@ static cJSON *parse_conf_file(const std::string &filename) {
   return json;
 }
 
-const char *alg_name = "ann_alg_logistic";
-nanai::nanai_ann_nanndesc *ann_alg_logistic_setup(const char *conf_dir) {
+const char *alg_name = "ann_alg_buildin";
+nanai::nanai_ann_nanndesc *ann_alg_buildin_setup(const char *conf_dir) {
   
   std::string conf_file = conf_dir;
   
-  strcpy(nanai_ann_alg_logistic_desc.name, alg_name);
-  strcpy(nanai_ann_alg_logistic_desc.description, "use logistic function");
+  strcpy(nanai_ann_alg_buildin_desc.name, alg_name);
+  strcpy(nanai_ann_alg_buildin_desc.description, "nann buildin algorithm, made by devilogic");
   
-  nanai_ann_alg_logistic_desc.fptr_input_filter = reinterpret_cast<nanai::fptr_ann_alg_input_filter>(ann_input_filter);
-  nanai_ann_alg_logistic_desc.fptr_result = reinterpret_cast<nanai::fptr_ann_alg_result>(ann_result);
-  nanai_ann_alg_logistic_desc.fptr_output_error = ann_output_error;
-  nanai_ann_alg_logistic_desc.fptr_calculate = nullptr;
+  nanai_ann_alg_buildin_desc.fptr_input_filter = reinterpret_cast<nanai::fptr_ann_alg_input_filter>(ann_input_filter);
+  nanai_ann_alg_buildin_desc.fptr_result = reinterpret_cast<nanai::fptr_ann_alg_result>(ann_result);
+  nanai_ann_alg_buildin_desc.fptr_output_error = ann_output_error;
+  nanai_ann_alg_buildin_desc.fptr_calculate = nullptr;
   
-  nanai_ann_alg_logistic_desc.fptr_hidden_calcs = ann_hidden_calc;
-  nanai_ann_alg_logistic_desc.fptr_hidden_errors = reinterpret_cast<nanai::fptr_ann_alg_hidden_error>(ann_hidden_error);
-  nanai_ann_alg_logistic_desc.fptr_hidden_adjust_weights =
+  nanai_ann_alg_buildin_desc.fptr_hidden_calcs = ann_hidden_calc;
+  nanai_ann_alg_buildin_desc.fptr_hidden_errors = reinterpret_cast<nanai::fptr_ann_alg_hidden_error>(ann_hidden_error);
+  nanai_ann_alg_buildin_desc.fptr_hidden_adjust_weights =
     reinterpret_cast<nanai::fptr_ann_alg_hidden_adjust_weight>(ann_hidden_adjust_weight);
   
-  nanai_ann_alg_logistic_desc.callback_monitor_except = reinterpret_cast<nanai::fptr_ann_monitor_except>(ann_monitor_except);
-  nanai_ann_alg_logistic_desc.callback_monitor_trained = reinterpret_cast<nanai::fptr_ann_monitor_trained>(ann_monitor_trained);
-  nanai_ann_alg_logistic_desc.callback_monitor_progress = ann_monitor_progress;
-  nanai_ann_alg_logistic_desc.callback_monitor_alg_uninstall = ann_monitor_alg_uninstall;
+  nanai_ann_alg_buildin_desc.callback_monitor_except = reinterpret_cast<nanai::fptr_ann_monitor_except>(ann_monitor_except);
+  nanai_ann_alg_buildin_desc.callback_monitor_trained = reinterpret_cast<nanai::fptr_ann_monitor_trained>(ann_monitor_trained);
+  nanai_ann_alg_buildin_desc.callback_monitor_progress = ann_monitor_progress;
+  nanai_ann_alg_buildin_desc.callback_monitor_alg_uninstall = ann_monitor_alg_uninstall;
   
-  nanai_ann_alg_logistic_desc.fptr_event_added = ann_alg_logistic_added;
-  nanai_ann_alg_logistic_desc.fptr_event_close = ann_alg_logistic_close;
+  nanai_ann_alg_buildin_desc.fptr_event_added = ann_alg_buildin_added;
+  nanai_ann_alg_buildin_desc.fptr_event_close = ann_alg_buildin_close;
   
-  nanai_ann_alg_logistic_desc.fptr_map =
+  nanai_ann_alg_buildin_desc.fptr_map =
     reinterpret_cast<nanai::fptr_ann_mapreduce_map>(ann_alg_logistic_map);
-  nanai_ann_alg_logistic_desc.fptr_reduce =
+  nanai_ann_alg_buildin_desc.fptr_reduce =
     reinterpret_cast<nanai::fptr_ann_mapreduce_reduce>(ann_alg_logistic_reduce);
+  
+  /* 默认变量 */
+  g_nlang.set("eta", 0.05);
+  g_nlang.set("momentum", 0.03);
+  g_nlang.set("threshold", -0.5);
   
   if (conf_dir == nullptr) {
   } else {
@@ -425,37 +622,8 @@ nanai::nanai_ann_nanndesc *ann_alg_logistic_setup(const char *conf_dir) {
     if (json == nullptr) {
       nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     }
-    cJSON *json_child = json->child;
-    if (json_child == nullptr) {
-      nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
-    }
-    
-    if (strcmp(json_child->string, "ann") != 0) {
-      nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
-    }
-    
-    if (json->child) {
-      cJSON *json_next = json->child->child; /* ann第一个子结点 */
-      while (json_next) {
-        if (strcmp(json_next->string, "eta") == 0 ) {
-          g_eta = json_next->valuedouble;
-        } else if (strcmp(json_next->string, "momentum") == 0 ) {
-          g_momentum = json_next->valuedouble;
-        } else if (strcmp(json_next->string, "threshold") == 0) {
-          if (json_next->valuedouble > 0) {
-            g_threshold = -1 * json_next->valuedouble;
-          } else {
-            g_threshold = json_next->valuedouble;
-          }
-        } else {
-          // continue
-        }
-        
-        json_next = json_next->next;
-      }
-    } else {
-      nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
-    }
+
+    g_nlang.read(json);
     
     if (json) {
       cJSON_Delete(json);
@@ -463,6 +631,6 @@ nanai::nanai_ann_nanndesc *ann_alg_logistic_setup(const char *conf_dir) {
     
   }
   
-  return &nanai_ann_alg_logistic_desc;
+  return &nanai_ann_alg_buildin_desc;
 }
 

@@ -1,6 +1,6 @@
 {
 	"ann": {
-		"alg": "ann_alg_logistic",
+		"alg": "ann_alg_buildin",
 		"weight matrixes": {
 			"2": {
 				"0": [0.15, 0.25, 0.41],

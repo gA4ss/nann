@@ -22,9 +22,9 @@
 #include <nanai_mapreduce_ann.h>
 
 /*
- * 默认的算法
+ * 内置的算法
  */
-#include <nanai_ann_alg_logistic.h>
+#include <nanai_ann_alg_buildin.h>
 
 namespace nanai {
   
@@ -391,8 +391,8 @@ namespace nanai {
   }
   
   void nanai_ann_nannmgr::get_def_algs() {
-    /* logistic */
-    add_alg(*ann_alg_logistic_setup(_etc_dir.c_str()));
+    /* buildin */
+    add_alg(*ann_alg_buildin_setup(_etc_dir.c_str()));
   }
   
   bool nanai_ann_nannmgr::add_alg(const nanai_ann_nanndesc &desc) {

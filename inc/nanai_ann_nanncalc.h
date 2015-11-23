@@ -39,6 +39,9 @@ namespace nanai {
    * 进度
    */
 #define NANNCALC_PROCESS_LOG                1
+#define NANNCALC_PROCESS_CREATE             2
+#define NANNCALC_PROCESS_DESTROY            3
+  
   /*! nann计算结点类
    
       一个类就是一条工作线程，负责调用算法进行训练，此类实现了神经网络的前馈与反馈的逻辑。但不直接
