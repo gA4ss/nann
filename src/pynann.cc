@@ -101,16 +101,16 @@ static PyObject *wrap_exptype(PyObject *self, PyObject *args) {
 
 static PyObject *wrap_training(PyObject *self, PyObject *args) {
   char *task = nullptr, *ann_json = nullptr, *input_json = nullptr;
-  int wt = 0, auto_clear = 0;
+  int wt = 0;
   
-  if (!PyArg_ParseTuple(args, "sssi|i", &task, &ann_json, &input_json, &wt, &auto_clear)) {
+  if (!PyArg_ParseTuple(args, "sssi", &task, &ann_json, &input_json, &wt)) {
     return do_except(PYNANN_ERROR_PY_INVALID_ARGUMENT);
   }
   
   try {
     
     if (g_mgrlist == nullptr) {
-      g_mgrlist = std::shared_ptr<nanai::nanai_ann_nannmgr>(new nanai::nanai_ann_nannmgr(auto_clear != 0));
+      g_mgrlist = std::shared_ptr<nanai::nanai_ann_nannmgr>(new nanai::nanai_ann_nannmgr());
       if (g_mgrlist == nullptr) {
         return do_except(PYNANN_ERROR_ALLOC_MEMORY);
       }
@@ -299,6 +299,16 @@ static PyObject *wrap_waits(PyObject *self, PyObject *args) {
   Py_RETURN_NONE;
 }
 
+static PyObject *wrap_start_auto_clear(PyObject *self, PyObject *args) {
+  g_mgrlist->start_auto_clear();
+  Py_RETURN_NONE;
+}
+
+static PyObject *wrap_stop_auto_clear(PyObject *self, PyObject *args) {
+  g_mgrlist->stop_auto_clear();
+  Py_RETURN_NONE;
+}
+
 /**************************************************************************************************************/
 
 static PyMethodDef nannMethods[] = {
@@ -314,6 +324,8 @@ static PyMethodDef nannMethods[] = {
   { "set_precision", wrap_set_precision, METH_VARARGS, "set ann output precision." },
   { "wait", wrap_wait, METH_VARARGS, "wait task done." },
   { "waits", wrap_waits, METH_NOARGS, "wait all task done." },
+  { "start_auto_clear", wrap_start_auto_clear, METH_NOARGS, "start auto clear thread." },
+  { "stop_auto_clear", wrap_stop_auto_clear, METH_NOARGS, "stop auto clear thread." },
   { NULL, NULL, 0, NULL }
 };
 

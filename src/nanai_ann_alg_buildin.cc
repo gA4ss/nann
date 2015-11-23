@@ -16,6 +16,8 @@
 
 #include "cJSON.h"
 
+const char *alg_name = "ann_alg_buildin";
+
 nanai::nanai_ann_nanndesc nanai_ann_alg_buildin_desc;
 
 #define NLANG_TYPE_NULL             0
@@ -301,9 +303,9 @@ void ann_monitor_progress(int cid,
   /* 日志进度 */
   if (progress == NANNCALC_PROCESS_LOG) {
     if (task)
-      printf("ann_alg_logistic - <0x%x>[%s]:%s\n", cid, task, (char*)arg);
+      printf("%s - <0x%x>[%s]:%s\n", alg_name, cid, task, (char*)arg);
     else
-      printf("ann_alg_logistic - <0x%x>:%s\n", cid, (char*)arg);
+      printf("%s - <0x%x>:%s\n", alg_name, cid, (char*)arg);
   }
 }
 
@@ -573,7 +575,6 @@ static cJSON *parse_conf_file(const std::string &filename) {
   return json;
 }
 
-const char *alg_name = "ann_alg_buildin";
 nanai::nanai_ann_nanndesc *ann_alg_buildin_setup(const char *conf_dir) {
   
   std::string conf_file = conf_dir;

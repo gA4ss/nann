@@ -18,8 +18,7 @@ namespace nanai {
   class nanai_ann_nannmgr : public nanai_object {
   public:
     /*! 管理器构造函数. */
-    nanai_ann_nannmgr(bool auto_clear=false                 /*!< [in] 启用自定清理线程 */
-                      );
+    nanai_ann_nannmgr();
     
     /*! 析构函数.
      
@@ -28,10 +27,15 @@ namespace nanai {
     virtual ~nanai_ann_nannmgr();
   protected:
     /*! 初始化所有的数据. */
-    virtual void init(bool auto_clear=false                 /*!< [in] 启用自定清理线程 */
-                      );
+    virtual void init();
     
   public:
+    /*! 当前的内存量 */
+    virtual size_t size();
+    /*! 开启auto_clear */
+    virtual void start_auto_clear();
+    /*! 关闭auto_clear */
+    virtual void stop_auto_clear();
     
     /*! 通过json文件提取训练样例与神经网络 */
     virtual void training(const std::string &task,                  /*!< [in] 任务名 */
@@ -132,7 +136,6 @@ namespace nanai {
     pthread_mutex_t _lock;
     pthread_t _thread_manager;
     bool _run_manager;
-    bool _stop;
     
   protected:
     std::vector<nanai_ann_nanndesc> _descs;                     /*!< 算法描述结果队列 */

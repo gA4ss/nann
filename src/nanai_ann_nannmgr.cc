@@ -40,22 +40,15 @@ namespace nanai {
     pthread_exit(0);
   }
   
-  nanai_ann_nannmgr::nanai_ann_nannmgr(bool auto_clear) {
-    init(auto_clear);
+  nanai_ann_nannmgr::nanai_ann_nannmgr() : _run_manager(false) {
+    init();
   }
   
   nanai_ann_nannmgr::~nanai_ann_nannmgr() {
     /* 释放所有计算结点 */
     waits();
     frees();
-    
-    if (_run_manager) {
-      _stop = true;
-      void *retv = nullptr;
-      if (pthread_join(_thread_manager, &retv) != 0) {
-        error(NANAI_ERROR_RUNTIME_JOIN_THREAD);
-      }
-    }/* end if */
+    stop_auto_clear();
     
     
     /* 外部库析构 */
@@ -77,20 +70,44 @@ namespace nanai {
     }
   }
   
-  void nanai_ann_nannmgr::init(bool auto_clear) {
-    _stop = false;
-    _run_manager = auto_clear;
+  void nanai_ann_nannmgr::init() {
     configure();
     
     if (pthread_mutex_init(&_lock, NULL) != 0) {
       error(NANAI_ERROR_RUNTIME_INIT_MUTEX);
     }
+  }
+  
+  size_t nanai_ann_nannmgr::size() {
+    lock();
     
+    size_t s = _mapreduce.size();
+    
+    unlock();
+    
+    return s;
+  }
+  
+  void nanai_ann_nannmgr::start_auto_clear() {
     if (_run_manager) {
-      if (pthread_create(&_thread_manager, nullptr, thread_nanai_ann_manager, reinterpret_cast<void*>(this)) != 0) {
-        error(NANAI_ERROR_RUNTIME_CREATE_THREAD);
-      }
+      return;
     }
+    
+    _run_manager = true;
+    if (pthread_create(&_thread_manager, nullptr, thread_nanai_ann_manager, reinterpret_cast<void*>(this)) != 0) {
+      _run_manager = false;
+      error(NANAI_ERROR_RUNTIME_CREATE_THREAD);
+    }
+  }
+
+  void nanai_ann_nannmgr::stop_auto_clear() {
+    if (_run_manager) {
+      _run_manager = false;
+      void *retv = nullptr;
+      if (pthread_join(_thread_manager, &retv) != 0) {
+        error(NANAI_ERROR_RUNTIME_JOIN_THREAD);
+      }
+    }/* end if */
   }
   
   void nanai_ann_nannmgr::training(const std::string &task,
@@ -245,6 +262,7 @@ namespace nanai {
     }
     
     for (auto i : tasks) {
+      //printf("%s will be clear\n", i.c_str());
       _mapreduce.erase(i);
     }
     
@@ -297,7 +315,7 @@ namespace nanai {
   }
   
   bool nanai_ann_nannmgr::manager_is_stop() const {
-    return _stop;
+    return !_run_manager;
   }
   
   void nanai_ann_nannmgr::configure() {

@@ -205,7 +205,7 @@ namespace nanai {
     for (size_t i = 0; i < ann.weight_matrixes.size(); i++) {
       oss << "\t\t\t" << "\"" << i << "\": {" << std::endl;
       for (size_t n = 0; n < ann.weight_matrixes[i].row_size(); n++) {
-        oss << "\t\t\t\t" << n << "\": [";
+        oss << "\t\t\t\t" << "\"" << n << "\": [";
         
         /* 输出一行 */
         for (size_t m = 0; m < ann.weight_matrixes[i].col_size(); m++) {
@@ -227,7 +227,7 @@ namespace nanai {
     for (size_t i = 0; i < ann.delta_weight_matrixes.size(); i++) {
       oss << "\t\t\t" << "\"" << i << "\": {" << std::endl;
       for (size_t n = 0; n < ann.delta_weight_matrixes[i].row_size(); n++) {
-        oss << "\t\t\t\t" << n << "\": [";
+        oss << "\t\t\t\t" << "\"" << n << "\": [";
         
         /* 输出一行 */
         for (size_t m = 0; m < ann.delta_weight_matrixes[i].col_size(); m++) {

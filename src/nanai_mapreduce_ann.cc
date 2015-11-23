@@ -21,6 +21,7 @@ namespace nanai {
   }
   
   nanai_mapreduce_ann::~nanai_mapreduce_ann() {
+    //printf("~nanai_mapreduce_ann\n");
   }
   
   void nanai_mapreduce_ann::read_config(const nanai_mapreduce_ann_config_t &config) {

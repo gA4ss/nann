@@ -26,7 +26,7 @@ def change_except_type(t):
     return nann.exptype(t)
 
 #----------------------------------------------------------------------
-def training(task, ann_json, input_json, wt=0, auto_clear=0, is_file=False):
+def training(task, ann_json, input_json, wt=0, is_file=False):
     """train sample, adjust weight & output result."""
     if (is_file == True):
         ann_file_object = open(ann_json,'r')
@@ -40,7 +40,7 @@ def training(task, ann_json, input_json, wt=0, auto_clear=0, is_file=False):
     else:
         ann_json_text = ann_json
         input_json_text = input_json
-    return nann.training(task, ann_json_text, input_json_text, wt, auto_clear)
+    return nann.training(task, ann_json_text, input_json_text, wt)
 
 #----------------------------------------------------------------------
 def done(task):
@@ -81,5 +81,16 @@ def wait(task):
 def set_precision(precison=4):
     """set ann output precision."""
     nann.set_precision(precison)
+    
+#----------------------------------------------------------------------
+def start_auto_clear():
+    """start auto clear thread"""
+    nann.start_auto_clear()
+    
+#----------------------------------------------------------------------
+def stop_auto_clear():
+    """stop auto clear thread"""
+    nann.stop_auto_clear()
+    
     
 

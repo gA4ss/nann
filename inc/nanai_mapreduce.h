@@ -29,6 +29,7 @@ namespace nanai {
     
     /*! 只能通过释放此类内存，才可以停止管理线程 */
     virtual ~nanai_mapreduce() {
+      //printf("~nanai_mapreduce\n");
       if (_run) {
         
         /* 等待线程完毕 */
