@@ -301,9 +301,9 @@ void ann_monitor_progress(int cid,
   /* 日志进度 */
   if (progress == NANNCALC_PROCESS_LOG) {
     if (task)
-      printf("ann_alg_logistic - <%d>[%s]:%s\n", cid, task, (char*)arg);
+      printf("ann_alg_logistic - <0x%x>[%s]:%s\n", cid, task, (char*)arg);
     else
-      printf("ann_alg_logistic - <%d>:%s\n", cid, (char*)arg);
+      printf("ann_alg_logistic - <0x%x>:%s\n", cid, (char*)arg);
   }
 }
 
