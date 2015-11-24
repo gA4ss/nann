@@ -110,7 +110,7 @@ namespace nanai {
                                 std::vector<nanmath::nanmath_vector> &inputs,
                                 std::vector<nanmath::nanmath_vector> &targets) {
     if (json_context.empty()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
     cJSON *json = cJSON_Parse(json_context.c_str());
@@ -139,7 +139,7 @@ namespace nanai {
     
     file.open(path, std::ios::in);
     if (file.is_open() == false) {
-      error(NANAI_ERROR_RUNTIME_OPEN_FILE);
+      error(NAN_ERROR_RUNTIME_OPEN_FILE);
     }
     file.seekg(0, std::ios::end);
     size_t r = static_cast<size_t>(file.tellg());

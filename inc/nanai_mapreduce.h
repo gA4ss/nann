@@ -20,7 +20,7 @@ namespace nanai {
     /*! 构造函数必须指定任务名 */
     nanai_mapreduce(const std::string &task,        /*!< 任务名 */
                     input_t &input                  /*!< 输入 */
-    ) {
+    ) : nanai_object() {
       _input = input;
       _task = task;
       _run = false;
@@ -36,12 +36,12 @@ namespace nanai {
         void *tret = nullptr;
         int err = pthread_join(_mapreduce_thread, &tret);
         if (err != 0) {
-          error(NANAI_ERROR_RUNTIME_JOIN_THREAD);
+          error(NAN_ERROR_RUNTIME_JOIN_THREAD);
         }
         
         err = pthread_mutex_destroy(&_lock);
         if (err != 0) {
-          error(NANAI_ERROR_RUNTIME_DESTROY_MUTEX);
+          error(NAN_ERROR_RUNTIME_DESTROY_MUTEX);
         }
       }
     }
@@ -53,13 +53,13 @@ namespace nanai {
       /* 创建工作线程 */
       int err = pthread_mutex_init(&_lock, nullptr);
       if (err != 0) {
-        error(NANAI_ERROR_RUNTIME_INIT_MUTEX);
+        error(NAN_ERROR_RUNTIME_INIT_MUTEX);
       }
       
       err = pthread_create(&_mapreduce_thread, nullptr,
                            thread_nanai_mapreduce_worker, (void *)this);
       if (err != 0) {
-        error(NANAI_ERROR_RUNTIME_CREATE_THREAD);
+        error(NAN_ERROR_RUNTIME_CREATE_THREAD);
       }
       
       _run = true;

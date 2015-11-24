@@ -13,30 +13,24 @@
 
 #include <nanai_common.h>
 #include <nanai_ann_nannmgr.h>
+#include <nan_object.h>
 #include <nanai_object.h>
 #include <nanai_ann_nnn.h>
 
 using namespace nanai;
 
-#define PYNANN_ERROR_SUCCESS                        0
+#define PYNANN_ERROR_SUCCESS                           0
 
 /* 错误信息，不可忽略 */
-#define PYNANN_ERROR_INTERNAL                           0x88000000
-#define PYNANN_ERROR_PARSE_JSON                         0x88000001
-#define PYNANN_ERROR_OPEN_FILE                          0x88000002
-#define PYNANN_ERROR_INVALID_ARGUMENT                   0x88000100
-#define PYNANN_ERROR_INVALID_ARGUMENT_TASK_EXIST        0x88000101
-#define PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST    0x88000102
-#define PYNANN_ERROR_ALLOC_MEMORY                       0x88000200
-
-/* python接口错误 */
-#define PYNANN_ERROR_PY_INVALID_ARGUMENT                0x8A000100
-
-/* 警告错误，可忽略 */
-#define PYNANN_WARNING_INTERNAL                         0x87000000
-#define PYNANN_WARNING_INVALID_ARGUMENT                 0x87000100
-#define PYNANN_WARNING_INVALID_ARGUMENT_TASK_EXIST      0x87000101
-#define PYNANN_WARNING_INVALID_ARGUMENT_TASK_NOT_EXIST  0x87000102
+#define PYNANN_ERROR_INTERNAL                           0x821F0000
+#define PYNANN_ERROR_PARSE_JSON                         0x821F0001
+#define PYNANN_ERROR_OPEN_FILE                          0x821F0002
+#define PYNANN_ERROR_INVALID_ARGUMENT                   0x821F0103
+#define PYNANN_ERROR_INVALID_ARGUMENT_TASK_EXIST        0x821F0104
+#define PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST    0x821F0105
+#define PYNANN_ERROR_ALLOC_MEMORY                       0x821F0106
+#define PYNANN_ERROR_BY_NANN                            0x821FFFFE
+#define PYNANN_ERROR_PY_INVALID_ARGUMENT                0x821FFFFF
 
 static std::shared_ptr<nanai::nanai_ann_nannmgr> g_mgrlist = nullptr;
 //static const char *g_str_this_version_not_implemented = "this version  ot implemented!!!";
@@ -57,11 +51,8 @@ PyObject *do_except(int code, const char *str) {
     { static_cast<int>(PYNANN_ERROR_INVALID_ARGUMENT_TASK_EXIST), PyExc_StandardError, "task already exist" },
     { static_cast<int>(PYNANN_ERROR_INVALID_ARGUMENT_TASK_NOT_EXIST), PyExc_StandardError, "task not exist" },
     { static_cast<int>(PYNANN_ERROR_ALLOC_MEMORY), PyExc_MemoryError, "alloc memory failed" },
+    { static_cast<int>(PYNANN_ERROR_BY_NANN), PyExc_StandardError, "error on nann" },
     { static_cast<int>(PYNANN_ERROR_PY_INVALID_ARGUMENT), PyExc_TypeError, "pass to python argument type error" },
-    { static_cast<int>(PYNANN_WARNING_INTERNAL), PyExc_Warning, "internal warning" },
-    { static_cast<int>(PYNANN_WARNING_INVALID_ARGUMENT), PyExc_RuntimeWarning, "invalid argument warning level" },
-    { static_cast<int>(PYNANN_WARNING_INVALID_ARGUMENT_TASK_EXIST), PyExc_RuntimeWarning, "task already exist warning level" },
-    { static_cast<int>(PYNANN_WARNING_INVALID_ARGUMENT_TASK_NOT_EXIST), PyExc_RuntimeWarning, "task not exist warning level" }
   };
   
   char *outstr = nullptr;
@@ -117,6 +108,8 @@ static PyObject *wrap_training(PyObject *self, PyObject *args) {
     }
     
     g_mgrlist->training(task, ann_json, input_json, wt);
+  } catch (nanan::nan_error e) {
+    return do_except(PYNANN_ERROR_BY_NANN, e.what());
   } catch (...) {
     return do_except(PYNANN_ERROR_INTERNAL, "training error");
   }
@@ -134,6 +127,8 @@ static PyObject *wrap_done(PyObject *self, PyObject *args) {
   bool b = false;
   try {
     b = g_mgrlist->mapreduce_is_done(task);
+  } catch (nanan::nan_error e) {
+    return do_except(PYNANN_ERROR_BY_NANN, e.what());
   } catch (...) {
     return do_except(PYNANN_ERROR_INTERNAL, "done error");
   }
@@ -150,6 +145,8 @@ static PyObject *wrap_clear(PyObject *self, PyObject *args) {
   
   try {
     g_mgrlist->clear_mapreduce(task);
+  } catch (nanan::nan_error e) {
+    return do_except(PYNANN_ERROR_BY_NANN, e.what());
   } catch (...) {
     return do_except(PYNANN_ERROR_INTERNAL, "clear error");
   }
@@ -161,6 +158,8 @@ static PyObject *wrap_clear(PyObject *self, PyObject *args) {
 static PyObject *wrap_clears(PyObject *self, PyObject *args) {
   try {
     g_mgrlist->clears();
+  } catch (nanan::nan_error e) {
+    return do_except(PYNANN_ERROR_BY_NANN, e.what());
   } catch (...) {
     return do_except(PYNANN_ERROR_INTERNAL, "clears error");
   }
@@ -179,6 +178,8 @@ static PyObject *wrap_get_map_results(PyObject *self, PyObject *args) {
   
   try {
     results = g_mgrlist->get_map_result(task);
+  } catch (nanan::nan_error e) {
+    return do_except(PYNANN_ERROR_BY_NANN, e.what());
   } catch (...) {
     return do_except(PYNANN_ERROR_INTERNAL, "get_map_results error");
   }
@@ -219,6 +220,8 @@ static PyObject *wrap_get_map_results(PyObject *self, PyObject *args) {
     }/* end for */
     
     oss << "}";
+  } catch (nanan::nan_error e) {
+    return do_except(PYNANN_ERROR_BY_NANN, e.what());
   } catch (...) {
     return do_except(PYNANN_ERROR_INTERNAL, "output map results error");
   }
@@ -236,6 +239,8 @@ static PyObject *wrap_get_reduce_result(PyObject *self, PyObject *args) {
   
   try {
     result = g_mgrlist->get_reduce_result(task);
+  } catch (nanan::nan_error e) {
+    return do_except(PYNANN_ERROR_BY_NANN, e.what());
   } catch (...) {
     return do_except(PYNANN_ERROR_INTERNAL, "get_reduce_result error");
   }
@@ -257,6 +262,8 @@ static PyObject *wrap_get_reduce_result(PyObject *self, PyObject *args) {
     nanai_ann_nnn_write(ann_json, ann, g_precision);
     oss << ann_json;
     oss << "}";
+  } catch (nanan::nan_error e) {
+    return do_except(PYNANN_ERROR_BY_NANN, e.what());
   } catch (...) {
     return do_except(PYNANN_ERROR_INTERNAL, "output reduce result error");
   }
@@ -287,6 +294,8 @@ static PyObject *wrap_wait(PyObject *self, PyObject *args) {
   
   try {
     g_mgrlist->wait(task);
+  } catch (nanan::nan_error e) {
+    return do_except(PYNANN_ERROR_BY_NANN, e.what());
   } catch (...) {
     return do_except(PYNANN_ERROR_INTERNAL, "wait task done error");
   }

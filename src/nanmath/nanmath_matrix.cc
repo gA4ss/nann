@@ -9,10 +9,10 @@ namespace nanmath {
   
   nanmath_matrix nm_null;
   
-  nanmath_matrix::nanmath_matrix() {
+  nanmath_matrix::nanmath_matrix() : nanmath_object() {
   }
   
-  nanmath_matrix::nanmath_matrix(size_t r, size_t c) {
+  nanmath_matrix::nanmath_matrix(size_t r, size_t c) : nanmath_object() {
     create(r, c);
   }
   
@@ -38,17 +38,11 @@ namespace nanmath {
   }
   
   void nanmath_matrix::create(size_t r, size_t c) {
-    
-    try {
-      destroy();
-      _matrix.resize(r);
+    destroy();
+    _matrix.resize(r);
       
-      for (size_t i = 0; i < r; i++) {
+    for (size_t i = 0; i < r; i++) {
         _matrix[i].resize(c);
-      }
-    } catch (...) {
-      // error
-      throw;
     }
   }
   
@@ -65,14 +59,7 @@ namespace nanmath {
   }
   
   double nanmath_matrix::at(size_t r, size_t c) const {
-    double res = 0.0;
-    try {
-      res = _matrix[r][c];
-    } catch (...) {
-      // error
-      throw;
-    }
-    return res;
+    return _matrix[r][c];
   }
   
   size_t nanmath_matrix::row_size() const {
@@ -84,12 +71,8 @@ namespace nanmath {
   }
   
   void nanmath_matrix::set(size_t r, size_t c, double v) {
-    try {
-      _matrix[r][c] = v;
-    } catch (...) {
-      // error
-      throw;
-    }
+    check(r, c);
+    _matrix[r][c] = v;
   }
   
   void nanmath_matrix::set(const nanmath_matrix &mat) {
@@ -102,15 +85,17 @@ namespace nanmath {
   }
   
   void nanmath_matrix::set_row(size_t r, const std::vector<double> &row) {
-    if (r > _matrix.size()) {
-      throw std::range_error("argument r over the matrix row size");
+    if (r > row_size()) {
+      error(NANMATH_ERROR_LOGIC_INVALID_MATRIX_DEGREE);
     }
     
     _matrix[r] = row;
   }
   
   void nanmath_matrix::set_col(size_t c, const std::vector<double> &col) {
-    
+    if (c > col_size()) {
+      error(NANMATH_ERROR_LOGIC_INVALID_MATRIX_DEGREE);
+    }
   }
   
   void nanmath_matrix::push_row(const std::vector<double> &row) {
@@ -157,22 +142,17 @@ namespace nanmath {
   
   nanmath_matrix nanmath_matrix::T() const {
     nanmath_matrix res;
-    try {
-      size_t c = col_size();
-      size_t r = row_size();
-
-      res.resize(c, r);
-      
-      for (size_t i = 0; i < c; i++) {
-        for (size_t j = 0; j < r; j++) {
-          res[i][j] = _matrix[j][i];
-        }
-      }
-    } catch (...) {
-      // error
-      throw;
-    }
     
+    size_t c = col_size();
+    size_t r = row_size();
+
+    res.resize(c, r);
+      
+    for (size_t i = 0; i < c; i++) {
+      for (size_t j = 0; j < r; j++) {
+        res[i][j] = _matrix[j][i];
+      }
+    }
     return res;
   }
   
@@ -192,7 +172,7 @@ namespace nanmath {
       }
       
     } else {
-      throw std::invalid_argument("inner matrix dimensions must agree");
+      error(NANMATH_ERROR_LOGIC_INVALID_MATRIX_DEGREE);
     }
     return res;
   }
@@ -213,7 +193,7 @@ namespace nanmath {
       }
       
     } else {
-      throw std::invalid_argument("inner matrix dimensions must agree");
+      error(NANMATH_ERROR_LOGIC_INVALID_MATRIX_DEGREE);
     }
     return res;
 
@@ -259,7 +239,7 @@ namespace nanmath {
       }
         
     } else {
-      throw std::invalid_argument("inner matrix dimensions must agree");
+      error(NANMATH_ERROR_LOGIC_INVALID_MATRIX_DEGREE);
     }
     
     return res;
@@ -287,5 +267,11 @@ namespace nanmath {
   
   std::vector<double> nanmath_matrix::operator [](size_t r) const {
     return _matrix[r];
+  }
+  
+  void nanmath_matrix::check(size_t r, size_t c) {
+    if ((r >= row_size()) || (c >= col_size())) {
+      error(NANMATH_ERROR_LOGIC_INVALID_MATRIX_DEGREE);
+    }
   }
 }

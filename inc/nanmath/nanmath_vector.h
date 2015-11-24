@@ -2,11 +2,11 @@
 #define nanmath_vector_h
 
 #include <vector>
-//#include <nanmath_matrix.h>
+#include <nanmath_object.h>
 
 namespace nanmath {
   
-  class nanmath_vector {
+  class nanmath_vector :public nanmath_object {
   public:
     nanmath_vector();
     nanmath_vector(size_t n);
@@ -41,6 +41,9 @@ namespace nanmath {
     
   public:
     double operator [](size_t i) const;
+    
+  protected:
+    void check(size_t i);
     
   protected:
     std::vector<double> _vector;

@@ -9,10 +9,10 @@
 namespace nanmath {
   nanmath_vector nv_null;
   
-  nanmath_vector::nanmath_vector() {
+  nanmath_vector::nanmath_vector() : nanmath_object() {
   }
   
-  nanmath_vector::nanmath_vector(size_t n) {
+  nanmath_vector::nanmath_vector(size_t n) : nanmath_object() {
     create(n);
   }
   
@@ -42,62 +42,34 @@ namespace nanmath {
   }
   
   double nanmath_vector::at(size_t i) const {
-    double res = 0.0;
-    try {
-      res = _vector[i];
-    } catch (...) {
-      // error
-      throw;
-    }
-    
-    return res;
+    return _vector[i];
   }
   
   void nanmath_vector::set(size_t i, double v) {
-    try {
-      _vector[i] = v;
-    } catch (...) {
-      // error
-      throw;
-    }
+    _vector[i] = v;
   }
   
   void nanmath_vector::set(double *v, int vs) {
-    try {
-      destroy();
-      _vector.resize(vs);
-      for (int i = 0; i < vs; i++) {
-        _vector[i] = v[i];
-      }
-    } catch (...) {
-      // error
-      throw;
+    destroy();
+    _vector.resize(vs);
+    for (int i = 0; i < vs; i++) {
+      _vector[i] = v[i];
     }
   }
   
   void nanmath_vector::set(const std::vector<double> &v) {
-    try {
-      destroy();
-      _vector.resize(v.size());
-      for (int i = 0; i < v.size(); i++) {
-        _vector[i] = v[i];
-      }
-    } catch (...) {
-      // error
-      throw;
+    destroy();
+    _vector.resize(v.size());
+    for (int i = 0; i < v.size(); i++) {
+      _vector[i] = v[i];
     }
   }
   
   void nanmath_vector::set(const nanmath_vector &v) {
-    try {
-      destroy();
-      _vector.resize(v.size());
-      for (size_t i = 0; i < v.size(); i++) {
-        _vector[i] = v.at(i);
-      }
-    } catch (...) {
-      // error
-      throw;
+    destroy();
+    _vector.resize(v.size());
+    for (size_t i = 0; i < v.size(); i++) {
+      _vector[i] = v.at(i);
     }
   }
   
@@ -146,7 +118,7 @@ namespace nanmath {
   
   nanmath_vector nanmath_vector::add(const nanmath_vector &v) {
     if (_vector.size() != v.size()) {
-      // error
+      error(NANMATH_ERROR_LOGIC_INVALID_VECTOR_DEGREE);
     }
     
     nanmath_vector res;
@@ -159,7 +131,7 @@ namespace nanmath {
   
   nanmath_vector nanmath_vector::sub(const nanmath_vector &v) {
     if (_vector.size() != v.size()) {
-      // error
+      error(NANMATH_ERROR_LOGIC_INVALID_VECTOR_DEGREE);
     }
     
     nanmath_vector res;
@@ -173,17 +145,12 @@ namespace nanmath {
   std::vector<std::vector<double> > nanmath_vector::mul(const nanmath_vector &v) {
     nanmath_matrix res(_vector.size(), v.size());
     
-    try {
-      for (size_t i = 0; i < _vector.size(); i++) {
-        for (size_t j = 0; j < v.size(); j++) {
-          double p = _vector[i] * v.at(j);
-          res.set(i, j, p);
-        }
+    for (size_t i = 0; i < _vector.size(); i++) {
+      for (size_t j = 0; j < v.size(); j++) {
+        double p = _vector[i] * v.at(j);
+        res.set(i, j, p);
       }
-    } catch (...) {
-      throw;
     }
-    
     return res.get();
   }
   
@@ -197,16 +164,12 @@ namespace nanmath {
   
   double nanmath_vector::dot(const nanmath_vector &v) {
     if (_vector.size() != v.size()) {
-      throw std::invalid_argument("not match argument size");
+      error(NANMATH_ERROR_LOGIC_INVALID_VECTOR_DEGREE);
     }
     
     double res = 0.0;
-    try {
-      for (size_t i = 0; i < _vector.size(); i++) {
-        res += _vector[i] * v.at(i);
-      }
-    } catch (...) {
-      throw;
+    for (size_t i = 0; i < _vector.size(); i++) {
+      res += _vector[i] * v.at(i);
     }
     
     return res;
@@ -217,11 +180,15 @@ namespace nanmath {
       std::cout << std::setiosflags(std::ios::fixed) << std::setiosflags(std::ios::left)
                 << std::setprecision(2) << std::setw(8) << i;
     }
-    //std::cout << std::endl;
   }
   
   double nanmath_vector::operator [](size_t i) const {
     return at(i);
   }
   
+  void nanmath_vector::check(size_t i) {
+    if (i >= size()) {
+      error(NANMATH_ERROR_LOGIC_INVALID_VECTOR_DEGREE);
+    }
+  }
 }

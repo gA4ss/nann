@@ -36,7 +36,7 @@ namespace nanai {
     nanai_ann_nanncalc::ann_t ann = _input.second;
     
     if (inputs.size() != targets.size()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
     /* 调用自定义的map操作 */
@@ -73,7 +73,7 @@ namespace nanai {
   nanai_ann_nanncalc *nanai_mapreduce_ann::make(const nanai_ann_nanndesc &desc) {
     nanai_ann_nanncalc *calc = new nanai_ann_nanncalc(desc, _log_dir.c_str());
     if (calc == NULL) {
-      error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
+      error(NAN_ERROR_RUNTIME_ALLOC_MEMORY);
     }
     
     return calc;

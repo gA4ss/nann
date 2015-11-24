@@ -3,10 +3,11 @@
 
 #include <vector>
 #include <nanmath_vector.h>
+#include <nanmath_object.h>
 
 namespace nanmath {
   
-  class nanmath_matrix {
+  class nanmath_matrix : public nanmath_object {
   public:
     nanmath_matrix();
     nanmath_matrix(size_t r, size_t c);
@@ -41,6 +42,9 @@ namespace nanmath {
     virtual nanmath_matrix mul(const double v);
     virtual nanmath_vector mul(const nanmath_vector &v);
     virtual nanmath_matrix mul(const nanmath_matrix &mat);
+    
+  protected:
+    virtual void check(size_t r, size_t c);
     
   public:
     std::vector<double> operator [](size_t r) const;

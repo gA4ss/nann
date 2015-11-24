@@ -8,6 +8,7 @@
 #include <vector>
 #include <map>
 
+#include <nlang.h>
 #include <nanai_ann_nanndesc.h>
 #include <nanai_ann_alg_buildin.h>
 #include <nanai_mapreduce.h>
@@ -19,192 +20,7 @@
 const char *alg_name = "ann_alg_buildin";
 
 nanai::nanai_ann_nanndesc nanai_ann_alg_buildin_desc;
-
-#define NLANG_TYPE_NULL             0
-#define NLANG_TYPE_BOOL             1
-#define NLANG_TYPE_NUMBER           2
-#define NLANG_TYPE_STRING           3
-#define NLANG_TYPE_ARRAY            4
-#define NLANG_TYPE_OBJECT           5
-
-class nlang_var {
-public:
-  nlang_var() {
-    type = NLANG_TYPE_NULL;
-    bool_v = false;
-    int_v = 0;
-    double_v = 0.0;
-  }
-  
-  virtual ~nlang_var() { clear(); }
-  
-  void clear() {
-    type = NLANG_TYPE_NULL;
-    bool_v = false;
-    int_v = 0;
-    double_v = 0.0;
-    string_v.clear();
-  }
-  
-public:
-  int type;
-  bool bool_v;
-  int int_v;
-  double double_v;
-  std::string string_v;
-  
-  typedef struct {
-    std::shared_ptr<nlang_var> child;
-    std::shared_ptr<nlang_var> next;
-  } nlang_var_object;
-  
-  std::vector<nlang_var> array;
-};
-
-class nlang {
-public:
-  nlang() {}
-  virtual ~nlang() {}
-  
-public:
-  
-  void read(cJSON *json) {
-    cJSON *json_child = json->child;
-    if (json_child == nullptr) {
-      nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
-    }
-    
-    cJSON *json_next = json_child;
-    while (json_next) {
-      std::string name = json_next->string;
-      if (name.empty()) {
-        json_next = json_next->next;
-        continue;
-      }
-      
-      if (json_next->type == cJSON_String) {
-        set(name, json_next->string);
-      } else if (json_next->type == cJSON_Number) {
-        set(name, json_next->valuedouble);
-      } else if (json_next->type == cJSON_False) {
-        set(name, false);
-      } else if (json_next->type == cJSON_True) {
-        set(name, true);
-      } else if (json_next->type == cJSON_NULL) {
-        set_null(name);
-      } else if (json_next->type == cJSON_Array) {
-      } else if (json_next->type == cJSON_Object) {
-      }
-      
-      json_next = json_next->next;
-    }
-  }
-  
-  void set_null(const std::string &name) {
-    nlang_var tmp;
-    if (_symbols.find(name) == _symbols.end()) {
-      _symbols[name] = tmp;
-    } else {
-      _symbols[name].clear();
-    }
-  }
-  
-  void set(const std::string &name,
-           const bool v) {
-    nlang_var tmp;
-    
-    tmp.type = NLANG_TYPE_BOOL;
-    tmp.bool_v = v;
-    
-    _symbols[name] = tmp;
-  }
-  
-  void set(const std::string &name,
-           const double v) {
-    nlang_var tmp;
-    
-    tmp.type = NLANG_TYPE_NUMBER;
-    tmp.double_v = v;
-    tmp.int_v = static_cast<int>(v);
-    
-    _symbols[name] = tmp;
-  }
-  
-  void set(const std::string &name,
-           const std::string &v) {
-    nlang_var tmp;
-    
-    tmp.type = NLANG_TYPE_STRING;
-    tmp.string_v = v;
-    
-    _symbols[name] = tmp;
-  }
-  
-  int get(const std::string &name,
-          bool &v) {
-    if (_symbols.find(name) == _symbols.end()) {
-      return -1;
-    }
-    
-    if (_symbols[name].type != NLANG_TYPE_NUMBER) {
-      return -2;
-    }
-    
-    v = _symbols[name].bool_v;
-    
-    return 0;
-  }
-  
-  int get(const std::string &name,
-          int &v) {
-    if (_symbols.find(name) == _symbols.end()) {
-      return -1;
-    }
-    
-    if (_symbols[name].type != NLANG_TYPE_NUMBER) {
-      return -2;
-    }
-    
-    v = _symbols[name].int_v;
-    
-    return 0;
-  }
-  
-  int get(const std::string &name,
-          double &v) {
-    if (_symbols.find(name) == _symbols.end()) {
-      return -1;
-    }
-    
-    if (_symbols[name].type != NLANG_TYPE_NUMBER) {
-      return -2;
-    }
-    
-    v = _symbols[name].double_v;
-    
-    return 0;
-  }
-  
-  int get(const std::string &name,
-          std::string &v) {
-    if (_symbols.find(name) == _symbols.end()) {
-      return -1;
-    }
-    
-    if (_symbols[name].type != NLANG_TYPE_STRING) {
-      return -2;
-    }
-    
-    v = _symbols[name].string_v;
-    
-    return 0;
-  }
-  
-private:
-  std::map<std::string, nlang_var> _symbols;
-};
-
-nlang g_nlang;
+nlang::nlang g_nlang;
 
 void ann_alg_buildin_added() {
 }
@@ -318,7 +134,7 @@ int ann_calculate(const std::string *task,
                   nanmath::nanmath_vector *output,
                   nanai::nanai_ann_nanncalc *ann) {
   if ((task == nullptr) || (input == nullptr) || (target == nullptr)) {
-    nanai::error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    nanai::error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
   }
   
   return NANAI_ANN_DESC_RETURN;
@@ -328,7 +144,7 @@ static nanai::nanai_ann_nanncalc *s_make(const nanai::nanai_ann_nanndesc &desc,
                                          const std::string &log_dir) {
   nanai::nanai_ann_nanncalc *calc = new nanai::nanai_ann_nanncalc(desc, log_dir.c_str());
   if (calc == NULL) {
-    nanai::error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
+    nanai::error(NAN_ERROR_RUNTIME_ALLOC_MEMORY);
   }
   
   return calc;
@@ -554,7 +370,7 @@ static cJSON *parse_conf_file(const std::string &filename) {
   std::ifstream file;
   file.open(filename, std::ios::in|std::ios::binary);
   if (file.is_open() == false) {
-    nanai::error(NANAI_ERROR_RUNTIME_OPEN_FILE);
+    nanai::error(NAN_ERROR_RUNTIME_OPEN_FILE);
   }
   
   /* 映射文件 */
@@ -563,7 +379,7 @@ static cJSON *parse_conf_file(const std::string &filename) {
   
   char *buf = new char [filesize + 1];
   if (buf == nullptr) {
-    nanai::error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
+    nanai::error(NAN_ERROR_RUNTIME_ALLOC_MEMORY);
   }
   
   file.seekg(0, std::ios::beg);

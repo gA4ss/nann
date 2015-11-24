@@ -106,7 +106,7 @@ namespace nanai {
   
   static void parse_create_json(cJSON *json,
                                 nanai_ann_nanncalc::ann_t &ann) {
-    if (json == nullptr) error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+    if (json == nullptr) error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
     cJSON *json_child = json->child;
     if (json_child == nullptr) error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     
@@ -188,12 +188,12 @@ namespace nanai {
                            int precision) {
     
     if (ann.empty()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
     std::string alg = ann.alg;
     if (alg.empty()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
     json_context.clear();

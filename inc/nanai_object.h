@@ -1,197 +1,30 @@
 #ifndef nanai_object_h
 #define nanai_object_h
 
-#include <stdexcept>
-
-#ifndef _NOEXCEPT
-#define _NOEXCEPT   noexcept
-#endif
+#include <nan_object.h>
 
 namespace nanai {
-  
-  /* error code */
-#define NANAI_ERROR_SUCCESS                             0
-#define NANAI_ERROR_UNKNOW_ERROR                        0x80000000
 
-#define NANAI_ERROR_LOGIC                               0x80100000
-#define NANAI_ERROR_LOGIC_INVALID_ARGUMENT              0x80100001
-#define NANAI_ERROR_LOGIC_INVALID_CONFIG                0x80100002
+#define NANAI_ERROR_LOGIC                               0x82100000
+#define NANAI_ERROR_LOGIC_INVALID_CONFIG                0x82100001
+#define NANAI_ERROR_LOGIC_ALG_NOT_FOUND                 0x82100002
+#define NANAI_ERROR_LOGIC_TASK_NOT_MATCHED              0x82100003
+#define NANAI_ERROR_LOGIC_TASK_ALREADY_EXIST            0x82100004
+#define NANAI_ERROR_LOGIC_HOME_DIR_NOT_CONFIG           0x82100005
+#define NANAI_ERROR_LOGIC_DESC_FUNCTION_NOT_FOUND       0x82100006
   
-#define NANAI_ERROR_LOGIC_ALG_NOT_FOUND                 0x80110001
-#define NANAI_ERROR_LOGIC_TASK_NOT_MATCHED              0x80110002
-#define NANAI_ERROR_LOGIC_TASK_ALREADY_EXIST            0x80110003
-#define NANAI_ERROR_LOGIC_HOME_DIR_NOT_CONFIG           0x80110004
-#define NANAI_ERROR_LOGIC_DESC_FUNCTION_NOT_FOUND       0x80110005
+  /*! 人工神经网络的错误 */
+#define NANAI_ERROR_LOGIC_ANN_MERGE_NUMBER_LESS_2       0x82110001
+#define NANAI_ERROR_LOGIC_ANN_INVALID_VECTOR_DEGREE     0x82110002
+#define NANAI_ERROR_LOGIC_ANN_INVALID_MATRIX_DEGREE     0x82110003
   
-#define NANAI_ERROR_LOGIC_ANN_MERGE_NUMBER_LESS_2       0x80120001
-#define NANAI_ERROR_LOGIC_ANN_INVALID_VECTOR_DEGREE     0x80120002
-#define NANAI_ERROR_LOGIC_ANN_INVALID_MATRIX_DEGREE     0x80120003
-  
-#define NANAI_ERROR_RUNTIME                             0x80200000
-#define NANAI_ERROR_RUNTIME_CREATE_THREAD               0x80200001
-#define NANAI_ERROR_RUNTIME_INIT_MUTEX                  0x80200002
-#define NANAI_ERROR_RUNTIME_DESTROY_MUTEX               0x80200003
-#define NANAI_ERROR_RUNTIME_LOCK_MUTEX                  0x80200004
-#define NANAI_ERROR_RUNTIME_UNLOCK_MUTEX                0x80200005
-#define NANAI_ERROR_RUNTIME_JOIN_THREAD                 0x80200006
-#define NANAI_ERROR_RUNTIME_OPEN_FILE                   0x80200007
-#define NANAI_ERROR_RUNTIME_ALLOC_MEMORY                0x8020000A
-  
-  
-  class nanai_error_unknow_error : public std::exception {
-  public:
-    explicit nanai_error_unknow_error();
-    virtual const char* what() const _NOEXCEPT;
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_logic_invalid_argument : public std::invalid_argument {
-  public:
-    explicit nanai_error_logic_invalid_argument();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_logic_invalid_config : public std::logic_error {
-  public:
-    explicit nanai_error_logic_invalid_config();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_logic_alg_not_found : public std::logic_error {
-  public:
-    explicit nanai_error_logic_alg_not_found();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_logic_task_not_matched : public std::logic_error {
-  public:
-    explicit nanai_error_logic_task_not_matched();
-  public:
-    int _errcode;
-  };
-
-  class nanai_error_logic_task_already_exist : public std::logic_error {
-  public:
-    explicit nanai_error_logic_task_already_exist();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_logic_home_dir_not_config : public std::logic_error {
-  public:
-    explicit nanai_error_logic_home_dir_not_config();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_logic_desc_function_not_found : public std::logic_error {
-  public:
-    explicit nanai_error_logic_desc_function_not_found();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_logic_ann_merge_number_less_2 : public std::logic_error {
-  public:
-    explicit nanai_error_logic_ann_merge_number_less_2();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_logic_ann_invalid_vector_degree : public std::logic_error {
-  public:
-    explicit nanai_error_logic_ann_invalid_vector_degree();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_logic_ann_invalid_matrix_degree : public std::logic_error {
-  public:
-    explicit nanai_error_logic_ann_invalid_matrix_degree();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_runtime_create_thread : public std::runtime_error {
-  public:
-    explicit nanai_error_runtime_create_thread();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_runtime_init_mutex : public std::runtime_error {
-  public:
-    explicit nanai_error_runtime_init_mutex();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_runtime_destroy_mutex : public std::runtime_error {
-  public:
-    explicit nanai_error_runtime_destroy_mutex();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_runtime_lock_mutex : public std::runtime_error {
-  public:
-    explicit nanai_error_runtime_lock_mutex();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_runtime_unlock_mutex : public std::runtime_error {
-  public:
-    explicit nanai_error_runtime_unlock_mutex();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_runtime_join_thread : public std::runtime_error {
-  public:
-    explicit nanai_error_runtime_join_thread();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_runtime_open_file : public std::runtime_error {
-  public:
-    explicit nanai_error_runtime_open_file();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_error_runtime_alloc_memory : public std::runtime_error {
-  public:
-    explicit nanai_error_runtime_alloc_memory();
-  public:
-    int _errcode;
-  };
-  
-  class nanai_object {
+  class nanai_object : public nanan::nan_object {
   public:
     nanai_object();
-    nanai_object(const nanai_object &t);
     virtual ~nanai_object();
-    
-  protected:
-    virtual void on_error(int err);
-    
-  public:
-    int get_last_error() const;
-    void error(int err);
-    
-  protected:
-    int _last_error;
   };
   
-  void error(int err);
-  
+  void error(size_t err);
 }
-
 
 #endif /* nanai_object_h */

@@ -32,7 +32,7 @@ namespace nanai {
   void *nanai_ann_nannmgr::thread_nanai_ann_manager(void *arg) {
     nanai_ann_nannmgr *t = reinterpret_cast<nanai_ann_nannmgr*>(arg);
     
-    while (t->manager_is_stop()) {
+    while (t->manager_is_stop() == false) {
       /* 每隔一段时间，主动清除一次mapreduce空间 */
       t->clears();
       usleep(s_manager_sleep_time);
@@ -40,7 +40,7 @@ namespace nanai {
     pthread_exit(0);
   }
   
-  nanai_ann_nannmgr::nanai_ann_nannmgr() : _run_manager(false) {
+  nanai_ann_nannmgr::nanai_ann_nannmgr() : nanai_object() {
     init();
   }
   
@@ -66,15 +66,16 @@ namespace nanai {
     }/* end for */
     
     if (pthread_mutex_destroy(&_lock) != 0) {
-      error(NANAI_ERROR_RUNTIME_DESTROY_MUTEX);
+      error(NAN_ERROR_RUNTIME_DESTROY_MUTEX);
     }
   }
   
   void nanai_ann_nannmgr::init() {
+    _run_manager = false;
     configure();
     
     if (pthread_mutex_init(&_lock, NULL) != 0) {
-      error(NANAI_ERROR_RUNTIME_INIT_MUTEX);
+      error(NAN_ERROR_RUNTIME_INIT_MUTEX);
     }
   }
   
@@ -96,7 +97,7 @@ namespace nanai {
     _run_manager = true;
     if (pthread_create(&_thread_manager, nullptr, thread_nanai_ann_manager, reinterpret_cast<void*>(this)) != 0) {
       _run_manager = false;
-      error(NANAI_ERROR_RUNTIME_CREATE_THREAD);
+      error(NAN_ERROR_RUNTIME_CREATE_THREAD);
     }
   }
 
@@ -105,7 +106,7 @@ namespace nanai {
       _run_manager = false;
       void *retv = nullptr;
       if (pthread_join(_thread_manager, &retv) != 0) {
-        error(NANAI_ERROR_RUNTIME_JOIN_THREAD);
+        error(NAN_ERROR_RUNTIME_JOIN_THREAD);
       }
     }/* end if */
   }
@@ -119,15 +120,15 @@ namespace nanai {
     nanai_ann_nanncalc::ann_t ann;
     
     if (task.empty()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
     if (input_json.empty()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
     if (ann_json.empty()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
     /* 分析神经网络，与输入json，提取出任务数量，训练样本等
@@ -155,19 +156,19 @@ namespace nanai {
                                    nanai_ann_nanncalc::ann_t &ann,
                                    int wt) {
     if (task.empty()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
     if (inputs.empty()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
     if (targets.empty()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
     if (targets.size() != inputs.size()) {
-      error(NANAI_ERROR_LOGIC_INVALID_ARGUMENT);
+      error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
     nanai_ann_nanndesc *desc = find_alg(ann.alg);
@@ -191,7 +192,7 @@ namespace nanai {
     
     std::shared_ptr<nanai_mapreduce_ann> node = std::shared_ptr<nanai_mapreduce_ann>(new nanai_mapreduce_ann(task, input));
     if (node == nullptr) {
-      error(NANAI_ERROR_RUNTIME_ALLOC_MEMORY);
+      error(NAN_ERROR_RUNTIME_ALLOC_MEMORY);
     }
     
     node->read_config(mp_config);
@@ -463,13 +464,13 @@ namespace nanai {
   
   void nanai_ann_nannmgr::lock() {
     if (pthread_mutex_lock(&_lock) != 0) {
-      error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
+      error(NAN_ERROR_RUNTIME_LOCK_MUTEX);
     }
   }
   
   void nanai_ann_nannmgr::unlock() {
     if (pthread_mutex_unlock(&_lock) != 0) {
-      error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
+      error(NAN_ERROR_RUNTIME_UNLOCK_MUTEX);
     }
   }
   

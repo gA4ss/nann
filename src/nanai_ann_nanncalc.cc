@@ -180,8 +180,8 @@ namespace nanai {
   }
   
   nanai_ann_nanncalc::nanai_ann_nanncalc(const nanai_ann_nanndesc &desc,
-                                         const char *lp) : _state(NANNCALC_CMD_STOP) {
-    
+                                         const char *lp) : nanai_object() {
+    _state = NANNCALC_CMD_STOP;
     ann_destroy();
     
     int err = 0;
@@ -204,7 +204,7 @@ namespace nanai {
       filepath.append(filename);
       
       if ((_log_file = fopen(filepath.c_str(), "w")) == nullptr) {
-        error(NANAI_ERROR_RUNTIME_OPEN_FILE);
+        error(NAN_ERROR_RUNTIME_OPEN_FILE);
       }
     } else {
       _log_file = stdout;
@@ -217,15 +217,14 @@ namespace nanai {
     /* 创建工作线程 */
     err = pthread_mutex_init(&_cmdlist_lock, NULL);
     if (err != 0) {
-      error(NANAI_ERROR_RUNTIME_INIT_MUTEX);
+      error(NAN_ERROR_RUNTIME_INIT_MUTEX);
     }
     
     err = pthread_create(&_thread_worker, NULL,
                          thread_nanai_ann_worker, (void *)this);
     if (err != 0) {
-      error(NANAI_ERROR_RUNTIME_CREATE_THREAD);
+      error(NAN_ERROR_RUNTIME_CREATE_THREAD);
     }
-    
     
     if (_callback_monitor_progress)
       _callback_monitor_progress(_cid, nullptr, NANNCALC_PROCESS_CREATE, reinterpret_cast<void*>(this));
@@ -248,7 +247,7 @@ namespace nanai {
     
     err = pthread_mutex_destroy(&_cmdlist_lock);
     if (err != 0) {
-      error(NANAI_ERROR_RUNTIME_DESTROY_MUTEX);
+      error(NAN_ERROR_RUNTIME_DESTROY_MUTEX);
     }
     
     fflush(_log_file);
@@ -293,7 +292,7 @@ namespace nanai {
     void *tret = nullptr;
     int err = pthread_join(_thread_worker, &tret);
     if (err != 0) {
-      error(NANAI_ERROR_RUNTIME_JOIN_THREAD);
+      error(NAN_ERROR_RUNTIME_JOIN_THREAD);
     }
     
     // assert CURR ST == ST_STOP
@@ -343,7 +342,7 @@ namespace nanai {
     if (lock) {
       err = pthread_mutex_lock(&_cmdlist_lock);
       if (err != 0) {
-        error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
+        error(NAN_ERROR_RUNTIME_LOCK_MUTEX);
       }
     }
     
@@ -352,7 +351,7 @@ namespace nanai {
     if (lock) {
       err = pthread_mutex_unlock(&_cmdlist_lock);
       if (err != 0) {
-        error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
+        error(NAN_ERROR_RUNTIME_UNLOCK_MUTEX);
       }
     }
   }
@@ -361,7 +360,7 @@ namespace nanai {
     int err = 0, cmd = 0;
     err = pthread_mutex_lock(&_cmdlist_lock);
     if (err != 0) {
-      error(NANAI_ERROR_RUNTIME_LOCK_MUTEX);
+      error(NAN_ERROR_RUNTIME_LOCK_MUTEX);
     }
     
     if (_cmdlist.empty()) {
@@ -376,7 +375,7 @@ namespace nanai {
   _end:
     err = pthread_mutex_unlock(&_cmdlist_lock);
     if (err != 0) {
-      error(NANAI_ERROR_RUNTIME_UNLOCK_MUTEX);
+      error(NAN_ERROR_RUNTIME_UNLOCK_MUTEX);
     }
     
     return cmd;
