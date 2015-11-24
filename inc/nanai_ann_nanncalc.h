@@ -233,12 +233,12 @@ namespace nanai {
                                    );
   protected:
     /*! 基类的虚函数，当错误发生是调用 */
-    virtual void on_error(int err     /*!< 错误发生时的代码 */
+    virtual void on_error(size_t err     /*!< 错误发生时的代码 */
                           );
     
   protected:
     virtual void ann_create(const nanai_ann_nanndesc &desc);
-    virtual void ann_on_except(int err);
+    virtual void ann_on_except(size_t err);
     virtual void ann_on_trained(nanmath::nanmath_vector &input,
                                 nanmath::nanmath_vector &target,
                                 nanmath::nanmath_vector &output,

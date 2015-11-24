@@ -122,7 +122,7 @@ namespace nanai {
     
   protected:
     /*! 当出错时触发，重载基函数 */
-    void on_error(int err             /*!< [in] 发生错误时的代码 */
+    void on_error(size_t err             /*!< [in] 发生错误时的代码 */
                   );
     
   protected:

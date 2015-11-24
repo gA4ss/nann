@@ -402,7 +402,7 @@ namespace nanai {
   }
   
   /* 重写基类的虚函数 */
-  void nanai_ann_nanncalc::on_error(int err) {
+  void nanai_ann_nanncalc::on_error(size_t err) {
     ann_on_except(err);
   }
   
@@ -425,12 +425,12 @@ namespace nanai {
     _callback_monitor_progress = desc.callback_monitor_progress;
   }
   
-  void nanai_ann_nanncalc::ann_on_except(int err) {
+  void nanai_ann_nanncalc::ann_on_except(size_t err) {
     if (_callback_monitor_except) {
-      _callback_monitor_except(_cid, _task.c_str(), err, this);
+      _callback_monitor_except(_cid, _task.c_str(), static_cast<int>(err), this);
     }
     
-    printf("[-]<error>: nanai_ann_nanncalc on 0x%x\n", err);
+    printf("[-]<error>: nanai_ann_nanncalc on 0x%x\n", static_cast<int>(err));
   }
   
   void nanai_ann_nanncalc::ann_on_trained(nanmath::nanmath_vector &input,

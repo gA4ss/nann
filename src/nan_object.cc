@@ -72,7 +72,7 @@ namespace nanan {
     }
   }
   
-  void error(int err) {
+  void error(size_t err) {
     nan_object obj;
     obj.error(err);
   }

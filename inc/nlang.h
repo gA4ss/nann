@@ -15,44 +15,54 @@ namespace nlang {
 #define NLANG_TYPE_ARRAY            4
 #define NLANG_TYPE_OBJECT           5
   
+  
+#define NLANG_ERROR_LOGIC                           0x82300000
+#define NLANG_ERROR_LOGIC_PARSE_ERROR               0x82300001
+#define NLANG_ERROR_LOGIC_SYMBOL_NOT_FOUND          0x82300002
+#define NLANG_ERROR_LOGIC_SYMBOL_TYPE_NOT_MATCHED   0x82300003
+
   class nlang_object : public nanan::nan_object {
   public:
     nlang_object();
     virtual ~nlang_object();
   };
   
-  class nlang_var : public nlang_object {
+  class nlang_symbol : public nlang_object {
   public:
-    nlang_var();
-    virtual ~nlang_var();
+    nlang_symbol();
+    virtual ~nlang_symbol();
     void clear();
     
   public:
     int type;
-    bool bool_v;
-    int int_v;
-    double double_v;
-    std::string string_v;
+    std::string name;
     
-    typedef struct {
-      std::shared_ptr<nlang_var> child;
-      std::shared_ptr<nlang_var> next;
-    } nlang_var_object;
+    typedef struct _nlang_symbol_value_t {
+      bool bool_v;
+      double double_v;
+      std::string string_v;
+    } nlang_symbol_value_t;
     
-    std::vector<nlang_var> array;
+    nlang_symbol_value_t value;
+    
+    std::shared_ptr<nlang_symbol> child;
+    std::shared_ptr<nlang_symbol> prev;
+    std::shared_ptr<nlang_symbol> next;
   };
   
-  typedef void* nlang_source_object;
+  typedef std::shared_ptr<nlang_symbol> nlang_symbol_ptr;
   
   class nlang : public nlang_object {
   public:
     nlang();
+    nlang(const std::string &str);
     virtual ~nlang();
     
   public:
+    void read(const std::string &str);
+    void read(const char *source);
     
-    void read(nlang_source_object source);
-    
+  public:
     void set_null(const std::string &name);
     
     void set(const std::string &name,
@@ -64,11 +74,11 @@ namespace nlang {
     void set(const std::string &name,
              const std::string &v);
     
-    int get(const std::string &name,
-            bool &v);
+    void set(const std::string &name,
+             nlang_symbol_ptr sym);
     
     int get(const std::string &name,
-            int &v);
+            bool &v);
     
     int get(const std::string &name,
             double &v);
@@ -76,14 +86,23 @@ namespace nlang {
     int get(const std::string &name,
             std::string &v);
     
+    nlang_symbol_ptr get(const std::string &name);
+    nlang_symbol_ptr root() const;
+    
   protected:
-    int parse(std::string &source);
-    int parse_object(std::string &source);
+    void parse(const char *source);
+    const char *parse_value(nlang_symbol_ptr sym, const char *source);
+    const char *parse_string(nlang_symbol_ptr sym, const char *str);
+    const char *parse_number(nlang_symbol_ptr sym, const char *num);
+    const char *parse_array(nlang_symbol_ptr sym, const char *value);
+    const char *parse_object(nlang_symbol_ptr sym, const char *value);
     
   private:
-    std::map<std::string, nlang_var> _symbols;
+    std::map<std::string, nlang_symbol_ptr> _symbols;
+    nlang_symbol_ptr _root;
+    char *_aptr;
   };
-
+  
 }
 
 #endif /* nlang_h */

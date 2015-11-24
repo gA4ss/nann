@@ -16,7 +16,7 @@ namespace nanai {
   
   int nanai_support_nid(int adr);
   int nanai_support_tid();
-  void nanai_support_input_json(const std::string &json_context,
+  void nanai_support_input_json(const std::string &source,
                                 std::vector<nanmath::nanmath_vector> &inputs,
                                 std::vector<nanmath::nanmath_vector> &targets);
   std::string nanai_support_just_filename(const std::string &path);

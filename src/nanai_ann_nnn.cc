@@ -4,15 +4,14 @@
 #include <stdexcept>
 #include <iomanip>
 #include <nanai_ann_nnn.h>
-
-#include "cJSON.h"
+#include <nlang.h>
 
 namespace nanai {
   
-  static void parse_create_json_read_matrix(const cJSON *json,
+  static void parse_create_json_read_matrix(nlang::nlang_symbol_ptr sym,
                                             nanmath::nanmath_matrix &matrix) {
     int nrow = 0, ncol = 0, nprev = 0;
-    cJSON *row = const_cast<cJSON*>(json), *col = nullptr;
+    nlang::nlang_symbol_ptr row = sym, col = nullptr;
     std::vector<double> row_v;
     matrix.clear();
     
@@ -25,12 +24,11 @@ namespace nanai {
       if (col == nullptr) {
         error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
       }
-      idx = atoi(row->string);
+      idx = atoi(row->name.c_str());
       ncol = 0;
       row_v.clear();
       while (col) {
-        if (col->valuedouble) row_v.push_back(col->valuedouble);
-        else row_v.push_back(static_cast<double>(col->valueint));
+        row_v.push_back(col->value.double_v);
         ncol++;
         col = col->next;
       }
@@ -64,7 +62,7 @@ namespace nanai {
     }
   }
   
-  static void parse_create_json_matrixes(cJSON *json,
+  static void parse_create_json_matrixes(nlang::nlang_symbol_ptr sym,
                                          size_t &ninput,
                                          size_t &nhidden,
                                          size_t &noutput,
@@ -73,7 +71,7 @@ namespace nanai {
     nhidden = 0;
     noutput = 0;
     
-    cJSON *curr = json, *jmat = nullptr;
+    nlang::nlang_symbol_ptr curr = sym, jmat = nullptr;
     int idx = 0;
     nanmath::nanmath_matrix mat;
     std::pair<int, nanmath::nanmath_matrix> idx_mat;
@@ -83,7 +81,7 @@ namespace nanai {
       jmat = curr->child;
       if (jmat == nullptr) { error(NANAI_ERROR_LOGIC_INVALID_CONFIG); }
 
-      idx = atoi(curr->string);
+      idx = atoi(curr->name.c_str());
       parse_create_json_read_matrix(jmat, mat);
       idx_mat.first = idx;
       idx_mat.second = mat;
@@ -104,41 +102,41 @@ namespace nanai {
     noutput = matrixes.back().col_size();
   }
   
-  static void parse_create_json(cJSON *json,
+  static void parse_create_json(nlang::nlang_symbol_ptr sym,
                                 nanai_ann_nanncalc::ann_t &ann) {
-    if (json == nullptr) error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
-    cJSON *json_child = json->child;
-    if (json_child == nullptr) error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
+    if (sym == nullptr) error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
+    nlang::nlang_symbol_ptr child = sym->child;
+    if (child == nullptr) error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     
     /* 遍历根结点 */
     bool handle_alg = false, handle_ann = false;
-    while (json_child) {
-      if (strcmp(json_child->string, "ann") == 0) {
-        cJSON *json_next = json_child->child;
+    while (child) {
+      if (child->name == "ann") {
+        nlang::nlang_symbol_ptr next = child->child;
         size_t wm_ninput = 0, dwm_ninput = 0,
         wm_nhidden = 0, dwm_nhidden = 0,
         wm_noutput = 0, dwm_noutput = 0;
         
         std::vector<int> wm_nneure, dwm_nneure;
-        while (json_next) {
-          if (strcmp(json_next->string, "weight matrixes") == 0) {
-            parse_create_json_matrixes(json_next->child,
+        while (next) {
+          if (next->name == "weight matrixes") {
+            parse_create_json_matrixes(next->child,
                                        wm_ninput,
                                        wm_nhidden,
                                        wm_noutput,
                                        ann.weight_matrixes);
-          } else if (strcmp(json_next->string, "delta weight matrixes") == 0) {
-            parse_create_json_matrixes(json_next->child,
+          } else if (next->name == "delta weight matrixes") {
+            parse_create_json_matrixes(next->child,
                                        dwm_ninput,
                                        dwm_nhidden,
                                        dwm_noutput,
                                        ann.delta_weight_matrixes);
-          } else if (strcmp(json_next->string, "alg") == 0) {
-            ann.alg = json_next->valuestring;
+          } else if (next->name == "alg") {
+            ann.alg = next->value.string_v;
             handle_alg = true;
           }
           
-          json_next = json_next->next;
+          next = next->next;
         }/* end while */
         handle_ann = true;
         
@@ -159,7 +157,7 @@ namespace nanai {
         ann.noutput = wm_noutput;
       }
       
-      json_child = json_child->next;
+      child = child->next;
     }/* end while */
     
     /* target是可选参数，所以不检查 */
@@ -168,22 +166,22 @@ namespace nanai {
     }
   }
   
-  void nanai_ann_nnn_read(const std::string &json_context,
+  void nanai_ann_nnn_read(const std::string &source,
                           nanai_ann_nanncalc::ann_t &ann) {
-    cJSON *json = cJSON_Parse(json_context.c_str());
-    if (json == nullptr) {
+    if (source.empty()) {
       error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     }
     
-    parse_create_json(json, ann);
+    nlang::nlang n(source);
+    nlang::nlang_symbol_ptr obj = n.root();
+    
+    parse_create_json(obj, ann);
     
     /* 主动填充神经网络的nnearul */
     ann.fill_nneural();
-    
-    if (json) cJSON_Delete(json);
   }
   
-  void nanai_ann_nnn_write(std::string &json_context,
+  void nanai_ann_nnn_write(std::string &source,
                            const nanai_ann_nanncalc::ann_t &ann,
                            int precision) {
     
@@ -196,7 +194,7 @@ namespace nanai {
       error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
     }
     
-    json_context.clear();
+    source.clear();
     std::ostringstream oss;
     oss << "{" << std::endl;
     oss << "\t" << "\"ann\": {" << std::endl;
@@ -247,6 +245,6 @@ namespace nanai {
     oss << "\t\t}" << std::endl;
     oss << "\t}" << std::endl;
     oss << "}" << std::endl;
-    json_context = oss.str();
+    source = oss.str();
   }
 }

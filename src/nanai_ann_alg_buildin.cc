@@ -15,8 +15,6 @@
 #include <nanai_mapreduce_ann.h>
 #include <nanai_ann_nanncalc.h>
 
-#include "cJSON.h"
-
 const char *alg_name = "ann_alg_buildin";
 
 nanai::nanai_ann_nanndesc nanai_ann_alg_buildin_desc;
@@ -358,15 +356,16 @@ nanai::nanai_ann_nanndesc *ann_alg_setup(const char *conf_dir) {
   return NULL;
 }
 
-static cJSON *parse_conf(char *text) {
-  cJSON *json=cJSON_Parse(text);
-  if (!json) {
+static nlang::nlang_symbol_ptr parse_conf(char *text) {
+  g_nlang.read(text);
+  nlang::nlang_symbol_ptr sym = g_nlang.root();
+  if (sym == nullptr) {
     return nullptr;
   }
-  return json;
+  return sym;
 }
 
-static cJSON *parse_conf_file(const std::string &filename) {
+static nlang::nlang_symbol_ptr parse_conf_file(const std::string &filename) {
   std::ifstream file;
   file.open(filename, std::ios::in|std::ios::binary);
   if (file.is_open() == false) {
@@ -384,11 +383,11 @@ static cJSON *parse_conf_file(const std::string &filename) {
   
   file.seekg(0, std::ios::beg);
   file.read((char*)buf, filesize);
-  cJSON *json = parse_conf(buf);
+  nlang::nlang_symbol_ptr sym = parse_conf(buf);
   file.close();
   delete [] buf;
   
-  return json;
+  return sym;
 }
 
 nanai::nanai_ann_nanndesc *ann_alg_buildin_setup(const char *conf_dir) {
@@ -435,17 +434,10 @@ nanai::nanai_ann_nanndesc *ann_alg_buildin_setup(const char *conf_dir) {
     conf_file += ".json";
     
     /* 读取json配置文件 */
-    cJSON *json = parse_conf_file(conf_file);
-    if (json == nullptr) {
+    nlang::nlang_symbol_ptr sym = parse_conf_file(conf_file);
+    if (sym == nullptr) {
       nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     }
-
-    g_nlang.read(json);
-    
-    if (json) {
-      cJSON_Delete(json);
-    }
-    
   }
   
   return &nanai_ann_alg_buildin_desc;

@@ -474,7 +474,7 @@ namespace nanai {
     }
   }
   
-  void nanai_ann_nannmgr::on_error(int err) {
-    printf("[-]<error>: nanai_ann_nannmgr on 0x%x\n", err);
+  void nanai_ann_nannmgr::on_error(size_t err) {
+    printf("[-]<error>: nanai_ann_nannmgr on 0x%x\n", static_cast<int>(err));
   }
 }
