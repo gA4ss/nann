@@ -181,12 +181,12 @@ namespace nanai {
   
   nanai_ann_nanncalc::nanai_ann_nanncalc(const nanai_ann_nanndesc &desc,
                                          const char *lp) : nanai_object() {
-    _state = NANNCALC_CMD_STOP;
     ann_destroy();
     
-    int err = 0;
+    _state = NANNCALC_CMD_STOP;
+    _log_file = nullptr;
     _birthday = time(nullptr);
-    srandom((unsigned)_birthday);
+    srandom(static_cast<unsigned>(_birthday));
     _cid = nanai_support_nid(*(int*)this);
     
     /* 系统输出目录 */
@@ -206,16 +206,14 @@ namespace nanai {
       if ((_log_file = fopen(filepath.c_str(), "w")) == nullptr) {
         error(NAN_ERROR_RUNTIME_OPEN_FILE);
       }
-    } else {
-      _log_file = stdout;
-    }
+    } // _log_file = stdout;
     
     /* 以上插件捕获不到任何信息 */
     ann_create(desc);
     ann_log_create();
     
     /* 创建工作线程 */
-    err = pthread_mutex_init(&_cmdlist_lock, NULL);
+    int err = pthread_mutex_init(&_cmdlist_lock, NULL);
     if (err != 0) {
       error(NAN_ERROR_RUNTIME_INIT_MUTEX);
     }
@@ -250,8 +248,10 @@ namespace nanai {
       error(NAN_ERROR_RUNTIME_DESTROY_MUTEX);
     }
     
-    fflush(_log_file);
-    fclose(_log_file);
+    if (_log_file) {
+      fflush(_log_file);
+      fclose(_log_file);
+    }
     
     if (_callback_monitor_progress)
       _callback_monitor_progress(_cid, nullptr, NANNCALC_PROCESS_DESTROY, reinterpret_cast<void*>(this));
@@ -430,7 +430,9 @@ namespace nanai {
       _callback_monitor_except(_cid, _task.c_str(), static_cast<int>(err), this);
     }
     
-    printf("[-]<error>: nanai_ann_nanncalc on 0x%x\n", static_cast<int>(err));
+    printf("[-]<error>: (%s) in nanai_ann_nanncalc on 0x%x\n",
+           errstr(static_cast<int>(err)).c_str(),
+           static_cast<int>(err));
   }
   
   void nanai_ann_nanncalc::ann_on_trained(nanmath::nanmath_vector &input,
@@ -476,12 +478,14 @@ namespace nanai {
       tn = _task.c_str();
     
     /* 写入到系统日志 */
-    if (tn) {
-      fprintf(_log_file, "<%d>[%s]:%s\n", _cid, tn, log);
-    } else {
-      fprintf(_log_file, "<%d>:%s\n", _cid, log);
+    if (_log_file) {
+      if (tn) {
+        fprintf(_log_file, "<%d>[%s]:%s\n", _cid, tn, log);
+      } else {
+        fprintf(_log_file, "<%d>:%s\n", _cid, log);
+      }
+      fflush(_log_file);
     }
-    fflush(_log_file);
     
     /* 写入到用户自定义日志 */
     if (_callback_monitor_progress) {

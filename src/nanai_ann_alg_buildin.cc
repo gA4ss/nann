@@ -18,7 +18,7 @@
 const char *alg_name = "ann_alg_buildin";
 
 nanai::nanai_ann_nanndesc nanai_ann_alg_buildin_desc;
-nlang::nlang g_nlang;
+static nlang::nlang g_nlang;
 
 void ann_alg_buildin_added() {
 }
@@ -140,7 +140,10 @@ int ann_calculate(const std::string *task,
 
 static nanai::nanai_ann_nanncalc *s_make(const nanai::nanai_ann_nanndesc &desc,
                                          const std::string &log_dir) {
-  nanai::nanai_ann_nanncalc *calc = new nanai::nanai_ann_nanncalc(desc, log_dir.c_str());
+  nanai::nanai_ann_nanncalc *calc = nullptr;
+  if (log_dir.empty()) calc = new nanai::nanai_ann_nanncalc(desc, nullptr);
+  else calc = new nanai::nanai_ann_nanncalc(desc, log_dir.c_str());
+  
   if (calc == NULL) {
     nanai::error(NAN_ERROR_RUNTIME_ALLOC_MEMORY);
   }
@@ -374,7 +377,7 @@ static nlang::nlang_symbol_ptr parse_conf_file(const std::string &filename) {
   
   /* 映射文件 */
   file.seekg(0, std::ios::end);
-  long long filesize = file.tellg();
+  size_t filesize = file.tellg();
   
   char *buf = new char [filesize + 1];
   if (buf == nullptr) {

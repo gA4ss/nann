@@ -54,6 +54,7 @@ namespace nanan {
     void error(size_t err);
     void register_error(size_t errcode,
                         const std::string &errstr);
+    std::string errstr(size_t errcode);
     
   private:
     size_t _last_error;

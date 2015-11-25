@@ -5,6 +5,7 @@
 #include <vector>
 #include <pthread.h>
 
+#include <nlang.h>
 #include <nanai_ann_nanncalc.h>
 #include <nanai_mapreduce_ann.h>
 
@@ -99,10 +100,8 @@ namespace nanai {
     /*! 获取算法 */
     virtual void get_algs(std::string &path                             /*!< 要加载的算法插件配置文件路径 */
                           );
-    
     /*! 获取内置默认算法描述 */
     virtual void get_def_algs();
-    
     /*! 增加一个算法 */
     virtual bool add_alg(const nanai_ann_nanndesc &desc                 /*!< 算法描述结构 */
                          );
@@ -140,6 +139,7 @@ namespace nanai {
   protected:
     std::vector<nanai_ann_nanndesc> _descs;                     /*!< 算法描述结果队列 */
     std::vector<std::pair<void*, fptr_ann_alg_setup> > _algs;   /*!< 从外部加载的算法都要保存在这里 */
+    nlang::nlang _nlang;                                        /*!< nlang语言引擎 */
   };
 }
 

@@ -68,9 +68,9 @@ namespace nlang {
   }
 
   void nlang::set_null(const std::string &name) {
-    nlang_symbol tmp;
+    nlang_symbol_ptr tmp = s_new_symbol();
     if (_symbols.find(name) == _symbols.end()) {
-      *(_symbols[name]) = tmp;
+      _symbols[name] = tmp;
     } else {
       _symbols[name]->clear();
     }
@@ -78,32 +78,32 @@ namespace nlang {
   
   void nlang::set(const std::string &name,
                   const bool v) {
-    nlang_symbol tmp;
+    nlang_symbol_ptr tmp = s_new_symbol();
     
-    tmp.type = NLANG_TYPE_BOOL;
-    tmp.value.bool_v = v;
+    tmp->type = NLANG_TYPE_BOOL;
+    tmp->value.bool_v = v;
     
-    *(_symbols[name]) = tmp;
+    _symbols[name] = tmp;
   }
   
   void nlang::set(const std::string &name,
                   const double v) {
-    nlang_symbol tmp;
+    nlang_symbol_ptr tmp = s_new_symbol();
     
-    tmp.type = NLANG_TYPE_NUMBER;
-    tmp.value.double_v = v;
+    tmp->type = NLANG_TYPE_NUMBER;
+    tmp->value.double_v = v;
     
-    *(_symbols[name]) = tmp;
+    _symbols[name] = tmp;
   }
   
   void nlang::set(const std::string &name,
                   const std::string &v) {
-    nlang_symbol tmp;
+    nlang_symbol_ptr tmp = s_new_symbol();
     
-    tmp.type = NLANG_TYPE_STRING;
-    tmp.value.string_v = v;
+    tmp->type = NLANG_TYPE_STRING;
+    tmp->value.string_v = v;
     
-    *(_symbols[name]) = tmp;
+    _symbols[name] = tmp;
   }
   
   void nlang::set(const std::string &name,
@@ -117,7 +117,7 @@ namespace nlang {
       error(NLANG_ERROR_LOGIC_SYMBOL_NOT_FOUND);
     }
     
-    if (_symbols[name]->type != NLANG_TYPE_NUMBER) {
+    if (_symbols[name]->type != NLANG_TYPE_BOOL) {
       error(NLANG_ERROR_LOGIC_SYMBOL_TYPE_NOT_MATCHED);
     }
     

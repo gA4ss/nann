@@ -182,14 +182,17 @@ namespace nanai {
     
     nanai_mapreduce_ann::nanai_mapreduce_ann_config_t mp_config;
     mp_config.desc = *desc;
-    mp_config.log_dir = _log_dir;
     mp_config.wt = wt;
+    
+    /* 是否开启日志 */
+    bool enable_log = true;
+    _nlang.get("enable_log", enable_log);
+    mp_config.log_dir.clear();
+    if (enable_log) mp_config.log_dir = _log_dir;
     
     std::pair<std::vector<nanmath::nanmath_vector>, std::vector<nanmath::nanmath_vector> >
     sample = std::make_pair(inputs, targets);
     nanai_mapreduce_ann_input_t input = std::make_pair(sample, ann);
-    //nanai_mapreduce_ann *node = reinterpret_cast<nanai_mapreduce_ann*>(new nanai_mapreduce<nanai_mapreduce_ann_input_t, nanai_ann_nanncalc::result_t,nanai_ann_nanncalc::result_t>(task, input));
-    
     std::shared_ptr<nanai_mapreduce_ann> node = std::shared_ptr<nanai_mapreduce_ann>(new nanai_mapreduce_ann(task, input));
     if (node == nullptr) {
       error(NAN_ERROR_RUNTIME_ALLOC_MEMORY);
@@ -322,6 +325,12 @@ namespace nanai {
   void nanai_ann_nannmgr::configure() {
     get_env();
     get_algs(_lib_dir);
+    
+    /* 读取配置文件 */
+    _nlang.set("enable_log", true);
+    std::string config = _etc_dir + "ann_nannmgr.json";
+    std::string source = nanai_support_read_file(config);
+    _nlang.read(source);
   }
   
   void nanai_ann_nannmgr::get_env() {
@@ -475,6 +484,8 @@ namespace nanai {
   }
   
   void nanai_ann_nannmgr::on_error(size_t err) {
-    printf("[-]<error>: nanai_ann_nannmgr on 0x%x\n", static_cast<int>(err));
+    printf("[-]<error>: (%s) in nanai_ann_nannmgr on 0x%x\n",
+           errstr(static_cast<int>(err)).c_str(),
+           static_cast<int>(err));
   }
 }

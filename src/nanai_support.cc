@@ -143,4 +143,23 @@ namespace nanai {
     return r;
   }
   
+  std::string nanai_support_read_file(const std::string &path) {
+    std::fstream file;
+    
+    file.open(path, std::ios::in);
+    if (file.is_open() == false) {
+      error(NAN_ERROR_RUNTIME_OPEN_FILE);
+    }
+    file.seekg(0, std::ios::end);
+    size_t s = static_cast<size_t>(file.tellg());
+    char *buf = new char [s+1];
+    if (buf == nullptr) error(NAN_ERROR_RUNTIME_ALLOC_MEMORY);
+    file.seekg(0, std::ios::beg);
+    file.read(buf, s);
+    file.close();
+    std::string out = buf;
+    if (buf) delete [] buf;
+    return out;
+  }
+  
 }

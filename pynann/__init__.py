@@ -92,5 +92,12 @@ def stop_auto_clear():
     """stop auto clear thread"""
     nann.stop_auto_clear()
     
-    
+#----------------------------------------------------------------------
+def create():
+    """create a nann manager"""
+    nann.create()
 
+#----------------------------------------------------------------------
+def destroy():
+    """destroy a nann manager"""
+    nann.destroy()

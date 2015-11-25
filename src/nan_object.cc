@@ -72,6 +72,19 @@ namespace nanan {
     }
   }
   
+  std::string nan_object::errstr(size_t errcode) {
+    if (errcode == NAN_ERROR_SUCCESS) {
+      return "success";
+    }
+    
+    if (_errors.find(errcode) != _errors.end()) {
+      return _errors[errcode];
+    }
+    
+    return "none";
+    
+  }
+  
   void error(size_t err) {
     nan_object obj;
     obj.error(err);

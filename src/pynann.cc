@@ -318,6 +318,47 @@ static PyObject *wrap_stop_auto_clear(PyObject *self, PyObject *args) {
   Py_RETURN_NONE;
 }
 
+static PyObject *wrap_create(PyObject *self, PyObject *args) {
+  if (g_mgrlist) {
+    return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
+  }
+  
+  try {
+    
+    if (g_mgrlist == nullptr) {
+      g_mgrlist = std::shared_ptr<nanai::nanai_ann_nannmgr>(new nanai::nanai_ann_nannmgr());
+      if (g_mgrlist == nullptr) {
+        return do_except(PYNANN_ERROR_ALLOC_MEMORY);
+      }
+    }
+  } catch (nanan::nan_error e) {
+    return do_except(PYNANN_ERROR_BY_NANN, e.what());
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL, "create error");
+  }
+  
+  return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
+}
+
+static PyObject *wrap_destroy(PyObject *self, PyObject *args) {
+  if (g_mgrlist == nullptr) {
+    return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
+  }
+  
+  try {
+    
+    if (g_mgrlist) {
+      g_mgrlist = nullptr;
+    }
+  } catch (nanan::nan_error e) {
+    return do_except(PYNANN_ERROR_BY_NANN, e.what());
+  } catch (...) {
+    return do_except(PYNANN_ERROR_INTERNAL, "destroy error");
+  }
+  
+  return Py_BuildValue("i", PYNANN_ERROR_SUCCESS);
+}
+
 /**************************************************************************************************************/
 
 static PyMethodDef nannMethods[] = {
@@ -335,6 +376,8 @@ static PyMethodDef nannMethods[] = {
   { "waits", wrap_waits, METH_NOARGS, "wait all task done." },
   { "start_auto_clear", wrap_start_auto_clear, METH_NOARGS, "start auto clear thread." },
   { "stop_auto_clear", wrap_stop_auto_clear, METH_NOARGS, "stop auto clear thread." },
+  { "create", wrap_create, METH_NOARGS, "create nann manager." },
+  { "destroy", wrap_destroy, METH_NOARGS, "destroy nann manager." },
   { NULL, NULL, 0, NULL }
 };
 
