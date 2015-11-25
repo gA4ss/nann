@@ -25,6 +25,9 @@ namespace nanan {
     _last_error = 0;
     
     register_error(NAN_ERROR_RUNTIME_CREATE_THREAD, "create thread error");
+    register_error(NAN_ERROR_RUNTIME_INIT_THREAD_ATTR, "init thread attribute error");
+    register_error(NAN_ERROR_RUNTIME_SETDETACHSTATE, "setdetachstate error");
+    register_error(NAN_ERROR_RUNTIME_DESTROY_ATTRIBUTE, "destroy thread attribute error");
     register_error(NAN_ERROR_RUNTIME_INIT_MUTEX, "init mutex error");
     register_error(NAN_ERROR_RUNTIME_DESTROY_MUTEX, "destroy mutex error");
     register_error(NAN_ERROR_RUNTIME_LOCK_MUTEX, "lock mutex error");

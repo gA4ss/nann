@@ -31,7 +31,7 @@ namespace nanai {
   /*! 输出误差调整 */
   typedef double (*fptr_ann_alg_output_error)(double target, double output);
   /*! 计算函数 总入口 */
-  typedef int (*fptr_ann_alg_calculate)(void *task, void *input, void *target, void *output, void *ann);
+  typedef int (*fptr_ann_alg_calculate)(void *job, void *input, void *target, void *output, void *ann);
   /*! 激励函数 */
   typedef double (*fptr_ann_alg_hidden_calc)(int h, double input);
   /*! 隐藏层计算 */
@@ -40,11 +40,11 @@ namespace nanai {
   typedef void (*fptr_ann_alg_hidden_adjust_weight)(int h, void *layer, void *delta, void *wm, void *prev_dwm);
 
   /*! 当异常触发时回调 */
-  typedef void (*fptr_ann_monitor_except)(int cid, const char *task, int errcode, void *arg);
+  typedef void (*fptr_ann_monitor_except)(int cid, const char *job, int errcode, void *arg);
   /*! 训练完毕 */
-  typedef void (*fptr_ann_monitor_trained)(int cid, const char *task, void *input, void *target, void *output, void *ann);
+  typedef void (*fptr_ann_monitor_trained)(int cid, const char *job, void *input, void *target, void *output, void *ann);
   /*! 进度控制回调 */
-  typedef void (*fptr_ann_monitor_progress)(int cid, const char *task, int progress, void *arg);
+  typedef void (*fptr_ann_monitor_progress)(int cid, const char *job, int progress, void *arg);
   /*! 当算法被卸载时调用 */
   typedef void (*fptr_ann_monitor_alg_uninstall)(int cid);
   

@@ -97,13 +97,13 @@ void ann_hidden_adjust_weight(int h,
 }
 
 void ann_monitor_except(int cid,
-                        const char *task,
+                        const char *job,
                         int errcode,
                         nanai::nanai_ann_nanncalc *arg) {
 }
 
 void ann_monitor_trained(int cid,
-                         const char *task,
+                         const char *job,
                          nanmath::nanmath_vector *input,
                          nanmath::nanmath_vector *target,
                          nanmath::nanmath_vector *output,
@@ -111,27 +111,29 @@ void ann_monitor_trained(int cid,
 }
 
 void ann_monitor_progress(int cid,
-                          const char *task,
+                          const char *job,
                           int progress,
                           void *arg) {
   /* 日志进度 */
   if (progress == NANNCALC_PROCESS_LOG) {
-    if (task)
-      printf("%s - <0x%x>[%s]:%s\n", alg_name, cid, task, (char*)arg);
+#if NDEBUG==0
+    if (job)
+      printf("%s - <0x%x>[%s]:%s\n", alg_name, cid, job, (char*)arg);
     else
       printf("%s - <0x%x>:%s\n", alg_name, cid, (char*)arg);
+#endif
   }
 }
 
 void ann_monitor_alg_uninstall(int cid) {
 }
 
-int ann_calculate(const std::string *task,
+int ann_calculate(const std::string *job,
                   const nanmath::nanmath_vector *input,
                   const nanmath::nanmath_vector *target,
                   nanmath::nanmath_vector *output,
                   nanai::nanai_ann_nanncalc *ann) {
-  if ((task == nullptr) || (input == nullptr) || (target == nullptr)) {
+  if ((job == nullptr) || (input == nullptr) || (target == nullptr)) {
     nanai::error(NAN_ERROR_LOGIC_INVALID_ARGUMENT);
   }
   
@@ -164,9 +166,11 @@ int ann_alg_logistic_map(const std::string *task,
   if (config->wt == 0) {
     
     std::vector<std::shared_ptr<nanai::nanai_ann_nanncalc> > calcs;
+    char jobname[512] = {0};
     for (size_t i = 0; i < count; i++) {
+      sprintf(jobname, "%s.%zu", task->c_str(), i);
       std::shared_ptr<nanai::nanai_ann_nanncalc>calc(s_make(config->desc, config->log_dir));
-      calc->ann_training(*task, (*inputs)[i], (*targets)[i], ann_, &((*map_results)[i]));
+      calc->ann_training(jobname, (*inputs)[i], (*targets)[i], ann_, &((*map_results)[i]));
       calcs.push_back(calc);
     }
     

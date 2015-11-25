@@ -16,13 +16,16 @@ namespace nanan {
   
 #define NAN_ERROR_RUNTIME                               0x81000000
 #define NAN_ERROR_RUNTIME_CREATE_THREAD                 0x81000001
-#define NAN_ERROR_RUNTIME_INIT_MUTEX                    0x81000002
-#define NAN_ERROR_RUNTIME_DESTROY_MUTEX                 0x81000003
-#define NAN_ERROR_RUNTIME_LOCK_MUTEX                    0x81000004
-#define NAN_ERROR_RUNTIME_UNLOCK_MUTEX                  0x81000005
-#define NAN_ERROR_RUNTIME_JOIN_THREAD                   0x81000006
-#define NAN_ERROR_RUNTIME_OPEN_FILE                     0x81000007
-#define NAN_ERROR_RUNTIME_ALLOC_MEMORY                  0x8100000A
+#define NAN_ERROR_RUNTIME_INIT_THREAD_ATTR              0x81000002
+#define NAN_ERROR_RUNTIME_SETDETACHSTATE                0x81000003
+#define NAN_ERROR_RUNTIME_DESTROY_ATTRIBUTE             0x81000004
+#define NAN_ERROR_RUNTIME_INIT_MUTEX                    0x81000005
+#define NAN_ERROR_RUNTIME_DESTROY_MUTEX                 0x81000006
+#define NAN_ERROR_RUNTIME_LOCK_MUTEX                    0x81000007
+#define NAN_ERROR_RUNTIME_UNLOCK_MUTEX                  0x81000008
+#define NAN_ERROR_RUNTIME_JOIN_THREAD                   0x81000009
+#define NAN_ERROR_RUNTIME_OPEN_FILE                     0x8100000A
+#define NAN_ERROR_RUNTIME_ALLOC_MEMORY                  0x8100000B
   
 #define NAN_ERROR_LOGIC                                 0x82000000
 #define NAN_ERROR_LOGIC_INVALID_ARGUMENT                0x82000001

@@ -29,14 +29,24 @@ namespace nanai {
     
     /*! 只能通过释放此类内存，才可以停止管理线程 */
     virtual ~nanai_mapreduce() {
+      int err = 0;
       //printf("~nanai_mapreduce\n");
       if (_run) {
         
         /* 等待线程完毕 */
-        void *tret = nullptr;
-        int err = pthread_join(_mapreduce_thread, &tret);
+        while (_done == false) {
+          usleep(100);
+        }
+        
+//        void *tret = nullptr;
+//        err = pthread_join(_mapreduce_thread, &tret);
+//        if (err != 0) {
+//          error(NAN_ERROR_RUNTIME_JOIN_THREAD);
+//        }
+        
+        err = pthread_attr_destroy(&_mapreduce_thread_attr);
         if (err != 0) {
-          error(NAN_ERROR_RUNTIME_JOIN_THREAD);
+          error(NAN_ERROR_RUNTIME_DESTROY_ATTRIBUTE);
         }
         
         err = pthread_mutex_destroy(&_lock);
@@ -56,7 +66,18 @@ namespace nanai {
         error(NAN_ERROR_RUNTIME_INIT_MUTEX);
       }
       
-      err = pthread_create(&_mapreduce_thread, nullptr,
+      err = pthread_attr_init(&_mapreduce_thread_attr);
+      if (err != 0) {
+        error(NAN_ERROR_RUNTIME_INIT_THREAD_ATTR);
+      }
+      
+      /* 设置为线程分离状态 */
+      err = pthread_attr_setdetachstate(&_mapreduce_thread_attr, PTHREAD_CREATE_DETACHED);
+      if (err != 0) {
+        error(NAN_ERROR_RUNTIME_SETDETACHSTATE);
+      }
+      
+      err = pthread_create(&_mapreduce_thread, &_mapreduce_thread_attr,
                            thread_nanai_mapreduce_worker, (void *)this);
       if (err != 0) {
         error(NAN_ERROR_RUNTIME_CREATE_THREAD);
@@ -107,6 +128,7 @@ namespace nanai {
     
   protected:
     pthread_t _mapreduce_thread;                      /*!< mapreduce线程 */
+    pthread_attr_t _mapreduce_thread_attr;            /*!< mapreduce线程属性 */
     pthread_mutex_t _lock;                            /*!< 线程锁 */
     bool _run;                                        /*!< 已经调用run函数，需要卸载 */
     

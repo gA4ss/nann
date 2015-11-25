@@ -44,11 +44,6 @@ namespace nanai {
     virtual void reduce() override;
       
   protected:
-    /*! 产生计算结点 */
-    virtual nanai_ann_nanncalc *make(const nanai_ann_nanndesc &desc               /*!< [in] 算法描述结点 */
-                                      );
-      
-  protected:
     nanai_ann_nanndesc _desc;                                                     /*!< 算法描述结果 */
     std::string _log_dir;                                                         /*!< 日志记录目录 */
     int _wt;                                                                      /*!< 工作模式 */

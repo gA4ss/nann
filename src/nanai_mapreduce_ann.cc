@@ -69,14 +69,4 @@ namespace nanai {
       }
     }
   }
-
-  nanai_ann_nanncalc *nanai_mapreduce_ann::make(const nanai_ann_nanndesc &desc) {
-    nanai_ann_nanncalc *calc = new nanai_ann_nanncalc(desc, _log_dir.c_str());
-    if (calc == NULL) {
-      error(NAN_ERROR_RUNTIME_ALLOC_MEMORY);
-    }
-    
-    return calc;
-  }
-  
 }

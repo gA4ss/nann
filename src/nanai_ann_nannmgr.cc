@@ -485,7 +485,7 @@ namespace nanai {
   
   void nanai_ann_nannmgr::on_error(size_t err) {
     printf("[-]<error>: (%s) in nanai_ann_nannmgr on 0x%x\n",
-           errstr(static_cast<int>(err)).c_str(),
+           errstr(err).c_str(),
            static_cast<int>(err));
   }
 }

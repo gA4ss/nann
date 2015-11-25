@@ -218,7 +218,18 @@ namespace nanai {
       error(NAN_ERROR_RUNTIME_INIT_MUTEX);
     }
     
-    err = pthread_create(&_thread_worker, NULL,
+    err = pthread_attr_init(&_thread_worker_attr);
+    if (err != 0) {
+      error(NAN_ERROR_RUNTIME_INIT_THREAD_ATTR);
+    }
+    
+    /* 设置为线程分离状态 */
+    err = pthread_attr_setdetachstate(&_thread_worker_attr, PTHREAD_CREATE_DETACHED);
+    if (err != 0) {
+      error(NAN_ERROR_RUNTIME_SETDETACHSTATE);
+    }
+    
+    err = pthread_create(&_thread_worker, &_thread_worker_attr,
                          thread_nanai_ann_worker, (void *)this);
     if (err != 0) {
       error(NAN_ERROR_RUNTIME_CREATE_THREAD);
@@ -242,6 +253,11 @@ namespace nanai {
     
     ann_stop();
     ann_destroy();
+    
+    err = pthread_attr_destroy(&_thread_worker_attr);
+    if (err != 0) {
+      error(NAN_ERROR_RUNTIME_DESTROY_ATTRIBUTE);
+    }
     
     err = pthread_mutex_destroy(&_cmdlist_lock);
     if (err != 0) {
@@ -289,11 +305,15 @@ namespace nanai {
     
     set_cmd(ncmd);
     
-    void *tret = nullptr;
-    int err = pthread_join(_thread_worker, &tret);
-    if (err != 0) {
-      error(NAN_ERROR_RUNTIME_JOIN_THREAD);
+    while (_state != NANNCALC_ST_STOP) {
+      usleep(100);
     }
+    
+//    void *tret = nullptr;
+//    int err = pthread_join(_thread_worker, &tret);
+//    if (err != 0) {
+//      error(NAN_ERROR_RUNTIME_JOIN_THREAD);
+//    }
     
     // assert CURR ST == ST_STOP
   }
@@ -431,7 +451,7 @@ namespace nanai {
     }
     
     printf("[-]<error>: (%s) in nanai_ann_nanncalc on 0x%x\n",
-           errstr(static_cast<int>(err)).c_str(),
+           errstr(err).c_str(),
            static_cast<int>(err));
   }
   

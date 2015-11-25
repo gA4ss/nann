@@ -262,7 +262,8 @@ namespace nanai {
     std::queue<struct ncommand> _cmdlist;                           /*!< 命令队列 */
     pthread_mutex_t _cmdlist_lock;                                  /*!< 命令互斥锁 */
     pthread_t _thread_worker;                                       /*!< 线程函数 */
-
+    pthread_attr_t _thread_worker_attr;                             /*!< 线程函数属性 */
+    
     int _state;                                                     /*!< 当前状态 */
     int _command;                                                   /*!< 命令 */
     
