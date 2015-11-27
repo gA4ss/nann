@@ -84,20 +84,38 @@ def set_precision(precison=4):
     
 #----------------------------------------------------------------------
 def start_auto_clear():
-    """start auto clear thread"""
+    """start auto clear thread."""
     nann.start_auto_clear()
     
 #----------------------------------------------------------------------
 def stop_auto_clear():
-    """stop auto clear thread"""
+    """stop auto clear thread."""
     nann.stop_auto_clear()
     
 #----------------------------------------------------------------------
 def create():
-    """create a nann manager"""
+    """create a nann manager."""
     nann.create()
 
 #----------------------------------------------------------------------
 def destroy():
-    """destroy a nann manager"""
+    """destroy a nann manager."""
     nann.destroy()
+
+#----------------------------------------------------------------------
+def setup():
+    """setup pynann."""
+    nann_home = os.getenv('NANN_HOME')
+    if (len(nann_home) == 0):
+        print "please set 'NANN_HOME' env variable first.\n"
+        return
+    os.mkdir(nann_home + "log")
+    os.mkdir(nann_home + "alg")
+    os.mkdir(nann_home + "etc")
+    os.mkdir(nann_home + "lib")
+    
+    # 判断配置文件是否存在，不存在则创建
+    if (os.path.exists(nann_home + "etc/" + "ann_nannmgr.json") == False):
+        pass
+    if (os.path.exists(nann_home + "etc/" + "ann_alg_buildin.json") == False):
+        pass

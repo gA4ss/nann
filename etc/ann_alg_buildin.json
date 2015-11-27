@@ -1,5 +1,6 @@
 {
 	"eta": 0.05,
 	"momentum": 0.03,
-	"threshold": 0
+	"threshold": 0,
+  "alg" : "logistic"
 }

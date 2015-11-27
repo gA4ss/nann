@@ -15,10 +15,15 @@
 #include <nanai_mapreduce_ann.h>
 #include <nanai_ann_nanncalc.h>
 
-const char *alg_name = "ann_alg_buildin";
+/* 算法 */
+#include <nanai_ann_alg_buildin_plugin.h>
+#include <nanai_ann_alg_buildin_logistic.h>
 
+const char *alg_name = "ann_alg_buildin";
 nanai::nanai_ann_nanndesc nanai_ann_alg_buildin_desc;
 static nlang::nlang g_nlang;
+static std::map<std::string, std::shared_ptr<nanai_ann_alg_buildin_plugin> > g_algs;
+std::shared_ptr<nanai_ann_alg_buildin_plugin> g_curr_alg;
 
 void ann_alg_buildin_added() {
 }
@@ -36,13 +41,8 @@ void ann_result(nanmath::nanmath_vector *output,
   *result = *output;
 }
 
-/* sigmoid */
-static double s_sigmoid(double x) {
-  return (1.0 / (1.0 + exp(-x)));
-}
-
 double ann_hidden_calc(int h, double input) {
-  return s_sigmoid(input);
+  return g_curr_alg->hidden_calc(g_nlang, input);
 }
 
 void ann_hidden_error(int h,
@@ -50,17 +50,11 @@ void ann_hidden_error(int h,
                       nanmath::nanmath_matrix *w_kh,
                       nanmath::nanmath_vector *o_h,
                       nanmath::nanmath_vector *delta_h) {
-  delta_h->create(o_h->size());
-  nanmath::nanmath_vector delta_sum = w_kh->right_mul(*delta_k);
-  
-  for (size_t i = 0; i < o_h->size(); i++) {
-    delta_h->set(i, o_h->at(i) * (1 - o_h->at(i)) * delta_sum[i]);
-  }
+  return g_curr_alg->hidden_error(g_nlang, delta_k, w_kh, o_h, delta_h);
 }
 
 double ann_output_error(double target, double output) {
-  double delta = output * (1.0 - output) * (target - output);
-  return delta;
+  return g_curr_alg->output_error(g_nlang, target, output);
 }
 
 void ann_hidden_adjust_weight(int h,
@@ -68,32 +62,7 @@ void ann_hidden_adjust_weight(int h,
                               nanmath::nanmath_vector *delta,
                               nanmath::nanmath_matrix *wm,
                               nanmath::nanmath_matrix *prev_dwm) {
-  if (wm->col_size() != delta->size() ||
-      (wm->row_size() != layer->size())) {
-    nanai::error(NANAI_ERROR_LOGIC_ANN_INVALID_MATRIX_DEGREE);
-  }
-  
-  double eta = 0.0, momentum = 0.0;
-  if (g_nlang.get("eta", eta)) {
-    nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
-  }
-  
-  if (g_nlang.get("momentum", momentum)) {
-    nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
-  }
-                                
-  /* 这里是遍历列向量 */
-  for (size_t i = 0; i < delta->size(); i++) {          /* 矩阵的列 */
-    for (size_t j = 0; j < layer->size(); j++) {        /* 矩阵的行 */
-      /* 让上一层的每个输入向量都乘以当前的偏差值
-       * 然后在修订这个偏差值的权向量
-       */
-      double new_dw = (eta * delta->at(i) * layer->at(j)) + (momentum * prev_dwm->at(j, i));
-      double t = wm->at(j, i) + new_dw;
-      wm->set(j, i, t);
-      prev_dwm->set(j, i, new_dw);
-    }
-  }
+  g_curr_alg->hidden_adjust_weight(g_nlang, layer, delta, wm, prev_dwm);
 }
 
 void ann_monitor_except(int cid,
@@ -431,6 +400,7 @@ nanai::nanai_ann_nanndesc *ann_alg_buildin_setup(const char *conf_dir) {
   g_nlang.set("eta", 0.05);
   g_nlang.set("momentum", 0.03);
   g_nlang.set("threshold", -0.5);
+  g_nlang.set("alg", "logistic");
   
   if (conf_dir == nullptr) {
   } else {
@@ -446,6 +416,20 @@ nanai::nanai_ann_nanndesc *ann_alg_buildin_setup(const char *conf_dir) {
       nanai::error(NANAI_ERROR_LOGIC_INVALID_CONFIG);
     }
   }
+  
+  /* 获取算法 */
+  std::string alg;
+  g_nlang.get("alg", alg);
+  
+  /* 安装算法 */
+  g_algs["logistic"] = std::shared_ptr<nanai_ann_alg_buildin_logistic>(new nanai_ann_alg_buildin_logistic());
+  
+  /* 匹配算法 */
+  if (g_algs.find(alg) == g_algs.end()) {
+    nanai::error(NANAI_ERROR_LOGIC_ALG_NOT_FOUND);
+  }
+  
+  g_curr_alg = g_algs[alg];
   
   return &nanai_ann_alg_buildin_desc;
 }
