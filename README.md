@@ -1,7 +1,5 @@
 # 南南分布式神经网络计算库
 
-## nann编译与安装
-
 ## pynann编译与安装
 
 在**nann**目录中使用以下命令进行安装
@@ -11,11 +9,29 @@ sudo python setup.py install
 ```
 安装完成后，在_python_代码中使用`import pynann`，即可使用。
 
-## C++接口
+## 环境设定
+首先配置环境变量`NANN_HOME`指向某个目录，此目录是	工作目录例如`~/.nann`中。
+随后在`~/.nann`中建立`lib`,`etc`,'alg','log'。四个目录。分别用来存放扩展库，
+配置文件，算法扩展以及日志文件。
 
-## Python接口
+## 配置文件
+在`etc`目录中，放置以下两种配置文件。_ann_nannmgr.json_，是_**nann**_的配置文件，
+_ann_alg_buildin.json_是真对某项算法默认配置。
 
-## C++使用说明
+### _ann_nannmgr.json_
+```json
+{
+        "enable_log": false
+}
+```
+
+### _ann_alg_buildin.json_
+{
+        "eta": 0.05,
+        "momentum": 0.03,
+        "threshold": 0,
+        "alg": "logistic"
+}
 
 ## Python使用说明
 ```python
